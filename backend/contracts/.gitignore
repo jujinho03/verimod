@@ -1,0 +1,7 @@
+# Hardhat build artifacts
+/artifacts
+/cache
+/types
+/coverage
+/.gas-snapshot
+/snapshots

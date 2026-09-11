@@ -44,6 +44,18 @@ P0-1에서는 서비스가 지원할 라벨의 의미를 정한다. 최종 모�
 
 공통 벡터가 통과하기 전에는 “상호운용 가능한 protocol이 구현됐다”고 주장하지 않는다. 실제 testnet transaction이 없으면 “온체인 검증 완료”라고 쓰지 않는다.
 
+## 결정 기록
+
+| 날짜 | 결정 | 이유 | 대안 | 상태 |
+|---|---|---|---|---|
+| 2026-09-11 | 저장소를 `frontend/`와 `backend/`로 나누고 컨트랙트는 `backend/contracts/`에 둔다 | 사용자 요청. 기획제안서의 역할 분담(AI·프론트엔드 / 블록체인·백엔드)과 일치 | 기획제안서 8장의 contracts·ai·web·docs 네 폴더 구조 | 사용자 선택 |
+| 2026-09-11 | 백엔드는 Node.js + TypeScript (Express 5) | 프론트엔드(React·Web Crypto·ethers.js)와 같은 언어로 레코드 직렬화·hash 코드를 공유해 교차 언어 불일치 위험을 줄인다 | Python + FastAPI (로컬 모델·XAI 라이브러리 활용에 유리) | 사용자 선택 |
+| 2026-09-11 | 프론트엔드는 Vite + React + TypeScript, 컨트랙트 도구는 Hardhat 3 (Mocha + ethers) | 기획제안서 5장의 검증 계층(React·ethers.js)과 Solidity·EVM 테스트넷 방향 | Next.js, Foundry | 제안 (뼈대에 적용) |
+
+백엔드가 TypeScript로 정해져, 01 문서 §5의 Python–TypeScript canonicalization 상호운용 검증은 AI 추론을 Python으로 분리할 때만 필요하다.
+
 ## 유지할 미확정 사항
 
-데이터셋 라이선스·split·라벨, base model, 모델 성능, calibration 방식과 threshold 수치, 정확한 manifest schema, 기술 스택, testnet, finality 정책, batch 설정, 저장/배포 방식, 사용자 인증 및 reviewer 권한 설계, 재심 확장. 새로운 선택은 기존 문서를 수정하고 변경 이유를 기록한다.
+데이터셋 라이선스·split·라벨, base model과 LLM 제공자, 모델 성능, calibration 방식과 threshold 수치, 정확한 manifest schema, 오프체인 저장소(IPFS 등), testnet(기획제안서는 Base Sepolia 제안), finality 정책, batch 설정, 저장/배포 방식, 사용자 인증 및 reviewer 권한 설계, 재심 확장. 새로운 선택은 기존 문서를 수정하고 변경 이유를 기록한다.
+
+앵커링 단위도 정해야 한다. 기획제안서는 판정 레코드마다 hash를 컨트랙트에 등록하고, 01 문서는 receipt를 Merkle epoch로 묶어 root만 등록하자고 제안한다. P0-5·P0-6에서 결정한다.

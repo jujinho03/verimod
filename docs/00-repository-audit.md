@@ -46,8 +46,31 @@ BLOCK AI/
         └── 02-decision-register.md
 ```
 
-기존 코드 의존성이나 마이그레이션 제약은 없다. frontend/backend/ml/blockchain 폴더는 인터페이스와 구현 순서 합의 후 만든다. 현재 문서 구조는 런타임 아키텍처를 확정하지 않는다.
+기존 코드 의존성이나 마이그레이션 제약은 없다. frontend/backend/ml/blockchain 폴더는 인터페이스와 구현 순서 합의 후 만든다. 현재 문서 구조는 런타임 아키텍처를 확정하지 않는다. (2026-09-11 사용자 요청으로 frontend/backend 뼈대를 먼저 추가했다. 아래 "뼈대 추가" 참고.)
 
 ## 검증 범위
 
 파일 목록·Git 상태·GitHub 저장소 생성 및 clone을 확인했다. 설계 검토와 문서 검사를 수행하며, 구현 테스트·교차 언어 hash 검증·실제 온체인 검증은 아직 수행할 수 없다. 추후 검증 계획은 별도 문서에 명시한다.
+
+## 뼈대 추가 (2026-09-11)
+
+사용자 요청으로 프로젝트 기획제안서의 역할 분담(AI·프론트엔드 / 블록체인·백엔드)에 맞춰 frontend와 backend를 나눈 뼈대를 추가했다. 기술 선택 기록은 [02-decision-register.md](02-decision-register.md#결정-기록)에 있다.
+
+```text
+verimod/
+├── CLAUDE.md
+├── frontend/          # Vite 8 + React 19 + TypeScript 6, oxlint
+└── backend/           # Node.js + TypeScript 7 + Express 5, Vitest
+    └── contracts/     # Hardhat 3.16 + Solidity 0.8.34, Mocha + ethers v6
+```
+
+작업 PC: Windows 11 Pro, Node.js 22.14.0, npm 10.9.2, Python 3.13.2, uv 0.11.27. pnpm은 PATH에 없다.
+
+확인한 결과:
+
+- backend: `npm test` 1 passed, `npm run typecheck`와 `npm run build` 오류 없음
+- frontend: `npm run lint`와 `npm run build` 오류 없음
+- backend/contracts: `npm test`로 solc 0.8.34 컴파일과 Mocha 1 passing
+- 개발 서버 실행 중 `/api/health`를 백엔드에 직접, 그리고 Vite 프록시를 거쳐 호출해 둘 다 `{"status":"ok","service":"verimod-backend"}` 응답
+
+판정·receipt·해시·앵커링 로직은 아직 없다. `backend/contracts/contracts/ToolchainCheck.sol`은 툴체인 확인용 임시 컨트랙트다. contracts 의존성에서 `npm audit`이 15건(low 8, moderate 6, high 1)을 보고했으며 아직 조치하지 않았다.
