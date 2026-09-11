@@ -1,0 +1,29 @@
+# Local secrets and private moderation data
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+private-data/
+data/
+models/
+*.sqlite
+*.sqlite3
+*.db
+
+# Local environments and generated artifacts
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+dist/
+build/
+.next/
+coverage/
+artifacts/
+cache/
+*.log
+.DS_Store
+Thumbs.db
