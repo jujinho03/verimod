@@ -2,6 +2,8 @@
 
 작업 원칙은 AGENTS.md를 따른다.
 
+공통 프로젝트 맥락은 `MASTER_CONTEXT.md`를 먼저 읽는다. 기획서 제안과 실제 골격 적용 상태를 구분하고, 16절의 미정 쟁점과 17절의 확인 시점을 확인한다.
+
 @AGENTS.md
 
 ## 구조
@@ -9,7 +11,7 @@
 - `frontend/` — Vite + React + TypeScript. 판정 결과·영수증 검증 화면 (검증 계층: Web Crypto SHA-256, ethers.js 예정)
 - `backend/` — Node.js + TypeScript + Express 5. 판정 API, 레코드 직렬화·해시, 앵커링
 - `backend/contracts/` — Hardhat 3 + Solidity 0.8.34, Mocha + ethers v6. backend와 별개의 npm 패키지
-- `docs/` — 설계 문서 00~02. 프로젝트 기획제안서 PDF는 저장소 상위 폴더에 있다
+- `docs/` — 상세 설계 문서 00~02 및 `references/project-proposal-2026-09-11.pdf` 원본. 전체 기준은 루트의 `MASTER_CONTEXT.md`, 읽기용 사본은 `output/pdf/VeriMod_Project_Master_v1.0.pdf`다.
 
 ## 명령 (각 폴더에서 실행)
 

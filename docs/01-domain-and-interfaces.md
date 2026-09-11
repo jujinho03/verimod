@@ -1,5 +1,7 @@
 # 도메인 모델과 핵심 인터페이스
 
+프로젝트 공통 맥락은 [MASTER_CONTEXT.md](../MASTER_CONTEXT.md)를 먼저 읽는다. 임시 기획서와의 차이 및 직접 HUMAN_REVIEW 종료 outcome의 보완 필요성은 기준서 9절·16절에 기록되어 있다. 아래 규칙은 확정 ABI나 schema가 아니다.
+
 상태: **PROPOSED — 팀 검토용 v0.1**. 이 문서의 타입·수치 규칙·함수 형태는 설계 제안이다. 실행 코드, 확정 JSON Schema, ABI 또는 검증된 테스트 벡터가 아니다.
 
 ## 1. 먼저 고정할 책임 경계

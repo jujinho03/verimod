@@ -10,9 +10,14 @@ Decide. Prove. Appeal.
 
 ## 문서
 
+- **처음 읽을 파일: [VeriMod 프로젝트 공통 기준서](MASTER_CONTEXT.md)** - 팀원과 각자의 AI에 전달하는 단일 기준 파일
+- [기준서 읽기용 PDF](output/pdf/VeriMod_Project_Master_v1.0.pdf) - 같은 내용의 공유용 snapshot
+- [임시 프로젝트 기획서 원본](docs/references/project-proposal-2026-09-11.pdf)
 - [현재 상태 점검](docs/00-repository-audit.md)
 - [도메인 모델과 핵심 인터페이스 제안](docs/01-domain-and-interfaces.md)
 - [확정 우선순위와 구현 진입 조건](docs/02-decision-register.md)
+
+제품 맥락은 `MASTER_CONTEXT.md`부터 확인합니다. 기획서와 기존 설계의 차이는 기준서 16절에 정리했으며, 상세 인터페이스는 아직 검토용 제안입니다. 지속 갱신하는 원본은 Markdown이고 PDF는 버전별 읽기용 사본입니다.
 
 ## 구조
 
