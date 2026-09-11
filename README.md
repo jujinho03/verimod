@@ -57,7 +57,7 @@ npm test
 
 ## 협업
 
-- 저장소: https://github.com/jujinho03/verimod
+- 공개 저장소: https://github.com/jujinho03/verimod
 - 기본 작업 브랜치: `main`
 - 구현은 인터페이스 합의 후 사용자가 다음 단계 진행을 요청하면 시작합니다.
 - 각 변경은 관련 문서와 검증 결과를 함께 기록합니다. 기존 receipt 해석을 바꾸는 변경에는 새 protocol version을 부여합니다.
