@@ -1,0 +1,1317 @@
+/* 기능 페이지(판정·영수증·검증·검토·프로토콜).
+   홈과 같은 장치를 쓴다: 톤 띠, .frame 헤어라인, 한쪽 컬럼을 --panel로 채우는 두 톤 분할,
+   괘선으로 끊는 행, 그리고 페이지마다 딱 한 번만 쓰는 대형 모노 수치.
+   분할 레이아웃은 부모가 아니라 각 컬럼이 패딩을 가진다(그래야 색 띠가 끝까지 찬다). */
+
+/* ── 작은 공통 조각 ───────────────────────────────────────── */
+.small {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.sub-label {
+  margin-top: 26px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.summary-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.plain-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.plain-list li {
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.plain-list li:last-child {
+  border-bottom: 0;
+}
+
+.choices {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choices--row {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+.choice strong {
+  display: block;
+  font-weight: 600;
+}
+
+.choice__hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.check-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.55;
+  cursor: pointer;
+}
+
+.check-line input {
+  margin-top: 3px;
+  accent-color: var(--blue);
+}
+
+.inline-warn {
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid var(--pending);
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.notice-box {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.is-warn {
+  color: var(--fail);
+}
+
+.hash.is-bad {
+  color: var(--fail);
+}
+
+/* ── 페이지 머리 (홈 히어로의 좌 제목 / 우하단 설명 배치) ── */
+.page-hero__frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 40px clamp(32px, 5vw, 96px);
+  align-items: end;
+  padding: clamp(56px, 7vw, 104px) var(--gutter) clamp(40px, 4.5vw, 64px);
+}
+
+.page-hero__main {
+  display: grid;
+  gap: 18px;
+}
+
+.page-hero__aside {
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+  align-content: end;
+  color: var(--fg-muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.page-hero__aside p {
+  max-width: 44ch;
+}
+
+.hero-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(20px, 3vw, 40px);
+  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.hero-facts > div {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  padding-block: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-facts dd {
+  color: var(--fg);
+  font-size: 15px;
+  word-break: break-all;
+}
+
+/* 이 페이지의 유일한 과감한 요소: 홈 hashband와 같은 대형 수치 */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 4vw, 56px);
+  width: 100%;
+}
+
+.stats > div {
+  display: grid;
+  gap: 2px;
+}
+
+.stats dd {
+  color: var(--blue-bright);
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.4vw, 84px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 좌우 작업 화면 (판정 요청 · 검증기) ─────────────────── */
+.work {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+}
+
+.work__main {
+  display: grid;
+  gap: 22px;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+}
+
+/* 오른쪽은 홈 people__intro처럼 패널 바탕으로 갈라 놓는다 */
+.work__side {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.empty {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  justify-items: start;
+}
+
+.empty--wide {
+  padding-block: clamp(40px, 5vw, 72px);
+}
+
+.empty__steps {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  color: var(--fg-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  list-style: none;
+  counter-reset: step;
+}
+
+.empty__steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--line);
+  counter-increment: step;
+}
+
+.empty__steps li::before {
+  content: '0' counter(step);
+  color: var(--fg-faint);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+.result {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.result__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 8px 13px;
+  border: 1px solid var(--line-strong);
+  background: none;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--fg);
+  color: var(--fg);
+}
+
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  border: 1px solid var(--line-strong);
+}
+
+.segmented button {
+  padding: 10px 15px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: none;
+  color: var(--fg-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.segmented button:last-child {
+  border-right: 0;
+}
+
+.segmented button:hover {
+  color: var(--fg);
+}
+
+.segmented button[aria-selected='true'] {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.trust-card {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+/* ── 항목별 점수 (홈 mini-bar와 같은 비율) ───────────────── */
+.score-bars {
+  display: grid;
+  gap: 11px;
+}
+
+.score-row {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) 84px;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.score-row__label {
+  color: var(--fg-muted);
+}
+
+.score-row__rail {
+  position: relative;
+  height: 8px;
+  background: var(--bg);
+}
+
+.score-row__fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  max-width: 100%;
+  background: var(--fg-faint);
+}
+
+.score-row--review .score-row__fill {
+  background: var(--pending);
+}
+
+.score-row--restrict .score-row__fill {
+  background: var(--fg);
+}
+
+.score-row__tick {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 1px;
+  background: var(--accent);
+}
+
+.score-row__tick--restrict {
+  background: var(--fail);
+}
+
+.score-row__value {
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.score-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 2px;
+}
+
+.legend-tick {
+  display: inline-block;
+  width: 1px;
+  height: 10px;
+  margin-right: 5px;
+  background: var(--accent);
+  vertical-align: -1px;
+}
+
+.legend-tick--restrict {
+  background: var(--fail);
+}
+
+/* ── 근거 구간 ───────────────────────────────────────────── */
+.evidence-block {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.evidence-text {
+  font-size: 15px;
+  line-height: 1.95;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.evidence {
+  padding: 1px 2px;
+  border-bottom: 2px solid var(--yellow);
+  background: rgba(251, 189, 17, 0.26);
+  color: inherit;
+}
+
+.evidence__label {
+  margin-left: 5px;
+  padding: 1px 4px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--fg-muted);
+  font-size: 10px;
+}
+
+.evidence-cut {
+  color: var(--fg-faint);
+}
+
+/* ── 봉인 단계 (실제 순서라 번호를 유지한다) ─────────────── */
+.progress-band {
+  display: grid;
+  gap: 20px;
+  padding-block: clamp(32px, 3.5vw, 48px);
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-items: start;
+  gap: 5px 12px;
+  padding: 18px 20px 18px 0;
+  color: var(--fg-faint);
+}
+
+/* 자식이 셋(::before·__index·__name)이므로 자리를 지정한다.
+   지정하지 않으면 __name이 12px짜리 1열로 밀려 한 글자씩 세로로 쪼개진다. */
+.stage::before {
+  content: '';
+  grid-column: 1;
+  grid-row: 1;
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  background: currentColor;
+}
+
+.stage__index {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.stage__name {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stage__count {
+  color: var(--fg-muted);
+}
+
+.stage.is-done {
+  color: var(--fg);
+}
+
+.stage.is-current {
+  color: var(--fg);
+}
+
+.stage.is-current::before {
+  background: var(--yellow);
+}
+
+/* ── 영수증 상세 ─────────────────────────────────────────── */
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 404px);
+}
+
+.detail__main {
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+}
+
+/* 홈의 두 톤 분할처럼 색 띠가 밴드 끝까지 차야 하므로 stretch를 쓴다(sticky 아님) */
+.detail__side {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  align-self: stretch;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  border-left: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.side-card {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.side-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.detail-section {
+  display: grid;
+  gap: 16px;
+  padding-block: 40px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.detail-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.detail-section__note {
+  max-width: 72ch;
+  font-size: 14px;
+}
+
+.epoch {
+  display: grid;
+  gap: 14px;
+}
+
+.epoch__members,
+.siblings {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.epoch__members li {
+  display: grid;
+  grid-template-columns: 32px auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding-block: 13px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.epoch__members li.is-self {
+  color: var(--fg);
+  box-shadow: inset 2px 0 0 var(--accent);
+  padding-left: 12px;
+}
+
+.epoch__members li.is-mine {
+  color: var(--fg-muted);
+}
+
+.siblings li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 12px;
+  padding-block: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.history {
+  display: grid;
+  gap: 28px;
+  padding-block: clamp(40px, 4vw, 64px);
+}
+
+/* 홈 mini-step과 같은 사각 노드 + 괘선 행 */
+.timeline {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 16px;
+  padding-block: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.timeline__node {
+  width: 12px;
+  height: 12px;
+  margin-top: 5px;
+  background: var(--fg-faint);
+}
+
+.timeline__item.is-current .timeline__node {
+  background: var(--yellow);
+}
+
+.timeline__item--next .timeline__node {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--fg-faint);
+}
+
+.timeline__body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.timeline__title {
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.timeline__title:hover {
+  color: var(--accent);
+}
+
+.timeline__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.timeline__hint {
+  align-self: center;
+  font-size: 14px;
+}
+
+/* ── 검증 보고서 ─────────────────────────────────────────── */
+.report {
+  display: grid;
+  gap: 18px;
+}
+
+/* 검증기의 유일한 과감한 요소: 결과 코드를 크게 읽힌다 */
+.verdict {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.verdict__code {
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: clamp(26px, 3.2vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  word-break: break-all;
+}
+
+.verdict__title {
+  color: var(--fg);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.verdict__desc {
+  color: var(--fg-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.verdict--pass .verdict__code {
+  color: var(--pass);
+}
+
+.verdict--fail .verdict__code {
+  color: var(--fail);
+}
+
+.verdict--pending .verdict__code {
+  color: var(--pending);
+}
+
+.verdict--neutral .verdict__code {
+  color: var(--fg-muted);
+}
+
+/* 홈 mini-check와 같은 원형 칩 + 괘선 행 */
+.checklist {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 12px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s var(--ease-out);
+}
+
+.check-row.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.check-row__icon {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--line);
+  color: var(--fg-faint);
+}
+
+.check-row__icon svg {
+  width: 11px;
+  height: 11px;
+}
+
+.check-row__icon--PASSED {
+  background: var(--pass);
+  color: #fff;
+}
+
+.check-row__icon--FAILED {
+  background: var(--fail);
+  color: #fff;
+}
+
+.check-row__icon--PENDING {
+  background: none;
+  box-shadow: inset 0 0 0 1px var(--pending);
+  color: var(--pending);
+}
+
+.check-row__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.check-row__detail {
+  margin-top: 2px;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.check-row--SKIPPED .check-row__title,
+.check-row--PENDING .check-row__title {
+  color: var(--fg-muted);
+}
+
+.hash-compare {
+  margin-top: 2px;
+}
+
+.side-checks {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.side-row {
+  display: grid;
+  gap: 6px;
+  padding-block: 13px;
+  border-bottom: 1px solid var(--line);
+}
+
+.side-row dt {
+  color: var(--fg-faint);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.side-row dd {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ── 변조 테스트 ─────────────────────────────────────────── */
+.tamper {
+  display: grid;
+  gap: 16px;
+}
+
+.tamper__result {
+  display: grid;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line-strong);
+}
+
+/* 홈 mini-diff */
+.diff {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.diff del,
+.diff ins {
+  word-break: break-all;
+}
+
+.diff del {
+  color: var(--fg-faint);
+}
+
+.diff ins {
+  color: var(--fail);
+  text-decoration: none;
+}
+
+.tamper-section {
+  display: grid;
+  grid-template-columns: minmax(0, 442px) minmax(0, 1fr);
+}
+
+.tamper-section__intro {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  border-right: 1px solid var(--line);
+}
+
+.tamper-section__intro .title-m {
+  max-width: 16ch;
+}
+
+.tamper-section__panel {
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  background: var(--panel);
+}
+
+/* ── 영수증 목록 ─────────────────────────────────────────── */
+.list-section {
+  display: grid;
+  gap: 26px;
+  padding-block: clamp(36px, 4vw, 56px);
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter {
+  padding: 9px 14px;
+  border: 1px solid var(--line-strong);
+  background: none;
+  color: var(--fg-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.filter:hover {
+  color: var(--fg);
+}
+
+.filter[aria-pressed='true'] {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.cell-strong {
+  display: block;
+  font-weight: 600;
+}
+
+.cell-sub {
+  display: block;
+  margin-top: 2px;
+  color: var(--fg-faint);
+  font-size: 12px;
+}
+
+.cell-id {
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+/* 홈 faq처럼 왼쪽 설명 / 오른쪽 행동으로 가른다 */
+.reset-section {
+  display: grid;
+  grid-template-columns: minmax(0, 442px) minmax(0, 1fr);
+  align-items: center;
+}
+
+.reset-section > div {
+  display: grid;
+  gap: 10px;
+  padding: clamp(32px, 3.5vw, 48px) var(--gutter);
+  border-right: 1px solid var(--line);
+}
+
+.reset-section > .btn {
+  justify-self: start;
+  margin-inline: var(--gutter);
+}
+
+.missing {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+  padding-block: clamp(64px, 8vw, 120px);
+}
+
+.missing .lead {
+  max-width: 52ch;
+}
+
+/* ── 검토 콘솔 ───────────────────────────────────────────── */
+.review-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+}
+
+.queue {
+  display: grid;
+  gap: 0;
+  align-content: start;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.queue__label {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.queue__item {
+  display: grid;
+  gap: 6px;
+  padding: 16px 0 16px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: var(--fg-muted);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.queue__item:hover {
+  color: var(--fg);
+}
+
+.queue__item[aria-current='true'] {
+  box-shadow: inset 2px 0 0 var(--accent);
+  color: var(--fg);
+}
+
+.queue__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+}
+
+.queue__text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.queue__empty {
+  padding-top: 16px;
+  font-size: 14px;
+}
+
+.review-detail {
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+}
+
+.success-box {
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  margin-bottom: 28px;
+  padding: 18px;
+  border-left: 2px solid var(--pass);
+  background: var(--panel);
+}
+
+.task {
+  display: grid;
+}
+
+.task__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+}
+
+.task__head > div {
+  display: grid;
+  gap: 10px;
+}
+
+.task__block {
+  display: grid;
+  gap: 14px;
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.task__appeal {
+  padding: 22px;
+  border: 0;
+  border-left: 2px solid var(--accent);
+  background: var(--panel);
+}
+
+.appeal-form,
+.review-form {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+
+.appeal-form > *,
+.review-form > * {
+  width: 100%;
+}
+
+.appeal-form button,
+.review-form button {
+  width: auto;
+}
+
+/* ── 프로토콜 문서 ───────────────────────────────────────── */
+.docs {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+}
+
+.docs__toc {
+  align-self: stretch;
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+  border-right: 1px solid var(--line);
+  background: var(--panel);
+}
+
+/* 색 띠는 컬럼 전체를 채우고, 목차 내용만 스크롤을 따라간다 */
+.docs__toc-inner {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  display: grid;
+  align-content: start;
+}
+
+.docs__toc-inner > .mono {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.docs__toc a {
+  padding-block: 13px;
+  border-bottom: 1px solid var(--line);
+  color: var(--fg-muted);
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.docs__toc a:hover {
+  color: var(--fg);
+}
+
+.docs__body {
+  min-width: 0;
+  padding: clamp(40px, 4.5vw, 64px) var(--gutter);
+}
+
+.docs-section {
+  display: grid;
+  gap: 18px;
+  padding-block: 44px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.docs-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.docs-section .title-m {
+  max-width: 20ch;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 48px);
+}
+
+.docs-grid > div {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  min-width: 0;
+}
+
+.table--static tbody tr {
+  cursor: default;
+}
+
+.table--static tbody tr:hover {
+  background: none;
+}
+
+/* ── 반응형 ──────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .detail {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  }
+
+  .review-layout,
+  .tamper-section {
+    grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  }
+
+  .docs {
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 991px) {
+  .page-hero__frame,
+  .work,
+  .detail,
+  .tamper-section,
+  .review-layout,
+  .docs,
+  .reset-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero__frame {
+    align-items: start;
+  }
+
+  .work__side,
+  .detail__side,
+  .tamper-section__panel,
+  .docs__body,
+  .review-detail {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .queue,
+  .tamper-section__intro,
+  .docs__toc,
+  .reset-section > div {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .detail__side {
+    position: static;
+  }
+
+  .docs__toc-inner {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+  }
+
+  .docs__toc-inner > .mono {
+    width: 100%;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .docs__toc a {
+    border-bottom: 0;
+    padding-block: 4px;
+  }
+
+  .stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .docs-grid,
+  .hero-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .reset-section > .btn {
+    margin-block: 0 clamp(32px, 3.5vw, 48px);
+  }
+}
+
+@media (max-width: 767px) {
+  .stages {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stage {
+    padding-block: 13px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .score-row {
+    grid-template-columns: 72px minmax(0, 1fr) 72px;
+    gap: 8px;
+  }
+
+  .choices--row {
+    grid-auto-flow: row;
+  }
+
+  .stats dd {
+    font-size: 40px;
+  }
+}

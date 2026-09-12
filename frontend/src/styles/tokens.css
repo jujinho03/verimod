@@ -1,0 +1,304 @@
+/* chain.link 실측값을 기준으로 한 색·서체·간격 토큰과 섹션 톤. */
+:root {
+  --blue: #0847f7;
+  --blue-hover: #0539d6;
+  --blue-bright: #2e7bff;
+  --blue-soft: #639cff;
+  --navy: #001a62;
+  --navy-hover: #00299a;
+  --ink: #0e1119;
+  --ink-raised: #161b25;
+  --mist: #f5f7fa;
+  --paper: #ffffff;
+  --yellow: #fbbd11;
+  --teal: #217d6b;
+  --teal-bright: #33b597;
+  --orange: #e5471e;
+
+  --font-display: 'TASA Orbiter Variable', 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+  --font-body: 'Pretendard Variable', Pretendard, system-ui, -apple-system, 'Malgun Gothic', sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --frame: 1330px;
+  --gutter: 57px;
+  --header-h: 80px;
+  --gap-row: 56px;
+  --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-header: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  color-scheme: light;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:root,
+[data-tone='white'] {
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --fg-muted: rgba(20, 25, 33, 0.64);
+  --fg-faint: rgba(20, 25, 33, 0.42);
+  --line: rgba(20, 25, 33, 0.1);
+  --line-strong: rgba(20, 25, 33, 0.24);
+  --panel: var(--mist);
+  --field: var(--paper);
+  --accent: var(--blue);
+  --pass: var(--teal);
+  --fail: var(--orange);
+  --pending: #a87a00;
+}
+
+[data-tone='mist'] {
+  --bg: var(--mist);
+  --fg: var(--ink);
+  --fg-muted: rgba(20, 25, 33, 0.64);
+  --fg-faint: rgba(20, 25, 33, 0.42);
+  --line: rgba(20, 25, 33, 0.1);
+  --line-strong: rgba(20, 25, 33, 0.24);
+  --panel: var(--paper);
+  --field: var(--paper);
+  --accent: var(--blue);
+  --pass: var(--teal);
+  --fail: var(--orange);
+  --pending: #a87a00;
+}
+
+[data-tone='dark'] {
+  --bg: var(--ink);
+  --fg: var(--mist);
+  --fg-muted: rgba(217, 226, 242, 0.64);
+  --fg-faint: rgba(217, 226, 242, 0.4);
+  --line: rgba(217, 226, 242, 0.1);
+  --line-strong: rgba(217, 226, 242, 0.24);
+  --panel: var(--ink-raised);
+  --field: #121722;
+  --accent: var(--blue-bright);
+  --pass: var(--teal-bright);
+  --fail: #ff6a43;
+  --pending: var(--yellow);
+}
+
+[data-tone='blue'] {
+  --bg: var(--blue);
+  --fg: #ffffff;
+  --fg-muted: rgba(255, 255, 255, 0.8);
+  --fg-faint: rgba(255, 255, 255, 0.5);
+  --line: rgba(255, 255, 255, 0.2);
+  --line-strong: rgba(255, 255, 255, 0.4);
+  --panel: rgba(255, 255, 255, 0.08);
+  --field: rgba(255, 255, 255, 0.08);
+  --accent: var(--yellow);
+  --pass: #7ff0d2;
+  --fail: #ffb199;
+  --pending: var(--yellow);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 24px);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ink);
+  color: var(--ink);
+  /* 스크롤·드래그 중 본문이 딸려 선택되지 않게 한다. */
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 값을 눈으로 확인하고 복사해야 하는 곳만 선택을 허용한다. */
+input,
+textarea,
+select,
+pre,
+code,
+.hash,
+.evidence-text,
+[contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 섹션 띠와 좌우 세로 기준선 */
+.band {
+  position: relative;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+.frame {
+  position: relative;
+  width: min(var(--frame), 100% - 32px);
+  margin-inline: auto;
+  border-inline: 1px solid var(--line);
+}
+
+.band--gap {
+  border-bottom: 1px solid var(--line);
+}
+
+.band--gap > .frame {
+  height: var(--gap-row);
+}
+
+.band--gap-top {
+  border-top: 1px solid var(--line);
+}
+
+.inset {
+  padding-inline: var(--gutter);
+}
+
+/* 서체 단계 */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+/* 한글은 어절 단위로 끊어야 한다. 기본 break-word는 '검토'를 '검/토'로 자른다. */
+.title-xl,
+.title-l,
+.title-m,
+.title-s,
+.lead,
+.summary-line,
+h1,
+h2,
+h3 {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.title-xl {
+  font-size: clamp(38px, 5vw, 72px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.title-l {
+  font-size: clamp(32px, 3.9vw, 56px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.title-m {
+  font-size: clamp(26px, 2.5vw, 36px);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+
+.title-s {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+}
+
+.lead {
+  max-width: 60ch;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+
+.muted {
+  color: var(--fg-muted);
+}
+
+.faint {
+  color: var(--fg-faint);
+}
+
+.two-tone .dim {
+  color: var(--fg-faint);
+}
+
+@media (max-width: 991px) {
+  :root {
+    --gutter: 24px;
+    --header-h: 68px;
+    --gap-row: 32px;
+  }
+}
+
+@media (max-width: 479px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .lead {
+    font-size: 16px;
+  }
+}
