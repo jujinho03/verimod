@@ -1,8 +1,8 @@
 # 최신 구현 상태와 기획서 정정 목록
 
-갱신일: 2026-09-13 (9월 12일 기획서·frontend 추가 반영) · 검증한 P0 코드: `bee347f00f1795d47063aac281411195ee322346` ([PR #1](https://github.com/jujinho03/verimod/pull/1), main 병합 전)
+갱신일: 2026-09-13 (9월 12일 기획서·frontend 추가 반영) · 검증한 P0 코드: `bee347f00f1795d47063aac281411195ee322346` ([PR #1](https://github.com/jujinho03/verimod/pull/1)의 반영 이력 참고)
 
-확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [MASTER_CONTEXT](../MASTER_CONTEXT.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
+확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
 ## 확인 기준
 

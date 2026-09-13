@@ -144,7 +144,7 @@ export const MENUS: Menu[] = [
       {
         label: '팀 문서',
         links: [
-          { to: `${REPO_URL}/blob/main/MASTER_CONTEXT.md`, title: '공통 기준서', desc: 'MASTER_CONTEXT.md', icon: DocIcon, external: true },
+          { to: `${REPO_URL}/blob/main/docs/08-submission-guide.md`, title: '실행 안내', desc: '실행 순서와 공개 검증 예제', icon: DocIcon, external: true },
           { to: `${REPO_URL}/blob/main/docs/01-domain-and-interfaces.md`, title: '인터페이스 제안서', desc: 'I1~I4 경계 제안 v0.1', icon: CodeIcon, external: true },
         ],
       },

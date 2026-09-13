@@ -388,8 +388,8 @@ function Faq() {
             <p className="muted">발표와 심사에서 반복해서 받는 질문에 팀이 함께 쓰는 답입니다.</p>
           </Reveal>
           <Reveal delay={2}>
-            <ArrowLink to={`${REPO_URL}/blob/main/MASTER_CONTEXT.md`} external>
-              공통 기준서 읽기
+            <ArrowLink to={`${REPO_URL}/blob/main/docs/08-submission-guide.md`} external>
+              실행 안내 읽기
             </ArrowLink>
           </Reveal>
         </div>

@@ -10,7 +10,7 @@ AI 콘텐츠 moderation 판정을 Decision Receipt로 발급하고, Merkle proof
 
 **현재는 frontend synthetic protocol PoC입니다.** Receipt 생성, 실제 SHA-256·Merkle 계산, 포함 검증, 사본 변조 탐지와 appeal/review 흐름을 실행할 수 있습니다. Moderation score와 ledger/anchor는 simulation이며 실제 AI·업무 backend·EVM testnet은 후속 구현 대상입니다.
 
-[![VeriMod P0 checks](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=docs%2Fcurrent-context-and-interface-draft&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Adocs%2Fcurrent-context-and-interface-draft)
+[![VeriMod P0 checks](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Amain)
 
 **바로 확인하기:** [심사위원용 실행 안내](docs/08-submission-guide.md) · [정상/변조 JSON 예제](docs/examples/README.md) · [실제 검증 기록](docs/07-validation-2026-09-13.md) · [실제 화면](docs/assets/p0-home-2026-09-13.jpg)
 
@@ -37,7 +37,7 @@ AI 콘텐츠 moderation 판정을 Decision Receipt로 발급하고, Merkle proof
 
 ## 3. 현재 구현 상태
 
-검증한 제품 코드: `bee347f00f1795d47063aac281411195ee322346` (P0 보강). [PR #1](https://github.com/jujinho03/verimod/pull/1)은 팀원 리뷰·main 병합 전입니다. [실제 검증 기록](docs/07-validation-2026-09-13.md)은 코드 존재와 실행 성공을 구분합니다.
+검증한 제품 코드: `bee347f00f1795d47063aac281411195ee322346` (P0 보강). 제출용 자료는 main을 기준으로 제공하며 반영 이력은 [PR #1](https://github.com/jujinho03/verimod/pull/1)에서 확인할 수 있습니다. [실제 검증 기록](docs/07-validation-2026-09-13.md)은 코드 존재와 실행 성공을 구분합니다.
 
 | 기능 | 상태 | 범위 |
 |---|---|---|
@@ -95,7 +95,7 @@ core `VALID`와 별도 확인 결과는 따로 읽어야 합니다. RPC 오류�
 검증 환경은 Node **24.19.0**, npm **12.0.2**, Windows 및 GitHub Actions Ubuntu입니다. 세 디렉터리의 lockfile을 각각 사용합니다. 일반 Node/npm 설치 환경에서:
 
 ```bash
-git clone --branch docs/current-context-and-interface-draft https://github.com/jujinho03/verimod.git
+git clone --branch main https://github.com/jujinho03/verimod.git
 cd verimod/frontend
 npm ci
 npm run dev
@@ -167,7 +167,6 @@ P0는 문서 일치·정확성·재현성·검증 증거입니다. 이후 공통
 ## 14. Documents
 
 - [심사위원용 실행 안내](docs/08-submission-guide.md), [공개 검증 예제](docs/examples/README.md)
-- [MASTER_CONTEXT](MASTER_CONTEXT.md): 단일 기준서, 확정 방향과 기술 후보
 - [Repository audit](docs/00-repository-audit.md): 과거 scaffold 기록과 frontend 추가
 - [Domain / interfaces](docs/01-domain-and-interfaces.md), [Decision register](docs/02-decision-register.md)
 - [현재 상태·기획서 대조](docs/03-current-status.md), [계약 검토 초안](docs/04-interface-contract-draft.md)

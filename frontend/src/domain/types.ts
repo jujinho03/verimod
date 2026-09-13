@@ -9,7 +9,7 @@ export type FinalAction = 'ALLOW' | 'RESTRICT'
 export type EventKind = 'DECISION' | 'APPEAL' | 'REVIEW'
 /**
  * UPHOLD/OVERTURN은 이의제기 검토, RESOLVED는 HUMAN_REVIEW 판정을 직접 검토로 끝낼 때 쓰는 임시 값이다.
- * 직접 검토의 outcome은 MASTER_CONTEXT D08에서 아직 정하지 않았다.
+ * 직접 검토의 outcome은 docs/04-interface-contract-draft.md C02의 미확정 제안이다.
  */
 export type ReviewOutcome = 'OVERTURN' | 'RESOLVED' | 'UPHOLD'
 

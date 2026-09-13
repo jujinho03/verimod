@@ -16,10 +16,10 @@ VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판�
 
 ## 실행 준비
 
-Node 24.19.0 / npm 12.0.2에서 검증했다. 아래 명령은 제출 후보 브랜치를 명시한다. [PR #1](https://github.com/jujinho03/verimod/pull/1)의 리뷰·병합 상태는 GitHub가 기준이며, 아직 기본 main에 같은 내용이 있다고 가정하지 않는다.
+Node 24.19.0 / npm 12.0.2에서 검증했다. 아래 명령은 제출용 main 브랜치를 가져온다. 검증과 반영 이력은 [PR #1](https://github.com/jujinho03/verimod/pull/1) 및 GitHub Actions에서 확인한다.
 
 ```bash
-git clone --branch docs/current-context-and-interface-draft https://github.com/jujinho03/verimod.git
+git clone --branch main https://github.com/jujinho03/verimod.git
 cd verimod/frontend
 npm ci
 npm run dev
