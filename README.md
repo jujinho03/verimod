@@ -24,7 +24,7 @@ AI 콘텐츠 moderation 판정을 Decision Receipt로 발급하고, Merkle proof
 
 ## 3. 현재 구현 상태
 
-제품 기준: `908f64eec5933dce2371ca48d35893fa01d0a8e8`와 이 브랜치의 P0 수정. [실제 검증 기록](docs/07-validation-2026-09-13.md)은 코드 존재와 실행 성공을 구분합니다.
+검증한 제품 코드: `bee347f00f1795d47063aac281411195ee322346` (P0 보강). [PR #1](https://github.com/jujinho03/verimod/pull/1)은 팀원 리뷰·main 병합 전입니다. [실제 검증 기록](docs/07-validation-2026-09-13.md)은 코드 존재와 실행 성공을 구분합니다.
 
 | 기능 | 상태 | 범위 |
 |---|---|---|

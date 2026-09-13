@@ -2,7 +2,7 @@
 
 **팀원과 각자의 AI가 함께 읽는 프로젝트 기준 파일**
 
-- 문서 버전: 1.1 (2026-09-12 frontend synthetic vertical slice 반영) / 재점검: 2026-09-13 / latest verified commit: `908f64eec5933dce2371ca48d35893fa01d0a8e8` + 현재 P0 작업 트리
+- 문서 버전: 1.1 (2026-09-12 frontend synthetic vertical slice 반영) / 재점검: 2026-09-13 / latest verified code commit: `bee347f00f1795d47063aac281411195ee322346` (P0 브랜치, main 병합 전)
 - 프로젝트: VeriMod - 검증 가능한 AI 콘텐츠 모더레이션 감사 프로토콜
 - 영문 정의: User-Verifiable AI Moderation Protocol
 - 팀: HTTP 451. 최신 기획서 본문 기준 주진호·노유신·설경민 3인 팀이다.
