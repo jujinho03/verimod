@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import type { TrustConfig } from '../domain/verify'
+import { MAX_JSON_BYTES } from '../domain/json'
 import { REQUIRED_CONFIRMATIONS } from '../domain/verify'
 import { PageHero } from '../features/PageHero'
 import { TamperPanel } from '../features/TamperPanel'
@@ -43,14 +44,8 @@ export function VerifyPage() {
   }
 
   const run = async () => {
-    let input: unknown = json
-    try {
-      input = JSON.parse(json)
-      setNotice(null)
-    } catch (error) {
-      setNotice(`JSON 문법 오류: ${error instanceof Error ? error.message : String(error)}`)
-    }
-    await verify.run(input)
+    setNotice(null)
+    await verify.run(json)
   }
 
   const selected = store.receiptById(selectedId)
@@ -74,7 +69,7 @@ export function VerifyPage() {
                   ['file', '파일 올리기'],
                 ] as const
               ).map(([id, label]) => (
-                <button key={id} type="button" role="tab" aria-selected={source === id} onClick={() => setSource(id)}>
+                <button key={id} type="button" role="tab" aria-selected={source === id} onClick={() => { setSource(id); verify.clear() }}>
                   {label}
                 </button>
               ))}
@@ -113,9 +108,15 @@ export function VerifyPage() {
                   onChange={async (event) => {
                     const file = event.target.files?.[0]
                     if (!file) return
-                    setJson(await file.text())
-                    setNotice(`${file.name}을 불러왔습니다. 아래 내용을 확인하고 검증하세요.`)
                     verify.clear()
+                    try {
+                      if (file.size > MAX_JSON_BYTES) throw new Error('파일은 1 MiB 이하여야 합니다')
+                      setJson(await file.text())
+                      setNotice(`${file.name}을 불러왔습니다. 아래 내용을 확인하고 검증하세요.`)
+                    } catch {
+                      setJson('')
+                      setNotice('파일을 읽을 수 없습니다. 1 MiB 이하의 JSON을 사용하세요.')
+                    }
                   }}
                 />
               </div>
@@ -132,7 +133,7 @@ export function VerifyPage() {
                 rows={16}
                 spellCheck={false}
                 value={json}
-                onChange={(event) => setJson(event.target.value)}
+                onChange={(event) => { setJson(event.target.value); verify.clear() }}
                 placeholder='{"receipt_body": {…}, "receipt_hash": "0x…", "proof": {…}, "anchor": {…}}'
               />
             </div>

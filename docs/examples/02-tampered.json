@@ -1,0 +1,77 @@
+{
+  "receipt_body": {
+    "protocol_version": "verimod/1",
+    "receipt_id": "a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63",
+    "issuer_id": "verimod-example-platform",
+    "event_kind": "DECISION",
+    "recorded_at": "2026-09-08T01:12:30.000Z",
+    "content_commitment": "0x33284e77470eaaf82b5e52663ff23dbbe56628edd2ebe187ba33ca878941a155",
+    "subject_receipt_hash": null,
+    "previous_receipt_hash": null,
+    "payload": {
+      "inference": {
+        "output_version": "inference/1",
+        "inference_id": "8b2d5f3c-0e4a-4c7b-9d6f-2a3b4c5d6e72",
+        "content_commitment": "0x33284e77470eaaf82b5e52663ff23dbbe56628edd2ebe187ba33ca878941a155",
+        "model_manifest_hash": "0xb7389fdfdcb3425317d5d64cf168820ba58fd82b67e71655313b3e51305113aa",
+        "taxonomy_id": "verimod-example-ko",
+        "taxonomy_version": "0",
+        "scores_ppm": {
+          "hate": 51230,
+          "profanity": 37240,
+          "sexual": 127909,
+          "spam": 39633,
+          "violence": 120000
+        },
+        "score_semantics": "UNCALIBRATED",
+        "input_status": "FULL",
+        "evidence": [
+          {
+            "start": 12,
+            "end": 14,
+            "label_id": "violence",
+            "method_id": "synthetic-keyword-match",
+            "method_version": "0.1"
+          },
+          {
+            "start": 32,
+            "end": 34,
+            "label_id": "violence",
+            "method_id": "synthetic-keyword-match",
+            "method_version": "0.1"
+          }
+        ],
+        "inferred_at": "2026-09-08T01:12:29.600Z"
+      },
+      "policy": {
+        "policy_manifest_hash": "0x3afff17771a9a79a6703609ae1e4159ae462bf37dda2a5c6f7aac600166efb48",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_GTE_RESTRICT_THRESHOLD"
+        ],
+        "triggered_rule_ids": [
+          "R-VIOLENCE-RESTRICT"
+        ]
+      }
+    }
+  },
+  "receipt_hash": "0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f",
+  "proof": {
+    "merkle_spec": "ct-sha256-receipt-v1",
+    "leaf_index": 4,
+    "tree_size": 7,
+    "siblings": [
+      "0x3fbb90235d07129d59f314a88ce563fde0edb4cbe559cb7ecb9a6261472bfef8",
+      "0xc390255158155c4033f60a47f7b8963486a0b96e73e3514ae3725491030d64e8",
+      "0x7f10ecac629504f620369b2532f06421c2c4b53baab3e8cee4cdffeafc1c5d42"
+    ]
+  },
+  "anchor": {
+    "chain_id": "31337",
+    "contract_address": "0x0000000000000000000000000000000000000451",
+    "epoch_id": "1",
+    "tx_hash": "0x9372256cc6e3069983247037b94dd3b7af68a7579a7fa4637624a59ea3749bc2",
+    "block_number": "3288603",
+    "block_hash": "0x1c330232eaddab3671271ce85d0a96b6221cc00d24f39a1199eccacc3458b028"
+  }
+}

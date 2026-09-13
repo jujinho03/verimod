@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
+import { useAppState, useStore } from '../store/context'
 
 function useScrollOnNavigate() {
   const { pathname, hash } = useLocation()
@@ -10,7 +11,8 @@ function useScrollOnNavigate() {
       window.scrollTo(0, 0)
       return
     }
-    const id = decodeURIComponent(hash.slice(1))
+    let id: string
+    try { id = decodeURIComponent(hash.slice(1)) } catch { return }
     let tries = 12
     let timer = 0
     const attempt = () => {
@@ -31,9 +33,9 @@ function SyntheticNotice() {
   return (
     <div className="band notice" data-tone="dark">
       <div className="frame">
-        <span className="notice__tag mono">시험 버전</span>
+        <span className="notice__tag mono">Prototype mode</span>
         <p>
-          점수와 블록체인 기록은 합성 데이터입니다. 영수증 해시·Merkle 증명·검증은 이 브라우저에서 실제로 계산합니다.{' '}
+          Synthetic moderation · Simulated ledger. 점수와 anchor는 simulation이며 영수증 해시·Merkle 증명은 브라우저에서 실제 계산합니다.{' '}
           <Link to="/protocol#simulation" className="arrow-link" style={{ display: 'inline' }}>
             무엇이 합성인가요
           </Link>
@@ -44,7 +46,8 @@ function SyntheticNotice() {
 }
 
 export function Layout() {
-  const { pathname } = useLocation()
+  const store = useStore()
+  useAppState()
   useScrollOnNavigate()
 
   return (
@@ -53,7 +56,8 @@ export function Layout() {
         본문으로 건너뛰기
       </a>
       <SiteHeader />
-      {pathname !== '/' && <SyntheticNotice />}
+      <SyntheticNotice />
+      {store.recoveryReason && <div className="band notice" data-tone="white" role="alert"><div className="frame"><p>{store.recoveryReason} <Link to="/receipts#reset">초기화 안내</Link></p></div></div>}
       <main id="main" tabIndex={-1}>
         <Outlet />
       </main>

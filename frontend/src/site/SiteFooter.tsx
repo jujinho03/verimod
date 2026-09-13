@@ -28,7 +28,7 @@ const GROUPS: { label: string; links: { to: string; title: string; external?: bo
     links: [
       { to: '/#faq', title: '자주 묻는 질문' },
       { to: '/#scope', title: '보장 범위와 한계' },
-      { to: `${REPO_URL}/blob/main/MASTER_CONTEXT.md`, title: '공통 기준서', external: true },
+      { to: `${REPO_URL}/blob/main/docs/08-submission-guide.md`, title: '실행 안내', external: true },
       { to: REPO_URL, title: 'GitHub 저장소', external: true },
     ],
   },

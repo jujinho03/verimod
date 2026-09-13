@@ -11,6 +11,7 @@ import {
   receiptHash,
 } from '../domain/receipt'
 import { runSyntheticInference } from '../domain/scorer'
+import { validateReceiptBody } from '../domain/schema'
 import type { FinalAction, InferenceOutput, PolicyEvaluation, VerificationBundle } from '../domain/types'
 import type { VerifierContext } from '../domain/verify'
 import {
@@ -24,7 +25,7 @@ import {
   type StoredEpoch,
 } from './ledger'
 import { buildSeedState } from './seed'
-import { loadState, saveState, type AppState, type StoredReceipt } from './state'
+import { loadState, saveState, validateState, type AppState, type StoredReceipt } from './state'
 
 export interface DecisionDraft {
   text: string
@@ -65,6 +66,10 @@ export class VeriModStore {
   private readonly clock: Clock
   private readonly listeners = new Set<() => void>()
   private sealing: Promise<void> | null = null
+  private generation = 0
+  private revision = 0
+  private resetting = false
+  recoveryReason: string | null = null
 
   private constructor(state: AppState, storage: Storage | null, clock: Clock) {
     this.state = state
@@ -73,9 +78,19 @@ export class VeriModStore {
   }
 
   static async open(storage: Storage | null, clock: Clock = Date.now): Promise<VeriModStore> {
-    const loaded = loadState(storage)
+    let loaded: AppState | null = null
+    let recoveryReason: string | null = null
+    try {
+      loaded = loadState(storage)
+      if (loaded) await validateState(loaded)
+    } catch {
+      loaded = null
+      recoveryReason = '저장 상태가 손상됐거나 지원하지 않는 형식입니다. 기존 저장값은 보존하고 임시 seed로 열었습니다. 초기화를 선택하기 전까지 새 변경도 저장하지 않습니다.'
+      console.warn('[VeriMod]', recoveryReason)
+    }
     const store = new VeriModStore(loaded ?? (await buildSeedState()), storage, clock)
-    if (!loaded) saveState(storage, store.state)
+    store.recoveryReason = recoveryReason
+    if (!loaded && !recoveryReason) saveState(storage, store.state)
     return store
   }
 
@@ -93,20 +108,43 @@ export class VeriModStore {
   }
 
   private commit(next: AppState) {
+    ++this.revision
     this.state = next
-    saveState(this.storage, next)
+    if (!this.recoveryReason) saveState(this.storage, next)
     for (const listener of this.listeners) listener()
   }
 
-  reloadFromStorage() {
-    const loaded = loadState(this.storage)
-    if (!loaded) return
-    this.state = loaded
+  async reloadFromStorage() {
+    if (this.resetting) return
+    const revision = this.revision
+    const generation = ++this.generation
+    try {
+      const loaded = loadState(this.storage)
+      if (!loaded) return
+      await validateState(loaded)
+      if (generation !== this.generation || revision !== this.revision) return
+      this.state = loaded
+      this.recoveryReason = null
+    } catch {
+      if (generation !== this.generation || revision !== this.revision) return
+      this.recoveryReason = '다른 탭의 저장 변경을 읽지 못했습니다. 현재 상태와 기존 저장값을 보존하며 새 저장은 중단합니다. 초기화 전에 자료를 확인하세요.'
+      console.warn('[VeriMod]', this.recoveryReason)
+      this.state = { ...this.state }
+    }
     for (const listener of this.listeners) listener()
   }
 
   async reset() {
-    this.commit(await buildSeedState())
+    if (this.resetting) throw new StoreError('초기화 중입니다. 잠시 후 다시 시도하세요.')
+    this.resetting = true
+    ++this.generation
+    try {
+      const seed = await buildSeedState()
+      this.recoveryReason = null
+      this.commit(seed)
+    } finally {
+      this.resetting = false
+    }
   }
 
   setRpcDown(down: boolean) {
@@ -197,6 +235,8 @@ export class VeriModStore {
   }
 
   private add(receipt: StoredReceipt, patch: Partial<Pick<AppState, 'contents' | 'appeals'>> = {}) {
+    const parsed = validateReceiptBody(receipt.body)
+    if (!parsed.ok) throw new StoreError(parsed.message)
     this.commit({
       ...this.state,
       receipts: [...this.state.receipts, receipt],
@@ -207,9 +247,13 @@ export class VeriModStore {
   }
 
   async issueDecision(draft: DecisionDraft): Promise<StoredReceipt> {
+    if (this.resetting) throw new StoreError('초기화 중입니다. 잠시 후 다시 시도하세요.')
+    const generation = this.generation
+    draft = structuredClone(draft)
     const now = this.clock()
     const body = buildDecision({ receiptId: crypto.randomUUID(), recordedAt: isoTime(now), inference: draft.inference, policy: draft.policy })
     const hash = await receiptHash(body)
+    if (generation !== this.generation) throw new StoreError('저장 상태가 바뀌었습니다. 다시 시도하세요.')
     return this.add(
       { hash, body, issued_at: now, epoch_id: null, proof: null, seeded: false },
       { contents: { [body.content_commitment]: { salt: draft.salt, text: draft.text } } },
@@ -217,6 +261,8 @@ export class VeriModStore {
   }
 
   async issueAppeal(decisionHash: string, reasonCode: string, text: string): Promise<StoredReceipt> {
+    if (this.resetting) throw new StoreError('초기화 중입니다. 잠시 후 다시 시도하세요.')
+    const generation = this.generation
     const decision = this.receipt(decisionHash)
     if (!decision || decision.body.event_kind !== 'DECISION') throw new StoreError('이의제기할 판정을 찾지 못했습니다.')
     const eligibility = this.canAppeal(decision)
@@ -235,10 +281,16 @@ export class VeriModStore {
       reasonCode,
     })
     const hash = await receiptHash(body)
+    if (generation !== this.generation) throw new StoreError('저장 상태가 바뀌었습니다. 다시 시도하세요.')
+    const currentEligibility = this.canAppeal(decision)
+    if (!currentEligibility.ok) throw new StoreError(currentEligibility.reason)
     return this.add({ hash, body, issued_at: now, epoch_id: null, proof: null, seeded: false }, { appeals: { [commitment]: { salt, text } } })
   }
 
   async issueReview(decisionHash: string, resultingAction: FinalAction, reasonCodes: string[]): Promise<StoredReceipt> {
+    if (this.resetting) throw new StoreError('초기화 중입니다. 잠시 후 다시 시도하세요.')
+    const generation = this.generation
+    reasonCodes = [...reasonCodes]
     const decision = this.receipt(decisionHash)
     if (!decision || decision.body.event_kind !== 'DECISION') throw new StoreError('검토할 판정을 찾지 못했습니다.')
     if (this.reviewOf(decisionHash)) throw new StoreError('이미 검토 결과가 기록된 판정입니다.')
@@ -272,11 +324,15 @@ export class VeriModStore {
       reviewPolicyHash: manifests.review,
     })
     const hash = await receiptHash(body)
+    if (generation !== this.generation) throw new StoreError('저장 상태가 바뀌었습니다. 다시 시도하세요.')
+    if (this.reviewOf(decisionHash)) throw new StoreError('이미 검토 결과가 기록된 판정입니다.')
     return this.add({ hash, body, issued_at: now, epoch_id: null, proof: null, seeded: false })
   }
 
   /** 가장 오래 기다린 영수증이 배치 창을 넘기면 대기 중인 영수증을 모두 새 epoch로 봉인한다. */
   async tick(): Promise<void> {
+    if (this.resetting) return
+    const generation = this.generation
     if (this.sealing) return this.sealing
     const now = this.clock()
     const pending = this.state.receipts.filter((r) => r.epoch_id === null)
@@ -284,7 +340,7 @@ export class VeriModStore {
 
     this.sealing = (async () => {
       const epochId = String(Math.max(0, ...this.state.epochs.map((e) => Number(e.record.epoch_id))) + 1)
-      const others = Array.from({ length: 2 + Math.floor(Math.random() * 4) }, () => ({
+      const others = Array.from({ length: 3 }, () => ({
         receipt_id: crypto.randomUUID(),
         receipt_hash: randomHex32(),
       }))
@@ -295,6 +351,7 @@ export class VeriModStore {
         now,
       )
       const sealed = new Set(pending.map((r) => r.hash))
+      if (generation !== this.generation) return
       this.commit({
         ...this.state,
         epochs: [...this.state.epochs, epoch],

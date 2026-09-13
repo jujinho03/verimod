@@ -19,6 +19,10 @@ function isPlainObject(value: object): boolean {
  * 시험 구현이며 RFC 8785 전체 호환을 주장하지 않는다.
  */
 export function canonicalize(value: unknown): string {
+  return encode(value, new Set())
+}
+
+function encode(value: unknown, ancestors: Set<object>): string {
   if (value === null) return 'null'
   if (typeof value === 'boolean') return value ? 'true' : 'false'
   if (typeof value === 'number') {
@@ -32,17 +36,32 @@ export function canonicalize(value: unknown): string {
     return JSON.stringify(value)
   }
   if (Array.isArray(value)) {
-    return `[${value.map((item) => canonicalize(item)).join(',')}]`
+    if (ancestors.has(value)) throw new CanonicalizationError('순환 참조')
+    ancestors.add(value)
+    try {
+      return `[${Array.from({ length: value.length }, (_, i) => {
+        if (!Object.hasOwn(value, i)) throw new CanonicalizationError('희소 배열은 허용하지 않습니다')
+        return encode(value[i], ancestors)
+      }).join(',')}]`
+    } finally {
+      ancestors.delete(value)
+    }
   }
   if (typeof value === 'object' && isPlainObject(value)) {
-    const record = value as Record<string, unknown>
-    const members = Object.keys(record)
-      .sort()
-      .map((key) => {
-        assertWellFormed(key)
-        return `${JSON.stringify(key)}:${canonicalize(record[key])}`
-      })
-    return `{${members.join(',')}}`
+    if (ancestors.has(value)) throw new CanonicalizationError('순환 참조')
+    ancestors.add(value)
+    try {
+      const record = value as Record<string, unknown>
+      const members = Object.keys(record)
+        .sort()
+        .map((key) => {
+          assertWellFormed(key)
+          return `${JSON.stringify(key)}:${encode(record[key], ancestors)}`
+        })
+      return `{${members.join(',')}}`
+    } finally {
+      ancestors.delete(value)
+    }
   }
   throw new CanonicalizationError(`직렬화할 수 없는 값: ${typeof value}`)
 }

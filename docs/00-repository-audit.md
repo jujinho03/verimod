@@ -1,5 +1,7 @@
 # 로컬 상태 점검
 
+> **2026-09-11의 과거 점검 기록**이다. 아래의 ‘구현 전’과 환경·테스트 결과는 당시 기준으로 보존한다. 2026-09-12 `908f64e`의 실제 계산·시뮬레이션과 이번 검증 범위는 [최신 상태](03-current-status.md)를 읽는다.
+
 점검일: 2026-09-11. 이 문서는 생성 작업 직전 상태와 이번 단계에서 준비한 저장소를 구분한다.
 
 ## 작업 직전
@@ -74,3 +76,22 @@ verimod/
 - 개발 서버 실행 중 `/api/health`를 백엔드에 직접, 그리고 Vite 프록시를 거쳐 호출해 둘 다 `{"status":"ok","service":"verimod-backend"}` 응답
 
 판정·receipt·해시·앵커링 로직은 아직 없다. `backend/contracts/contracts/ToolchainCheck.sol`은 툴체인 확인용 임시 컨트랙트다. contracts 의존성에서 `npm audit`이 15건(low 8, moderate 6, high 1)을 보고했으며 아직 조치하지 않았다.
+
+## Frontend protocol PoC update (2026-09-12)
+
+위 2026-09-11 scaffold audit는 역사 기록으로 보존한다. 신규 제품 commit은 `908f64eec5933dce2371ca48d35893fa01d0a8e8` (`feat(frontend): ship VeriMod receipt site with verification flows`)이며 2026-09-13 fetch에서 origin/main과 일치했다.
+
+- 주요 추가: `frontend/src/domain/{canonical,hash,merkle,epoch,receipt,schema,verify,scorer,policy,manifests,types}.ts`, `src/store/`, `src/features/`, `src/pages/`.
+- Routes: /, /check, /receipts, /receipts/:receiptId, /verify, /review, /protocol.
+- frontend 테스트: canonical/hash/Merkle/policy/scorer/verify/store의 기존 7파일 54건.
+- Scorer: synthetic-keyword-match와 합성 noise, UNCALIBRATED. 학습된 AI 아님.
+- Ledger: localStorage의 chain_id 31337 simulation; 주소·publisher·tx·block·confirmations 합성.
+- Backend unchanged: GET /api/health. Contract unchanged: ToolchainCheck.sol. 실제 epoch contract·배포 없음.
+
+### 이번 환경에서 실제 재실행한 검증 (2026-09-13)
+
+세 패키지 npm ci 성공. 수정 전 frontend 54건, backend 1건, contract Mocha 1건 통과. Frontend lint exit 0이나 기존 경고 8개. Frontend build 및 backend typecheck/build 성공. 이후 수정의 최종 명령·결과·경고·실행 안 함은 [검증 기록](07-validation-2026-09-13.md)에 분리한다.
+
+### Commit 설명과 미검증 주장
+
+commit 제목은 frontend 배포 내용을 요약할 뿐 실제 AI 성능, 외부 EVM transaction, production backend, 배포된 웹사이트, 전체 브라우저 호환성의 증거가 아니다. 이 항목들은 commit 메시지만으로 확인 처리하지 않았다. [전체 protocol audit](05-protocol-audit.md) 참조.

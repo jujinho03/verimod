@@ -24,12 +24,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!store) return
-    const timer = window.setInterval(() => void store.tick(), 1000)
+    const tick = () => void store.tick().catch(() => console.warn('[VeriMod] 합성 배치를 처리하지 못했습니다. 다음 tick에서 재시도합니다.'))
+    const timer = window.setInterval(tick, 1000)
     const onStorage = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY) store.reloadFromStorage()
+      if (event.key === STORAGE_KEY) void store.reloadFromStorage()
     }
     window.addEventListener('storage', onStorage)
-    void store.tick()
+    tick()
     return () => {
       window.clearInterval(timer)
       window.removeEventListener('storage', onStorage)

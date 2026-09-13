@@ -1,8 +1,10 @@
 # 도메인 모델과 핵심 인터페이스
 
-프로젝트 공통 맥락은 [MASTER_CONTEXT.md](../MASTER_CONTEXT.md)를 먼저 읽는다. 임시 기획서와의 차이 및 직접 HUMAN_REVIEW 종료 outcome의 보완 필요성은 기준서 9절·16절에 기록되어 있다. 아래 규칙은 확정 ABI나 schema가 아니다.
+프로젝트의 현재 구현 범위는 [README](../README.md)와 [현재 상태](03-current-status.md)를 먼저 읽는다. 기획서 정정 사항은 현재 상태 문서에, 직접 HUMAN_REVIEW 종료 outcome의 보완 필요성은 [계약 초안 C02](04-interface-contract-draft.md)에 기록되어 있다. 아래 규칙은 확정 ABI나 schema가 아니다.
 
 상태: **PROPOSED — 팀 검토용 v0.1**. 이 문서의 타입·수치 규칙·함수 형태는 설계 제안이다. 실행 코드, 확정 JSON Schema, ABI 또는 검증된 테스트 벡터가 아니다.
+
+2026-09-12 갱신: 제품 코드 `908f64e`에 이 제안을 바탕으로 한 프론트엔드 시험 구현이 추가됐다. [최신 상태](03-current-status.md)와 [계약 검토 초안](04-interface-contract-draft.md)을 함께 읽는다. 최신 14장 기획서는 epoch 등록과 3인 팀을 명시한다. 문서의 규칙은 팀 합의 전 제안이며, 코드 존재가 승인 근거가 되지는 않는다.
 
 ## 1. 먼저 고정할 책임 경계
 
@@ -46,7 +48,7 @@ AI adapter는 추론 결과를, policy evaluator는 행동 결정을, receipt bu
 
 - DECISION: 최초 자동 판정. action은 ALLOW / RESTRICT / HUMAN_REVIEW.
 - APPEAL: 기존 DECISION에 대한 이용자의 이의제기 접수. 기존 action을 덮어쓰지 않는다.
-- REVIEW: APPEAL 또는 HUMAN_REVIEW 판정에 대한 사람 검토. outcome은 UPHOLD / OVERTURN, resulting_action은 ALLOW / RESTRICT.
+- REVIEW: APPEAL 또는 HUMAN_REVIEW 판정에 대한 사람 검토. 시험 구현은 appeal에 UPHOLD / OVERTURN, 직접 HUMAN_REVIEW 종료에 RESOLVED를 사용한다. resulting_action은 ALLOW / RESTRICT다. RESOLVED와 전이 제한의 정식 채택은 [C02](04-interface-contract-draft.md)에서 검토한다.
 - RESTORE는 이전 RESTRICT가 REVIEW에서 ALLOW로 바뀔 때의 UI 표현이며 새로운 정책 action으로 섞지 않는다.
 - MVP는 최초 판정당 한 개의 열린 appeal과 한 개의 최종 review를 제안한다. 재심은 후속 확장으로 남긴다.
 - hash 연결은 기록 연결만 증명한다. 실제 사용자 권한, reviewer 자격, 중복 요청·동시 처리 통제는 backend 책임이다.
@@ -85,7 +87,7 @@ evidence는 원문 기준 Unicode code point의 반열린 구간 [start,end), la
 
 | 필드 | 규칙 |
 |---|---|
-| protocol_version | `verimod/1`을 제안. 현재는 미채택 |
+| protocol_version | `verimod/1`이 시험 코드에 적용됨. 정식 팀 채택은 미확정 |
 | receipt_id | 무작위 UUID v4 |
 | issuer_id | 공개 플랫폼 식별자. 개인 사용자 ID 금지 |
 | event_kind | DECISION / APPEAL / REVIEW |
@@ -122,7 +124,7 @@ appeal text도 독립 salt와 `verimod:appeal:v1` 도메인으로 commitment를 
 
 ## 5. I3 — Canonicalization / hash / Merkle
 
-제안: RFC 8785 JCS로 ReceiptBody를 canonical UTF-8 bytes로 만든다. 일반 JSON key 정렬만으로 JCS 호환을 주장하지 않는다. Unicode 문자열을 hash 과정에서 임의 정규화하지 않는다. 정확한 library/version은 Python–TypeScript 상호운용 검증 후 선택한다. [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785)
+제안: RFC 8785 JCS 계열 결정적 직렬화로 ReceiptBody의 canonical UTF-8 bytes를 만든다. 현재 `canonical.ts`는 안전 정수 등 제한된 값만 처리하며 RFC 8785 전체 호환을 주장하지 않는다. 정식 JCS 라이브러리 채택 또는 제한 프로파일 명세화를 C04에서 결정한다. Unicode 문자열을 hash 과정에서 임의 정규화하지 않는다. Node 백엔드와 브라우저의 공통 벡터를 우선 비교하며, Python도 직렬화/hash에 참여할 때 Python 비교를 추가한다. [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785)
 
 VeriMod 고유 hash domain 제안:
 
@@ -180,10 +182,21 @@ Review lifecycle 검증 시 참조 hash의 receipt를 실제로 가져와 각각
 
 Tamper demo는 보존한 원본 receipt의 복사본에서 score 또는 policy hash를 변경한다. 원본 anchor 기준 HASH_MISMATCH/INVALID_PROOF가 발생해야 한다. RPC 오류를 TAMPERING DETECTED로 표시하지 않는다. 새 root로 재발급한 변경 기록은 새로운 anchor일 뿐, 이용자가 보유한 원래 anchor를 덮어쓴 것으로 취급하지 않는다.
 
-## 8. 협업자 책임 제안
+## 8. 협업자 책임
 
-Member A: label taxonomy, InferenceOutput 의미, 정책과 평가, manifest 내용.
-Member B: canonicalization 상호운용, immutable receipt 저장, Merkle/proof, contract와 독립 verifier.
-공동: schema version, 수치/시간 규칙, 상태 전이, trust boundary, 공개 범위, 실패 사례.
+최신 기획서 10장 기준: 노유신은 label taxonomy, InferenceOutput 의미, 정책·평가·manifest 내용을 맡는다. 설경민은 receipt schema, canonicalization, Merkle/proof, contract와 독립 verifier를 맡는다. 주진호는 업무 API, 불변 receipt 저장, 인증·원문 접근 통제, 상태 처리와 UI 연결을 맡는다.
+
+공동: schema version, 수치/시간 규칙, 상태 전이, trust boundary, 공개 범위, 실패 사례. 네 인터페이스의 실제 생산자·소비자와 검토 항목은 [계약 초안](04-interface-contract-draft.md)에 정리한다.
+
+## 9. 시험 구현과의 차이
+
+제품 코드 `908f64e`와 2026-09-13 P0 보강 기준이다. 위 제안 명세가 모두 구현된 것은 아니다.
+
+- P0에서 JSON 원본 토큰의 중복 키 검사와 1 MiB/64단계 입력 제한을 추가했다. 이미 parse된 object에서는 원본의 중복 키 여부를 알 수 없다.
+- scorer는 evidence를 정렬하지만 schema 검증은 배열 정렬·완전 중복 금지를 검사하지 않는다.
+- content side check는 원래 콘텐츠만 재계산하며 별도 appeal 본문 commitment 검사는 없다.
+- `LedgerReader`는 시뮬레이션 원장을 조회한다. 실제 RPC chain ID·transaction·block hash·reorg 검증은 미연결이다.
+- state/store의 로컬 중복 제한은 서버의 권한·멱등성·동시성 보장을 대체하지 않는다.
+- 상세 차이와 후속 검증 항목은 [최신 상태](03-current-status.md), 채택·변경 영향은 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
 프레임워크와 AI 모델을 먼저 정하기보다 이 계약과 아래의 구현 진입 조건을 먼저 합의한다.
