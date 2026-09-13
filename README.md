@@ -1,12 +1,25 @@
 # VeriMod
 
 **User-Verifiable AI Moderation Protocol**
+
 HTTP 451 · BLOCK AI 2026 · AI + 블록체인 융합 서비스
+
 **Decide. Prove. Appeal.**
 
 AI 콘텐츠 moderation 판정을 Decision Receipt로 발급하고, Merkle proof와 외부 blockchain commitment를 통해 이용자가 판정 기록의 사후 변경 여부를 직접 검증하고 이의제기 이력을 추적할 수 있도록 하는 protocol.
 
 **현재는 frontend synthetic protocol PoC입니다.** Receipt 생성, 실제 SHA-256·Merkle 계산, 포함 검증, 사본 변조 탐지와 appeal/review 흐름을 실행할 수 있습니다. Moderation score와 ledger/anchor는 simulation이며 실제 AI·업무 backend·EVM testnet은 후속 구현 대상입니다.
+
+[![VeriMod P0 checks](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=docs%2Fcurrent-context-and-interface-draft&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Adocs%2Fcurrent-context-and-interface-draft)
+
+**바로 확인하기:** [심사위원용 실행 안내](docs/08-submission-guide.md) · [정상/변조 JSON 예제](docs/examples/README.md) · [실제 검증 기록](docs/07-validation-2026-09-13.md) · [실제 화면](docs/assets/p0-home-2026-09-13.jpg)
+
+| 현재 직접 확인할 수 있는 것 | 확인 방법 |
+|---|---|
+| 영수증 발급·Merkle 포함 검증 | 로컬 실행 → `/check` → `/verify` |
+| 사후 변경 탐지 | 공개 JSON 3개 → `VALID` / `HASH_MISMATCH` / `INVALID_PROOF` |
+| 이의제기·검토 기록 연결 | `/receipts`의 seed 이력 또는 새 발급 → `/review` |
+| 재현 가능한 검사 | 위 CI badge와 [테스트 명령](#8-test-commands) |
 
 ## 1. Why VeriMod
 
@@ -79,10 +92,11 @@ core `VALID`와 별도 확인 결과는 따로 읽어야 합니다. RPC 오류�
 
 ## 7. Local run
 
-이번 환경은 Node **24.19.0**, npm **12.0.2**, Windows입니다. 세 디렉터리의 lockfile을 각각 사용합니다. 일반 Node/npm 설치 환경에서:
+검증 환경은 Node **24.19.0**, npm **12.0.2**, Windows 및 GitHub Actions Ubuntu입니다. 세 디렉터리의 lockfile을 각각 사용합니다. 일반 Node/npm 설치 환경에서:
 
 ```bash
-cd frontend
+git clone --branch docs/current-context-and-interface-draft https://github.com/jujinho03/verimod.git
+cd verimod/frontend
 npm ci
 npm run dev
 ```
@@ -115,6 +129,8 @@ npm ci
 npm test
 npm run build
 ```
+
+2026-09-14 로컬 재실행: frontend **101 tests**, backend **1 test**, contracts **1 test** 통과. 필수 lint/typecheck/build도 통과했으며 frontend lint 경고 8개는 남아 있습니다.
 
 결과·경고·미실행 항목은 [검증 기록](docs/07-validation-2026-09-13.md)에 남깁니다. 테스트 통과는 production 보안 감사나 실제 체인 배포를 뜻하지 않습니다.
 
@@ -150,6 +166,7 @@ P0는 문서 일치·정확성·재현성·검증 증거입니다. 이후 공통
 
 ## 14. Documents
 
+- [심사위원용 실행 안내](docs/08-submission-guide.md), [공개 검증 예제](docs/examples/README.md)
 - [MASTER_CONTEXT](MASTER_CONTEXT.md): 단일 기준서, 확정 방향과 기술 후보
 - [Repository audit](docs/00-repository-audit.md): 과거 scaffold 기록과 frontend 추가
 - [Domain / interfaces](docs/01-domain-and-interfaces.md), [Decision register](docs/02-decision-register.md)

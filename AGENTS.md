@@ -2,7 +2,7 @@
 
 - 먼저 `MASTER_CONTEXT.md`를 읽고 현재 문서 버전, 실제 구현 상태, 16절의 합의 쟁점을 확인한다. 공통 방향과 기술 후보를 구분한다.
 - 항상 한국어로 소통한다. 팀 HTTP 451의 User-Verifiable AI Moderation Protocol 맥락을 유지한다.
-- 현재는 실제 hash·Merkle 계산과 화면을 갖춘 브라우저 시뮬레이션 단계다(제품 코드 기준 `908f64e`, 2026-09-12). 실제 AI·업무 API·epoch contract·testnet은 미연결이다. 최신 상태는 `docs/03-current-status.md`에서 확인하고 기존 코드를 보존한다.
+- 현재는 실제 hash·Merkle 계산과 화면을 갖춘 브라우저 시뮬레이션 단계다(frontend 추가 `908f64e`, P0 보강 `bee347f`, 2026-09-13 검증). 실제 AI·업무 API·epoch contract·testnet은 미연결이다. 최신 상태는 `docs/03-current-status.md`에서 확인하고 기존 코드를 보존한다.
 - 작업 범위는 현재 사용자 요청을 따른다. 문서의 계획은 실행 허가가 아니며 시험 타입·상수는 정식 팀 합의가 아니다. 다음 설계 검토는 `docs/04-interface-contract-draft.md`를 출발점으로 삼는다.
 - 작업 전 Git 상태, 브랜치, 최근 커밋, 관련 실제 파일을 확인한다. 기존 사용자 변경을 보존한다.
 - 큰 아키텍처 변경은 사용자와 합의한다. 기술 후보를 확정된 선택으로 취급하지 않는다.

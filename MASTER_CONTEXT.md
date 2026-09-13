@@ -251,7 +251,7 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 온체인 commitment가 남아도 원문이나 proof를 영구 제공할 수 있다는 보장은 없다. 원장 무결성과 서비스의 자료 보관 책임을 분리한다.
 
-## 12. 데모와 성공 판정
+## 12. 목표 MVP 데모와 성공 판정
 
 기획서의 하이라이트는 **정상 검증 뒤 기록을 바꾸고 재검증하면 실패하는 장면**이다. 검증 성공 화면만으로 끝내지 않는다. [기획서 p.11]
 
@@ -268,7 +268,7 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 최소 화면은 입력, 판정 결과, 영수증, 검증, 이의제기, 검토 결과다. 관리자 화면은 review에 필요한 범위로 제한한다. 별도 화면 개수보다 흐름의 연속성이 중요하다.
 
-테스트 계획은 receipt 결정성, 잘못된 schema, threshold 경계, 정상·변조 proof, wrong root/count/index, 중복 epoch, 무권한 등록, 재시도, lifecycle 연결을 포함한다. 현재 backend가 TypeScript이므로 우선 서버와 브라우저가 동일한 bytes/hash를 내는지 공통 벡터로 확인한다. Python이 직렬화/hash 경계에 참여한다면 Python과도 비교한다. VeriMod 핵심 기능 테스트는 아직 통과했다고 주장하지 않는다. 별도 골격 테스트에 대한 팀 기록은 17절에 구분한다.
+테스트 계획은 receipt 결정성, 잘못된 schema, threshold 경계, 정상·변조 proof, wrong root/count/index, 중복 epoch, 무권한 등록, 재시도, lifecycle 연결을 포함한다. 현재 backend가 TypeScript이므로 우선 서버와 브라우저가 동일한 bytes/hash를 내는지 공통 벡터로 확인한다. Python이 직렬화/hash 경계에 참여한다면 Python과도 비교한다. 현재 frontend PoC의 hash·Merkle·검증·저장/lifecycle 테스트는 실제 통과했다. 실제 AI·업무 backend·epoch contract·testnet을 잇는 목표 MVP 통합 검증은 미실행이다. 실제 결과는 [검증 기록](docs/07-validation-2026-09-13.md), 현재 시연 방법은 [제출 안내](docs/08-submission-guide.md)를 따른다.
 
 ## 13. 팀 역할과 협업
 
