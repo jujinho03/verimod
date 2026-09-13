@@ -1,4 +1,6 @@
 import { isHex32, type Hex32 } from './hash'
+import { canonicalize } from './canonical'
+import { parseUniqueJson } from './json'
 import { APPEAL_REASONS, REVIEW_REASONS, TAXONOMY } from './manifests'
 import { MERKLE_SPEC } from './merkle'
 import {
@@ -30,11 +32,12 @@ type Obj = Record<string, unknown>
 function object(value: unknown, path: string, keys: readonly string[]): Obj {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) fail(`${path}: 객체여야 합니다`)
   const record = value as Obj
+  if (Object.getPrototypeOf(record) !== Object.prototype && Object.getPrototypeOf(record) !== null) fail(`${path}: 일반 객체여야 합니다`)
   for (const key of Object.keys(record)) {
     if (!keys.includes(key)) fail(`${path}.${key}: 명세에 없는 필드입니다`)
   }
   for (const key of keys) {
-    if (!(key in record)) fail(`${path}.${key}: 필드가 없습니다`)
+    if (!Object.hasOwn(record, key)) fail(`${path}.${key}: 필드가 없습니다`)
   }
   return record
 }
@@ -223,12 +226,16 @@ function run<T>(fn: () => T): SchemaResult<T> {
   } catch (error) {
     if (error instanceof UnsupportedVersion) return { ok: false, code: 'UNSUPPORTED_VERSION', message: error.message }
     if (error instanceof SchemaError) return { ok: false, code: 'INVALID_SCHEMA', message: error.message }
-    throw error
+    return { ok: false, code: 'INVALID_SCHEMA', message: error instanceof Error ? error.message : '잘못된 입력입니다' }
   }
 }
 
 export function validateReceiptBody(value: unknown): SchemaResult<ReceiptBody> {
-  return run(() => receiptBody(value))
+  return run(() => {
+    const body = receiptBody(value)
+    canonicalize(body)
+    return body
+  })
 }
 
 export function validateBundle(value: unknown): SchemaResult<VerificationBundle> {
@@ -239,6 +246,7 @@ export function validateBundle(value: unknown): SchemaResult<VerificationBundle>
     const p = proof(record.proof)
     const a = anchor(record.anchor)
     if ((p === null) !== (a === null)) fail('proof와 anchor는 함께 있거나 함께 null이어야 합니다')
+    canonicalize(value)
     return value as VerificationBundle
   })
 }
@@ -247,9 +255,9 @@ export function validateBundle(value: unknown): SchemaResult<VerificationBundle>
 export function parseBundleJson(text: string): SchemaResult<VerificationBundle> {
   let parsed: unknown
   try {
-    parsed = JSON.parse(text)
-  } catch {
-    return { ok: false, code: 'INVALID_SCHEMA', message: 'JSON 문법이 올바르지 않습니다' }
+    parsed = parseUniqueJson(text)
+  } catch (error) {
+    return { ok: false, code: 'INVALID_SCHEMA', message: error instanceof Error ? error.message : 'JSON 문법이 올바르지 않습니다' }
   }
   return validateBundle(parsed)
 }

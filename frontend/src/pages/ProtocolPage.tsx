@@ -44,6 +44,17 @@ export function ProtocolPage() {
         </ArrowLink>
       </PageHero>
 
+      <section className="band" data-tone="mist"><div className="frame docs">
+        <div>
+          <h2>Implemented today</h2>
+          <p>브라우저 Receipt 생성, 제한형 canonical hashing, SHA-256, Merkle proof, 변조 탐지와 연결 이력 계산.</p>
+          <h2>Simulated today</h2>
+          <p>키워드 점수는 UNCALIBRATED synthetic score입니다. chain 31337의 주소·publisher·tx·block·confirmations와 reviewer 역할은 simulation입니다. 실제 외부 원장이나 인증된 사람 검토가 아닙니다.</p>
+          <h2>Next integration</h2>
+          <p>공통 protocol 모듈 합의, authoritative backend·접근 통제 저장, 실제 AI 평가, epoch contract·EVM testnet·독립 chain reader. 현재 원문·salt·appeal 본문은 localStorage에 평문으로 보관하며 production secure storage가 아닙니다.</p>
+        </div>
+      </div></section>
+
       <section className="band" data-tone="white">
         <div className="frame docs">
           <nav className="docs__toc" aria-label="이 페이지 목차">

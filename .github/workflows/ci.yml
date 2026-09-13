@@ -1,0 +1,50 @@
+name: VeriMod P0 checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - package: frontend
+            path: frontend
+          - package: backend
+            path: backend
+          - package: contracts
+            path: backend/contracts
+    defaults:
+      run:
+        working-directory: ${{ matrix.path }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24.19.0'
+          cache: npm
+          cache-dependency-path: ${{ matrix.path }}/package-lock.json
+      - name: Match locally verified npm
+        run: npm install --global npm@12.0.2
+      - run: npm ci
+      - run: npm test
+      - if: matrix.package == 'frontend'
+        run: npm run lint
+      - if: matrix.package == 'backend'
+        run: npm run typecheck
+      - run: npm run build

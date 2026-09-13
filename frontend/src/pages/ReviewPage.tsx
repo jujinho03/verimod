@@ -251,7 +251,7 @@ function TaskDetail({ task, onDone }: { task: ReviewTask; onDone: (receipt: Stor
       </header>
 
       <div className="task__block">
-        <h3 className="mono faint sub-label">원문 · 검토자에게만 보이는 자료</h3>
+        <h3 className="mono faint sub-label">이 브라우저에 저장된 원문 · 권한 확인 없는 PoC</h3>
         {own ? (
           <EvidenceText text={own.text} evidence={body.payload.inference.evidence} />
         ) : (

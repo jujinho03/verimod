@@ -187,7 +187,7 @@ function Flow() {
         <FlowPane
           visual={<MerkleVisual />}
           title="여러 영수증을 Merkle root 하나로 묶어 원장에 기록합니다"
-          points={['receipt_id 순으로 동결하고 RFC 9162 방식으로 트리를 만듭니다', '원장에는 root·건수·버전만 올리고 원문은 올리지 않습니다', '블록 확인이 끝나기 전에는 일치로 표시하지 않습니다']}
+          points={['receipt_id 순으로 동결하고 RFC 9162 방식으로 트리를 만듭니다', '합성 원장에는 root·건수·버전·발급자 메타데이터를 기록하며 원문은 제외합니다', '블록 확인이 끝나기 전에는 일치로 표시하지 않습니다']}
           to="/protocol#merkle"
           cta="Merkle 규칙 보기"
         />
@@ -369,7 +369,7 @@ function Faq() {
     {
       id: 'privacy',
       title: '원문이나 개인정보가 원장에 올라가나요?',
-      body: '올라가지 않습니다. 원장에는 여러 영수증을 묶은 root와 건수, 버전만 기록합니다. 영수증에도 원문 대신 무작위 salt를 더한 commitment만 넣고, 원문과 salt는 접근 권한이 있는 곳에만 보관합니다.',
+      body: '올라가지 않습니다. 원장에는 여러 영수증을 묶은 root와 건수, 버전만 기록합니다. 영수증에도 원문 대신 무작위 salt를 더한 commitment만 넣고, 현재 PoC는 원문과 salt를 이 브라우저 localStorage에 평문 보관하며 인증·접근 통제가 없습니다. 실제 서비스에는 별도 접근 통제가 필요합니다.',
     },
     {
       id: 'inference',

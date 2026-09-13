@@ -50,6 +50,7 @@ export async function verifyInclusion(
 ): Promise<boolean> {
   if (!Number.isSafeInteger(index) || !Number.isSafeInteger(treeSize)) return false
   if (index < 0 || treeSize < 1 || index >= treeSize) return false
+  if (root.length !== 32 || siblings.some((sibling) => sibling.length !== 32)) return false
 
   let fn = index
   let sn = treeSize - 1

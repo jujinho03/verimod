@@ -30,12 +30,17 @@ describe('RFC 9162 Merkle tree', () => {
     await expect(merkleRoot([])).rejects.toThrow()
   })
 
-  it.each([1, 2, 3, 5, 7, 8])('n=%i의 모든 index에서 포함 증명이 통과한다', async (n) => {
+  it.each([1, 2, 3, 4, 5, 7, 8, 9])('n=%i의 모든 index에서 포함 증명이 통과한다', async (n) => {
     const e = await entries(n)
     const root = await merkleRoot(e)
     for (let i = 0; i < n; i++) {
       const proof = await inclusionProof(e, i)
       expect(await verifyInclusion(e[i], i, n, proof, root)).toBe(true)
+      if (proof.length) {
+        const changed = proof.map((p) => p.slice())
+        changed[0][0] ^= 1
+        expect(await verifyInclusion(e[i], i, n, changed, root)).toBe(false)
+      }
     }
   })
 

@@ -2,13 +2,15 @@
 
 **팀원과 각자의 AI가 함께 읽는 프로젝트 기준 파일**
 
-- 문서 버전: 1.0 / 작성일: 2026-09-11
+- 문서 버전: 1.1 (2026-09-12 frontend synthetic vertical slice 반영) / 재점검: 2026-09-13 / latest verified commit: `908f64eec5933dce2371ca48d35893fa01d0a8e8` + 현재 P0 작업 트리
 - 프로젝트: VeriMod - 검증 가능한 AI 콘텐츠 모더레이션 감사 프로토콜
 - 영문 정의: User-Verifiable AI Moderation Protocol
-- 팀: HTTP 451. 임시 기획서에는 Team 451로 표기되어 있으며 같은 프로젝트 팀을 가리킨다. 대외 표기는 제출 전에 통일한다.
+- 팀: HTTP 451. 최신 기획서 본문 기준 주진호·노유신·설경민 3인 팀이다.
 - 저장소: https://github.com/jujinho03/verimod
-- 현재 단계: 기본 프로젝트 골격 구성 및 핵심 인터페이스 설계. VeriMod 핵심 기능 구현 전.
-- 기반 자료: [임시 프로젝트 기획서, 13페이지](docs/references/project-proposal-2026-09-11.pdf), 기존 사용자 마스터 컨텍스트, 저장소의 인터페이스 제안서.
+- 현재 단계: 실제 SHA-256·Merkle 계산 및 UI를 갖춘 브라우저 시뮬레이션. 실제 AI·업무 API·epoch contract·testnet은 미연결. 다음 단계는 I1~I4 계약 검토다.
+- 기반 자료: [최신 기획서, 14장](docs/references/project-proposal-2026-09-12.pptx), `908f64e` 소스 및 기존 인터페이스 제안서. [과거 13페이지 PDF](docs/references/project-proposal-2026-09-11.pdf)는 이전 시점 자료다.
+- 바로 이어 읽을 문서: [최신 상태·기획서 정정 목록](docs/03-current-status.md), [I1~I4 계약 검토 초안](docs/04-interface-contract-draft.md).
+- 인용 기준: 별도로 “최신 PPTX”라고 명시하지 않은 기존 `[기획서 p.N]` 표기는 2026-09-11 PDF의 과거 출처다. 기존 공유용 v1.0 PDF는 이 v1.1 문서를 반영하지 않는다.
 
 > 이 문서는 기획서의 제품 방향을 중심으로 팀의 공통 이해를 정리한 문서다. 확정된 기술 사양이나 구현 완료 보고서가 아니다. 다른 AI에 공유할 때는 이 파일 전체를 전달하고, 실제 작업 요청을 별도로 덧붙인다.
 
@@ -21,7 +23,7 @@
 | 상태 | 의미 |
 |---|---|
 | 공통 방향 | 기존 사용자 요청과 임시 기획서에서 일치하는 프로젝트 목표 |
-| 기획서 제안 | 임시 PDF에 있는 구현 방식·일정·역할·기대효과. 구현 또는 합의 완료를 뜻하지 않음 |
+| 기획서 제안 | 출처 시점을 명시한 기획서의 구현 방식·일정·역할·기대효과. 구현 또는 합의 완료를 뜻하지 않음 |
 | 기술 보완 제안 | 기존 설계와 이번 정리에서 제시한 구체화. 팀 합의 후 채택 |
 | 확인 필요 | 근거 확인이나 팀 결정이 필요한 항목. 임의로 확정하지 않음 |
 | 현재 적용 상태 | 실제 repository에서 확인한 코드·설정 또는 출처를 밝힌 팀 결정 기록. 검증 실행 여부는 별도 표시 |
@@ -77,13 +79,13 @@ VeriMod가 집중하는 질문은 다음과 같다.
 3. 정책 규칙을 적용해 승인·검토 보류·제한을 결정한다.
 4. 모델·정책·점수·결과·시각 등을 담은 불변 Decision Receipt를 발급한다.
 5. receipt를 정해진 규칙으로 직렬화하고 hash를 계산한다.
-6. 권장 batching 설계에서는 여러 receipt의 hash로 Merkle tree를 만들고 root를 온체인에 기록한다.
+6. 최신 기획 방향은 여러 receipt의 hash를 Merkle epoch로 묶어 root를 온체인에 기록하는 것이다.
 7. 이용자는 receipt, Merkle proof, anchor 정보를 받는다.
 8. 검증 버튼으로 body hash와 proof를 재계산하고 신뢰한 contract의 root와 대조한다.
 9. 보유한 영수증의 사본을 수정하면 기존 anchor에 대한 검증이 실패한다.
 10. 이용자가 이의제기하면 새 기록을 만들고, 사람이 검토한 결과도 최초 판정과 연결한다.
 
-기획서의 네 단계는 **판정 → 봉인 → 검증 → 이의**다. 위 흐름은 같은 UX를 기존 Merkle batching 방향과 연결한 기술 보완 제안이다. 기획서 자체에는 Merkle proof 세부 구조가 명시되어 있지 않다. [기획서 p.6, p.8]
+최신 PPTX 6장의 다섯 단계는 **판정 → 발급 → 고정 → 검증 → 이의**다. 8장은 epoch 등록을 명시한다. 상세 schema·직렬화·proof·ABI의 정식 규칙은 별도 합의 대상이다.
 
 “영수증 발급 완료”와 “블록체인 앵커 확인 완료”를 구분한다. 앵커 대기 중에 Verified를 표시하지 않는다.
 
@@ -94,8 +96,8 @@ VeriMod가 집중하는 질문은 다음과 같다.
 | 실제 텍스트 입력과 AI 추론 | 고정 응답이 아닌 실제 모델 출력이 기록됨 |
 | 정책에 따른 조치 | 지원 라벨·정책·threshold를 연결해 결과를 설명할 수 있음 |
 | 불변 receipt | 생성 이후 body를 덮어쓰지 않고 별도 기록으로 변경을 남김 |
-| 결정적 직렬화와 hash | 같은 의미의 유효 입력이 공통 규칙에 따라 같은 bytes/hash가 됨 |
-| Merkle batching과 proof | 채택 시 각 receipt가 해당 root에 포함됨을 검증함 |
+| 결정적 직렬화와 hash | 명세가 정한 동일 데이터와 직렬화 규칙에서 같은 bytes/hash가 됨 |
+| Merkle batching과 proof | 각 receipt가 해당 epoch root에 포함됨을 검증함 |
 | 실제 EVM testnet 앵커 | 배포 주소와 성공 transaction을 직접 확인할 수 있음 |
 | 이용자 검증 | 서버의 성공 문구에만 의존하지 않고 직접 재계산·조회함 |
 | 변조 탐지 | score·정책·근거 등의 변경이 원래 anchor와 불일치함 |
@@ -111,7 +113,7 @@ VeriMod가 집중하는 질문은 다음과 같다.
 
 ### 6.1 기획서의 AI 제안
 
-기획서는 LLM 기반 분류, 항목별 점수, 승인·보류·차단, XAI 근거 생성을 제시한다. 항목 예시는 욕설·혐오·폭력·성적·스팸·허위정보다. 이는 계획이며 여섯 범주의 분류 기능이 이미 존재한다는 뜻이 아니다. [기획서 p.6-7, p.9-10]
+최신 PPTX 7장은 한국어 encoder classifier 또는 LLM 분류를 미정으로 둔다. 현재 scorer는 hate/profanity/sexual/spam/violence 5개 라벨의 합성 점수 생성기이며 실제 모델이 아니다. 과거 기획서의 허위정보 예시는 실제 지원 라벨에 자동 포함하지 않는다.
 
 기존 논의는 한국어 encoder classifier와 공개 moderation dataset을 우선 검토했다. **LLM 방식과 classifier 방식 중 최종 선택은 아직 열려 있다.** 이번 기준서로 어느 한쪽을 몰래 확정하지 않는다.
 
@@ -151,7 +153,7 @@ DB·전자서명·Merkle transparency log로 해결할 수 있는 부분도 인�
 
 ### 7.2 온체인과 오프체인
 
-기획서는 SHA-256과 Solidity/EVM testnet(Base Sepolia), 등록·조회·이의 기록, 원문의 오프체인 저장을 제안한다. [기획서 p.7-8]
+최신 PPTX 7·8장은 SHA-256과 Solidity/EVM testnet, epoch 등록·조회·event, 접근 통제 오프체인 저장을 제안한다. 체인은 미정이며 과거 Base Sepolia 제안을 확정 체인으로 사용하지 않는다.
 
 기존 방향은 여러 receipt를 Merkle root 하나로 묶어 기록하는 batching이다. 이를 유지하면 기획서의 재해싱 대조 UX에 inclusion proof 확인이 추가된다. 개별 판정마다 transaction을 보내는 방식으로 바꾸려면 비용·처리량·개인정보·데모 영향을 검토하고 명시적으로 합의한다.
 
@@ -193,13 +195,13 @@ UTC 시간 형식, null/누락, Unicode, 숫자, 배열 순서를 명시한다. 
 
 기존 상세 제안에서 receipt hash 입력은 `verimod:receipt:v1`의 ASCII bytes, zero byte, canonical body bytes의 결합이다. leaf는 `0x00` byte와 receipt hash raw 32 bytes를 SHA-256으로 해싱하고, 내부 노드는 `0x01` byte와 left/right raw hash를 같은 방식으로 해싱한다.
 
-트리 모양과 proof는 RFC 9162 방식을 후보로 삼으며, pair 정렬·홀수 leaf 복제 방식과 섞지 않는다. empty epoch는 커밋하지 않고 단일 leaf의 proof는 빈 배열이다. proof는 index, tree size, sibling 순서를 포함하고 count·경로 길이를 검증한다. 이는 채택 및 교차 언어 검증 전 설계다.
+트리 모양과 proof는 시험 코드에서 ordered CT 방식을 사용하며, pair 정렬·홀수 leaf 복제 방식과 섞지 않는다. empty epoch는 커밋하지 않고 단일 leaf의 proof는 빈 배열이다. proof는 index, tree size, sibling 순서를 포함하고 count·경로 길이를 검증한다. 이는 시험 구현의 존재와 별개로 정식 채택 및 독립 구현 간 공통 벡터 검증이 필요한 설계다.
 
 content commitment는 원문 단순 hash보다 private random salt를 포함하는 방식을 권장한다. 원문·salt는 권한 있는 주체만 접근한다. 원문 commitment와 receipt hash는 용도가 다르다.
 
 ### I4. Merkle root → Smart Contract epoch commitment
 
-권장 등록 단위는 epoch다. 논리적 입력은 epoch ID, root, receipt count, protocol version이며, 등록 권한·중복 방지·기존 값 수정 금지·조회·event가 필요하다. 실제 ABI, 타입 폭, chain, finality 규칙은 미정이다.
+최신 기획서의 등록 단위는 epoch다. 논리적 입력은 epoch ID, root, receipt count, protocol version이며, 등록 권한·중복 방지·기존 값 수정 금지·조회·event가 필요하다. 실제 ABI, 타입 폭, chain, finality 규칙은 미정이다.
 
 한 epoch에 모델·정책 버전이 여러 개 들어갈 수 있다면 단일 model version을 epoch 대표값처럼 쓰지 않는다. 각 receipt 안의 commitment가 root에 묶이도록 한다.
 
@@ -218,7 +220,7 @@ content commitment는 원문 단순 hash보다 private random salt를 포함하�
 
 MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤로 미루는 것은 기존 제안이다. 정책상 제한 조치와 UI의 게시물 삭제/숨김/복구 매핑은 별도 합의한다.
 
-**설계 보완 필요:** 이의제기에는 UPHOLD/OVERTURN이 자연스럽지만, 최초 HUMAN_REVIEW를 직접 처리하는 경우에는 유지/번복보다 RESOLVED 같은 별도 결과가 적절할 수 있다. 기존 상세 문서의 outcome 열거형은 이 경우까지 확정한 것으로 읽지 않는다.
+**현재 시험 구현:** RESTRICT에 appeal 1건, 판정당 review 1건을 허용한다. 이의 검토는 UPHOLD/OVERTURN, HUMAN_REVIEW 직접 종료는 RESOLVED를 사용한다. ALLOW는 appeal 대상이 아니다. 이 제한과 RESOLVED의 정식 채택은 미정이며 계약 초안 C02에서 검토한다.
 
 이용자 본인의 appeal 권한, reviewer 권한, 중복·동시 요청 처리는 backend가 검증한다. receipt에 HUMAN_REVIEWER라는 문자열을 썼다는 사실만으로 실제 사람 검토가 증명되지는 않는다.
 
@@ -228,7 +230,7 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 |---|---|---|
 | score·정책·근거가 사후 변경됨 | 원본 commitment에 대한 hash/proof 불일치 | 어떤 필드가 왜 바뀌었는지는 별도 비교 필요 |
 | 모델 버전 식별 정보 변경 | receipt에 기록된 manifest 참조 변경 | 실제로 그 모델이 실행됐는지 증명하지 않음 |
-| appeal/review 기록 변경 | 연결 hash와 각 기록 inclusion 불일치 | 누락된 기록이나 숨겨진 다른 분기 부재는 보증하지 않음 |
+| appeal/review 기록 변경·누락 | body 변경은 hash/proof, 연결 의미는 lifecycle 검사로 구분 | core VALID와 lifecycle 성공은 별개. 누락은 INCOMPLETE_HISTORY이며 숨겨진 분기 부재는 증명하지 않음 |
 | 플랫폼 DB가 현재 다른 값을 제공 | 이용자가 보유한 원본 anchor와 독립 대조 | 원본 receipt/proof 확보가 중요 |
 | 플랫폼이 처음부터 허위 입력을 기록 | 기본 구조만으로 탐지 불가 | 입력 진실성·추론 attestation 범위 밖 |
 | 플랫폼이 사건을 기록하지 않음 | 기본 구조만으로 완전성 증명 불가 | root는 포함된 목록만 commit함 |
@@ -243,7 +245,7 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 원문, 사용자 ID 원문, appeal 본문, 민감한 evidence, 내부 reviewer 개인정보는 public blockchain에 올리지 않는다. 상세 receipt 역시 모든 사람에게 자동 공개하지 않는다.
 
-기획서는 IPFS 등 탈중앙 스토리지를 제안한다. 기존 사용자 방향은 moderation 원문을 IPFS에 영구 공개하지 않는 것이다. **오프체인 저장은 IPFS와 동의어가 아니며, 공개 IPFS만 사용한다고 privacy가 보장되지 않는다.**
+최신 PPTX 7장은 접근 통제 DB/스토리지를 제시하며 원문 공개 IPFS는 채택하지 않았다. **오프체인 저장은 IPFS와 동의어가 아니며, 공개 IPFS만 사용한다고 privacy가 보장되지 않는다.**
 
 저장 방식은 접근 제어, 삭제·보존 정책, salt와 proof의 보관, 이용자의 receipt 다운로드를 기준으로 결정한다. MVP 기본 검토안은 접근 통제가 가능한 DB/스토리지다. IPFS 채택은 공개 가능한 자료의 범위와 기밀성·가용성 대책을 별도 합의한 뒤 검토한다. [기획서 p.7, p.13과 기존 사용자 원칙의 조정 필요]
 
@@ -262,7 +264,7 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 | 5. 사용자 이의 | 원래 판정에 대한 appeal 접수 | 새로운 연결 receipt 생성 |
 | 6. 사람 검토 | 조치 유지 또는 복구 결과 | 선행 기록과 최종 receipt 검증 |
 
-기획서의 5장면에 기존 사용자 MVP 요구인 appeal/review를 연결한 시나리오다. 점수 예시는 합성 예시라고 표시하고 실제 모델 성능으로 사용하지 않는다.
+최신 PPTX 11장에도 실제 판정부터 이의·사람 검토까지 여섯 장면이 제시돼 있다. 점수 예시는 합성 예시라고 표시하고 실제 모델 성능으로 사용하지 않는다.
 
 최소 화면은 입력, 판정 결과, 영수증, 검증, 이의제기, 검토 결과다. 관리자 화면은 review에 필요한 범위로 제한한다. 별도 화면 개수보다 흐름의 연속성이 중요하다.
 
@@ -270,25 +272,17 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 ## 13. 팀 역할과 협업
 
-기획서는 2인 팀을 “판단하는 쪽”과 “증명하는 쪽”으로 나누고 판정 레코드 규격을 공동 합의하도록 제안한다. [기획서 p.10]
+최신 PPTX 10장 본문 기준이다. 같은 장의 2인 팀 발표자 노트는 오래된 설명이다.
 
-| 역할 | 기획서 기준 책임 | 공동 접점 |
+| 팀원 | 주 책임 | 공동 접점 |
 |---|---|---|
-| A - 팀장 / AI·프론트엔드 | AI 분류·항목 점수, 근거·오탐 분석, threshold, React 검증·receipt 화면, 기획·조사·발표 | I1 의미, receipt 표시, 데모 |
-| B - 블록체인·백엔드 | contract·testnet, 직렬화·hash·앵커, 이의 기록, 오프체인 저장, 변조 테스트, 배포 증빙 | I2~I4, 독립 verifier 연결 |
-| 공동 | schema 합의, 개인정보 범위, 통합 테스트, PR 리뷰, 시연 리허설 | 변경 영향과 테스트 결과 공유 |
+| 주진호 | 팀장, 업무 API·불변 저장·인증·원문 접근 통제·상태 처리, 프론트엔드, 일정·발표 | I1 소비, I2 발급·저장, I4 배치 운영, UI 의미 |
+| 노유신 | 지원 라벨, 데이터·baseline 평가, score·evidence, 오탐·threshold, 정책·시연 | I1 생산, model/policy manifest |
+| 설경민 | receipt schema·직렬화·hash·Merkle/proof, epoch contract·testnet·독립 verifier·공통 벡터 | I2·I3·I4 |
 
-위 역할은 작업 분담 기준안이다. 이름·경력·학교·개별 계정과 A/B의 매핑은 임의 작성하지 않는다. 저장소 소유 계정은 jujinho03, 공유 대상으로 요청된 계정은 k0ng-min이다. 권한·초대 상태는 작업 시 실제 GitHub에서 확인한다.
+네 인터페이스, 개인정보 범위, 통합 테스트와 receipt/hash 호환성은 세 사람이 공동 검토한다. 작업 시작 시 문서 버전과 Git 상태를 확인하고, 담당 파일과 생산자·소비자를 명시한다. AI 보고는 실제 출처와 실행 결과를 붙여 전달한다.
 
-각자 사용하는 AI는 다음 방식으로 협업한다.
-
-1. 작업 시작 전 이 기준서의 버전과 실제 Git commit/status를 확인한다.
-2. 맡은 작업과 수정 가능한 경계를 명시한다.
-3. AI 결과를 상대 AI에 그대로 사실처럼 전달하지 않고 실제 파일·출처·실행 결과를 함께 전달한다.
-4. receipt나 hash 규칙을 바꾸면 두 담당자에게 영향을 설명하고 합의를 남긴다.
-5. 작업 후 변경 파일, 이유, 검증 결과, 미정 사항, 다음 작업을 기록한다.
-
-기능 브랜치 → Pull Request → 상대 팀원 리뷰 → main 반영을 협업 방식으로 사용한다. 자동 merge, 팀원 대신 승인, 임의 공개 전환을 이 문서만으로 허용하지 않는다. [기획서 p.10, p.12]
+기능 브랜치 → Pull Request → 팀원 리뷰 → main 반영을 협업 원칙으로 유지한다. 자동 merge·대리 승인을 팀원 리뷰로 대체하지 않는다. 합의 전 시험 규칙은 PROTOTYPED로 구분하고 정식 채택하지 않는다. 저장소 계정 권한이나 초대 상태는 이번 문서가 증명하지 않는다.
 
 ## 14. 일정과 개발 순서
 
@@ -302,15 +296,13 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 “9월 말~10월 말”과 “7주”의 실제 시작·종료일은 일치 여부 확인이 필요하다. 주차별 계획을 달력에 자동 확정하지 않는다.
 
-| 개발 단계 | A 측 목표 | B 측 목표 | 공동 완료조건 |
-|---|---|---|---|
-| 구현 전 | 라벨·score 의미·AI 방식 비교 | receipt/트리/epoch 경계 검토 | 네 인터페이스 합의 |
-| 1~2주 | baseline·평가 데이터·정책 규칙 | 직렬화·receipt·contract interface | 공통 테스트 입력과 기대 결과 |
-| 3~4주 | 오류 분석·근거 표현·threshold | testnet 앵커·gas 측정·appeal | 최초 실제 E2E 및 한계 확인 |
-| 5~6주 | 사용자 receipt·검증 화면 | 저장·proof·변조 테스트 | 사용자 흐름 통합 |
-| 7주~본선 | 발표·시나리오·시연 안정화 | 배포 정보·통합 테스트·장애 대응 | 실제 증빙과 리허설 |
+| 개발 순서 | 주진호 | 노유신 | 설경민 | 공동 완료조건 |
+|---|---|---|---|---|
+| 현재 계약 검토 | 상태·권한·API 경계 | 라벨·score·오류 | schema·bytes·proof·ABI | I1~I4의 입력·출력·오류와 변경 영향 합의 |
+| 실제 연결 | 업무 API·저장·인증·UI | 실제 모델·baseline·정책 평가 | 공통 코어·contract·testnet·reader | 실제 판정에서 외부 root 대조까지 연결 |
+| 검증·시연 | 재시도·동시성·권한·발표 | 오탐·실패 사례·시나리오 | 변조·finality·배포 증빙 | 이의·검토와 실패 흐름을 포함한 실제 E2E |
 
-위 표는 기획서 일정에 인터페이스·평가 작업을 보완한 계획이다. 각 단계의 착수·완료는 실제 결과로 갱신하고, 이번에는 구현을 시작하지 않는다.
+주차와 마감은 공식 일정 확인 후 배정한다. 현재 다음 단계 산출물은 [계약 검토 초안](docs/04-interface-contract-draft.md)이며, 문서 작성만으로 구현·합의 완료가 되지는 않는다.
 
 ## 15. 차별성, 규제와 발표 표현
 
@@ -346,52 +338,42 @@ EU AI Act의 고위험 분류는 구체적 용도와 법령상 범위에 따라 
 
 | ID | 쟁점 | 자료의 차이 | 현재 처리 / 다음 결정 |
 |---|---|---|---|
-| D01 | AI 방식 | 기획서 LLM / 기존 한국어 classifier | 둘 다 후보. 라벨·데이터·재현성·지연·평가로 선택 |
-| D02 | 분류 범위 | 기획서 6개 예시 항목 / 기존 데이터 기반 범위 | 실제 지원 라벨부터 확정. 허위정보는 별도 검토 |
+| D01 | AI 방식 | 최신 PPTX도 classifier/LLM 미정, 현재 합성 scorer | 실제 데이터·평가에 따라 선택 |
+| D02 | 분류 범위 | 시험 5라벨과 실제 모델의 지원 범위는 별개 | 라벨 의미·누락 처리 합의. 허위정보 자동 추가 금지 |
 | D03 | XAI 의미 | 기획서 근거 생성 / 기존 구조화된 evidence 우선 | 생성 설명과 검증 가능한 evidence를 구분 |
-| D04 | 저장 방식 | 기획서 IPFS / 기존 원문 공개 영구 저장 금지 | 원문 공개 IPFS는 채택하지 않음. 오프체인 접근 통제 설계 합의 |
-| D05 | 등록 단위 | 기획서 판정 hash 등록 / 기존 Merkle batch | 기존 batching 방향 유지가 권장. 개별 transaction 전환은 명시 합의 필요 |
-| D06 | appeal 저장 | 기획서 이의 기록 함수 / 기존 연결 receipt | 본문 오프체인, commitment 연결. 별도 contract 함수 필요성 결정 |
+| D04 | 저장 방식 | 최신 기획서는 접근 통제 저장·공개 IPFS 미채택 | DB·보존/삭제·salt 전달·권한은 미정 |
+| D05 | 등록 단위 | 최신 PPTX 8장은 epoch 등록 명시 | 최신 기획 방향으로 반영. ABI·운영 세부는 C06에서 검토 |
+| D06 | appeal 저장 | 최신 PPTX는 연결 receipt를 후속 batch에 포함 | 별도 온체인 appeal 함수는 채택하지 않은 후보 |
 | D07 | score와 threshold | 기획서 항목 점수 / 기존 확률 ppm 제안 | 숫자의 의미를 먼저 확정. 임계값은 평가 후 선택 |
-| D08 | 직접 사람 검토 | 기존 outcome이 UPHOLD/OVERTURN | HUMAN_REVIEW 직접 종료에 맞는 outcome 추가 여부 결정 |
-| D09 | 팀 표기·역할 | 기획서 Team 451·A 프론트 / 기존 HTTP 451·일부 유연 분담 | 동일 팀 맥락. 대외 명칭 및 실제 담당 확정 |
-| D10 | 일정·제출 조건 | 기획서 날짜·13페이지 / 기존 제출 분량 조건 | 최신 공식 공지 대조. 이 기준서는 제출용 PPT가 아님 |
-| D11 | 공통 직렬화·proof | 기존 JCS/SHA-256/CT 제안 | 스키마·라이브러리·테스트 벡터로 합의 후 고정 |
+| D08 | 직접 사람 검토 | 시험 코드에 RESOLVED와 판정당 1건 제한 존재 | C02에서 정식 채택·권한·동시성 규칙 검토 |
+| D09 | 팀 표기·역할 | 최신 PPTX 본문은 HTTP 451·3인 팀 | 13절에 반영. 과거 A/B와 2인 노트를 현재 정보로 사용하지 않음 |
+| D10 | 일정·제출 조건 | 최신 기획서는 14장, 기간과 7주 표기 불일치 | 공식 공지 대조 전 제출 분량·일정 확정 금지 |
+| D11 | 공통 직렬화·proof | 제한 직렬화·SHA-256·ordered CT 시험 코드 | C03~C05에서 정식 프로파일·schema·벡터 합의 |
 | D12 | chain·운영 | Base Sepolia 등 후보 | 배포 체인·RPC·finality·publisher 키 관리 합의 |
 
 우선순위는 **지원 라벨/score 의미 → 상태 전이 → receipt body → hash/leaf/proof → epoch ABI → 구현 기술 선택**이다. 인터페이스가 먼저이며 모델과 프레임워크 이름을 정하는 것만으로 착수 조건이 충족되지 않는다.
 
 ## 17. 실제 현재 상태와 앞으로 남길 증거
 
-2026-09-11 공유 직전 원격 변경을 동기화하고, 팀원의 `e110565` 커밋을 실제 파일로 확인한 기준이다. 최초 문서 커밋은 `114e072`였고, 문서 작성 중 기본 골격이 추가되어 상태를 갱신했다.
+제품 코드 기준은 2026-09-12 원격 main/dev의 `908f64eec5933dce2371ca48d35893fa01d0a8e8`이다. 로컬 main을 같은 커밋으로 fast-forward한 뒤 기능 브랜치에서 이 문서를 갱신했다. 최신 확인 범위와 기획서 정정 목록은 [03-current-status](docs/03-current-status.md)에 남긴다.
 
-- 공개 GitHub `jujinho03/verimod`와 로컬 clone이 존재한다. 2026-09-11 사용자 요청으로 Public 전환을 확인했다.
-- 기본 브랜치는 main이고, 원격에 dev 브랜치도 존재한다.
-- README, AGENTS, CLAUDE, Git 제외 설정, 상태 점검·인터페이스·결정 우선순위 문서가 존재한다.
-- frontend·backend·contracts의 소스, package.json, lockfile과 테스트 파일이 추가되었다.
-- 실제 AI 판정, receipt/hash/Merkle, epoch 등록, 독립 검증, appeal/review, 업무용 DB, testnet 배포, 학습·성능 측정은 아직 없다.
-- 이번 기준서 작업에서는 팀원의 코드를 읽고 보존했으며, 제품 코드를 새로 작성하거나 골격 테스트를 재실행하지 않았다.
-- 원본 기획서는 13페이지 이미지 기반 PDF로, 페이지를 렌더링해 전체 내용을 확인했다.
-
-| 실제 경로 | 확인한 내용 | 상태 해석 |
+| 실제 경로 | 확인한 구현 | 경계 |
 |---|---|---|
-| frontend/src/App.tsx | `/api/health` 호출과 연결 상태 표시 | Vite·React·TypeScript 기본 화면. 실제 moderation/receipt 화면 아님 |
-| backend/src/app.ts | Express 앱과 GET `/api/health` 응답 | Node.js·TypeScript·Express 5 기본 API. 판정 API 아님 |
-| backend/contracts/contracts/ToolchainCheck.sol | 문자열을 반환하는 ping 함수 | 도구 연결 확인용. VeriMod commitment contract 아님 |
-| backend/contracts/hardhat.config.ts | Hardhat 및 Solidity 0.8.34 설정 | 개발 도구 설정. testnet 배포 증거 아님 |
-| 각 package.json·package-lock.json | 패키지·실행 명령·의존성 기록 | 이 PC에 설치 또는 실행 완료했다는 뜻은 아님 |
+| frontend/src/main.tsx, pages/ | 판정·receipt·검증·변조·appeal·review 화면 | 서비스 API와 미연결 |
+| frontend/src/domain/ | schema, receipt, 실제 SHA-256·Merkle·proof·verifier 계산 | 직렬화·타입은 시험 규칙, JCS 전체 호환 미입증 |
+| frontend/src/domain/scorer.ts, manifests.ts | 키워드/hash 기반 합성 점수와 예시 정책 | 실제 AI·평가·calibration 아님 |
+| frontend/src/store/ | localStorage 상태와 시뮬레이션 원장·배치 | 원문·salt도 브라우저에 있음. 운영 접근 통제와 외부 원장 보장 없음 |
+| backend/src/app.ts | GET /api/health | 실제 업무 API 없음 |
+| backend/contracts/contracts/ToolchainCheck.sol | ping 툴체인 확인 | epoch contract·testnet 배포 아님 |
+| frontend/src/**/*.test.ts | canonical/hash/Merkle/policy/scorer/verifier/store 기존 테스트 7개 파일 + P0 hardening/state 테스트 | 최종 실행 결과는 07 검증 기록 참조 |
 
-`docs/02-decision-register.md`에는 frontend/backend 분리 및 Node.js+TypeScript backend를 “사용자 선택”으로 기록하고 있다. Vite+React+TypeScript와 Hardhat 3은 “제안, 골격에 적용”으로 기록한다. 이 기준서는 그 기록과 실제 적용 상태를 인용하며, 다른 backend로 되돌리지 않는다. AI 방식·정책·저장·체인·앵커 단위는 여전히 별도 합의 대상이다.
+chain ID 31337, 주소·tx/block hash, 6초 배치·12회 확인은 시험 설정이다. core VALID는 별도 manifest/content/lifecycle 결과의 성공이나 AI 정확성을 뜻하지 않는다.
 
-`docs/00-repository-audit.md`에는 팀원 환경의 backend 테스트 1건, 프론트 lint/build, 컨트랙트 테스트 1건 및 health 연결 확인 통과가 기록되어 있다. 이는 **팀원의 보고**이고 이번 문서 작업에서 재검증한 결과가 아니다. 같은 문서에 contracts 의존성 audit 15건(low 8, moderate 6, high 1)의 미조치 보고가 있으므로 의존성 검토 작업에서 재확인한다. 이번에는 패키지를 임의 변경하지 않는다.
+2026-09-13에는 사용자의 P0 요청에 따라 문서 최신화와 PoC 정확성·저장 복구·검증 테스트·simulation disclosure를 보강한다. 실제 실행 명령과 결과는 [검증 기록](docs/07-validation-2026-09-13.md)에 남긴다. 실제 체인 검증·배포는 실행하지 않는다. 과거 환경과 테스트 결과는 [00 점검 기록](docs/00-repository-audit.md)에 보존한다. 지금 통과한 결과로 재사용하지 않는다.
 
-두 사람의 PC 환경은 다르다. 원래 로컬 점검과 팀원의 Windows/Node/npm/Python 버전 보고를 하나의 환경처럼 섞지 않는다. 실행 안내는 README와 각 package.json을 확인하고, 실제 수행한 환경·명령·결과를 함께 기록한다.
+기존 사용자 선택은 frontend/backend/contracts 구조와 Node.js+TypeScript backend다. Vite·React·TypeScript와 Hardhat은 적용된 도구다. 실제 모델·정책·저장·chain·ABI·공통 schema는 별도 계약 검토 대상이다.
 
-이 문서를 읽는 시점에는 상태가 바뀌었을 수 있으므로 반드시 실제 repository와 최근 commit을 확인한다. 문서의 날짜가 지난 상태 정보를 영구 사실로 사용하지 않는다.
-
-구현 이후 남길 증거는 모델·데이터 출처와 라이선스, 평가 조건·결과, schema/version, 공통 hash 벡터, 테스트 로그, contract 주소·chain ID·transaction hash, receipt/proof 예시, 변조 실패 기록, 시연 영상이다. 가짜 주소나 예시 점수를 실제 증거로 채우지 않는다. [기획서 p.12]
-
-기획서의 contracts / ai / web / docs는 초기 구조 제안이다. 현재 실제 구조는 frontend / backend / backend/contracts / docs이며 이를 기준으로 작업한다. 라이브러리 선언, 설치 성공, 실행 성공, testnet 배포를 서로 구분한다.
+후속 구현에서는 모델·데이터 출처/라이선스, 평가 조건·결과, schema/version, 공통 hash 벡터, 테스트 로그, 실제 contract 주소·chain ID·tx, 합성 receipt/proof 예시, 변조 실패 기록과 시연 영상을 남긴다. 공개 저장소에는 원문·개인정보·salt·키·토큰 등 비공개 데이터를 포함하지 않는다.
 
 ## 18. 이 파일을 다른 AI에게 전달하는 방법
 
@@ -413,6 +395,8 @@ repo 접근이 없는 AI는 문서 분석·설계 지원만 할 수 있다. 실�
 새 결정은 이 파일의 관련 절과 아래 변경 이력에 반영한다. 상세 명세의 기존 규칙을 변경하면 해당 문서도 함께 수정한다. PDF는 읽기용 snapshot이고, 지속 갱신하는 원본은 이 Markdown 파일이다.
 
 ## 19. 원본 페이지 대응표와 출처
+
+아래 표는 최초 2026-09-11 PDF의 출처 이력이다. 최신 14장 PPTX의 대응표와 정정 목록은 [최신 상태](docs/03-current-status.md)에 있다.
 
 | 원본 PDF 페이지 | 내용 | 기준서 반영 위치 |
 |---|---|---|
@@ -441,3 +425,8 @@ repo 접근이 없는 AI는 문서 분석·설계 지원만 할 수 있다. 실�
 | 버전 | 날짜 | 내용 | 결정 상태 |
 |---|---|---|---|
 | 1.0 | 2026-09-11 | 임시 기획서 13페이지 통합, 팀원 e110565 골격 반영, GitHub Public 전환 확인 | 공통 기준서 작성. 적용 스택과 미정 인터페이스 구분 |
+| 1.1 | 2026-09-12 | frontend synthetic vertical slice, 최신 14장 기획서·3인 팀·epoch 방향, 908f64e 상태와 계약 초안 반영 | 사실 갱신. C01~C08 기술 제안은 미승인 |
+
+### 2026-09-13 P0 재점검
+
+기존 7개 frontend 테스트 파일 54건, backend health 1건, contract ToolchainCheck 1건을 수정 전 재실행했다. 최종 결과는 [검증 기록](docs/07-validation-2026-09-13.md)이 우선한다. 발견된 저장 상태 무검증·검증 예외·비동기 중복·이력 연결 문제와 보강 범위는 [protocol audit](docs/05-protocol-audit.md)에 기록한다. 공통 protocol 분리, authoritative backend, DB, 실제 AI·contract·testnet은 [P1 backlog](docs/06-p1-backlog.md)이며 이번에 구현하지 않는다. Markdown이 원본이고 기존 PDF snapshot은 갱신하지 않았다.

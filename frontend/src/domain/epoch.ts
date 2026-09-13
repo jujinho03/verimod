@@ -22,7 +22,8 @@ export async function freezeEpoch(members: readonly EpochMember[]): Promise<Froz
     throw new Error('epoch에 중복된 receipt_id 또는 receipt_hash가 있습니다')
   }
 
-  const ordered = [...members].sort((a, b) => (a.receipt_id < b.receipt_id ? -1 : 1))
+  // Await 중 호출자가 입력 객체를 바꿔도 root와 members/proofs는 같은 snapshot을 쓴다.
+  const ordered = members.map((m) => ({ ...m })).sort((a, b) => (a.receipt_id < b.receipt_id ? -1 : 1))
   const entries = ordered.map((m) => hexToBytes(m.receipt_hash))
   const root = bytesToHex(await merkleRoot(entries))
 

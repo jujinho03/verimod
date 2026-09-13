@@ -1,8 +1,8 @@
-import { hexToBytes, type Hex32 } from './hash'
+import { hexToBytes, isHex32, type Hex32 } from './hash'
 import type { ManifestHashes } from './manifests'
 import { verifyInclusion } from './merkle'
 import { contentCommitment, receiptHash } from './receipt'
-import { validateBundle } from './schema'
+import { parseBundleJson, validateBundle } from './schema'
 import type { AppealBody, ReceiptBody, ReviewBody, VerificationBundle } from './types'
 
 export const REQUIRED_CONFIRMATIONS = 12
@@ -103,7 +103,7 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
     return { code, steps, ...partial }
   }
 
-  const parsed = validateBundle(input)
+  const parsed = typeof input === 'string' ? parseBundleJson(input) : validateBundle(input)
   if (!parsed.ok) {
     step('schema', 'FAILED', parsed.message)
     return done(parsed.code)
@@ -140,8 +140,12 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
   try {
     epoch = await ctx.ledger.getEpoch(ctx.trust.contract_address, anchor.epoch_id)
     block = await ctx.ledger.blockNumber()
-  } catch (error) {
-    if (!(error instanceof RpcUnavailableError)) throw error
+    if (!Number.isSafeInteger(block) || block < 0 || (epoch && (
+      epoch.epoch_id !== anchor.epoch_id || !isHex32(epoch.root) ||
+      !Number.isSafeInteger(epoch.anchored_block) || epoch.anchored_block < 0 ||
+      !Number.isSafeInteger(epoch.receipt_count) || epoch.receipt_count < 1 || epoch.receipt_count > 0xffffffff
+    ))) throw new RpcUnavailableError('잘못된 원장 응답')
+  } catch {
     step('epoch', 'PENDING', 'RPC가 응답하지 않아 원장을 조회하지 못했습니다. 변조로 판단하지 않습니다')
     return done('RPC_UNAVAILABLE')
   }
@@ -207,6 +211,7 @@ function checkManifests(body: ReceiptBody, manifests: ManifestHashes): SideCheck
 async function checkContent(body: ReceiptBody, ctx: VerifierContext): Promise<SideCheck> {
   const own = ctx.findPrivateContent(body.content_commitment)
   if (!own) return notChecked('원문과 salt가 이 기기에 없어 확인하지 않았습니다')
+  if (!isHex32(own.salt) || typeof own.text !== 'string') return { state: 'FAILED', detail: '보관한 원문·salt 형식이 잘못됐습니다' }
   return (await contentCommitment(own.salt, own.text)) === body.content_commitment
     ? { state: 'PASSED', detail: '이 기기에 보관한 원문과 salt로 다시 계산한 commitment가 일치합니다' }
     : { state: 'FAILED', detail: '보관한 원문과 salt로 계산한 commitment가 다릅니다' }
@@ -224,12 +229,15 @@ export function transitionProblem(body: AppealBody | ReviewBody, subject: Receip
     return original === 'RESTRICT' ? null : '이의제기는 제한 판정에만 연결할 수 있습니다'
   }
   if (previous.event_kind === 'DECISION') {
+    if (body.previous_receipt_hash !== body.subject_receipt_hash) return '직접 검토는 같은 최초 판정을 가리켜야 합니다'
     if (original !== 'HUMAN_REVIEW') return '직접 검토는 검토 보류 판정에만 연결할 수 있습니다'
     return body.payload.outcome === 'RESOLVED' ? null : '직접 검토의 결과는 RESOLVED여야 합니다'
   }
   if (previous.event_kind !== 'APPEAL' || previous.subject_receipt_hash !== body.subject_receipt_hash) {
     return '검토는 같은 판정에 대한 이의제기에 연결돼야 합니다'
   }
+  const previousProblem = transitionProblem(previous, subject, subject)
+  if (previousProblem) return previousProblem
   const { outcome, resulting_action: resulting } = body.payload
   if (outcome === 'UPHOLD') return resulting === original ? null : '유지 결과는 원래 조치와 같아야 합니다'
   if (outcome === 'OVERTURN') return resulting !== original ? null : '변경 결과는 원래 조치와 달라야 합니다'

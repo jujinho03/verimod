@@ -118,7 +118,7 @@ export function PipelineDiagram() {
       </g>
       {node(30, 40, 220, 'AI 출력과 정책 조치', 'scores_ppm · action')}
       {node(30, 134, 220, '영수증 본문', 'DECISION · APPEAL · REVIEW')}
-      {node(30, 228, 220, '영수증 해시', 'SHA-256(domain ‖ JCS)')}
+      {node(30, 228, 220, '영수증 해시', 'domain · 0x00 · restricted JSON')}
       {node(30, 322, 220, 'Merkle root', 'RFC 9162 · epoch', '#0847f7', '#ffffff')}
       {node(30, 416, 220, '원장 앵커', 'root · count · version')}
       {node(360, 256, 170, '독립 검증기', '재계산 · 대조', '#fbbd11', '#0e1119')}

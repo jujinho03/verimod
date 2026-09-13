@@ -32,12 +32,14 @@ export function isHex32(value: unknown): value is Hex32 {
 }
 
 export function bytesToHex(bytes: Bytes): Hex32 {
+  if (bytes.length !== 32) throw new Error('Hex32는 정확히 32 bytes여야 합니다')
   let hex = '0x'
   for (const byte of bytes) hex += byte.toString(16).padStart(2, '0')
   return hex as Hex32
 }
 
 export function hexToBytes(hex: Hex32): Bytes {
+  if (!isHex32(hex)) throw new Error('잘못된 Hex32')
   const out = new Uint8Array((hex.length - 2) / 2)
   for (let i = 0; i < out.length; i++) {
     out[i] = Number.parseInt(hex.slice(2 + i * 2, 4 + i * 2), 16)

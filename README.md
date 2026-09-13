@@ -1,64 +1,160 @@
 # VeriMod
 
-**User-Verifiable AI Moderation Protocol** · HTTP 451 · BLOCK AI 2026
+**User-Verifiable AI Moderation Protocol**
+HTTP 451 · BLOCK AI 2026 · AI + 블록체인 융합 서비스
+**Decide. Prove. Appeal.**
 
-Decide. Prove. Appeal.
+AI 콘텐츠 moderation 판정을 Decision Receipt로 발급하고, Merkle proof와 외부 blockchain commitment를 통해 이용자가 판정 기록의 사후 변경 여부를 직접 검증하고 이의제기 이력을 추적할 수 있도록 하는 protocol.
 
-한국어 AI moderation 판정과 이의제기 기록을 receipt로 제공하고, Merkle proof와 외부 블록체인 앵커를 통해 기록의 무결성을 이용자가 검증하는 프로젝트입니다.
+**현재는 frontend synthetic protocol PoC입니다.** Receipt 생성, 실제 SHA-256·Merkle 계산, 포함 검증, 사본 변조 탐지와 appeal/review 흐름을 실행할 수 있습니다. Moderation score와 ledger/anchor는 simulation이며 실제 AI·업무 backend·EVM testnet은 후속 구현 대상입니다.
 
-현재 단계는 **프로젝트 뼈대 구성**입니다. frontend·backend·contracts 개발 환경과 연결 확인(health check)만 동작하며, AI 판정·receipt·해시·앵커링·검증 기능과 배포 및 성능 측정 결과는 아직 없습니다. `docs/`의 인터페이스 사양은 팀 합의 전 제안이며 확정 사양이 아닙니다.
+## 1. Why VeriMod
 
-## 문서
+판정 알림만으로는 당시 판정·모델·정책 기록이 나중에 바뀌었는지 이용자가 확인하기 어렵습니다. 이용자가 받은 receipt를 직접 재계산하고 외부 commitment와 대조하는 구조를 목표로 합니다. 현재 브라우저 원장은 외부 신뢰 기준점의 역할을 시뮬레이션합니다.
 
-- **처음 읽을 파일: [VeriMod 프로젝트 공통 기준서](MASTER_CONTEXT.md)** - 팀원과 각자의 AI에 전달하는 단일 기준 파일
-- [기준서 읽기용 PDF](output/pdf/VeriMod_Project_Master_v1.0.pdf) - 같은 내용의 공유용 snapshot
-- [임시 프로젝트 기획서 원본](docs/references/project-proposal-2026-09-11.pdf)
-- [현재 상태 점검](docs/00-repository-audit.md)
-- [도메인 모델과 핵심 인터페이스 제안](docs/01-domain-and-interfaces.md)
-- [확정 우선순위와 구현 진입 조건](docs/02-decision-register.md)
+## 2. 핵심 사용자 흐름
 
-제품 맥락은 `MASTER_CONTEXT.md`부터 확인합니다. 기획서와 기존 설계의 차이는 기준서 16절에 정리했으며, 상세 인터페이스는 아직 검토용 제안입니다. 지속 갱신하는 원본은 Markdown이고 PDF는 버전별 읽기용 사본입니다.
+1. `/check`에서 한국어 문장을 입력하고 synthetic 점수·정책 조치를 확인합니다.
+2. 영수증을 발급하고 약 6초 배치 창과 합성 블록 확인을 기다립니다.
+3. 상세 화면에서 해시·Merkle 포함 증명을 검증합니다.
+4. 사본 점수를 바꾸면 `HASH_MISMATCH`, 해시까지 다시 쓰면 원래 root 기준 `INVALID_PROOF`를 확인합니다.
+5. 새 RESTRICT 판정에 이의제기를 제출하고 `/review`에서 검토 결과를 추가합니다. 원본은 덮어쓰지 않습니다.
 
-## 구조
+고정 seed 5건은 초기화 후 같은 receipt hash와 root를 재현합니다. 새 발급은 UUID·시각·salt가 달라집니다. JSON bundle만 다른 브라우저로 가져오면 원래 **로컬 합성 원장**까지 전달되는 것은 아닙니다.
 
-| 폴더 | 역할 | 스택 |
+## 3. 현재 구현 상태
+
+제품 기준: `908f64eec5933dce2371ca48d35893fa01d0a8e8`와 이 브랜치의 P0 수정. [실제 검증 기록](docs/07-validation-2026-09-13.md)은 코드 존재와 실행 성공을 구분합니다.
+
+| 기능 | 상태 | 범위 |
 |---|---|---|
-| `frontend/` | 판정 결과·영수증 검증 화면 | Vite, React, TypeScript |
-| `backend/` | 판정 API, 레코드 해시, 앵커링 | Node.js, TypeScript, Express |
-| `backend/contracts/` | 판정 기록 스마트 컨트랙트 | Hardhat 3, Solidity |
-| `docs/` | 설계 문서 | — |
+| Frontend interaction / receipt generation | SYNTHETIC_POC | 브라우저 발급·조회·내보내기 |
+| Restricted canonical hashing | REAL_IMPLEMENTED | 제한형 JSON + Web Crypto SHA-256; RFC 8785 전체 구현 아님 |
+| Merkle proof / tamper detection | REAL_IMPLEMENTED | ordered CT 계산·재검증; 외부 체인 보장 없음 |
+| Appeal / review lifecycle | SYNTHETIC_POC | 연결 receipt·대기열; 인증된 사람 검토 아님 |
+| Moderation model | SYNTHETIC_POC | synthetic-keyword-match, UNCALIBRATED scores_ppm |
+| Blockchain anchor | SYNTHETIC_POC | chain_id 31337, 주소·tx·block·confirmations 합성 |
+| Backend / contract toolchain | SCAFFOLD_ONLY | GET /api/health, ToolchainCheck.sol |
+| Backend issuance / persistence | NOT_IMPLEMENTED | 업무 API·DB 없음 |
+| VeriMod epoch contract / EVM testnet | NOT_IMPLEMENTED | 배포·실제 tx 없음 |
+| Model evaluation / calibration | NOT_IMPLEMENTED | 성능 수치 없음 |
 
-## 로컬 실행
+## 4. What is real / What is simulated
 
-Node.js 22.14.0에서 확인했습니다. 세 폴더는 의존성을 각자 설치합니다.
+해시와 Merkle proof는 브라우저가 실제 계산합니다. 점수는 키워드와 deterministic noise를 이용한 합성 값이며 확률·학습된 모델의 출력이 아닙니다. 원장은 같은 브라우저의 상태를 읽습니다. `HUMAN_REVIEWER` 문자열도 실제 사람의 신원·권한·행위를 증명하지 않습니다.
 
-```powershell
-# 터미널 1 — 백엔드 (http://localhost:3001)
-cd backend
-npm install
-npm run dev
+## 5. Architecture
 
-# 터미널 2 — 프론트엔드 (http://localhost:5173, /api 요청은 백엔드로 프록시)
-cd frontend
-npm install
-npm run dev
+```text
+현재 브라우저: text → synthetic scorer → policy → Decision Receipt
+                                              ↓ SHA-256
+                   local simulated ledger ← Merkle epoch
+                                              ↓ bundle
+browser verifier: schema → hash → trust → epoch → proof → finality
+별도 확인: manifest / private content / lifecycle
 
-# 컨트랙트 컴파일 + 테스트
-cd backend/contracts
-npm install
-npm test
+P1 목표: 공통 protocol + authoritative backend + private persistence
+         + 실제 model evaluation/inference + EVM commitment + independent chain reader
 ```
 
-브라우저에서 http://localhost:5173 을 열면 "백엔드 연결 · 연결됨"이 표시됩니다.
+core `VALID`와 별도 확인 결과는 따로 읽어야 합니다. RPC 오류는 변조가 아닌 `RPC_UNAVAILABLE`, 미확정은 `PENDING_ANCHOR`입니다.
 
-## 검증 범위
+실제로 실행한 Chrome 화면 (2026-09-13):
 
-판정 기록의 무결성과 특정 앵커에 대한 포함 여부를 검증합니다. 판정의 정확성·공정성, 실제 모델 실행, 신고 누락 없는 전체 기록, 정확한 판정 시각을 증명하지 않습니다. 원문·개인정보·이의제기 본문은 온체인에 저장하지 않습니다.
+![Synthetic 판정 결과](docs/assets/p0-check-2026-09-13.jpg)
 
-## 협업
+[홈 화면](docs/assets/p0-home-2026-09-13.jpg) · [실제 사본 변조 실패](docs/assets/p0-tamper-2026-09-13.jpg)
 
-- 공개 저장소: https://github.com/jujinho03/verimod
-- 기본 작업 브랜치: `main`
-- 구현은 인터페이스 합의 후 사용자가 다음 단계 진행을 요청하면 시작합니다.
-- 각 변경은 관련 문서와 검증 결과를 함께 기록합니다. 기존 receipt 해석을 바꾸는 변경에는 새 protocol version을 부여합니다.
-- 데이터셋·모델·라이선스·성능을 검증 없이 확정하거나 주장하지 않습니다.
+## 6. Demo routes
+
+| 경로 | 기능 |
+|---|---|
+| `/` | 개요·보장 범위 |
+| `/check` | synthetic 판정·발급 |
+| `/receipts` | 목록·고정 seed 초기화 |
+| `/receipts/:receiptId` | 상세·proof·변조·appeal |
+| `/verify` | bundle 검증·합성 RPC 장애 |
+| `/review` | 인증 없는 prototype 검토 콘솔 |
+| `/protocol` | 현재 규칙·simulation·후속 통합 |
+
+## 7. Local run
+
+이번 환경은 Node **24.19.0**, npm **12.0.2**, Windows입니다. 세 디렉터리의 lockfile을 각각 사용합니다. 일반 Node/npm 설치 환경에서:
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+Vite 기본 주소는 `http://localhost:5173`입니다. Web Crypto를 위해 localhost 또는 HTTPS가 필요합니다. 현재 PoC는 backend 없이 동작합니다. Health 서버가 필요하면 별도 터미널에서:
+
+```bash
+cd backend
+npm ci
+npm run dev
+```
+
+## 8. Test commands
+
+```bash
+cd frontend
+npm ci
+npm test
+npm run lint
+npm run build
+
+cd ../backend
+npm ci
+npm test
+npm run typecheck
+npm run build
+
+cd contracts
+npm ci
+npm test
+npm run build
+```
+
+결과·경고·미실행 항목은 [검증 기록](docs/07-validation-2026-09-13.md)에 남깁니다. 테스트 통과는 production 보안 감사나 실제 체인 배포를 뜻하지 않습니다.
+
+## 9. Repository structure
+
+```text
+frontend/src/domain/    receipt·canonical·hash·Merkle·schema·verifier·synthetic scorer
+frontend/src/store/     localStorage·seed·합성 ledger·lifecycle
+frontend/src/pages/     라우트 화면
+frontend/src/features/  proof·변조·점수·검증 UI
+backend/src/           Express health scaffold
+backend/contracts/     Hardhat + ToolchainCheck scaffold
+docs/                  reference·감사·결정 기록·backlog
+```
+
+## 10. Security / privacy boundary
+
+원문·salt·appeal 본문은 공개 bundle 및 원장 레코드에 포함하지 않습니다. **현재는 편의를 위해 localStorage에 평문으로 보관**하며 인증·접근 통제가 없습니다. 같은 origin의 스크립트와 XSS에 노출될 수 있어 production secure storage가 아닙니다. 고정 seed salt는 공개된 합성 예제 전용입니다.
+
+실서비스에는 원문 접근 통제, 보존·삭제 정책, reviewer 인증·권한, publisher 키 관리가 필요합니다. 저장소의 LICENSE는 아직 선택되지 않았으며 임의로 부여하지 않습니다.
+
+## 11. What VeriMod proves
+
+현재 PoC는 body의 해시 일치, 합성 원장 root에 대한 Merkle inclusion, 제공된 선행 receipt의 연결 규칙을 계산으로 확인합니다. 실제 외부 blockchain commitment는 목표 아키텍처이며 현재 보장은 브라우저 simulation 내부로 한정됩니다.
+
+## 12. What VeriMod does NOT prove
+
+AI 정확성·공정성, 실제 모델 실행, 실제 사람 검토, 모든 moderation 사건의 완전성, 시각의 진실성, 운영 보안, 실제 transaction·testnet finality를 증명하지 않습니다. 브라우저 상태와 합성 root를 함께 바꾸는 공격에 대한 외부 불변 기준점도 아직 없습니다.
+
+## 13. Roadmap
+
+P0는 문서 일치·정확성·재현성·검증 증거입니다. 이후 공통 protocol 경계 합의 → backend와 저장 → 데이터 라이선스·라벨·baseline·평가 → 실제 epoch contract → testnet 증빙 → 독립 reader 순으로 진행합니다. [P1 backlog](docs/06-p1-backlog.md)에 채택·완료 조건을 기록합니다. P1 기능은 이번에 구현하지 않습니다.
+
+## 14. Documents
+
+- [MASTER_CONTEXT](MASTER_CONTEXT.md): 단일 기준서, 확정 방향과 기술 후보
+- [Repository audit](docs/00-repository-audit.md): 과거 scaffold 기록과 frontend 추가
+- [Domain / interfaces](docs/01-domain-and-interfaces.md), [Decision register](docs/02-decision-register.md)
+- [현재 상태·기획서 대조](docs/03-current-status.md), [계약 검토 초안](docs/04-interface-contract-draft.md)
+- [Protocol audit](docs/05-protocol-audit.md), [P1 backlog](docs/06-p1-backlog.md), [검증 기록](docs/07-validation-2026-09-13.md)
+- [최신 기획서 원본](docs/references/project-proposal-2026-09-12.pptx): 수정하지 않은 reference. 노트·본문 정정 사항은 현재 상태 문서 참고
+
+팀: 주진호(서비스·총괄), 노유신(AI·정책), 설경민(코어·블록체인). 기능 브랜치 → PR → 팀원 리뷰 → main 절차를 유지합니다.
