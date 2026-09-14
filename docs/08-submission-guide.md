@@ -1,5 +1,7 @@
 # VeriMod — 심사위원용 실행 안내
 
+STATUS: CURRENT
+
 HTTP 451 · BLOCK AI 2026 · **Decide. Prove. Appeal.**
 
 VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판정을 덮어쓰지 않는 이의제기 이력으로 연결하는 protocol을 목표로 한다. **현재 결과물은 frontend synthetic protocol PoC**다. Hash·Merkle proof 계산은 실제 수행하며 moderation score와 ledger/anchor는 simulation이다.
@@ -8,7 +10,7 @@ VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판�
 
 | 질문 | 근거 |
 |---|---|
-| 무엇이 구현됐나? | [현재 구현 표](../README.md#3-현재-구현-상태) |
+| 무엇이 구현됐나? | [현재 구현 표](../README.md#current-implementation) |
 | 실제 화면이 있나? | [홈](assets/p0-home-2026-09-13.jpg) · [판정](assets/p0-check-2026-09-13.jpg) · [변조 실패](assets/p0-tamper-2026-09-13.jpg) |
 | 직접 검증 가능한가? | [정상·변조 JSON 3개](examples/README.md), 아래 실행 순서 |
 | 테스트를 실행했나? | [실행 기록](07-validation-2026-09-13.md) · [GitHub CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml) |
@@ -51,7 +53,7 @@ npm run dev
 - **입증하는 범위:** 제한형 canonical bytes·SHA-256·Merkle inclusion 계산, 고정된 합성 root에 대한 사본 변경 탐지, 제공된 기록의 연결 규칙.
 - **입증하지 않는 범위:** AI 정확성·공정성·실제 모델 실행, 실제 blockchain transaction, 모든 moderation 기록의 완전성, 실제 사람의 검토 신원.
 - **저장 경계:** raw text·salt·appeal 본문은 localStorage에 평문으로 남는 PoC 편의 저장이다. production 보안 저장소가 아니다.
-- **남은 항목:** 실제 AI·업무 backend·DB·epoch contract·testnet, 기존 lint 경고 및 contract 개발 의존성 audit 항목, LICENSE 결정. [감사 보고](05-protocol-audit.md)를 참고한다.
+- **남은 항목:** 실제 AI·업무 backend·DB·epoch contract·testnet, contract 개발 의존성 audit 항목, LICENSE 결정. [감사 보고](05-protocol-audit.md)를 참고한다.
 
 ## 제출 문구
 

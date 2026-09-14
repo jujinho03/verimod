@@ -1,5 +1,9 @@
 # I1~I4 계약 검토 초안
 
+STATUS: DRAFT
+
+제품 baseline 908f64e의 protocol 초안이다. 후속 P0 hardening은 정상 receipt bytes·seed hash·Merkle root를 변경하지 않았다. 현재 구현/검증 시점은 [03](03-current-status.md)과 [07](07-validation-2026-09-13.md)을 따른다.
+
 2026-09-12 · v0.1 · **PROPOSED — 팀 승인 전** · 제품 코드 기준 `908f64e`
 
 다음 설계 단계의 산출물이다. 현재 시험 구현을 채택할 부분과 보완할 부분을 제시한다. 정식 JSON Schema·ABI 또는 실행된 테스트 벡터가 아니다. C01~C08의 승인 근거는 아직 없으며 [02 결정 기록](02-decision-register.md)에 추후 기록한다.
