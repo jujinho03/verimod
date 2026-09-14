@@ -48,6 +48,23 @@ describe('JSON text boundary', () => {
     expect(() => parseUniqueJson(' '.repeat(MAX_JSON_BYTES + 1))).toThrow('1 MiB')
     expect(() => parseUniqueJson('['.repeat(65) + '0' + ']'.repeat(65))).toThrow('64')
   })
+  it('keeps native JSON syntax authoritative around escaped strings and trailing input', () => {
+    const text = '{"x":"a,b:c{d}","y":"\\\"quoted\\\"","\\uD83D\\uDE00":1}'
+    expect(parseUniqueJson(text)).toEqual(JSON.parse(text))
+    for (const invalid of [text + ' false', '[1,]', '{"a":01}', '"\\x41"', '{"a":{"x":1,"\\u0078":2}}']) {
+      expect(() => parseUniqueJson(invalid)).toThrow()
+    }
+  })
+  it('enforces UTF-8 bytes and nesting at the boundary, including wide objects', () => {
+    const exact = '"' + '한'.repeat(349_524) + 'aa"'
+    expect(new TextEncoder().encode(exact).length).toBe(MAX_JSON_BYTES)
+    expect(parseUniqueJson(exact)).toBe(JSON.parse(exact))
+    expect(() => parseUniqueJson(exact + ' ')).toThrow('1 MiB')
+    const nested = '['.repeat(64) + '0' + ']'.repeat(64)
+    expect(parseUniqueJson(nested)).toEqual(JSON.parse(nested))
+    const wide = Object.fromEntries(Array.from({ length: 2000 }, (_, i) => [`key${i}`, i]))
+    expect(parseUniqueJson(JSON.stringify(wide))).toEqual(wide)
+  })
 })
 
 describe('epoch compatibility and independent Merkle reference', () => {
@@ -83,6 +100,20 @@ describe('epoch compatibility and independent Merkle reference', () => {
     const pending = freezeEpoch([b, a])
     a.receipt_hash = b.receipt_hash
     expect(await pending).toEqual(expected)
+  })
+  it('rejects 31/33-byte roots and siblings, zero trees and invalid indices', async () => {
+    const entries = [utf8('first'), utf8('second')]
+    const root = await merkleRoot(entries)
+    const proof = await inclusionProof(entries, 0)
+    for (const width of [31, 33]) {
+      expect(await verifyInclusion(entries[0], 0, 2, proof, new Uint8Array(width))).toBe(false)
+      expect(await verifyInclusion(entries[0], 0, 2, [new Uint8Array(width)], root)).toBe(false)
+    }
+    expect(await verifyInclusion(entries[0], 0, 0, [], root)).toBe(false)
+    for (const index of [-1, 0.5, NaN, 2]) {
+      await expect(inclusionProof(entries, index)).rejects.toThrow()
+      expect(await verifyInclusion(entries[0], index, 2, proof, root)).toBe(false)
+    }
   })
   it('keeps the five receipt hashes and three roots captured BEFORE P0 edits at 908f64e', async () => {
     const seed = await buildSeedState()
