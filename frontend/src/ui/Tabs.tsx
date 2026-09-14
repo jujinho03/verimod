@@ -26,15 +26,17 @@ export function Tabs({ items, label, initial }: { items: TabItem[]; label: strin
   }, [active])
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return
+    if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return
     event.preventDefault()
     const index = items.findIndex((item) => item.id === active)
-    const next = items[(index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length]
+    const next = event.key === 'Home' ? items[0] : event.key === 'End' ? items[items.length - 1]
+      : items[(index + (event.key === 'ArrowRight' ? 1 : -1) + items.length) % items.length]
     setActive(next.id)
     listRef.current?.querySelector<HTMLElement>(`[data-tab="${next.id}"]`)?.focus()
   }
 
   const current = items.find((item) => item.id === active) ?? items[0]
+  if (!current) return null
 
   return (
     <div className="tabs">
@@ -61,6 +63,7 @@ export function Tabs({ items, label, initial }: { items: TabItem[]; label: strin
       <div
         key={current.id}
         role="tabpanel"
+        tabIndex={0}
         id={`${baseId}-panel`}
         aria-labelledby={`${baseId}-tab-${current.id}`}
         className="tabs__panel"

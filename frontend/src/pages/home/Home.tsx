@@ -76,7 +76,7 @@ function Background() {
 function Highlights() {
   const cards = [
     { to: '/check', label: 'Decide', title: '문장을 넣으면 항목별 점수와 조치가 나옵니다', art: <DecideArt /> },
-    { to: '/receipts', label: 'Prove', title: '판정마다 바뀌지 않는 영수증을 발급하고 원장에 봉인합니다', art: <ReceiptArt /> },
+    { to: '/receipts', label: 'Prove', title: '판정마다 영수증을 발급하고 합성 원장 root와 대조합니다', art: <ReceiptArt /> },
     { to: '/verify#tamper', label: 'Verify', title: '사본의 점수 하나만 바꿔도 원래 앵커 기준 검증에 실패합니다', art: <TamperArt /> },
     { to: '/review', label: 'Appeal', title: '이의제기와 사람 검토가 최초 판정에 새 기록으로 이어집니다', art: <AppealArt /> },
   ]
@@ -115,7 +115,7 @@ function Platform() {
           </Reveal>
           <Reveal delay={2}>
             <p className="lead">
-              이용자는 플랫폼이 지금 보여주는 DB 값에 기대지 않고, 받은 영수증과 포함 증명으로 원장의 root까지 직접 다시 계산합니다. 블록체인이 보증하는 것은 AI의 정답 여부가 아니라 기록의 일치입니다.
+              이용자는 플랫폼이 지금 보여주는 DB 값에 기대지 않고, 받은 영수증과 포함 증명으로 원장의 root까지 직접 다시 계산합니다. 현재는 합성 원장과 대조하며 실제 외부 앵커는 후속 통합 대상입니다. 해시 일치는 AI의 정답 여부를 증명하지 않습니다.
             </p>
           </Reveal>
           <Reveal delay={3}>
@@ -173,7 +173,7 @@ function Flow() {
       content: (
         <FlowPane
           visual={<ReceiptVisual />}
-          title="판정마다 바뀌지 않는 영수증을 발급합니다"
+          title="판정마다 해시로 대조할 영수증을 발급합니다"
           points={['모델·정책 manifest 해시와 기록 시각을 함께 담습니다', '원문 대신 salt를 더한 commitment만 넣습니다', '해시·증명·앵커 정보는 본문 밖에 따로 붙입니다']}
           to="/receipts"
           cta="내 영수증 보기"
@@ -304,7 +304,7 @@ const ROLES = [
 ] as const
 
 function People() {
-  const carousel = useCarousel(ROLES.length)
+  const { viewportRef, trackStyle, prev, next, canPrev, canNext } = useCarousel(ROLES.length)
   return (
     <section className="band" data-tone="dark" id="people" aria-labelledby="people-title">
       <div className="band band--gap" data-tone="dark">
@@ -318,17 +318,17 @@ function People() {
           <div className="people__controls">
             <ArrowLink to="/review">검토 콘솔 열기</ArrowLink>
             <div className="carousel__nav">
-              <button type="button" className="carousel__arrow" onClick={carousel.prev} disabled={!carousel.canPrev} aria-label="이전 카드">
+              <button type="button" className="carousel__arrow" onClick={prev} disabled={!canPrev} aria-label="이전 카드">
                 <ChevronLeft />
               </button>
-              <button type="button" className="carousel__arrow" onClick={carousel.next} disabled={!carousel.canNext} aria-label="다음 카드">
+              <button type="button" className="carousel__arrow" onClick={next} disabled={!canNext} aria-label="다음 카드">
                 <ChevronRight />
               </button>
             </div>
           </div>
         </div>
-        <div className="carousel" ref={carousel.viewportRef}>
-          <div className="carousel__track" style={carousel.trackStyle}>
+        <div className="carousel" ref={viewportRef}>
+          <div className="carousel__track" style={trackStyle}>
             {ROLES.map((role, i) => (
               <Link key={role.title} to={role.to} className="carousel__item role-card">
                 <RoleArt tone={role.tone} title={role.title} index={i + 1} />

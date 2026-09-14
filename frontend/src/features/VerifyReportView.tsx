@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import type { StepState, VerifyReport } from '../domain/verify'
 import { StatusBadge } from '../ui/bits'
 import { CODE_INFO, SIDE_INFO, STEP_LABEL } from '../ui/format'
@@ -21,34 +20,21 @@ function StepIcon({ state }: { state: StepState }) {
 
 const STATE_TEXT: Record<StepState, string> = { PASSED: '통과', FAILED: '실패', PENDING: '대기', SKIPPED: '건너뜀' }
 
-/** 검증 단계를 하나씩 드러낸 뒤 결과 코드를 보여준다. 확정 전에는 VALID를 표시하지 않는다. */
+/** 완료된 검증 결과를 지연 없이 표시한다. 검증 중 상태는 호출자가 관리한다. */
 export function VerifyReportView({ report }: { report: VerifyReport }) {
-  const [visible, setVisible] = useState(0)
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setVisible(report.steps.length)
-      return
-    }
-    setVisible(0)
-    const timers = report.steps.map((_, i) => window.setTimeout(() => setVisible(i + 1), 170 * (i + 1)))
-    return () => timers.forEach((timer) => window.clearTimeout(timer))
-  }, [report])
-
-  const done = visible >= report.steps.length
   const info = CODE_INFO[report.code]
 
   return (
     <div className="report">
-      <div className={`verdict verdict--${done ? info.tone : 'neutral'}`} aria-live="polite">
-        <p className="verdict__code">{done ? report.code : '확인 중'}</p>
-        <p className="verdict__title">{done ? info.title : '단계별로 다시 계산하고 있습니다'}</p>
-        {done && <p className="verdict__desc">{info.description}</p>}
+      <div className={`verdict verdict--${info.tone}`} aria-live="polite">
+        <p className="verdict__code">{report.code}</p>
+        <p className="verdict__title">{info.title}</p>
+        <p className="verdict__desc">{info.description}</p>
       </div>
 
       <ol className="checklist">
-        {report.steps.map((step, i) => (
-          <li key={step.id} className={`check-row check-row--${step.state}${i < visible ? ' is-shown' : ''}`}>
+        {report.steps.map((step) => (
+          <li key={step.id} className={`check-row check-row--${step.state} is-shown`}>
             <StepIcon state={step.state} />
             <div>
               <p className="check-row__title">
@@ -61,7 +47,7 @@ export function VerifyReportView({ report }: { report: VerifyReport }) {
         ))}
       </ol>
 
-      {done && report.code === 'HASH_MISMATCH' && report.claimedHash && report.recomputedHash && (
+      {report.code === 'HASH_MISMATCH' && report.claimedHash && report.recomputedHash && (
         <dl className="kv hash-compare">
           <dt>영수증에 적힌 해시</dt>
           <dd>
@@ -74,7 +60,7 @@ export function VerifyReportView({ report }: { report: VerifyReport }) {
         </dl>
       )}
 
-      {done && (
+      {(
         <dl className="side-checks">
           {(['manifest', 'content', 'lifecycle'] as const).map((key) => (
             <div className="side-row" key={key}>

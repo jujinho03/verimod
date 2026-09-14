@@ -48,22 +48,22 @@ function useToneBelow(headerRef: RefObject<HTMLElement | null>, routeKey: string
 
 export function SiteHeader() {
   const { pathname, search, hash } = useLocation()
+  return <HeaderContent key={pathname + search + hash} routeKey={pathname + search} />
+}
+
+function HeaderContent({ routeKey }: { routeKey: string }) {
   const headerRef = useRef<HTMLElement>(null)
   const [openId, setOpenId] = useState<string | null>(null)
   const [shownId, setShownId] = useState(MENUS[0].id)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const toneBelow = useToneBelow(headerRef, pathname + search)
+  const toneBelow = useToneBelow(headerRef, routeKey)
   const tone = mobileOpen ? 'white' : toneBelow
 
   const closeMenus = useCallback(() => {
     setOpenId(null)
     setMobileOpen(false)
   }, [])
-
-  useEffect(() => {
-    closeMenus()
-  }, [pathname, search, hash, closeMenus])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -152,7 +152,7 @@ export function SiteHeader() {
         </div>
       </header>
 
-      <div className={`mega${openId ? ' is-open' : ''}`} aria-hidden={!openId}>
+      <div className={`mega${openId ? ' is-open' : ''}`} aria-hidden={!openId} inert={!openId}>
         <div className="mega__scrim" onClick={() => setOpenId(null)} />
         <nav id="mega-panel" className="mega__panel" aria-label={`${shown.label} 메뉴`}>
           {shown.columns.map((column, i) => (
