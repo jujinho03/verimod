@@ -20,6 +20,7 @@ export function Accordion({ items, initial }: { items: AccordionItem[]; initial?
             <h3>
               <button
                 type="button"
+                id={`${panelId}-trigger`}
                 className="accordion__trigger"
                 aria-expanded={isOpen}
                 aria-controls={panelId}
@@ -29,7 +30,7 @@ export function Accordion({ items, initial }: { items: AccordionItem[]; initial?
                 <span className="plus" aria-hidden />
               </button>
             </h3>
-            <div id={panelId} role="region" className={`collapse${isOpen ? ' is-open' : ''}`} inert={!isOpen}>
+            <div id={panelId} role="region" aria-labelledby={`${panelId}-trigger`} className={`collapse${isOpen ? ' is-open' : ''}`} inert={!isOpen}>
               <div>
                 <div className="accordion__body">{item.body}</div>
               </div>

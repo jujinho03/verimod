@@ -130,3 +130,11 @@ export function manifestHashes(): Promise<ManifestHashes> {
   }))()
   return cached
 }
+
+export function thresholdsOf(label: LabelId) {
+  const rules = POLICY_MANIFEST.rules.filter((rule) => rule.label_id === label)
+  return {
+    review: rules.find((rule) => rule.action === 'HUMAN_REVIEW')?.threshold_ppm ?? 1_000_000,
+    restrict: rules.find((rule) => rule.action === 'RESTRICT')?.threshold_ppm ?? 1_000_000,
+  }
+}

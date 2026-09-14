@@ -372,13 +372,13 @@
   font-size: 13px;
 }
 
-.search__scope span {
+.search__scope button {
   padding: 5px 8px;
   border-radius: 3px;
   color: rgba(20, 25, 33, 0.6);
 }
 
-.search__scope span[aria-current='true'] {
+.search__scope button[aria-pressed='true'] {
   background: var(--paper);
   color: var(--ink);
 }

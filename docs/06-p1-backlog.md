@@ -1,5 +1,21 @@
 # P1 integration backlog — PROPOSED / DEFERRED
 
+STATUS: PROPOSED
+
+## 2026-09-14 우선순위 재정렬
+
+제출용 탐색성과 실제 제품 통합 순서를 구분한다. 아래는 제안이며 이번 quality pass에서 배포·의존성·GitHub 설정을 추가하지 않았다.
+
+1. **Public demo:** 가장 큰 체험 공백. Cloudflare Pages는 top-level 404가 없을 때 SPA fallback, Vercel/Netlify는 deep-link rewrite 설정을 확인한다. GitHub Pages는 project base path와 BrowserRouter fallback 처리가 추가로 필요하다. HTTPS, `/verify` 직접 접근, 고정 lockfile build, 실제 배포 URL을 확인한 뒤에만 homepage/README에 등록한다. 계정 연결·배포 대상 선택이 필요하다. [Cloudflare](https://developers.cloudflare.com/pages/configuration/serving-pages/) · [Vercel](https://vercel.com/docs/frameworks/frontend/vite) · [Netlify](https://docs.netlify.com/manage/routing/redirects/overview/).
+2. **Browser E2E:** 테스트 층의 가장 큰 공백. Playwright의 핵심 4개 검증 상태와 appeal/review 1회부터 시작한다. clock/seed 제어로 실제 6초 sleep을 피하고 production 버튼은 추가하지 않는다. 제출 직전 browser dependency와 flaky CI를 추가하지 않았다.
+3. **Coverage:** Vitest와 같은 버전의 coverage-v8로 먼저 baseline을 측정한다. canonical/hash/Merkle/schema/verify/state/store의 의미 있는 branch부터 검사한다. 85/85/80은 측정 후 판단할 후보이며 현재 달성한 수치가 아니다.
+4. **Shared protocol:** backend 통합 전 필수 결정. 현재 domain 밖 소비 파일 약 22개에 더해 exports/Vite/Node build 설정과 테스트 경로가 영향을 받는다. 파일 이동 자체보다 양 runtime의 동일 fixtures와 emitted imports 확인이 완료 조건이다. 지금은 안정된 frontend domain을 유지한다.
+5. **실제 issuer·persistence → 실제 AI → epoch contract/testnet:** 아래 상세 backlog 순서. backend health scaffold의 JSON limit/오류/404/shutdown/auth는 실제 API와 배포 요구가 생길 때 설계한다. AI label/license/evaluation·score semantics부터 확정한다.
+6. **보안·성능 부채:** contracts audit 15개는 현재 dev toolchain 경로다. serialize-javascript(high)와 diff는 Mocha major update, adm-zip(moderate)은 호환 patch 경로, elliptic 및 Hardhat 상위 경로는 공급자 수정 여부를 별도 확인한다. `audit fix --force`를 하지 않는다. 폰트 subset은 네트워크 측정 후 적용하고 private storage/XSS·unexpected async error는 production 전 보강한다.
+7. **유지관리 결정:** Dependabot은 실제 triage 담당자가 있을 때 weekly grouped npm/Actions PR로 도입한다. CodeQL은 현재 작은 PoC에 우선 추가하지 않는다. main PR/CI 필수·force push 금지·conversation resolution을 추천하되 설정은 변경하지 않았다. LICENSE는 팀 선택 필요(MIT의 허용적 재사용, Apache-2.0의 명시적 특허 조건, 무라이선스의 기본 권리 제한). CODEOWNERS/SECURITY/Issues/Release는 실제 운영 필요와 담당자가 생길 때 추가한다. 모델/data의 재현성은 manifest·artifact hash로 관리하고 필요 시 DVC를 평가한다.
+
+현재 CI는 최소 read 권한, action SHA pin, Node/npm pin, lockfile cache, timeout/concurrency를 갖추므로 유지했다. push와 PR 검사를 모두 두어 branch와 merge context를 검증한다. root runner와 `.nvmrc`만 추가했고 workspace 전환은 하지 않았다. Git 공개 이력은 재작성하지 않으며 기능별 commit과 PR의 What/Why/Verification/Known limitations를 유지한다.
+
 2026-09-13. 이번에는 구현하지 않는다. P0 검증은 [07](07-validation-2026-09-13.md), 현재 trial 계약은 [04](04-interface-contract-draft.md), 결정은 [02](02-decision-register.md)에 기록한다. 아래는 팀의 채택 순서와 완료조건 제안이며 일정·벤더·체인 확정이 아니다.
 
 ## 1. C09 공통 protocol 경계 결정 (최우선)

@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode }
 export function Marquee({ children, label, speed = 47 }: { children: ReactNode; label: string; speed?: number }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const [duration, setDuration] = useState(60)
+  const [paused, setPaused] = useState(false)
 
   useLayoutEffect(() => {
     const track = trackRef.current
@@ -17,9 +18,10 @@ export function Marquee({ children, label, speed = 47 }: { children: ReactNode; 
 
   return (
     <div className="marquee" role="region" aria-label={label}>
-      <div className="marquee__track" ref={trackRef} style={{ '--marquee-duration': `${duration}s` } as CSSProperties}>
+      <button type="button" className="mono" aria-pressed={paused} onClick={() => setPaused(!paused)}>자동 흐름 {paused ? '재개' : '정지'}</button>
+      <div className="marquee__track" ref={trackRef} style={{ '--marquee-duration': `${duration}s`, animationPlayState: paused ? 'paused' : undefined } as CSSProperties}>
         <div className="marquee__group">{children}</div>
-        <div className="marquee__group" aria-hidden="true">
+        <div className="marquee__group" aria-hidden="true" inert>
           {children}
         </div>
       </div>

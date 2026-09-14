@@ -1,4 +1,4 @@
-import { createElement, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 
 type RevealTag = 'div' | 'section' | 'header' | 'li' | 'p' | 'h2' | 'h3' | 'figure'
 
@@ -13,15 +13,13 @@ interface RevealProps {
 /** 화면에 들어오면 아래에서 올라오며 나타난다 (chain.link의 스크롤 등장). */
 export function Reveal({ as = 'div', delay = 0, className, id, children }: RevealProps) {
   const ref = useRef<HTMLElement>(null)
-  const [shown, setShown] = useState(false)
+  const [shown, setShown] = useState(() => typeof IntersectionObserver === 'undefined')
+  const setRef = useCallback((element: HTMLElement | null) => { ref.current = element }, [])
 
   useEffect(() => {
     const element = ref.current
     if (!element) return
-    if (typeof IntersectionObserver === 'undefined') {
-      setShown(true)
-      return
-    }
+    if (typeof IntersectionObserver === 'undefined') return
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -35,14 +33,6 @@ export function Reveal({ as = 'div', delay = 0, className, id, children }: Revea
     return () => observer.disconnect()
   }, [])
 
-  return createElement(
-    as,
-    {
-      ref,
-      id,
-      className: ['reveal', shown && 'is-in', className].filter(Boolean).join(' '),
-      style: { '--i': delay } as CSSProperties,
-    },
-    children,
-  )
+  const Tag = as
+  return <Tag ref={setRef} id={id} className={['reveal', shown && 'is-in', className].filter(Boolean).join(' ')} style={{ '--i': delay } as CSSProperties}>{children}</Tag>
 }

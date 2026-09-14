@@ -54,13 +54,25 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
   }
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Tab') {
+      const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('input, button, a[href]')]
+        .filter((element) => !element.hasAttribute('disabled') && element.getClientRects().length > 0)
+      const first = controls[0]
+      const last = controls.at(-1)
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last?.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first?.focus()
+      }
+    } else if (event.key === 'Escape') {
       event.preventDefault()
       onClose()
-    } else if (event.key === 'ArrowDown' && results.length > 0) {
+    } else if (event.key === 'ArrowDown' && results.length > 0 && event.target === inputRef.current) {
       event.preventDefault()
       setActive((activeIndex + 1) % results.length)
-    } else if (event.key === 'ArrowUp' && results.length > 0) {
+    } else if (event.key === 'ArrowUp' && results.length > 0 && event.target === inputRef.current) {
       event.preventDefault()
       setActive((activeIndex - 1 + results.length) % results.length)
     } else if (event.key === 'Enter' && results[activeIndex] && event.target === inputRef.current) {
@@ -86,6 +98,11 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
             ref={inputRef}
             className="search__input"
             type="search"
+            aria-label="페이지 또는 영수증 검색"
+            role="combobox"
+            aria-expanded="true"
+            aria-autocomplete="list"
+            aria-activedescendant={results.length ? `search-result-${activeIndex}` : undefined}
             placeholder="페이지, 영수증 ID, 해시 앞자리로 찾기"
             value={query}
             onChange={(event) => {
@@ -96,18 +113,14 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
           />
           <div className="search__scope" role="group" aria-label="검색 범위">
             {(['all', 'receipts'] as const).map((value) => (
-              <span
+              <button
                 key={value}
-                role="button"
-                tabIndex={0}
-                aria-current={scope === value}
+                type="button"
+                aria-pressed={scope === value}
                 onClick={() => setScope(value)}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') setScope(value)
-                }}
               >
                 {value === 'all' ? '전체' : '영수증'}
-              </span>
+              </button>
             ))}
           </div>
         </div>
@@ -126,6 +139,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
                   key={entry.to + entry.title}
                   to={entry.to}
                   role="option"
+                  id={`search-result-${i}`}
                   aria-selected={i === activeIndex}
                   data-active={i === activeIndex}
                   className="search__result"
@@ -167,9 +181,9 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
           <span>
             <kbd>↑</kbd> <kbd>↓</kbd> 이동 · <kbd>Enter</kbd> 열기
           </span>
-          <span>
+          <button type="button" onClick={onClose}>
             <kbd>esc</kbd> 닫기
-          </span>
+          </button>
         </div>
       </div>
     </div>

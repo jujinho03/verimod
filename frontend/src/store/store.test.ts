@@ -58,5 +58,11 @@ describe('VeriModStore', () => {
     expect(store.reviewQueue().some((task) => task.decision.hash === decision.hash)).toBe(false)
     expect(store.history(review).map((r) => r.body.event_kind)).toEqual(['DECISION', 'APPEAL', 'REVIEW'])
     await expect(store.issueReview(decision.hash, 'ALLOW', ['CONTEXT_NOT_HARMFUL'])).rejects.toThrow('이미 검토 결과')
+    t += 7_000
+    await store.tick()
+    t += 20_000
+    const report = await verifyReceipt(store.bundle(store.receipt(review.hash)!), await store.verifierContext())
+    expect(report.code).toBe('VALID')
+    expect(report.lifecycle.state).toBe('PASSED')
   })
 })

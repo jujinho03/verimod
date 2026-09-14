@@ -1,10 +1,12 @@
 # 최신 구현 상태와 기획서 정정 목록
 
-갱신일: 2026-09-13 (9월 12일 기획서·frontend 추가 반영) · 검증한 P0 코드: `bee347f00f1795d47063aac281411195ee322346` ([PR #1](https://github.com/jujinho03/verimod/pull/1)의 반영 이력 참고)
+STATUS: CURRENT
+
+확인일: 2026-09-14. 이번 quality pass의 최신 origin/main은 `6971363fd68ae1d9061f27d5a6d860f99363bc73`이다. 해당 main [CI run](https://github.com/jujinho03/verimod/actions/runs/34783051432)은 success였다. 이는 아래 과거 audit 시작점과 구분한다. 이후 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](07-validation-2026-09-13.md)을 따른다.
 
 확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
-## 확인 기준
+## P0 작업 시작 기준 (2026-09-13 역사 기록)
 
 - 원격 main/dev가 모두 `908f64e`임을 `git ls-remote`로 확인했다. 깨끗한 로컬 main `3e86a32`를 `git pull --ff-only origin main`으로 동기화했다.
 - 문서 변경은 `docs/current-context-and-interface-draft` 브랜치에서 진행한다. 제품 기준 커밋과 문서 변경 커밋을 구분한다. 최종 업로드·병합 상태는 Git/PR에서 확인한다.

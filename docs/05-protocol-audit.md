@@ -1,5 +1,20 @@
 # VeriMod protocol correctness audit
 
+STATUS: AUDIT SNAPSHOT
+
+## 2026-09-14 재점검
+
+`6971363`에서 시작한 quality pass는 hash/encoding/Merkle 규칙을 바꾸지 않았다. 기존 8개 lint 경고는 suppression 없이 해소했다. SearchDialog focus 순환·검색 label, ticker/marquee 정지, Tabs Home/End, accordion 이름 연결을 개선했다. 검증 보고서는 계산 완료 결과를 즉시 표시하며 hash 장식의 무작위 문자 교체를 제거했다. 실제 재실행과 위험별 테스트 표는 [07](07-validation-2026-09-13.md)에 통합했다.
+
+새 점검에서 남긴 경계:
+
+- **MEDIUM — canonical.ts/json.ts:** 직접 전달한 JavaScript getter/Proxy의 실행을 격리하지 않는다. 외부 파일은 native JSON.parse가 syntax를 판정한 뒤 중복 키를 검사하며 1 MiB/64 depth로 제한한다. JSON에는 getter/Proxy가 없으므로 이 경계를 임의의 JavaScript 객체에 대한 sandbox로 해석하지 않는다. 제한형 canonical profile을 유지하며 JCS 전환은 bytes 호환성 검토가 필요한 별도 결정이다.
+- **MEDIUM — store:** localStorage 평문·동일 origin 접근·여러 탭 사이 원자성은 해결되지 않았다. private content와 commitment의 실제 일치는 별도 verifier side check에서 확인한다. storage 검사는 production persistence가 아니다.
+- **LOW — UI/error:** 예기치 않은 Web Crypto 실패의 사용자 안내, 빠르게 연속 선택한 파일의 async load 순서, 모바일 메뉴 전체 keyboard/보조기술 검증은 후속 과제다. 정상 검증 실패와 RPC_UNAVAILABLE 경로는 재실행했다.
+- **LOW — performance:** 작은 batch의 proof 재귀 계산과 약 2 MB 폰트는 측정 후 개선한다. 이번에는 hash 알고리즘 최적화나 package 이동을 하지 않았다.
+
+아래는 9월 13일 당시 감사 기록이며 당시 경고 수·기준 SHA를 최신 결과로 읽지 않는다.
+
 확인일: 2026-09-13. 시작 HEAD와 origin/main: `908f64eec5933dce2371ca48d35893fa01d0a8e8`. 브랜치: `docs/current-context-and-interface-draft`. 전체 실행 결과는 [검증 기록](07-validation-2026-09-13.md).
 
 수정 전 repository 상태·구현 matrix·documentation drift·severity·수정 파일 목록을 사용자에게 보고한 뒤 P0를 수정했다. 기존 문서 7개 변경과 새 문서·기획서 3개는 같은 작업의 선행 변경이며 별도 백업했다. 제품 코드의 외부 사용자 변경은 없었다. 이번 감사는 독립 보안 인증이 아니다.

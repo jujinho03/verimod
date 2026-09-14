@@ -63,6 +63,7 @@ export function HeroTicker() {
   const [landed, setLanded] = useState(MIDDLE)
   const [spinning, setSpinning] = useState(false)
   const [grabbing, setGrabbing] = useState(false)
+  const [paused, setPaused] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
 
   /* offsetHeight·clientHeight는 정수로 반올림된다. 그 값으로 index를 곱하면 항목마다 1px 미만의
      오차가 쌓여 멈춘 글자가 VERIFY와 어긋난다. 소수점을 그대로 주는 rect를 쓴다. */
@@ -154,6 +155,7 @@ export function HeroTicker() {
   }, [offsetFor, setY])
 
   useEffect(() => {
+    if (paused) return
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let timer = 0
     let cancelled = false
@@ -225,7 +227,7 @@ export function HeroTicker() {
       window.clearTimeout(timer)
       animRef.current?.cancel()
     }
-  }, [goTo, offsetFor])
+  }, [goTo, offsetFor, paused])
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== 'mouse' || event.button !== 0) return
@@ -298,6 +300,9 @@ export function HeroTicker() {
       </div>
 
       <div className="ticker__nav">
+        <button type="button" className="carousel__arrow ticker__arrow" aria-label="자동 회전 정지" aria-pressed={paused} onClick={() => { freeze(); setPaused(!paused) }}>
+          <span aria-hidden>{paused ? '▶' : 'Ⅱ'}</span>
+        </button>
         <button type="button" className="carousel__arrow ticker__arrow ticker__arrow--up" onClick={() => step(-1)} aria-label="이전 항목 보기">
           <ChevronDown />
         </button>
