@@ -2,7 +2,11 @@
 
 STATUS: CURRENT
 
-확인일: 2026-09-14. 이번 quality pass의 최신 origin/main은 `6971363fd68ae1d9061f27d5a6d860f99363bc73`이다. 해당 main [CI run](https://github.com/jujinho03/verimod/actions/runs/34783051432)은 success였다. 이는 아래 과거 audit 시작점과 구분한다. 이후 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](07-validation-2026-09-13.md)을 따른다.
+확인일: 2026-09-14.
+
+현재 제출 기준 origin/main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이다. 해당 main의 [GitHub Actions](https://github.com/jujinho03/verimod/actions/runs/34805612537) `VeriMod P0 checks`는 completed / success였다. 이 main은 PR [#2](https://github.com/jujinho03/verimod/pull/2) `chore: improve VeriMod submission quality and reproducibility`의 병합 결과다.
+
+아래에 남은 `6971363`, `908f64e` 기준 서술은 P0·quality pass 작업 시작 시점의 역사 기록으로 구분해 읽는다. 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](07-validation-2026-09-13.md)을 따른다.
 
 확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
@@ -20,7 +24,7 @@ STATUS: CURRENT
 |---|---|---|
 | 기록된 사용자 선택 | frontend/backend 분리, contracts는 backend 하위, Node.js·TypeScript·Express 5 | 02 결정 기록 |
 | 최신 기획 방향 | HTTP 451, 한국어 텍스트 moderation, epoch 등록, 연결된 appeal/review, 접근 통제 오프체인 저장, 공개 IPFS 미채택 | PPTX 1·6·7·8·10·14장 |
-| 최신 팀 | 주진호: 서비스·총괄, 노유신: AI·정책, 설경민: 코어·블록체인 | PPTX 10장 본문 |
+| 최신 팀 | 주진호: AI 판정·평가·기획(총괄), 설경민: 프로토콜·블록체인·기술 리드, 노유신: 서비스 개발 | 2026-09-19 팀 합의(02 상태 갱신). PPTX 10장 분담을 대체 |
 | 시험 구현 | schema·합성 라벨/threshold·RESOLVED·제한 직렬화·Merkle·TrustConfig·시뮬레이션 원장 | 제품 코드 908f64e |
 | 미정 | 실제 모델·데이터·평가, 정식 schema/manifest·수치/Unicode 규칙, ABI·체인·finality·키, DB·권한·보존 | 02 기록, 04 초안 |
 

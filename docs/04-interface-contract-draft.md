@@ -12,10 +12,10 @@ STATUS: DRAFT
 
 | 경계 | 생산자 → 소비자 | 주 담당 | 검토 산출물 |
 |---|---|---|---|
-| I1 | AI adapter → 정책·receipt 발급 | 노유신 → 주진호, 설경민 검토 | 라벨·출력·오류·전처리/evidence·manifest |
-| I2 | receipt 발급 → 저장·hasher·UI | 설경민 규격, 주진호 서비스 | 사건별 필드·불변성·버전·권한 |
-| I3 | serializer/hasher/batcher → verifier | 설경민, 주진호 연결 | bytes·root·proof·공통 벡터 |
-| I4 | batch worker → contract → reader/verifier | 설경민, 주진호 운영 | ABI·재시도·신뢰 설정·finality |
+| I1 | AI adapter → 정책·receipt 발급 | 주진호 → 노유신, 설경민 검토 | 라벨·출력·오류·전처리/evidence·manifest |
+| I2 | receipt 발급 → 저장·hasher·UI | 설경민 규격, 노유신 서비스 | 사건별 필드·불변성·버전·권한 |
+| I3 | serializer/hasher/batcher → verifier | 설경민, 노유신 연결 | bytes·root·proof·공통 벡터 |
+| I4 | batch worker → contract → reader/verifier | 설경민, 노유신 운영 | ABI·재시도·신뢰 설정·finality |
 
 현재 파일은 frontend/src/domain의 types/schema/scorer/manifests/policy/receipt/canonical/hash/merkle/epoch/verify, frontend/src/store, backend/src, backend/contracts다. 공통 코어의 새 패키지 위치는 미정이다. 백엔드는 기존 Node.js·TypeScript를 유지한다.
 
@@ -79,7 +79,7 @@ RESOLVED, ALLOW appeal 제외, 판정당 appeal/review 1건은 채택 여부가 
 | epoch 등록 | 허용 publisher. 사용자 요청으로 키·issuer를 바꾸지 않음 |
 | 확보한 bundle 계산 | 정당하게 확보한 자료와 사전 신뢰 설정을 가진 검증자 |
 
-멱등키 범위 후보는 `(issuer, actor, operation, idempotency_key)`다. 같은 키·동일 요청은 기존 결과를 반환하고 다른 payload는 충돌이다. 동일 요청의 receipt ID/salt를 재생성하지 않는다. 다른 키의 동시 appeal/review도 최초 판정 단위 조건부 갱신·유일성 제약으로 1건만 성공시킨다. DB·정확한 HTTP 상태·오류명은 주진호 설계에서 결정한다.
+멱등키 범위 후보는 `(issuer, actor, operation, idempotency_key)`다. 같은 키·동일 요청은 기존 결과를 반환하고 다른 payload는 충돌이다. 동일 요청의 receipt ID/salt를 재생성하지 않는다. 다른 키의 동시 appeal/review도 최초 판정 단위 조건부 갱신·유일성 제약으로 1건만 성공시킨다. DB·정확한 HTTP 상태·오류명은 설경민 설계, 노유신 구현에서 결정한다.
 
 완료 증거 후보: 비소유자 appeal·무권한 review 거부, 재시도 시 동일 receipt hash, 다른 키의 동시 요청 중 한 건만 생성. 현재 서버·테스트 통과 결과가 아니다.
 
