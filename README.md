@@ -120,6 +120,16 @@ npm --prefix backend/contracts run build
 
 [Protocol·privacy 감사와 잔여 한계](docs/05-protocol-audit.md)
 
+## Team
+
+HTTP 451 · 3인 팀 (2026-09-19 역할 기준, [결정 기록](docs/02-decision-register.md#최신-자료에-따른-상태-갱신-기술-승인과-구분))
+
+| 이름 | 역할 | 담당 |
+|---|---|---|
+| 주진호 | AI 판정 · 평가 · 기획 · 발표 | 데이터·라벨, 평가 지표·오탐 분석, 임계값·정책, 일정 |
+| 설경민 | 프로토콜 · 블록체인 · 기술 리드 | 영수증 규격, hash·Merkle, epoch contract, backend 설계 |
+| 노유신 | 서비스 개발 | frontend 검증 화면, backend API 구현·연동 |
+
 ## Docs and next steps
 
 [문서 안내](docs/README.md)에서 현재 상태·검증·초안·과거 기록을 구분합니다. [P1 backlog](docs/06-p1-backlog.md): public demo → browser E2E·coverage → backend 통합 전 shared protocol → 실제 backend·AI·epoch contract/testnet. 현재 core 위치와 정상 bytes는 유지합니다.

@@ -186,7 +186,7 @@ Tamper demo는 보존한 원본 receipt의 복사본에서 score 또는 policy h
 
 ## 8. 협업자 책임
 
-최신 기획서 10장 기준: 노유신은 label taxonomy, InferenceOutput 의미, 정책·평가·manifest 내용을 맡는다. 설경민은 receipt schema, canonicalization, Merkle/proof, contract와 독립 verifier를 맡는다. 주진호는 업무 API, 불변 receipt 저장, 인증·원문 접근 통제, 상태 처리와 UI 연결을 맡는다.
+2026-09-19 팀 합의 기준(기획서 10장 분담에서 변경, 02 결정 기록): 주진호는 label taxonomy, 데이터 검토, InferenceOutput 의미, 평가 지표·오탐 분석·threshold, 정책·manifest 내용을 맡고 기획·발표·일정을 총괄한다. 설경민은 receipt schema, canonicalization, Merkle/proof, contract와 독립 verifier를 맡고 backend 구조 설계와 기술 리드를 겸한다. 노유신은 업무 API 구현, 불변 receipt 저장, 인증·원문 접근 통제, 상태 처리와 검증 화면·UI 연결을 맡는다.
 
 공동: schema version, 수치/시간 규칙, 상태 전이, trust boundary, 공개 범위, 실패 사례. 네 인터페이스의 실제 생산자·소비자와 검토 항목은 [계약 초안](04-interface-contract-draft.md)에 정리한다.
 
