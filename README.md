@@ -174,4 +174,4 @@ P0는 문서 일치·정확성·재현성·검증 증거입니다. 이후 공통
 - [Protocol audit](docs/05-protocol-audit.md), [P1 backlog](docs/06-p1-backlog.md), [검증 기록](docs/07-validation-2026-09-13.md)
 - [최신 기획서 원본](docs/references/project-proposal-2026-09-12.pptx): 수정하지 않은 reference. 노트·본문 정정 사항은 현재 상태 문서 참고
 
-팀: 주진호(서비스·총괄), 노유신(AI·정책), 설경민(코어·블록체인). 기능 브랜치 → PR → 팀원 리뷰 → main 절차를 유지합니다.
+팀(2026-09-19 역할 재배치): 주진호(AI 판정·평가·기획·총괄), 설경민(프로토콜·블록체인·기술 리드), 노유신(서비스 개발). 기능 브랜치 → PR → 팀원 리뷰 → main 절차를 유지합니다.

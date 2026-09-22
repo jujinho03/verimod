@@ -272,13 +272,13 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 ## 13. 팀 역할과 협업
 
-최신 PPTX 10장 본문 기준이다. 같은 장의 2인 팀 발표자 노트는 오래된 설명이다.
+2026-09-19 팀 합의로 PPTX 10장 분담을 전공 기준으로 재배치했다(근거: docs/02 상태 갱신). 기획서 10장의 분담과 2인 팀 발표자 노트는 과거 설명이다.
 
 | 팀원 | 주 책임 | 공동 접점 |
 |---|---|---|
-| 주진호 | 팀장, 업무 API·불변 저장·인증·원문 접근 통제·상태 처리, 프론트엔드, 일정·발표 | I1 소비, I2 발급·저장, I4 배치 운영, UI 의미 |
-| 노유신 | 지원 라벨, 데이터·baseline 평가, score·evidence, 오탐·threshold, 정책·시연 | I1 생산, model/policy manifest |
-| 설경민 | receipt schema·직렬화·hash·Merkle/proof, epoch contract·testnet·독립 verifier·공통 벡터 | I2·I3·I4 |
+| 주진호 | 팀장, 지원 라벨, 데이터·baseline 평가, score·evidence, 오탐·threshold, 정책, 기획·일정·발표 | I1 생산, model/policy manifest |
+| 설경민 | 기술 리드, receipt schema·직렬화·hash·Merkle/proof, epoch contract·testnet·독립 verifier·공통 벡터, backend 구조 설계·리뷰 | I2·I3·I4 |
+| 노유신 | 업무 API 구현·불변 저장·인증·원문 접근 통제·상태 처리, frontend 검증 화면·UI 연결 | I1 소비, I2 발급·저장, I4 배치 운영, UI 의미 |
 
 네 인터페이스, 개인정보 범위, 통합 테스트와 receipt/hash 호환성은 세 사람이 공동 검토한다. 작업 시작 시 문서 버전과 Git 상태를 확인하고, 담당 파일과 생산자·소비자를 명시한다. AI 보고는 실제 출처와 실행 결과를 붙여 전달한다.
 
@@ -298,9 +298,9 @@ MVP에서 한 판정당 한 개의 열린 appeal을 허용하고 재심은 뒤�
 
 | 개발 순서 | 주진호 | 노유신 | 설경민 | 공동 완료조건 |
 |---|---|---|---|---|
-| 현재 계약 검토 | 상태·권한·API 경계 | 라벨·score·오류 | schema·bytes·proof·ABI | I1~I4의 입력·출력·오류와 변경 영향 합의 |
-| 실제 연결 | 업무 API·저장·인증·UI | 실제 모델·baseline·정책 평가 | 공통 코어·contract·testnet·reader | 실제 판정에서 외부 root 대조까지 연결 |
-| 검증·시연 | 재시도·동시성·권한·발표 | 오탐·실패 사례·시나리오 | 변조·finality·배포 증빙 | 이의·검토와 실패 흐름을 포함한 실제 E2E |
+| 현재 계약 검토 | 라벨·score·오류 | 상태·권한·API 경계 구현안 | schema·bytes·proof·ABI, backend 구조 | I1~I4의 입력·출력·오류와 변경 영향 합의 |
+| 실제 연결 | 실제 모델·baseline·정책 평가 | 업무 API·저장·인증·UI | 공통 코어·contract·testnet·reader | 실제 판정에서 외부 root 대조까지 연결 |
+| 검증·시연 | 오탐·실패 사례·시나리오·발표 | 재시도·동시성·권한 | 변조·finality·배포 증빙 | 이의·검토와 실패 흐름을 포함한 실제 E2E |
 
 주차와 마감은 공식 일정 확인 후 배정한다. 현재 다음 단계 산출물은 [계약 검토 초안](docs/04-interface-contract-draft.md)이며, 문서 작성만으로 구현·합의 완료가 되지는 않는다.
 
