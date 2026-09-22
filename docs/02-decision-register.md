@@ -8,15 +8,15 @@
 
 | 순서 | 먼저 확정할 항목 | 제안 / 결정해야 하는 것 | 담당 제안 | 완료조건 |
 |---|---|---|---|---|
-| P0-1 | 판정 범위와 언어 | 한국어 텍스트, 실제 dataset label과 정책 범위 대응 | 노유신 + 공동 | 지원/미지원 라벨과 dataset 조사 조건 명시 |
+| P0-1 | 판정 범위와 언어 | 한국어 텍스트, 실제 dataset label과 정책 범위 대응 | 주진호 + 공동 | 지원/미지원 라벨과 dataset 조사 조건 명시 |
 | P0-2 | event/state 모델 | DECISION → APPEAL → REVIEW, ALLOW/RESTRICT/HUMAN_REVIEW | 공동 | 정상·직접 review·중복 appeal·오류 전이 표 합의 |
-| P0-3 | AI → receipt | 정수 scores_ppm, model/policy manifest, typed inference errors | 노유신 주도 | 라벨 누락·truncation·threshold 경계 처리 합의 |
+| P0-3 | AI → receipt | 정수 scores_ppm, model/policy manifest, typed inference errors | 주진호 주도 | 라벨 누락·truncation·threshold 경계 처리 합의 |
 | P0-4 | receipt bytes | body/bundle 분리, timestamp/null/Unicode/정수/JCS 규칙 | 공동 | 완전한 필드 목록과 사건별 required/null 규칙 합의 |
 | P0-5 | hash → Merkle | SHA-256 domain, ordered CT tree, entry bytes, proof 방향 | 설경민 주도 | 빈/단일/홀수 트리와 변조 처리 규칙 합의 |
 | P0-6 | Merkle → contract | epoch_id/root/count/version, publisher, immutable 등록 | 설경민 주도 | 논리적 register/get/event와 오류 목록 합의 |
 | P0-7 | 독립 검증 | 신뢰 chain/contract/issuer, finality, RPC 오류, lifecycle | 공동 | VALID와 부분 검증/보류/실패 UI 의미 합의 |
 | P1 | 구현 선택 | 실제 데이터·모델·threshold, Python/JS library, framework, chain | 각 담당 | P0 경계를 유지하고 선택 근거 기록 |
-| P2 | 운영 선택 | 배치 시간/수, DB, 배포 환경, 키 보관, 재시도, 접근 통제 | 주진호·설경민 + 공동 | 실제 demo 환경에서 구현 전 필요한 설정 확정 |
+| P2 | 운영 선택 | 배치 시간/수, DB, 배포 환경, 키 보관, 재시도, 접근 통제 | 설경민·노유신 + 공동 | 실제 demo 환경에서 구현 전 필요한 설정 확정 |
 
 P0-1에서는 서비스가 지원할 라벨의 의미를 정한다. 최종 모델 선정과 실제 threshold 수치 평가까지 이번 단계에서 끝내는 것은 아니다. 인증·원문 접근 통제는 기록 저장 및 appeal 구현 전 필수이며 선택적인 보안 부가기능이 아니다.
 
@@ -70,6 +70,7 @@ Node와 브라우저의 공통 벡터가 우선이다. Python이 추론 출력�
 | 2026-09-12 | epoch 단위 등록, 연결된 appeal/review를 후속 batch에 포함 | 최신 PPTX 6·8장 | 최신 기획 방향. ABI 승인 아님 |
 | 2026-09-12 | 프론트엔드 계산·시뮬레이션 존재, 실제 AI·testnet 미연결 | 제품 소스 908f64e | 구현 관찰 |
 | 2026-09-12 | 공통 문서 현행화와 다음 계약 초안 작성 | 현재 사용자 요청 | 작업 범위. 신규 프로토콜 승인 아님 |
+| 2026-09-19 | 역할 재배치: 주진호 AI 판정·평가·기획, 설경민 프로토콜·블록체인·기술 리드(backend 설계 포함), 노유신 서비스 개발(backend API 구현·frontend 검증 화면) | 전공 적합도 기준 팀 합의. 9/19 OT 발표자료 7장에 반영 | 팀 합의. 기획서 10장 분담을 대체 |
 
 ## 다음 계약 검토 상태
 
@@ -77,13 +78,13 @@ Node와 브라우저의 공통 벡터가 우선이다. Python이 추론 출력�
 
 | ID | 검토 항목 | 담당 |
 |---|---|---|
-| C01 | 라벨·score·입력/evidence·오류 계약 | 노유신, 주진호·설경민 검토 |
-| C02 | 사건 상태 전이·권한·중복·멱등성 | 주진호, 공동 검토 |
-| C03 | ReceiptBody/Bundle·manifest·버전 규칙 | 설경민·주진호, 공동 검토 |
+| C01 | 라벨·score·입력/evidence·오류 계약 | 주진호, 설경민·노유신 검토 |
+| C02 | 사건 상태 전이·권한·중복·멱등성 | 설경민 설계·노유신 구현, 공동 검토 |
+| C03 | ReceiptBody/Bundle·manifest·버전 규칙 | 설경민(manifest 내용은 주진호), 공동 검토 |
 | C04 | 제한 직렬화 프로파일 또는 JCS 채택 | 설경민, 공동 검토 |
-| C05 | hash/Merkle·공통 테스트 벡터 | 설경민, 주진호 검토 |
-| C06 | epoch ABI·reader·chain/finality·키 운영 | 설경민·주진호, 공동 검토 |
-| C07 | 검증 결과·side check·개인정보·자료 가용성 | 주진호·설경민, 공동 검토 |
+| C05 | hash/Merkle·공통 테스트 벡터 | 설경민, 노유신 검토 |
+| C06 | epoch ABI·reader·chain/finality·키 운영 | 설경민·노유신, 공동 검토 |
+| C07 | 검증 결과·side check·개인정보·자료 가용성 | 설경민·노유신, 공동 검토 |
 | C08 | 시험 데이터와 실제 모드·마이그레이션 경계 | 공동 |
 
 ## P0 안정화와 prototype 상태 (2026-09-13)

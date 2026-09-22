@@ -18,7 +18,7 @@
 |---|---|---|
 | 기록된 사용자 선택 | frontend/backend 분리, contracts는 backend 하위, Node.js·TypeScript·Express 5 | 02 결정 기록 |
 | 최신 기획 방향 | HTTP 451, 한국어 텍스트 moderation, epoch 등록, 연결된 appeal/review, 접근 통제 오프체인 저장, 공개 IPFS 미채택 | PPTX 1·6·7·8·10·14장 |
-| 최신 팀 | 주진호: 서비스·총괄, 노유신: AI·정책, 설경민: 코어·블록체인 | PPTX 10장 본문 |
+| 최신 팀 | 주진호: AI 판정·평가·기획(총괄), 설경민: 프로토콜·블록체인·기술 리드, 노유신: 서비스 개발 | 2026-09-19 팀 합의(02 상태 갱신). PPTX 10장 분담을 대체 |
 | 시험 구현 | schema·합성 라벨/threshold·RESOLVED·제한 직렬화·Merkle·TrustConfig·시뮬레이션 원장 | 제품 코드 908f64e |
 | 미정 | 실제 모델·데이터·평가, 정식 schema/manifest·수치/Unicode 규칙, ABI·체인·finality·키, DB·권한·보존 | 02 기록, 04 초안 |
 
