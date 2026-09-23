@@ -21,7 +21,41 @@ STATUS: DRAFT
 
 ## C01. AI 출력·정책
 
-**제안:** InferenceOutput/PolicyEvaluation 분리를 유지한다. 5개 시험 라벨을 실제 모델이 모두 지원한다고 가정하지 않는다. taxonomy별 필수 점수 집합을 정하고 수신 시 누락·추가 라벨을 거부한다.
+### 2026-09-24 AI-03 W1 I1 update
+
+2026-09-12 C01의 필드·오류 후보를 바탕으로 최신 상태를 정리한다. 문서와 C01 전체는 계속 **DRAFT**이며, 아래 ADOPTED는 [결정 기록](02-decision-register.md)의 해당 제약만 뜻한다. 문서 상단의 과거 승인 전 설명과 구분하며 C01 전체 schema의 승인·구현 완료를 뜻하지 않는다.
+
+근거는 사용자 최신 결정 → 실제 최신 main/code/tests/CI → VERIFIED FINAL → Master Plan v1.2.1 → 최신 decision register → 기존 문서 순이다. AI-01/AI-02는 Command Center에서 PASS된 연구·feasibility 결과를 참조하며, 별도 repository 연구 보고서가 존재한다고 주장하지 않는다.
+
+#### 1. Contract boundary
+
+**PROPOSED:** AI adapter → policy / receipt 발급 경계에서 InferenceOutput과 PolicyEvaluation을 분리하는 기존 방향을 유지한다.
+
+| 경계 | 기존 필드와 의미 |
+|---|---|
+| AI / inference | taxonomy_id / taxonomy_version, scores_ppm, score_semantics, model_manifest_hash, 제공 가능한 evidence/attribution, inference metadata |
+| Policy | action, reason_codes, triggered_rule_ids, policy_manifest_hash |
+
+dataset label은 policy reason/action과 같지 않다. 예를 들어 Gender label 자체가 자동으로 특정 reason_code가 되지 않으며, triggered_rule_ids는 모델이 임의 생성하는 label이 아니라 policy evaluation 결과다.
+
+AI-02 후보는 K-MHaS / BEEP! / UnSmile이며 Primary dataset과 final supported taxonomy는 **UNRESOLVED**다. 이번 AI-03은 어느 후보도 선택하지 않는다. 세 후보에서 violence / sexual / spam은 독립 native supervision으로 지원되지 않으므로 지원 class로 문서화하지 않는다. K-MHaS Not Hate Speech, BEEP! none, UnSmile clean은 각 annotation 체계의 negative label이며, 자동으로 ALLOW 또는 모든 moderation policy 위반 없음으로 해석하지 않는다. 이 경계 정리는 새 policy rule을 정하는 것이 아니다.
+
+#### 2. Adopted constraints
+
+- **D01 / ADOPTED:** 한국어 encoder fine-tuning이 AI 주 경로다. GATE-4 실패 시 guard model/API fallback을 허용하되 모델 변경 후에도 I1 consumer-facing meaning을 유지한다. fallback provider/API/model name은 정하지 않는다.
+- **D02 / ADOPTED:** native labels → mapping feasibility → supported taxonomy 순서를 따른다. synthetic 5-label 강제·억지 mapping을 금지하고 misinformation을 제외한다. 필요 시 5→3 축소 가능성은 유지하되 라벨 수를 여기서 정하지 않는다. final taxonomy는 GATE-2에서 확정한다.
+- **D03 / ADOPTED:** reason_codes = MUST, triggered_rule_ids = MUST. evidence span / attribution = SHOULD이며 attribution을 causal explanation으로 표현하지 않는다. 이는 아래 evidence 필드의 exact schema requiredness를 새로 확정하거나 기존 필드를 제거하는 결정이 아니다.
+- **D07 / ADOPTED:** scores_ppm의 각 score는 integer 0..1,000,000이다. probability-like float p를 사용하는 경우 Python inference boundary에서 floor(p*1,000,000 + 0.5)를 단 한 번 적용한다. downstream policy는 전달된 integer를 사용하며 재반올림하지 않는다. 미보정 score는 UNCALIBRATED이며 calibration 근거 없이 probability라고 부르지 않는다. 반드시 5개 score를 요구한다는 뜻은 아니다.
+
+#### 3. Working assumptions
+
+**D24 / WORKING ASSUMPTION:** inference unavailable 시 503 INFERENCE_UNAVAILABLE, DECISION 미발급, fake ALLOW 금지 방향이다. ADOPTED가 아니며 구현된 HTTP API를 뜻하지 않는다. 아래 기존 오류·transport 후보의 나머지 세부사항은 PROPOSED로 유지한다.
+
+#### 4. Proposed fields
+
+**PROPOSED:** taxonomy_id / taxonomy_version은 label set과 의미 정의를 식별하고, taxonomy 변경 시 consumer가 의미를 구분하기 위한 값이다. 실제 ID/version 값과 exact label set은 정하지 않는다. taxonomy별 필수 score key 집합을 확인하고 누락·추가를 거부하는 기존 방향은 제안으로 유지하되, exact required-key validation semantics는 final taxonomy와 consumer agreement 전까지 미확정이다.
+
+아래는 기존 필드 제안이며 D03/D07의 승인된 제약은 위 구분을 따른다. 새로운 schema field를 추가하지 않는다.
 
 | 필드 | 초안 규칙 | 남은 결정 |
 |---|---|---|
@@ -29,31 +63,55 @@ STATUS: DRAFT
 | inference_id | 소문자 UUID v4, 추론 시도 식별 | 서비스 멱등키와 구분 |
 | content_commitment | 발급 계층이 전달한 원문 commitment를 반환 | 원문·salt 접근 경로 |
 | model_manifest_hash | 모델·revision·전처리·추론 설정 manifest의 hash | 실제 필드·보존/조회 경로 |
-| taxonomy_id/version | 라벨 의미·필수 scores 키 고정 | 실제 지원 라벨·데이터 대응 |
-| scores_ppm | 라벨별 0~1,000,000 안전 정수, 합계 제한 없음 | 점수 의미·정수 변환 |
+| taxonomy_id / taxonomy_version | label set과 의미 정의 식별 | 실제 ID/version·지원 라벨·required-key 검증 합의 |
+| scores_ppm | 각 score의 정수 범위·변환은 D07 ADOPTED. 라벨별 map·합계 제한 없음은 기존 제안 | exact key 집합, single-label/multi-label 의미 |
 | score_semantics | CALIBRATED / UNCALIBRATED | calibration 주장에는 실제 평가 근거 필요 |
 | input_status | FULL / TRUNCATED | 500 code point는 시험값. 운영 길이·token/전처리 규칙 미정 |
-| evidence | 필수 필드, 없으면 빈 배열, 원문 code point [start,end) | method/version, 정렬·중복·범위 검사 |
+| evidence | 제공 수준은 D03 SHOULD. 원문 code point [start,end), 없으면 빈 배열은 기존 표현 제안 | exact schema requiredness, method/version, 정렬·중복·범위 검사 |
 | inferred_at | YYYY-MM-DDTHH:mm:ss.SSSZ | 발급자 주장 시각이며 블록 시각과 별개 |
 
-확률 p를 채택하면 유한한 [0,1]인지 검사하고 생산자에서 floor(p×1,000,000+0.5)를 한 번 적용하는 안을 제안한다. rubric 점수는 별도 의미를 정의한다. 정책은 전달된 정수만 비교한다.
+유한한 [0,1] 입력 검사 방향은 기존 제안으로 유지한다. 정수 변환 위치·횟수는 위 D07 ADOPTED를 적용한다. 그 외 score 의미·calibration 결과는 이번에 확정하지 않는다.
 
-전처리·tokenizer index는 adapter가 원문 code point로 매핑한다. 매핑할 수 없는 evidence를 만들어 채우지 않는다. 원문 `😀 무료 쿠폰`에서 `무료`는 [2,4)다. UTF-16 index와 혼동하지 않는다. 생성기는 정렬하고 수신기는 비정상 순서·완전 중복을 거부한다는 안을 유지한다. 원문 substring은 receipt에 넣지 않는다.
+span을 제공한다면 전처리·tokenizer index를 adapter가 원문 code point로 매핑하는 기존 제안을 유지한다. 없는 evidence나 매핑할 수 없는 span을 만들어 채우지 않는다. 원문 `😀 무료 쿠폰`에서 `무료`는 [2,4)다. UTF-16 index와 혼동하지 않는다. 생성기는 정렬하고 수신기는 비정상 순서·완전 중복을 거부한다는 안을 유지한다. 원문 substring은 receipt에 넣지 않는 기존 privacy 경계를 유지한다. evidence extraction/tokenizer mapping algorithm과 exact schema requiredness는 이번에 확정하지 않는다.
 
-정책 출력은 policy_manifest_hash, action, reason_codes, triggered_rule_ids다. 초안 우선순위는 TRUNCATED → HUMAN_REVIEW, 그 외 제한 임계값 충족 → RESTRICT, 검토 임계값 충족 → HUMAN_REVIEW, 나머지 ALLOW다. 400,000/800,000/850,000 등 시험 수치는 운영 임계값으로 승인하지 않는다.
+정책 출력은 policy_manifest_hash, action, reason_codes, triggered_rule_ids다. **PROPOSED인 기존 정책 초안**의 우선순위는 TRUNCATED → HUMAN_REVIEW, 그 외 제한 임계값 충족 → RESTRICT, 검토 임계값 충족 → HUMAN_REVIEW, 나머지 ALLOW다. 400,000/800,000/850,000 등 시험 수치는 운영 임계값으로 승인하지 않는다. 이 초안이나 negative label만으로 실제 policy action을 확정하지 않는다.
 
-오류는 성공 출력과 별도 구조를 제안한다. 아래 코드 이름은 신규 제안이다.
+오류는 성공 출력과 별도 구조를 제안한다. 아래는 2026-09-12부터 있던 코드 후보이며, AI-03에서 새 error code를 추가하지 않는다. D24의 잠정 방향 외에는 PROPOSED다.
 
 | 원인 | 코드 후보 | 처리 후보 |
 |---|---|---|
 | 빈 입력·잘못된 Unicode | EMPTY_INPUT / INVALID_INPUT | 입력 수정, DECISION 발급 안 함 |
 | 미지원 taxonomy | UNSUPPORTED_TAXONOMY | 설정 오류, 임의 라벨 변환 없음 |
 | 누락·NaN·범위 밖·소수 점수 | INVALID_MODEL_OUTPUT | 내부 원인 기록, 가짜 ALLOW 없음 |
-| timeout·서비스 장애 | INFERENCE_TIMEOUT / INFERENCE_UNAVAILABLE | 동일 서비스 요청의 재시도 정책 적용 |
+| timeout·서비스 장애 | INFERENCE_TIMEOUT / INFERENCE_UNAVAILABLE (기존 후보) | unavailable은 D24 WORKING ASSUMPTION의 503·DECISION 미발급·fake ALLOW 금지 방향. timeout 세부 mapping·재시도는 미확정 |
 
 실패 envelope 후보는 `ok=false`, `request_id`, `error.code`, `error.retryable`이다. 성공은 `ok=true`, `request_id`, `inference`이고 정책 계층이 policy를 생성한다. 이 transport envelope·내부 오류 상세를 body에 넣지 않는다. 현재 backend에 이 API가 존재한다는 뜻은 아니다.
 
-검토 예시: TRUNCATED이고 모든 점수가 1,000,000이어도 초안 정책은 HUMAN_REVIEW다. 필수 hate 점수가 빠지거나 1,000,001이면 INVALID_MODEL_OUTPUT이다. 확률 변환의 부동소수점 경계는 공통 벡터에서 별도 비교한다.
+기존 시험 taxonomy의 검토 예시: TRUNCATED이고 모든 점수가 1,000,000이어도 초안 정책은 HUMAN_REVIEW다. 시험 구현의 필수 hate 점수가 빠지거나 1,000,001이면 INVALID_MODEL_OUTPUT 후보에 해당한다. 이는 target taxonomy에 hate key를 필수로 확정한 예시가 아니다. float→integer 변환의 경계 검증은 후속 공통 벡터 검토 대상으로 남긴다.
+
+#### 5. Current implementation mismatch
+
+**CURRENT implementation constraint:** [types.ts](../frontend/src/domain/types.ts)의 LABEL_IDS / ScoresPpm은 hate / profanity / sexual / spam / violence의 5개 label/key를 기대하는 demo/test 구조다. [manifests.ts](../frontend/src/domain/manifests.ts)의 verimod-example-ko / 0은 시험값이며, [schema.ts](../frontend/src/domain/schema.ts)는 이 taxonomy identity와 고정 key 집합 및 evidence 배열을 검사한다. [policy.ts](../frontend/src/domain/policy.ts)도 5개 score를 검사하고 합성 정책 규칙으로 reason_codes와 triggered_rule_ids를 생성한다.
+
+**TARGET/DRAFT:** AI-03 I1은 특정 5개 key를 최종 계약으로 고정하지 않는다. D03의 SHOULD는 현재 schema에서 evidence 배열이 요구된다는 관찰과 별개이며, 이를 근거로 target requiredness를 확정하지 않는다. 현재 코드가 AI-03 target contract를 구현 완료한 것은 아니다. [현재 상태](03-current-status.md)의 backend health scaffold와 D24의 목표 HTTP 실패 동작도 구분한다. 이번 작업은 code/schema/API를 수정하지 않는다.
+
+#### 6. Unresolved decisions
+
+**AI-03에서 아직 확정하지 않는 항목 — 모두 UNRESOLVED:**
+
+| 항목 | 남은 질문 / 경계 |
+|---|---|
+| Primary dataset | K-MHaS / BEEP! / UnSmile 후보 중 선택하지 않음 |
+| final supported taxonomy | 실제 ID/version·label set·라벨 수 및 exact required-key 검증은 미확정 |
+| coarse vs detailed output | 대상별 정보를 보존할지 통합할지, 통합 시 정보 손실 |
+| single-label vs multi-label semantics | 동시 라벨·점수 의미·합계 관계 |
+| negative label inclusion | Not Hate Speech / none / clean을 출력에 포함할지; ALLOW와 동일시 금지 |
+| profanity/offensive/악플 처리 | 서로 다른 native 의미를 보존할지, 통합 가능성은 무엇인지 |
+| unsupported category representation | 미지원과 점수 누락을 구분할 표현; 가짜 0점으로 지원을 가장하지 않음 |
+| evidence representation requiredness | SHOULD와 JSON 필드 필수 여부·빈 배열 표현을 구분; 알고리즘 미확정 |
+| threshold | 기존 시험 수치를 운영값으로 승계하지 않음 |
+| calibration | 방법·평가 근거 미정; UNCALIBRATED를 probability라고 부르지 않음 |
+| policy rule mapping | label과 reason/action/rule의 연결 미정; 새 규칙을 만들지 않음 |
 
 ## C02. 상태·권한·멱등성
 
