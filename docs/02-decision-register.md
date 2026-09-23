@@ -1,6 +1,95 @@
 # 확정 우선순위와 구현 진입 조건
 
-STATUS: PROPOSED
+STATUS: CURRENT (decision evidence; 개별 결정 상태는 아래 표 기준)
+
+## W1 kickoff decision evidence — 2026-09-23
+
+### 승인 출처와 authority
+
+DOC-01 / DOC-02: **사용자가 이 Command Center에서 D01~D17을 승인하고 D18~D28을 W1~W2 WORKING ASSUMPTION으로 승인한 것**을 기록한다. 승인 근거는 2026-09-23 사용자 `[ATOMIC TASK]`의 `DECISIONS TO RECORD`와 `Authority` 명시다. 오프라인 회의 개최·참석자·발언·팀원별 투표를 증명하는 기록은 아니다. 21:00 kickoff는 외부 계획의 예정 시각이며 실제 회의 시각으로 기록하지 않는다.
+
+수정 전 검증 baseline: `main` / HEAD / fetch 후 `origin/main` = `5f030f6af97889062a58a2d571160ba8e89122fc`, ahead 0 / behind 0, working tree clean. 이 SHA는 이번 기록의 출발점이며 영구 최신값이 아니다. 제품 테스트·CI run을 이번 기록 작업에서 재실행하거나 새로 성공 확인한 것으로 주장하지 않는다.
+
+Authority: **사용자 최신 결정 → 실제 최신 main/code/tests/CI → VeriMod 3인 7주 실행 프롬프트 VERIFIED FINAL → Master Plan v1.2.1 → 기존 repository 문서**. Master Plan v1.2.1을 현재 W1 execution planning 기준으로 채택한다. 이는 구현이 계획과 같다는 증거가 아니다.
+
+외부 근거: 사용자가 제공한 `TalkFile_VeriMod_3인_7주_실행_프롬프트_VERIFIED_FINAL.pdf` p.4~8(역할·상태·결정·Gate), p.12~13(DOC-01/DOC-02·W1 evidence), p.24~25(T W1), p.32(D08 전이 행렬), p.40(F W1), p.49(날짜). PDF는 저장소에 새로 복사하지 않았다. Master Plan 원문 전체를 별도 재검증했다는 의미는 아니다.
+
+CURRENT는 실제 구현/검증 사실, NEXT/TARGET은 앞으로 수행할 작업이다. **ADOPTED는 결정 승인 상태이며 구현·테스트·배포 완료가 아니다. WORKING ASSUMPTION은 ADOPTED가 아니며 FRZ-01에서 수정 또는 채택한다.** 기존 C01~C09 전체 schema/API/ABI가 일괄 승인된 것도 아니다. 아래와 충돌하는 과거 PROPOSED 문구에는 이 기록을 적용하고, 충돌하지 않는 미승인 세부사항은 계속 검토 대상으로 둔다.
+
+### D01~D17 — ADOPTED
+
+각 행의 승인일은 2026-09-23이며 승인 주체·근거는 위 사용자 명시다. 이유는 별도 회의 발언을 재구성하지 않고 승인된 문구의 목적·경계만 요약한다.
+
+| ID | Date | Status | Decision | Reason / boundary | Superseded proposal / conflict | Impact |
+|---|---|---|---|---|---|---|
+| D01 | 2026-09-23 | ADOPTED | 한국어 encoder fine-tuning을 AI 주 경로로 한다. GATE-4 실패 시 guard model/API fallback을 허용하되 I1 contract는 유지한다. | AI 경로를 정하되 소비 계약 유지 | 기존 AI 방식 미선택 상태를 이 범위에서 갱신 | A의 연구·평가 방향. 특정 model 채택·학습 완료 아님 |
+| D02 | 2026-09-23 | ADOPTED | Primary dataset native labels → mapping feasibility → supported taxonomy 순서. synthetic 5-label 강제·억지 mapping 금지, 필요 시 5→3, misinformation 제외. 최종 taxonomy는 GATE-2에서 확정한다. | 실제 데이터의 라벨 의미 존중 | 시험 5라벨을 최종값으로 승계하지 않음 | A의 조사·I1 초안 기준. 최종 taxonomy 미정 |
+| D03 | 2026-09-23 | ADOPTED | reason_codes·triggered_rule_ids는 MUST. evidence span / attribution은 SHOULD. attribution을 causal explanation으로 표현하지 않는다. | 설명 범위와 필수 계약 구분 | 기존 evidence 논의를 이 우선순위로 한정 | 기존 evidence 필드의 제거·schema 변경 승인이 아님 |
+| D04 | 2026-09-23 | ADOPTED | 본선 MVP persistence는 SQLite 단일 파일. PostgreSQL은 본선 전 기본 경로에서 제외한다. | MVP persistence 경로 결정 | 06의 SQLite/PostgreSQL 병렬 후보 중 기본 경로 결정 | F의 API/DB 계약 기준. DB 구현 완료 아님 |
+| D05 | 2026-09-23 | ADOPTED | receipt hash를 epoch 단위 Merkle batching하고 epoch root를 on-chain commitment로 사용한다. 개별 receipt는 inclusion proof로 검증한다. | 등록 단위와 검증 단위 분리 | 기존 epoch 기획 방향을 이 범위에서 채택 | epoch size/cadence는 미정 |
+| D06 | 2026-09-23 | ADOPTED | APPEAL은 DECISION을 수정하지 않고 새 receipt로 생성한다. REVIEW도 새 receipt이며 DECISION → APPEAL → REVIEW 연결을 유지한다. | 원 판정 보존과 후속 기록 연결 | 기존 append 방식 제안을 이 범위에서 채택 | 상세 권한·API 구현의 완료 아님 |
+| D07 | 2026-09-23 | ADOPTED | scores_ppm은 integer 0..1,000,000. Python inference boundary에서 floor(p*1,000,000+0.5)를 한 번 적용한다. 미보정 score는 UNCALIBRATED이며 calibration 근거 없이 probability라 부르지 않는다. | 변환 위치와 점수 의미 고정 | 기존 ppm 변환 제안을 이 범위에서 채택 | I1 생산자 경계. threshold·calibration 결과 미정 |
+| D08 | 2026-09-23 | ADOPTED | REVIEW outcome(UPHOLD / OVERTURN / RESOLVED)과 resulting_action을 분리한다. REVIEW는 lifecycle terminal이며 구체 transition matrix는 FINAL p.32를 따른다. | 검토 결과와 유효 조치 구분 | 기존 RESOLVED 미채택 문구를 이 범위에서 대체 | 새로운 전이/API를 이 문서에서 설계하지 않음 |
+| D09 | 2026-09-23 | ADOPTED | 팀 HTTP 451, 프로젝트/제품 VeriMod, 영문 User-Verifiable AI Moderation Protocol, 메시지 Decide. Prove. Appeal. | 명칭·메시지 일관성 | 기존 명칭 유지 | 문서·발표 기준 |
+| D10 | 2026-09-23 | ADOPTED | Master Plan v1.2.1의 7주 일정과 Gate를 단일 execution schedule로 사용한다. 구버전 일정 충돌은 위 authority order로 처리한다. | 실행 일정 기준 통일 | 기존 일정 미확정/구버전 일정 대신 최신 planning 기준 | 아래 Gate planning 적용. 실제 완료 증거와 구분 |
+| D11 | 2026-09-23 | ADOPTED | VeriMod Canonical Profile v1, UTF-8 / SHA-256 / domain separation / ordered Merkle. 기존 PoC hash byte semantics를 명시적 migration 없이 깨지 않는다. | 기존 바이트 의미 보존 | 기존 profile/JCS 선택 초안을 이 방향에서 갱신 | 프로파일·fixture 문서화 기준. 코드·schema 변경 없음 |
+| D12 | 2026-09-23 | ADOPTED | target testnet Base Sepolia, chain ID 84532. demo 전용 test wallet, primary/backup RPC 방향. | target network 경계 결정 | 06의 Base Sepolia 후보/체인 미선택 상태 갱신 | block time·gas·confirmation·RPC vendor 미정. 배포 완료 아님 |
+| D13 | 2026-09-23 | ADOPTED | verifier는 승인된 TrustProfile을 authority로 사용한다. bundle locator는 trust root가 아니다. 승인 profile 2개 내장 방향을 채택한다. | 검증 신뢰 기준 분리 | 기존 TrustConfig 초안에 대한 목표 방향 | 실제 profile 값·reader 구현 완료 아님 |
+| D14 | 2026-09-23 | ADOPTED | contract는 protocolVersion을 저장하고 지원 여부는 verifier가 판단한다. | version 지원 판정 책임 분리 | 기존 contract-side unsupported-version 검사 PROPOSED 초안을 supersede. 아래 충돌 기록 참조 | 코드·ABI 변경 없음 |
+| D15 | 2026-09-23 | ADOPTED | contract에 별도 registration timestamp field를 두지 않는다. 등록 block/time evidence는 tx receipt/event를 통해 확인한다. | 등록 증거의 확인 경로 결정 | 기존 block.timestamp / block.number 저장 PROPOSED 초안을 supersede. 아래 참조 | 코드·storage layout 변경 없음 |
+| D16 | 2026-09-23 | ADOPTED | DEMO_USER / DEMO_REVIEWER / DEMO_OPERATOR로 PoC authorization boundary만 표현한다. production identity proof라고 주장하지 않는다. | demo 권한과 실제 신원 증명 구분 | 기존 미정 권한 논의를 PoC 범위에서 한정 | 인증/API 구현 완료 아님 |
+| D17 | 2026-09-23 | ADOPTED | 구버전 확장은 FINAL의 SHOULD / WON'T / BACKLOG 분류를 따른다. W1에서 새로운 확장 feature를 추가하지 않는다. | W1 범위 유지 | 기존 확장 backlog를 새 MUST로 승격하지 않음 | 새 feature·ticket 없음 |
+
+### D18~D28 — WORKING ASSUMPTION
+
+각 행은 2026-09-23 사용자가 승인한 **W1~W2 잠정 planning 기준**이다. FRZ-01에서 수정 또는 채택하기 전까지 ADOPTED로 표시하지 않는다.
+
+| ID | Date | Status | Decision / working assumption | Reason / boundary | Superseded proposal / conflict | Impact |
+|---|---|---|---|---|---|---|
+| D18 | 2026-09-23 | WORKING ASSUMPTION | I1~I4 semantic freeze는 W2 말(10/03~04)에 수행하며 W1은 초안만 만든다. | 초안과 동결 구분 | 기존 동결 일정 대신 잠정 기준 | W2 구현·freeze 완료 아님 |
+| D19 | 2026-09-23 | WORKING ASSUMPTION | 소유자 발급 material의 salt/receipt material + 브라우저 입력 원문으로 Private Receipt Package 구성 방향. 원문/salt는 ReceiptBody/on-chain에 넣지 않는다. | private 자료와 공개 기록 분리 | 기존 전달 방식 미정 사항의 잠정 방향 | Package/schema/API 구현 아님 |
+| D20 | 2026-09-23 | WORKING ASSUMPTION | 제공받은 lifecycle record의 무결성·연결성을 검증하며 freshness/completeness는 보증하지 않는다. | 보장 범위 한정 | 기존 보장 한계와 일치 | 검증·설명 planning 기준 |
+| D21 | 2026-09-23 | WORKING ASSUMPTION | 쓰기 API 3개에 Idempotency-Key 요구. 동일 payload retry는 동일 결과, 충돌 payload는 구분하는 방향. | retry 의미 유지 | 기존 멱등키 후보의 잠정 방향 | 새 endpoint/schema 구현 없음 |
+| D22 | 2026-09-23 | WORKING ASSUMPTION | FROZEN → SUBMITTING → SUBMITTED → CONFIRMED 또는 FAILED. signed tx 선기록 / reconcile 방향. | 제출·복구 상태 구분 | 기존 PENDING → SUBMITTED → CONFIRMING → ANCHORED 초안과 충돌. 아래 최신 planning 우선 규칙 참조 | 코드 변경·ADOPTED 처리 금지 |
+| D23 | 2026-09-23 | WORKING ASSUMPTION | epochId는 uint64 단조 증가 sequence, 1부터 시작. bundle epoch_id는 동일 값의 decimal string 방향. | 계층 간 ID 대응 | 기존 ID 후보에 대한 잠정 기준 | 실제 ABI/schema 변경 없음 |
+| D24 | 2026-09-23 | WORKING ASSUMPTION | inference 실패는 503 INFERENCE_UNAVAILABLE, DECISION 미발급. ALLOW fallback 금지. | 실패를 정상 판정으로 위장하지 않음 | 기존 오류 후보의 잠정 mapping | API 구현 완료 아님 |
+| D25 | 2026-09-23 | WORKING ASSUMPTION | FRR <= X AND HRR_TOTAL <= B 조건에서 HAR 최소화. 동률은 Restriction Precision 높은 쪽 → HRR_TOTAL 낮은 쪽. | validation 선택 목적 명시 | 수치 미확정 유지 | X/B 값·threshold·평가 결과를 생성하지 않음 |
+| D26 | 2026-09-23 | WORKING ASSUMPTION | GATE-2 / GATE-4 / GATE-5 및 FINAL의 fallback/scope-cut 경로 사용. | 실패 시 planning 경로 명시 | 구버전 Gate 계획 대신 아래 잠정 경로 | Gate 실제 판정·fallback 실행 아님 |
+| D27 | 2026-09-23 | WORKING ASSUMPTION | TEST는 model/threshold/policy 선택에 1회 사용. 버그 수정 또는 동일 LOCK 재현은 사유와 commit 기록이 있는 경우에만 재실행 가능. | TEST 재사용 경계 | 기존 평가 계획에 잠정 제약 명시 | TEST 열람·실행 없음 |
+| D28 | 2026-09-23 | WORKING ASSUMPTION | Primary dataset 1개로 train/validation/test. Secondary는 기본적으로 train에 합치지 않고 외부 평가 SHOULD 용도로 사용. | 학습/외부 평가 경계 | 기존 dataset 후보를 선정한 것은 아님 | dataset 다운로드·선택·학습 없음 |
+
+### Explicit supersedes and planning conflicts
+
+- **D14 / ADOPTED:** [01의 I4](01-domain-and-interfaces.md) `protocol_version: MVP는 지원하는 1만 허용`, [04의 C06](04-interface-contract-draft.md) `미지원 version 검사`, [06의 실제 epoch commitment contract](06-p1-backlog.md) `unsupported version`, 이 문서 아래 과거 Contract 검증 행의 지원 안 되는 version 거부는 contract-side 지원 판정에 한해 superseded다. version 지원 여부는 verifier 책임으로 읽는다. 나머지 미승인 ABI를 일괄 채택하지 않으며 코드는 변경하지 않는다.
+- **D15 / ADOPTED:** 01의 I4 `anchored_at / anchored_block` 행의 `contract가 block.timestamp / block.number로 기록` 제안을 supersede한다. 별도 registration timestamp field를 두지 않고 등록 block/time evidence는 tx receipt/event를 통해 확인한다. 기존 코드를 수정하거나 새 storage layout을 만들지 않는다.
+- **D22 / WORKING ASSUMPTION:** 01의 I4 `PENDING → SUBMITTED → CONFIRMING → ANCHORED` 및 04 C06의 `BATCHED/SUBMITTED/CONFIRMING`, `ANCHORED` planning과 충돌한다. 새 계획에는 D22의 잠정 상태를 우선 적용하되 FRZ-01 전 ADOPTED로 취급하지 않는다. 현재 코드/UI 상태명을 바꾸거나 core verification의 PENDING 의미를 재정의하지 않는다.
+- D04·D12는 06의 DB/testnet 후보 상태를 명시된 범위에서 갱신한다. D08·D11 등 채택된 방향은 과거 '미채택' 문구보다 우선하되, 세부 계약 전체·정상 bytes 변경·새 schema/API/ABI의 승인을 뜻하지 않는다. 이전 문서는 변경 경위를 추적할 수 있도록 보존한다.
+
+### W1 ownership and Gate planning
+
+W1은 2026-09-21~09-27이며 계약·데이터·신뢰 경계·API/DB 정리가 목적이다. 기존 2026-09-19 역할 기록과 FINAL의 A/T/F를 연결한다: A 주진호는 dataset research → taxonomy → I1, T 설경민은 Canonical Profile → TrustProfile → I4 ABI 초안 및 backend 설계·리뷰, F 노유신은 existing UI audit → API/DB 계약 및 backend API·frontend 구현 담당이다. 이 기록은 해당 작업의 착수·완료 evidence가 아니다.
+
+다음은 D10의 execution schedule 및 D26의 **WORKING ASSUMPTION** 실패 경로다. 날짜는 2026년 계획이며 Gate PASS/FAIL 판정은 아직 기록하지 않는다.
+
+| Gate | Planning date | 실패 시 FINAL planning 경로 |
+|---|---|---|
+| GATE-2 | 10/04(일) 21:00; FRZ-01 semantic freeze 10/03~04 | 5→3 labels, span 제거, 추가 UI 중지, protocol vectors 우선 |
+| GATE-4 | 10/18(일) 21:00 | AI: guard model/API fallback(I1 유지), 정상 model/provider fallback의 마지막 주요 분기. Chain: LOCAL 개발 + T testnet 복구. Verifier: T reader 지원 |
+| GATE-5 | 10/25(일) 21:00 | SHOULD=0, 신규 feature=0, 미완 MUST는 W6 첫 3일 마감, 필요 시 scope-cut. LOCK 이후 model 교체는 demo continuity fallback으로만 표시 |
+
+### Unresolved values — do not invent
+
+X, B, final supported taxonomy, exact Base min_confirmations, epoch size, epoch freeze cadence, exact RPC vendor, dataset selection, final threshold, model choice, block time/gas 세부값은 **미확정**이다. 이미 승인되지 않은 실제 schema/API/ABI 구현 세부사항도 확정하지 않는다. D04 SQLite·D12 Base Sepolia의 방향 승인과 이 미확정 값들을 구분한다.
+
+### W1 evidence location and recording scope
+
+기존 `docs/progress/`, `docs/progress/W1.md`, `docs/spec/` 또는 동등한 W1 전용 문서는 preflight에서 없었다. 기존 decision register의 이 섹션이 이번 kickoff/decision recording evidence를 함께 수용하므로 새 파일은 만들지 않는다. [문서 안내](README.md)에서 연결한다. 향후 W1 progress 문서를 만들 경우 이 기록을 연결하며, 계약 초안·Gate 결과·실행 로그가 이미 존재한다고 표시하지 않는다.
+
+이번 변경은 documentation/evidence only다. production code·schema/API/ABI·DB·model·dataset·TEST는 변경/실행하지 않는다. 제품 테스트 미실행 — documentation-only task. 이 기록은 2026-09-23 Command Center 승인 내용을 반영한 W1 decision evidence이며, 구현 완료를 의미하지 않는다. Git 전달 상태는 저장소 이력과 해당 PR을 기준으로 확인한다.
+
+## 이전 설계·결정 기록 (2026-09-11~19)
+
+아래는 기존 시점의 기록이다. '이번', '미정', '승인 근거 없음', 'PROPOSED' 등의 표현은 당시 범위이며, 위 2026-09-23 결정과 겹치는 내용은 위 기록이 우선한다. C01~C09의 남은 세부사항은 일괄 승인되지 않았다.
 
 전체 맥락은 [README](../README.md), 기획서 대비 최신 쟁점은 [현재 상태](03-current-status.md)를 함께 확인한다. 2026-09-12 최신 기획서·제품 코드 908f64e를 반영했다. 다음 산출물은 [I1~I4 계약 검토 초안](04-interface-contract-draft.md)이다. 상태 갱신이나 코드 존재로 기술 제안이 자동 채택되지 않는다.
 
