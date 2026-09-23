@@ -85,7 +85,7 @@ X, B, final supported taxonomy, exact Base min_confirmations, epoch size, epoch 
 
 기존 `docs/progress/`, `docs/progress/W1.md`, `docs/spec/` 또는 동등한 W1 전용 문서는 preflight에서 없었다. 기존 decision register의 이 섹션이 이번 kickoff/decision recording evidence를 함께 수용하므로 새 파일은 만들지 않는다. [문서 안내](README.md)에서 연결한다. 향후 W1 progress 문서를 만들 경우 이 기록을 연결하며, 계약 초안·Gate 결과·실행 로그가 이미 존재한다고 표시하지 않는다.
 
-이번 변경은 documentation/evidence only다. production code·schema/API/ABI·DB·model·dataset·TEST는 변경/실행하지 않는다. 제품 테스트 미실행 — documentation-only task. 이 문서는 아직 commit/push된 evidence가 아니라 검토할 working-tree 기록이다.
+이번 변경은 documentation/evidence only다. production code·schema/API/ABI·DB·model·dataset·TEST는 변경/실행하지 않는다. 제품 테스트 미실행 — documentation-only task. 이 기록은 2026-09-23 Command Center 승인 내용을 반영한 W1 decision evidence이며, 구현 완료를 의미하지 않는다. Git 전달 상태는 저장소 이력과 해당 PR을 기준으로 확인한다.
 
 ## 이전 설계·결정 기록 (2026-09-11~19)
 
