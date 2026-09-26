@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "hardhat build",
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "wallet:provision": "node scripts/provision-test-wallet.mjs",
+    "base:check": "node --env-file=.env scripts/check-base-sepolia.mjs"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.7",
