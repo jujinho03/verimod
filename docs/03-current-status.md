@@ -4,7 +4,9 @@ STATUS: CURRENT
 
 확인일: 2026-09-14.
 
-현재 제출 기준 origin/main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이다. 해당 main의 [GitHub Actions](https://github.com/jujinho03/verimod/actions/runs/34805612537) `VeriMod P0 checks`는 completed / success였다. 이 main은 PR [#2](https://github.com/jujinho03/verimod/pull/2) `chore: improve VeriMod submission quality and reproducibility`의 병합 결과다.
+아래 SHA와 CI 결과는 날짜 있는 historical baseline이다. CURRENT는 `git fetch origin` 후 최신 `origin/main`의 code/tests 및 해당 SHA의 CI로 확인하며, 과거 성공 기록을 현재 결과로 재사용하지 않는다.
+
+2026-09-14 당시 제출 기준 origin/main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이다. 해당 main의 [GitHub Actions](https://github.com/jujinho03/verimod/actions/runs/34805612537) `VeriMod P0 checks`는 completed / success였다. 이 main은 PR [#2](https://github.com/jujinho03/verimod/pull/2) `chore: improve VeriMod submission quality and reproducibility`의 병합 결과다.
 
 아래에 남은 `6971363`, `908f64e` 기준 서술은 P0·quality pass 작업 시작 시점의 역사 기록으로 구분해 읽는다. 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](07-validation-2026-09-13.md)을 따른다.
 
@@ -26,7 +28,9 @@ STATUS: CURRENT
 | 최신 기획 방향 | HTTP 451, 한국어 텍스트 moderation, epoch 등록, 연결된 appeal/review, 접근 통제 오프체인 저장, 공개 IPFS 미채택 | PPTX 1·6·7·8·10·14장 |
 | 최신 팀 | 주진호: AI 판정·평가·기획(총괄), 설경민: 프로토콜·블록체인·기술 리드, 노유신: 서비스 개발 | 2026-09-19 팀 합의(02 상태 갱신). PPTX 10장 분담을 대체 |
 | 시험 구현 | schema·합성 라벨/threshold·RESOLVED·제한 직렬화·Merkle·TrustConfig·시뮬레이션 원장 | 제품 코드 908f64e |
-| 미정 | 실제 모델·데이터·평가, 정식 schema/manifest·수치/Unicode 규칙, ABI·체인·finality·키, DB·권한·보존 | 02 기록, 04 초안 |
+| 미정 | 실제 모델·데이터·평가, 정식 schema/manifest·수치/Unicode 규칙, ABI·RPC vendor·min confirmations·gas 등 운영 세부값·키, DB·권한·보존 | 02 기록, 04 초안 |
+
+[결정 기록](02-decision-register.md) D12는 **TARGET Base Sepolia / chainId 84532** 방향을 ADOPTED로 기록한다. 실제 배포 완료가 아니며 위 운영 세부값은 미확정이다.
 
 ## 실제 코드와 미연결 목표
 
@@ -77,7 +81,7 @@ STATUS: CURRENT
 
 ## 다음 단계와 실행 증거
 
-[04 계약 초안](04-interface-contract-draft.md)은 출력·오류, 상태·권한·중복, body/bundle, bytes/proof, ABI·신뢰 범위의 구체적 검토안이다. C01~C08은 모두 PROPOSED이고 팀 승인 기록은 없다. 채택 시 01·02를 함께 갱신한다.
+[04 계약 초안](04-interface-contract-draft.md)은 출력·오류, 상태·권한·중복, body/bundle, bytes/proof, ABI·신뢰 범위의 구체적 검토안이다. C01~C08 전체 계약은 DRAFT이며, [결정 기록](02-decision-register.md)의 D01~D17 개별 ADOPTED 제약과 구분한다. D18~D28은 WORKING ASSUMPTION이다. [04의 AI-03](04-interface-contract-draft.md)도 개별 제약 승인과 전체 schema/API/ABI 승인·구현 완료를 구분한다.
 
 앞선 문서 인수인계에 이어 이번 사용자 요청의 P0 제품 보강을 적용했다. 정상 hash 바이트·body·ABI를 바꾸지 않고 validation·저장 복구·경합·simulation disclosure·CI를 보강했다. 실제 테스트/lint/build/브라우저 결과는 [검증 기록](07-validation-2026-09-13.md)을 따른다. 모델 평가와 testnet은 실행하지 않았다.
 

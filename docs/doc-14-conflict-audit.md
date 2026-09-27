@@ -253,3 +253,66 @@ Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 
 | JOINT | A / 주진호 + T / 설경민 + F / 노유신 | 02,06,07,12,28,29,31: 보장·개별 승인/전체 DRAFT·실제 구현·I1 실패 경계·freeze/Gate·authority; lifecycle 문구는 T의 Row-35와 F 소비 경계 함께 확인 | PENDING |
 
 실제 source synchronization patch 0건. D18~D28은 WORKING ASSUMPTION, 모든 미확정 값은 미확정 유지. owner confirmation 완료 처리, OPS-02, W1 progress 작성, W2, commit/push/PR은 수행하지 않는다.
+## 10. Stage 3 Synchronization Execution
+
+- execution date: 2026-09-27
+- base main SHA: `f807585dae3930e8c249c5975d0d4cb88b060cb4`
+- starting branch commit: `86bd8122fd66af80c0300a046a0c46ed3d61d5a3` (`docs/w1-doc-14-conflict-audit`)
+- source synchronization: **PATCHED** — 아래 승인 범위만 실제 수정. §1~§9는 당시 AUDIT / SCOPE ONLY evidence로 그대로 보존한다.
+
+| Repository file patched | Applied rows |
+|---|---|
+| docs/01-domain-and-interfaces.md | 19,20,22,35 |
+| docs/03-current-status.md | 04,06,18 |
+| docs/04-interface-contract-draft.md | 14,18,19,22,34,35 |
+| docs/06-p1-backlog.md | 09,18,19,24,35,37 |
+| docs/08-submission-guide.md | 04 |
+
+### Cross source selection and byte evidence
+
+- Historical Stage-1 audit source SHA-256: `95a6b7004e0279e545b1164181dd5dadf834cbe1798e8b1f30332c6ecee2ab41` — historical source이며 현재 canonical이라고 주장하지 않는다.
+- Current source selection: **USER-APPROVED on 2026-09-27 / SELECTED**.
+- Current canonical source exact path (before/after 동일): `C:\Users\jinho\Desktop\BLOCK AI\자료\프로젝트-기준\BLOCK AI - VeriMod Cross-LLM Master Prompt.md`
+- filename: `BLOCK AI - VeriMod Cross-LLM Master Prompt.md`
+- before bytes: 41838
+- before SHA-256: `0d7e1d14db9ba81e74b41fd0b794abd8d5efa9eb9ca0c8028309007ec2f2e2c6`
+- after bytes: 47604
+- after SHA-256: `aeb77fc853eedda8c4ce50361679a2ff6ed484e245800121c8447f74773bc20a`
+- 두 원본 SHA의 차이를 보존한다. 현재 canonical의 이번 patch가 FINAL 표지의 과거 synchronized 대상을 입증하지 않는다.
+- Cross sections patched: §4,10,11,12,15,16,17,19,22,24,31,32,35,41,42.
+- Cross rows applied: 03,11,12,14,15,17,21,23,26,27,28,29,31,34.
+- `자료/기획·발표/` 및 `C:/Users/jinho/Downloads/`의 동명 Cross 사본은 수정하지 않는다.
+
+### Deferred decisions and boundaries
+
+- Row-25: **DEFERRED / UNRESOLVED / HUMAN_DECISION_REQUIRED**. TEST methodology·validation/LOCK/TEST 절차와 D27 WORKING ASSUMPTION을 변경하지 않았다.
+- Row-32: historical synchronized provenance **DEFERRED / UNRESOLVED / HUMAN_DECISION_REQUIRED**; current canonical source selection만 **SELECTED**다. FINAL의 과거 synchronized claim 대상 원본·버전·시점은 확인되지 않았다.
+- owner confirmations: A / T / F / JOINT 모두 **PENDING**.
+- D01~D17 ADOPTED / D18~D28 WORKING ASSUMPTION 유지. 개별 결정 승인은 상세 계약 전체 승인·구현 완료가 아니다.
+- code implementation changed: **NO**; 제품 tests 실행: **NO** (documentation-only).
+- 새 API/schema/ABI 설계: **NO**. Primary/final taxonomy/model/threshold 확정, TEST 접근: **NO**.
+- OPS-02: **NO**; W1 progress 작성: **NO**; W2 work: **NO**.
+- commit / push / PR: **NO**.
+
+## 11. Owner Confirmation Results
+
+- DOC-14 Stage 4B completed: **2026-09-27**.
+- 아래 결과는 §9~§10의 당시 PENDING 기록 이후 완료된 Stage 4B 최종 상태다.
+
+| Review | Owner | Result |
+|---|---|---|
+| A | 주진호 | CONFIRMED |
+| T | 설경민 | CONFIRMED |
+| F | 노유신 | CONFIRMED |
+| JOINT | 주진호 | CONFIRMED |
+| JOINT | 설경민 | CONFIRMED |
+| JOINT | 노유신 | CONFIRMED |
+
+- Stage 4B: **COMPLETE**.
+- confirmation은 Stage 3 synchronization patch 검토에 대한 승인이다. 실제 구현 완료를 뜻하지 않는다.
+- D01~D17 = **ADOPTED**, D18~D28 = **WORKING ASSUMPTION** 상태를 유지한다.
+- **ADOPTED != implemented**, **CURRENT != TARGET**.
+- 새로운 API/schema/ABI/contract feature를 승인한 것이 아니다.
+- Row-25 TEST methodology: **UNRESOLVED** 유지.
+- Row-32 historical synchronized provenance: **UNRESOLVED** 유지.
+- Cross canonical current source selection과 Row-32 historical provenance는 별개다.

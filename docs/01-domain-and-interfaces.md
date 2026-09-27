@@ -50,7 +50,7 @@ AI adapter는 추론 결과를, policy evaluator는 행동 결정을, receipt bu
 
 - DECISION: 최초 자동 판정. action은 ALLOW / RESTRICT / HUMAN_REVIEW.
 - APPEAL: 기존 DECISION에 대한 이용자의 이의제기 접수. 기존 action을 덮어쓰지 않는다.
-- REVIEW: APPEAL 또는 HUMAN_REVIEW 판정에 대한 사람 검토. 시험 구현은 appeal에 UPHOLD / OVERTURN, 직접 HUMAN_REVIEW 종료에 RESOLVED를 사용한다. resulting_action은 ALLOW / RESTRICT다. RESOLVED와 전이 제한의 정식 채택은 [C02](04-interface-contract-draft.md)에서 검토한다.
+- REVIEW: APPEAL 또는 HUMAN_REVIEW 판정에 대한 사람 검토. 시험 구현은 appeal에 UPHOLD / OVERTURN, 직접 HUMAN_REVIEW 종료에 RESOLVED를 사용한다. resulting_action은 ALLOW / RESTRICT다. [결정 기록](02-decision-register.md) D08에서 UPHOLD / OVERTURN / RESOLVED outcome과 resulting_action의 분리 및 REVIEW terminal 방향은 ADOPTED다. 상세 권한·API·계약은 [C02](04-interface-contract-draft.md)의 DRAFT로 구분한다.
 - RESTORE는 이전 RESTRICT가 REVIEW에서 ALLOW로 바뀔 때의 UI 표현이며 새로운 정책 action으로 섞지 않는다.
 - MVP는 최초 판정당 한 개의 열린 appeal과 한 개의 최종 review를 제안한다. 재심은 후속 확장으로 남긴다.
 - hash 연결은 기록 연결만 증명한다. 실제 사용자 권한, reviewer 자격, 중복 요청·동시 처리 통제는 backend 책임이다.
@@ -158,9 +158,9 @@ MVP 제안: 플랫폼 하나당 단순한 non-upgradeable contract 하나. 배�
 | epoch_id | 1부터 증가. last_epoch_id+1만 허용하는 제안 |
 | root | 0이 아닌 bytes32 |
 | receipt_count | 1 이상 uint32. 서비스 상한은 별도 설정 |
-| protocol_version | MVP는 지원하는 1만 허용 |
+| protocol_version | 과거 제안: MVP는 지원하는 1만 허용. **D14로 superseded**: contract는 protocolVersion을 저장하고 지원 여부는 verifier가 판단한다. [결정 기록](02-decision-register.md) 참조 |
 | publisher / issuer_commitment | 배포 시 고정된 발급 주체. 임의 호출자 등록 거부 |
-| anchored_at / anchored_block | contract가 block.timestamp / block.number로 기록 |
+| anchored_at / anchored_block | 과거 제안: contract가 block.timestamp / block.number로 기록. **D15로 superseded**: 별도 registration timestamp field 없이 tx receipt/event로 등록 block/time evidence를 확인한다. [결정 기록](02-decision-register.md) 참조 |
 | getEpoch | 존재 여부를 명시하여 미등록과 0-filled 결과를 구분 |
 | EpochRegistered event | epoch_id, root, count, version, publisher 및 block 문맥 확인용 |
 
@@ -170,7 +170,9 @@ MVP 제안: 플랫폼 하나당 단순한 non-upgradeable contract 하나. 배�
 
 Anchor locator는 chain_id, contract_address, epoch_id, tx_hash, block_number, block_hash를 포함한다. locator 자체는 신뢰 근거가 아니다. verifier는 사전 신뢰 설정에 있는 chain/contract/issuer와 지원 protocol을 사용하고, 사용자가 제공한 임의 contract의 root를 성공으로 받아들이지 않는다.
 
-앵커 상태는 PENDING → SUBMITTED → CONFIRMING → ANCHORED로 구분한다. RPC 오류는 실패 원인과 함께 UNKNOWN, tx revert는 FAILED로 처리한다. reorg가 확인되면 ANCHORED를 철회하고 재확인한다. 체인별 finality 기준과 RPC 선택은 배포 전 결정한다. retry 시 같은 epoch 상태를 먼저 조회하고 동일 root/count/version이면 성공으로 처리하며 다른 값이면 충돌이다. 미확정 tx 때문에 새 epoch를 중복 발급하지 않는다.
+과거 앵커 planning(superseded)은 PENDING → SUBMITTED → CONFIRMING → ANCHORED로 구분했다. RPC 오류는 실패 원인과 함께 UNKNOWN, tx revert는 FAILED로 처리한다. reorg가 확인되면 ANCHORED를 철회하고 재확인한다. 체인별 finality 기준과 RPC 선택은 배포 전 결정한다. retry 시 같은 epoch 상태를 먼저 조회하고 동일 root/count/version이면 성공으로 처리하며 다른 값이면 충돌이다. 미확정 tx 때문에 새 epoch를 중복 발급하지 않는다.
+
+[결정 기록](02-decision-register.md) D22의 **WORKING ASSUMPTION**은 FROZEN → SUBMITTING → SUBMITTED → CONFIRMED 또는 FAILED 및 signed tx 선기록 / reconcile 방향이다. 위 과거 planning보다 우선하되 ADOPTED는 아니며, CURRENT verifier/UI의 PENDING 의미를 변경하지 않는다. 새 ABI/storage 설계나 구현 완료를 뜻하지 않는다.
 
 ## 7. 이용자 검증과 보장 범위
 

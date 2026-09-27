@@ -18,7 +18,7 @@ VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판�
 
 ## 실행 준비
 
-Node 24.19.0 / npm 12.0.2에서 검증했다. 아래 명령은 제출용 main 브랜치를 가져온다. 검증과 반영 이력은 [PR #1](https://github.com/jujinho03/verimod/pull/1)의 P0 hardening, [PR #2](https://github.com/jujinho03/verimod/pull/2)의 repository quality pass, 그리고 [GitHub Actions](https://github.com/jujinho03/verimod/actions/workflows/ci.yml)에서 확인한다. 현재 제출 기준 main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이다.
+Node 24.19.0 / npm 12.0.2에서 검증했다. 아래 명령은 제출용 main 브랜치를 가져온다. 검증과 반영 이력은 [PR #1](https://github.com/jujinho03/verimod/pull/1)의 P0 hardening, [PR #2](https://github.com/jujinho03/verimod/pull/2)의 repository quality pass, 그리고 [GitHub Actions](https://github.com/jujinho03/verimod/actions/workflows/ci.yml)에서 확인한다. 2026-09-14 당시 제출 기준 main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이었다(historical baseline). CURRENT는 `git fetch origin` 후 최신 `origin/main`과 해당 SHA의 GitHub CI를 확인한다. 과거 실행 결과를 현재 성공 증거로 재사용하지 않는다.
 
 ```bash
 git clone --branch main https://github.com/jujinho03/verimod.git
