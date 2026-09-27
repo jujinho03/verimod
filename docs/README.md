@@ -13,3 +13,12 @@ STATUS: CURRENT
 | 역사 / 원본 자료 | [00 과거 감사](00-repository-audit.md), [기획 reference](references/) |
 
 CURRENT는 현재 안내, DRAFT/PROPOSED는 미승인 설계, AUDIT SNAPSHOT/HISTORICAL은 명시한 시점의 기록입니다. 코드 존재·테스트 통과·기술 채택은 서로 다른 상태입니다.
+
+## 노유신 W1 계약·UI 점검
+
+- [API-00 API/DB 계약 초안](spec/api-db-contract.md)
+- [FE-00 화면 요구사항](spec/screen-requirements.md) · [실제 소스 audit](spec/ui-audit-w1.md)
+- [ARCH-01 F 검토 자료](spec/architecture-review.md)
+- [W1 진행·검증 기록](progress/W1.md)
+
+초안 작성·정적 소스 점검과 팀 리뷰·기능 구현 완료를 구분한다.
