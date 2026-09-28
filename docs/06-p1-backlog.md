@@ -49,7 +49,9 @@ REST resource 식별자와 idempotency key, 오류 code/status, pagination, chai
 
 최소 entities: Receipt(body/hash/상태/참조), Epoch(root/count/version/publisher/status/locator), PrivateContent(raw/salt/owner/retention), AppealPrivateText(text/salt/access), ReviewMetadata(reviewer authorization/action/time/policy). 공개 record와 private fields 저장/조회 경계를 분리한다.
 
-| DB 후보 | 적합 조건 | 남은 검토 |
+[결정 기록](02-decision-register.md) **D04 / ADOPTED:** 본선 MVP persistence 기본 경로는 SQLite 단일 파일이다. PostgreSQL은 본선 전 기본 경로가 아니다. 아래 후보 표는 과거 비교 이력이며 DB 구현 완료를 뜻하지 않는다.
+
+| 과거 DB 후보 | 적합 조건 | 남은 검토 |
 |---|---|---|
 | SQLite | 단일 프로세스·작은 로컬 demo, 영속 volume 가능 | 동시 write·backup·배포 volume·worker contention |
 | PostgreSQL | 서버/worker 여러 프로세스·동시성 증가 | 운영 환경·연결/backup·비용 |
@@ -63,7 +65,7 @@ REST resource 식별자와 idempotency key, 오류 code/status, pagination, chai
 
 K-MHaS, KoELECTRA, KLUE-RoBERTa, KR-BERT는 MASTER의 검토 후보다. 이번 다운로드·채택·훈련 없음. 데이터별 공식 출처·license 전문·상업/연구 제한·한국어 여부·multi-label 여부·class distribution·split leakage/중복을 먼저 기록한다.
 
-현재 hate/profanity/sexual/spam/violence와 실제 label 의미를 항목별로 대응한다. 없는 라벨을 억지 mapping하거나 0점으로 정상 처리하지 않는다. misinformation은 별도 문제이므로 MVP 제외 가능성을 유지한다.
+현재 hate/profanity/sexual/spam/violence와 실제 label 의미를 항목별로 대응한다. 없는 라벨을 억지 mapping하거나 0점으로 정상 처리하지 않는다. misinformation은 [결정 기록](02-decision-register.md) **D02 / ADOPTED**에 따라 제외한다. Primary native labels를 우선하며 synthetic 5-label을 최종값으로 강제하지 않는다. final taxonomy는 미확정이다.
 
 보고: Macro/Micro F1, per-class precision/recall/F1, false positive/negative rate와 분모 정의, split/seed/revision·실행 명령·결과 파일. 정상 콘텐츠가 RESTRICT되는 오탐을 우선 분석한다. Score가 확률이 아니면 probability라고 쓰지 않으며 calibration 전 UNCALIBRATED 유지. threshold는 실제 score semantics 및 오탐 비용을 보고 선택한다. 성능 수치는 실제 평가 전 README/PPT에 추가하지 않는다.
 
@@ -77,6 +79,8 @@ K-MHaS, KoELECTRA, KLUE-RoBERTa, KR-BERT는 MASTER의 검토 후보다. 이번 �
 
 ## 5. 실제 epoch commitment contract
 
+아래 과거 규칙·테스트의 contract-side supported/unsupported version 요구는 [결정 기록](02-decision-register.md) **D14로 superseded**다. contract는 protocolVersion을 저장하고 지원 여부는 verifier가 판단한다. 나머지 ABI 후보를 일괄 승인하거나 새 ABI를 만들지 않는다.
+
 후보 인터페이스:
 `registerEpoch(epochId, root, receiptCount, protocolVersion, issuerCommitment)`,
 `getEpoch(epochId)`, `EpochRegistered(...)` event.
@@ -87,7 +91,7 @@ K-MHaS, KoELECTRA, KLUE-RoBERTa, KR-BERT는 MASTER의 검토 후보다. 이번 �
 
 ## 6. EVM testnet·독립 reader·신뢰 설정
 
-Base Sepolia 등은 후보이며 이번 chain 선택 없음. 결정 후 RPC URL, publisher/deployer key, chain ID, contract address를 env/keystore로 관리한다. .env.example만 공개, 실제 secret commit 금지.
+과거 Base Sepolia 후보·chain 미선택 상태는 [결정 기록](02-decision-register.md) **D12 / ADOPTED**로 갱신한다. **TARGET Base Sepolia / chainId 84532**, demo 전용 test wallet·primary/backup RPC 방향이며 배포 완료가 아니다. RPC vendor·min confirmations·gas 등 운영값은 미정이다. RPC URL, publisher/deployer key, chain ID, contract address는 env/keystore로 관리한다. .env.example만 공개, 실제 secret commit 금지.
 
 배포 완료 증빙: chain ID, contract address, deployment tx, example epoch tx, block number, explorer URL. **실제 explorer 대조 전 deployed라고 쓰지 않는다.**
 
@@ -101,11 +105,11 @@ RPC 장애는 UNAVAILABLE/PENDING, 내용 불일치는 FAILED로 구분. reorg�
 
 ## 7. Privacy·review·운영 hardening
 
-authenticated reviewer, authorization, review action/time/policy version을 backend에서 기록. HUMAN_REVIEWER 문자열만으로 human proof라고 주장하지 않는다. 직접 HUMAN_REVIEW 종료 RESOLVED는 D08 미승인 prototype.
+authenticated reviewer, authorization, review action/time/policy version을 backend에서 기록. HUMAN_REVIEWER 문자열만으로 human proof라고 주장하지 않는다. 과거 RESOLVED 미승인 표기는 [결정 기록](02-decision-register.md) **D08 / ADOPTED** 방향으로 대체한다. UPHOLD / OVERTURN / RESOLVED outcome과 resulting_action을 분리하고 REVIEW를 terminal로 둔다. 상세 권한·API·계약은 DRAFT이며 구현 완료를 뜻하지 않는다.
 
 Public chain에는 root/count/version/최소 issuer/publisher commitment, off-chain에는 detailed receipt/raw/salt/appeal/reviewer metadata. 보존·삭제·소유권·receipt export 접근 정책을 결정한다. 공개 bundle에 appeal text를 넣지 않고 필요 시 별도 private side check 채택.
 
-P0 잔여: cross-tab lost update, mutable snapshot API, 원문 Unicode 프로파일·evidence 순서/범위·정책 재계산, appeal commitment side check, 큰 batch/root/proof 성능·fuzzing, lint UI 경고, contract tooling 취약점 재평가. 실제 key와 운영 데이터를 넣기 전에 이 위험을 재검토한다.
+P0 잔여: cross-tab lost update, mutable snapshot API, 원문 Unicode 프로파일·evidence 순서/범위·정책 재계산, appeal commitment side check, 큰 batch/root/proof 성능·fuzzing, lint UI 경고(과거 항목: [05의 2026-09-14 재점검](05-protocol-audit.md#2026-09-14-재점검)에서 기존 8개 해소 확인), contract tooling 취약점 재평가. 실제 key와 운영 데이터를 넣기 전에 이 위험을 재검토한다.
 
 ## 8. 이후 통합 완료 기준
 
