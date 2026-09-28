@@ -44,6 +44,10 @@ jobs:
       - run: npm ci
       - run: npm test
       - if: matrix.package == 'frontend'
+        run: npx playwright install --with-deps chromium
+      - if: matrix.package == 'frontend'
+        run: npm run test:browser
+      - if: matrix.package == 'frontend'
         run: npm run lint
       - if: matrix.package == 'backend'
         run: npm run typecheck

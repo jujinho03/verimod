@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 
 // Independent lockfiles remain in their packages; this is not an npm workspace.
 const checks = [
-  ['frontend', ['lint']],
+  ['frontend', ['lint', 'test:browser']],
   ['backend', ['typecheck']],
   ['backend/contracts', []],
 ]
