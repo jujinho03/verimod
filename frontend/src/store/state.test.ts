@@ -51,6 +51,7 @@ describe('persistent state recovery', () => {
       (s: typeof seed) => { s.receipts[0].epoch_id = '999' },
       (s: typeof seed) => { s.receipts = s.receipts.filter((r) => r.body.event_kind !== 'APPEAL') },
       (s: typeof seed) => { s.receipts.push(s.receipts[0]) },
+      (s: typeof seed) => { s.epochs[1].members[0] = structuredClone(s.epochs[0].members[0]) },
     ]
     for (const mutate of mutations) {
       const copy = structuredClone(seed); mutate(copy)

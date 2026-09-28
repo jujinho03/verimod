@@ -62,6 +62,8 @@ export async function validateState(state: AppState): Promise<void> {
     for (const [key, value] of Object.entries(map)) require(isHex32(key) && value && isHex32(value.salt) && typeof value.text === 'string')
   }
   const epochIds = new Set<string>()
+  const frozenReceiptIds = new Set<string>()
+  const frozenReceiptHashes = new Set<string>()
   for (const epoch of state.epochs) {
     require(epoch && epoch.record && Array.isArray(epoch.members))
     const r = epoch.record
@@ -71,7 +73,12 @@ export async function validateState(state: AppState): Promise<void> {
     require(uint(epoch.frozen_at) && uint(r.anchored_block) && uint(r.protocol_version) && r.protocol_version > 0)
     require(isHex32(r.root) && isHex32(r.issuer_commitment) && typeof r.publisher === 'string' && /^0x[0-9a-f]{40}$/.test(r.publisher))
     require(isHex32(epoch.tx_hash) && isHex32(epoch.block_hash) && r.receipt_count === epoch.members.length)
-    for (const member of epoch.members) require(member && uuid(member.receipt_id) && isHex32(member.receipt_hash) && typeof member.mine === 'boolean')
+    for (const member of epoch.members) {
+      require(member && uuid(member.receipt_id) && isHex32(member.receipt_hash) && typeof member.mine === 'boolean')
+      require(!frozenReceiptIds.has(member.receipt_id) && !frozenReceiptHashes.has(member.receipt_hash))
+      frozenReceiptIds.add(member.receipt_id)
+      frozenReceiptHashes.add(member.receipt_hash)
+    }
     const frozen = await freezeEpoch(epoch.members)
     require(frozen.root === r.root)
     require(frozen.members.every((m, i) => m.receipt_hash === epoch.members[i].receipt_hash))

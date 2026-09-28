@@ -1,0 +1,25 @@
+{
+  "profile": "verimod-canonical-profile-v1",
+  "cases": [
+    {"id":"normal-valid","category":"normal","expected":"HASH_MATCH"},
+    {"id":"normal-tampered-body","category":"normal","expected":"RECOMPUTED_HASH"},
+    {"id":"normal-rehashed","category":"normal","expected":"HASH_MATCH"},
+    {"id":"key-top-level","category":"key-order","expected":"SAME_BYTES"},
+    {"id":"key-nested","category":"key-order","expected":"SAME_BYTES"},
+    {"id":"key-receipt-body","category":"key-order","expected":"SAME_BYTES"},
+    {"id":"unicode-korean","category":"unicode","expected":"PRESERVED"},
+    {"id":"unicode-astral","category":"unicode","expected":"PRESERVED"},
+    {"id":"unicode-no-nfc","category":"unicode","expected":"PRESERVED"},
+    {"id":"null-required","category":"null-omitted","expected":"ACCEPT"},
+    {"id":"required-omitted","category":"null-omitted","expected":"INVALID_SCHEMA"},
+    {"id":"null-vs-omitted","category":"null-omitted","expected":"DIFFERENT_BYTES"},
+    {"id":"integer-max-safe","category":"integer-boundary","expected":"ACCEPT"},
+    {"id":"integer-min-safe","category":"integer-boundary","expected":"ACCEPT"},
+    {"id":"integer-unsafe","category":"integer-boundary","expected":"REJECT"},
+    {"id":"duplicate-literal","category":"duplicate-key","expected":"PARSE_REJECT"},
+    {"id":"duplicate-escaped","category":"duplicate-key","expected":"PARSE_REJECT"},
+    {"id":"time-valid","category":"time-format","expected":"ACCEPT"},
+    {"id":"time-invalid-date","category":"time-format","expected":"INVALID_SCHEMA"},
+    {"id":"time-invalid-format","category":"time-format","expected":"INVALID_SCHEMA"}
+  ]
+}
