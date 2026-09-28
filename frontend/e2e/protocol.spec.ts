@@ -11,7 +11,12 @@ test('browser runs the W2 ReceiptBody regression matrix 20/20', async ({ page })
     const seed = await seedModule.buildSeedState()
     const body = seed.receipts[0].body
     const out: boolean[] = []
-    for (let i = 0; i < 3; i++) out.push(await receipt.receiptHash(seed.receipts[i].body) === seed.receipts[i].hash)
+    const expected = [
+      '0x3d025217441ade9f894603476a66a5627168cab5f90c7d4cf347ad397d5c8151',
+      '0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f',
+      '0xf95ac6d6c7cd255be4fdd2db809b0b6a946cbb389cd360188ab7e7b7ee6b4563',
+    ]
+    for (let i = 0; i < 3; i++) out.push(await receipt.receiptHash(seed.receipts[i].body) === expected[i])
     out.push(canonical.canonicalize({ b: 2, a: 1 }) === canonical.canonicalize({ a: 1, b: 2 }))
     out.push(canonical.canonicalize({ x: { z: 2, a: 1 } }) === canonical.canonicalize({ x: { a: 1, z: 2 } }))
     out.push(canonical.canonicalize(body) === canonical.canonicalize(Object.fromEntries(Object.entries(body).reverse())))
