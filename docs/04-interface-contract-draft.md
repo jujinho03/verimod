@@ -115,6 +115,8 @@ span을 제공한다면 전처리·tokenizer index를 adapter가 원문 code poi
 
 ## C02. 상태·권한·멱등성
 
+**D19/D21 — WORKING ASSUMPTION:** [결정 기록](02-decision-register.md) 및 VERIFIED FINAL p.40의 3 write API Idempotency-Key 방향과 private 경계를 따른다. 소유자에게 발급한 salt/receipt material과 브라우저 원문으로 Private Receipt Package를 구성하며, 발급 응답은 original_text를 echo하지 않는다. GET/bundle/log/error에서 salt를 제외하고 원문/salt를 ReceiptBody/on-chain에 넣지 않는다. 아래 과거 일반 조회 권한 후보가 salt 공개·reviewer 전달을 승인한 것은 아니다. 새 endpoint/field/schema나 구현 완료를 정의하지 않는다.
+
 **제안:** 현행 단일 appeal/review 흐름을 MVP 후보로 유지하고 서버가 원자적으로 검사한다. DECISION body의 action을 덮어쓰지 않고 현재 유효 조치는 별도 조회 상태로 계산한다.
 
 | 선행 상태 | 행동·주체 | 새 사건 | 참조 |
@@ -127,7 +129,7 @@ span을 제공한다면 전처리·tokenizer index를 adapter가 원문 code poi
 | ALLOW | appeal 요청 | 전이 오류 후보, 새 사건 없음 | 해당 없음 |
 | 최종 REVIEW 존재 | 재심·추가 review | 이 MVP 후보에서는 거부 | 재심은 별도 규격 |
 
-RESOLVED, ALLOW appeal 제외, 판정당 appeal/review 1건은 채택 여부가 미정인 시험 정책이다.
+과거에는 RESOLVED와 전이 제한을 미채택 시험 정책으로 기록했다. 현재 [결정 기록](02-decision-register.md) D08에서 UPHOLD / OVERTURN / RESOLVED outcome과 resulting_action의 분리, REVIEW terminal 방향은 ADOPTED다. 이 방향 승인이 C02의 상세 권한·API·계약 전체 승인을 뜻하지 않으며 상세 계약은 DRAFT다.
 
 | 행동 | 서버 권한 후보 |
 |---|---|
@@ -163,12 +165,14 @@ model manifest는 artifact 또는 provider/model/revision, tokenizer·전처리�
 
 ## C04. 직렬화 선택
 
+**D11 / ADOPTED:** [결정 기록](02-decision-register.md)의 VeriMod Canonical Profile v1(UTF-8 / SHA-256 / domain separation / ordered Merkle) 방향과 기존 PoC hash byte semantics 보존을 따른다. 아래 표는 과거 선택지 이력이다. **full JCS migration은 BACKLOG**이며 상세 profile 규칙·상한·벡터는 여전히 검토 대상이다.
+
 | 선택지 | 이점 | 채택 조건 |
 |---|---|---|
 | 현행 제한 값 프로파일 명세화 | 현재 receipt·시험 구현에 가까움 | 지원 값·키 순서·Unicode·중복 키·크기 상한 고정, 독립 비교 |
 | 검증된 JCS 구현 채택 | 표준 호환 경계를 검토하기 쉬움 | 라이브러리/version 검토, 현행 bytes 비교, 기존 bundle 영향 분석 |
 
-**초안 권고:** 현행 지원 값의 규칙·기대 bytes를 먼저 비교 기준으로 명세화한다. JCS 전체 호환 승인으로 부르지 않는다. 최종 선택은 설경민 주도 공동 검토다.
+**초안 권고:** 현행 지원 값의 규칙·기대 bytes를 먼저 비교 기준으로 명세화한다. JCS 전체 호환 승인으로 부르지 않는다. 프로파일 방향 선택은 D11을 따르고, 미확정 상세 규칙은 설경민 주도 공동 검토다.
 
 기준 후보는 UTF-8, UTF-16 code unit 객체 키 정렬, 배열 순서 보존, 공백 없는 JSON, 안전 정수, 임의 Unicode 정규화 없음, 잘못된 surrogate 거부다. 음수 0은 현행 구현에서 `0`으로 직렬화된다. 필드별 숫자 범위는 schema에서 제한한다.
 
@@ -206,12 +210,14 @@ epoch 등록은 최신 기획 방향이다. 아래는 01 문서의 **논리 ABI 
 
 - registerEpoch(epoch_id:uint64, root:bytes32, receipt_count:uint32, protocol_version:uint32).
 - getEpoch는 존재 여부·root·count·version·publisher/issuer 연결·등록 block 정보를 제공.
-- EpochRegistered event. 허용 publisher, 중복 epoch, zero count/root, 미지원 version 검사. 기존 값 수정·삭제 없음.
+- EpochRegistered event. 허용 publisher, 중복 epoch, zero count/root 검사. 과거 contract-side 미지원 version 검사 제안은 **D14로 superseded**: contract는 protocolVersion을 저장하고 지원 여부는 verifier가 판단한다([결정 기록](02-decision-register.md)). 기존 값 수정·삭제 없음. ABI 변경 승인은 아니다.
 - 단조 증가 epoch ID, 배포 시 publisher/issuer 고정, non-upgradeable 구조의 채택 여부와 키 변경/손실 대응을 함께 결정.
 
 재시도는 동결한 같은 epoch를 사용한다. 조회 결과가 같은 root/count/version/issuer면 기존 등록을 수용하고 다른 값이면 충돌로 중단한다. timeout·제출 응답 유실만으로 새 epoch를 만들지 않는다.
 
-| 상태·사건 | 처리 후보 |
+**과거 상태 planning 표:** D22와 겹치는 epoch 상태명은 superseded이며 CURRENT verifier 결과 코드의 의미와 구분한다. [결정 기록](02-decision-register.md) D22의 **WORKING ASSUMPTION**은 FROZEN → SUBMITTING → SUBMITTED → CONFIRMED 또는 FAILED 및 signed tx 선기록 / reconcile 방향이다. CURRENT verifier/UI PENDING 의미나 실제 코드를 변경하지 않는다.
+
+| 상태·사건 | 과거 처리 후보 |
 |---|---|
 | 발급, 배치 전 | ISSUED, PENDING_ANCHOR |
 | 동결·제출·미확정 | BATCHED/SUBMITTED/CONFIRMING, PENDING_ANCHOR |
@@ -222,7 +228,7 @@ epoch 등록은 최신 기획 방향이다. 아래는 01 문서의 **논리 ABI 
 
 현행 LedgerReader.getEpoch/blockNumber와 TrustConfig를 출발점으로 쓴다. 실제 reader는 RPC chain ID, 신뢰 contract/issuer/publisher/protocol, 등록 block의 canonical 여부·확정을 확인해야 한다. locator의 tx/block hash를 어떤 결과 항목에서 검사할지 정하고 미검증 필드를 검증된 증거로 표시하지 않는다. 12회 확인은 운영 기본값으로 자동 승계하지 않는다.
 
-체인·RPC·finality·ABI 상한·큰 정수 표현은 미정이다. 후속 검증에는 등록/조회/event, 권한·중복·0 count·version·수정 거부, 제출 재시도·reorg 시나리오를 포함한다.
+[결정 기록](02-decision-register.md) D12의 **TARGET Base Sepolia / chainId 84532** 방향은 ADOPTED다. 실제 배포 완료는 아니며 RPC vendor·min confirmations·gas·ABI 상한·큰 정수 표현은 미정이다. 후속 검증에는 등록/조회/event, 권한·중복·0 count·수정 거부, verifier의 version 지원 판정(D14), 제출 재시도·reorg 시나리오를 포함한다.
 
 ## C07. 검증 결과·비공개 자료
 
@@ -241,6 +247,8 @@ epoch 등록은 최신 기획 방향이다. 아래는 01 문서의 **논리 ABI 
 원문·salt·appeal 본문·계정 연결·reviewer 개인 식별은 접근 통제 저장소에서 관리한다. 조회·내보내기·공유·삭제·보존 기간의 책임자를 정한다. 온체인은 root와 최소 메타데이터, 공개 GitHub 예시는 합성 자료만 사용한다. salted commitment가 익명성·접근 통제·영구 보존을 보장하지 않는다.
 
 ## C08. 실제 모드와 호환성
+
+Private Receipt Package와 3 write API 멱등성은 위 C02의 **D19/D21 WORKING ASSUMPTION** 경계를 참조한다. 소유자 salt material·브라우저 원문 경계는 실제 서비스 구현 완료나 새 schema 승인을 뜻하지 않는다.
 
 **제안:** 합성 scorer/원장·manifest·저장 데이터를 실제 모드와 구분한다. 실제 chain/contract/issuer 신뢰 설정에 시뮬레이션 값을 섞지 않는다. 기존 UI·계산 코드는 검토해 재사용한다.
 
