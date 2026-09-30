@@ -12,6 +12,11 @@
     "LICENSE.md": "87a816969906840bf7af8d4d01cdfad4741b18946365e1f286007935509f2edb"
   },
   "official_rows": {"train": 7896, "dev": 471},
+  "native_target": {
+    "axis": "hate",
+    "labels": ["hate", "offensive", "none"],
+    "task_semantics": "single-label 3-class"
+  },
   "seed": 45126,
   "ratios": {"train": 0.70, "validation": 0.15, "test": 0.15},
   "normalization_version": "w2-leakage-nfc-whitespace-v1",

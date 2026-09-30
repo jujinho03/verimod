@@ -46,7 +46,7 @@ Automated pre-seal assertions all passed: stable record ID overlap **0**, exact 
 
 The script wrote TEST only after all overlap assertions and computed the seal by reading raw bytes **once at creation**. This execution did not reopen, preview, run EDA, or evaluate the sealed TEST afterward. Subsequent checks used the aggregate evidence JSON and synthetic fixtures. The script refuses to read or overwrite an existing split artifact. The hash detects file changes; it does not cryptographically prove that no person has read the file.
 
-The first CLI run completed artifact creation and evidence writing, then hit a Windows `cp949` console encoding error while printing a Unicode status label. Only console output encoding was corrected. The actual run was **not repeated** against the sealed directory. Ten synthetic unit tests passed after the correction. Reproducing the TEST hash was tested only on synthetic fixtures, not by reopening the actual TEST.
+The first CLI run completed artifact creation and evidence writing, then hit a Windows `cp949` console encoding error while printing a Unicode status label. Only console output encoding was corrected. The actual run was **not repeated** against the sealed directory. Eleven synthetic unit tests passed after the correction. Reproducing the TEST hash was tested only on synthetic fixtures, not by reopening the actual TEST.
 
 ## Pending boundary
 
