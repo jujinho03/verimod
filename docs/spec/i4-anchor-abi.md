@@ -43,4 +43,3 @@ function registerEpoch(
 ## CURRENT과 구현 전제
 
 현재 `backend/contracts/contracts/ToolchainCheck.sol`은 툴체인 확인용이며 이 ABI를 구현하지 않는다. W3의 `CHAIN-04`는 FRZ-01 동결 ABI와 diff 0일 때만 시작한다. deployment script는 zero publisher를 거부해야 한다.
-

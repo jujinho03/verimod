@@ -33,4 +33,3 @@ freeze는 대상 receipt의 선택, 결정적 정렬, member 저장, root/count 
 ## 에러 처리
 
 AI timeout/unavailable은 HTTP 503 `INFERENCE_UNAVAILABLE`이며 DECISION을 발급하지 않는다. RPC failure는 verifier에서 `RPC_UNAVAILABLE`/PENDING이지 hash tampering이 아니다. API 오류는 사용자에게 원문·salt·비밀키를 echo하지 않는다.
-

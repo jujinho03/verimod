@@ -13,4 +13,3 @@
 ## 비밀값과 개인정보
 
 `.env`와 전용 테스트 지갑을 사용한다. private key, RPC secret, salt, 원문, appeal 본문은 커밋·로그·issue·screenshot에 넣지 않는다. `signed_tx`는 서명된 거래이지 개인키가 아니다.
-

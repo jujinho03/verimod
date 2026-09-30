@@ -5,7 +5,7 @@ const baseSepoliaRpcUrl = process.env.VERIMOD_BASE_SEPOLIA_RPC_URL ?? "https://s
 const baseSepoliaBackupRpcUrl = process.env.VERIMOD_BASE_SEPOLIA_BACKUP_RPC_URL ?? "https://base-sepolia-rpc.publicnode.com";
 const deployerAccounts = process.env.VERIMOD_DEPLOYER_PRIVATE_KEY
   ? [process.env.VERIMOD_DEPLOYER_PRIVATE_KEY]
-  : "remote";
+  : [];
 
 export default defineConfig({
   plugins: [hardhatToolboxMochaEthersPlugin],

@@ -25,6 +25,18 @@ type TrustProfile = {
 
 이 표는 migration 계획이다. 현 `TrustConfig`, `EpochRecord`, `REQUIRED_CONFIRMATIONS`를 지금 변경하거나 legacy synthetic fixture의 의미를 바꾸지 않는다.
 
+## TARGET 내장 위치와 선택
+
+2026-09-30 Stage 8C W1 draft completeness 보완. 근거는 최신 사용자 Stage 8C 지시와 [decision register](../02-decision-register.md)의 D13 승인 방향이다. 아래 위치·선택 설명은 **WORKING ASSUMPTION / W1 design draft**이며 D13의 방향 승인과 상세 구현·동결을 구분한다.
+
+- **TARGET registry:** `shared/trust/profiles.ts`에 `BASE_SEPOLIA_DEMO`, `LOCAL_HARDHAT_FALLBACK` 두 승인 profile만 build에 내장한다. 이 경로는 현재 main에 구현된 파일이 아니다.
+- Receipt bundle, API response, RPC response, AnchorLocator는 새 profile을 추가하거나 trusted contract address/publisher를 교체할 수 없다. locator는 lookup hint이며 trust authority가 아니다.
+- **Backend TARGET:** `VERIMOD_PROFILE`로 내장 profile ID 중 하나를 선택한다. 임의 external profile이나 bundle locator를 활성 profile로 승격하지 않는다.
+- **Browser/demo TARGET:** 기본값은 `BASE_SEPOLIA_DEMO`다. demo selector 또는 `?profile=` 방식을 사용하더라도 선택값은 내장된 승인 profile으로 제한한다. 어떤 UX를 실제 사용할지는 미확정이다. `LOCAL_HARDHAT_FALLBACK`은 “로컬 폴백 - 공개 체인 증거 아님” 표시를 유지한다.
+- Base `contract_address`, `publisher`, `min_confirmations`, actual deployed contract, final profile switch UX와 frozen implementation details는 **UNRESOLVED**다. 상세 동결은 W2 FRZ-01, 실제 주소/publisher는 deployment evidence의 경계를 따른다. FRZ-01 pending / deployment pending을 유지한다.
+
+TRUST-01 = **PASS — W1 DRAFT ONLY**는 내장 위치와 선택 규칙을 설명한 초안의 완전성 판정이다. profile 최종 동결이나 runtime 구현 완료를 뜻하지 않는다.
+
 ## 판정 규칙
 
 1. `chain_id`는 `BigInt`로 정규화해 비교한다. 문자열 표현 자체를 비교하지 않는다.
