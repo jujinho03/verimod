@@ -12,6 +12,16 @@ STATUS: CURRENT
 
 확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
+## 2026-09-30 operational schedule override
+
+출처: 2026-09-30 사용자 `CORRECTED ATOMIC TASK — Stage 8D`의 최신 운영 사실·역할 정정. 과거 계획 당시 W1 예정이었던 항목은 역사로 보존하며, 실제 external prerequisite unavailable에 따라 아래 실행 일정을 우선 적용한다.
+
+- CNU-Mate account = **NOT YET ISSUED**. OPS-01의 3인 login 확인과 OPS-02의 authenticated assignment/deadline 검증은 W1에 수행할 수 없다.
+- OPS-01 / OPS-02 = **DEFERRED TO W2 — EXTERNAL PREREQUISITE UNAVAILABLE**. 공식 계정·접근이 확보된 뒤 수행하며 W1 closure blocker로 계산하지 않는다. 완료나 실패로 판정하지 않는다.
+- Actual mentor/mentee activity = **DEFERRED TO W2 — EXTERNAL PREREQUISITE UNAVAILABLE**. W1 DOC-04는 [멘토 사전자료](mentor-prep-w1.md) 준비까지만 평가한다. 실제 미팅·배정·멘토 결정·포털 과제명/마감은 만들어 기록하지 않는다.
+- CHAIN-01 = **T-OWNED — NOT A-OWNER BLOCKER**. T 설경민이 chain wallet/faucet·RPC·deployment/anchor를 담당하며 A 주진호가 대신 실행하거나 PASS 처리하지 않는다. T의 실제 완료 여부는 별도 team-W1 audit 대상이다.
+- A 소유 dataset/label/model·평가/I1/기획·결정·멘토 준비·발표와 T/F 구현 책임을 구분한다. [A-owner W1 closure 및 team handoff](progress/W1.md#a-owner-w1-closure)를 따른다. A-owner 완료는 team W1 전체 완료가 아니다.
+
 ## P0 작업 시작 기준 (2026-09-13 역사 기록)
 
 - 원격 main/dev가 모두 `908f64e`임을 `git ls-remote`로 확인했다. 깨끗한 로컬 main `3e86a32`를 `git pull --ff-only origin main`으로 동기화했다.
