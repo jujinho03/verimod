@@ -3,6 +3,7 @@
     "protocol_version": "verimod/1",
     "receipt_id": "a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63",
     "issuer_id": "verimod-example-platform",
+    "issuer_seq": 2,
     "event_kind": "DECISION",
     "recorded_at": "2026-09-08T01:12:30.000Z",
     "content_commitment": "0x33284e77470eaaf82b5e52663ff23dbbe56628edd2ebe187ba33ca878941a155",
@@ -55,22 +56,22 @@
       }
     }
   },
-  "receipt_hash": "0xc59c20285986aaaeab99bcc8c1183e1455eff70b022519abc0c3cac9c8279165",
+  "receipt_hash": "0xbdcc8f261a3e0fa41d1fa8827c0aa3a98ef1a253f9756109165df0a05d6a7b20",
   "proof": {
     "merkle_spec": "ct-sha256-receipt-v1",
     "leaf_index": 4,
     "tree_size": 7,
     "siblings": [
       "0x3fbb90235d07129d59f314a88ce563fde0edb4cbe559cb7ecb9a6261472bfef8",
-      "0xc390255158155c4033f60a47f7b8963486a0b96e73e3514ae3725491030d64e8",
-      "0x7f10ecac629504f620369b2532f06421c2c4b53baab3e8cee4cdffeafc1c5d42"
+      "0x78b81a11db536596fa74aeb7b15083ebbcda7025e4969c77d422e2e903e4d5d8",
+      "0x6b54bcdeb0f01a1497639d11759bbee18d16e0c9d4416c98dacaf1e2bbbb8de2"
     ]
   },
   "anchor": {
     "chain_id": "31337",
     "contract_address": "0x0000000000000000000000000000000000000451",
     "epoch_id": "1",
-    "tx_hash": "0x9372256cc6e3069983247037b94dd3b7af68a7579a7fa4637624a59ea3749bc2",
+    "tx_hash": "0x3c6cbfeb870dcf99b6e4e4e693996c1f814c3aad273b7d1342564730d8aa14c8",
     "block_number": "3288603",
     "block_hash": "0x1c330232eaddab3671271ce85d0a96b6221cc00d24f39a1199eccacc3458b028"
   }

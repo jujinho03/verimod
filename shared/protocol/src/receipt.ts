@@ -39,6 +39,7 @@ export function isoTime(ms: number): string {
 
 export function buildDecision(input: {
   receiptId: string
+  issuerSeq: number
   recordedAt: string
   inference: InferenceOutput
   policy: PolicyEvaluation
@@ -47,6 +48,7 @@ export function buildDecision(input: {
     protocol_version: PROTOCOL_VERSION,
     receipt_id: input.receiptId,
     issuer_id: ISSUER_ID,
+    issuer_seq: input.issuerSeq,
     event_kind: 'DECISION',
     recorded_at: input.recordedAt,
     content_commitment: input.inference.content_commitment,
@@ -58,6 +60,7 @@ export function buildDecision(input: {
 
 export function buildAppeal(input: {
   receiptId: string
+  issuerSeq: number
   recordedAt: string
   decision: DecisionBody
   decisionHash: Hex32
@@ -68,6 +71,7 @@ export function buildAppeal(input: {
     protocol_version: PROTOCOL_VERSION,
     receipt_id: input.receiptId,
     issuer_id: input.decision.issuer_id,
+    issuer_seq: input.issuerSeq,
     event_kind: 'APPEAL',
     recorded_at: input.recordedAt,
     content_commitment: input.decision.content_commitment,
@@ -79,6 +83,7 @@ export function buildAppeal(input: {
 
 export function buildReview(input: {
   receiptId: string
+  issuerSeq: number
   recordedAt: string
   decision: DecisionBody
   decisionHash: Hex32
@@ -92,6 +97,7 @@ export function buildReview(input: {
     protocol_version: PROTOCOL_VERSION,
     receipt_id: input.receiptId,
     issuer_id: input.decision.issuer_id,
+    issuer_seq: input.issuerSeq,
     event_kind: 'REVIEW',
     recorded_at: input.recordedAt,
     content_commitment: input.decision.content_commitment,

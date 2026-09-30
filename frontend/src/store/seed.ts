@@ -46,7 +46,7 @@ export async function buildSeedState(): Promise<AppState> {
   const contents: AppState['contents'] = {}
   const appeals: AppState['appeals'] = {}
 
-  const decide = async (key: 'allow' | 'restrict' | 'review', receiptId: string, inferenceId: string, recordedAt: string) => {
+  const decide = async (key: 'allow' | 'restrict' | 'review', receiptId: string, issuerSeq: number, inferenceId: string, recordedAt: string) => {
     const salt = await seedSalt(key)
     const text = SEED_TEXTS[key]
     const commitment = await contentCommitment(salt, text)
@@ -57,12 +57,12 @@ export async function buildSeedState(): Promise<AppState> {
       contentCommitment: commitment,
       modelManifestHash: manifests.model,
     })
-    return buildDecision({ receiptId, recordedAt, inference, policy: evaluatePolicy(inference, manifests.policy) })
+    return buildDecision({ receiptId, issuerSeq, recordedAt, inference, policy: evaluatePolicy(inference, manifests.policy) })
   }
 
-  const allow = await decide('allow', '3b8f5a1c-2d4e-4f60-8a7b-9c0d1e2f3a41', '7a1c4e2b-9d3f-4b6a-8c5e-1f2a3b4c5d61', '2026-09-08T01:04:12.000Z')
-  const restrict = await decide('restrict', 'a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63', '8b2d5f3c-0e4a-4c7b-9d6f-2a3b4c5d6e72', '2026-09-08T01:12:30.000Z')
-  const review = await decide('review', 'c47e2b19-8d3a-4e71-a5c2-6b9f0e1d7a24', '9c3e6a4d-1f5b-4d8c-ae7a-3b4c5d6e7f83', '2026-09-08T01:26:05.000Z')
+  const allow = await decide('allow', '3b8f5a1c-2d4e-4f60-8a7b-9c0d1e2f3a41', 1, '7a1c4e2b-9d3f-4b6a-8c5e-1f2a3b4c5d61', '2026-09-08T01:04:12.000Z')
+  const restrict = await decide('restrict', 'a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63', 2, '8b2d5f3c-0e4a-4c7b-9d6f-2a3b4c5d6e72', '2026-09-08T01:12:30.000Z')
+  const review = await decide('review', 'c47e2b19-8d3a-4e71-a5c2-6b9f0e1d7a24', 3, '9c3e6a4d-1f5b-4d8c-ae7a-3b4c5d6e7f83', '2026-09-08T01:26:05.000Z')
   const restrictHash = await receiptHash(restrict)
 
   const appealSalt = await seedSalt('appeal')
@@ -70,6 +70,7 @@ export async function buildSeedState(): Promise<AppState> {
   appeals[appealC] = { salt: appealSalt, text: SEED_TEXTS.appeal }
   const appeal = buildAppeal({
     receiptId: 'e5b0d8f2-1c7a-4d93-8e6b-3a2f9c4d1b85',
+    issuerSeq: 4,
     recordedAt: '2026-09-08T02:41:10.000Z',
     decision: restrict,
     decisionHash: restrictHash,
@@ -80,6 +81,7 @@ export async function buildSeedState(): Promise<AppState> {
 
   const overturn = buildReview({
     receiptId: '0f6a9e3b-4d2c-4a17-b8e5-7c1d2f6a9e30',
+    issuerSeq: 5,
     recordedAt: '2026-09-09T09:48:33.000Z',
     decision: restrict,
     decisionHash: restrictHash,
@@ -102,7 +104,7 @@ export async function buildSeedState(): Promise<AppState> {
     const mine = await Promise.all(batch.bodies.map(async (body) => ({ body, hash: await receiptHash(body) })))
     const { epoch, proofs } = await sealEpoch(
       batch.id,
-      mine.map((m) => ({ receipt_id: m.body.receipt_id, receipt_hash: m.hash })),
+      mine.map((m) => ({ receipt_id: m.body.receipt_id, receipt_hash: m.hash, issuer_seq: m.body.issuer_seq })),
       await fillers(batch.id, batch.others),
       Date.parse(batch.frozenAt),
     )

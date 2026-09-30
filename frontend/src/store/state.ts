@@ -72,6 +72,9 @@ export async function validateState(state: AppState): Promise<void> {
     epochIds.add(r.epoch_id)
     require(uint(epoch.frozen_at) && uint(r.anchored_block) && uint(r.protocol_version) && r.protocol_version > 0)
     require(isHex32(r.root) && isHex32(r.issuer_commitment) && typeof r.publisher === 'string' && /^0x[0-9a-f]{40}$/.test(r.publisher))
+    require((r.issuer_seq_min === null && r.issuer_seq_max === null) ||
+      (typeof r.issuer_seq_min === 'number' && typeof r.issuer_seq_max === 'number' &&
+        Number.isSafeInteger(r.issuer_seq_min) && Number.isSafeInteger(r.issuer_seq_max) && r.issuer_seq_min >= 1 && r.issuer_seq_max >= r.issuer_seq_min))
     require(isHex32(epoch.tx_hash) && isHex32(epoch.block_hash) && r.receipt_count === epoch.members.length)
     for (const member of epoch.members) {
       require(member && uuid(member.receipt_id) && isHex32(member.receipt_hash) && typeof member.mine === 'boolean')
@@ -81,16 +84,21 @@ export async function validateState(state: AppState): Promise<void> {
     }
     const frozen = await freezeEpoch(epoch.members)
     require(frozen.root === r.root)
+    require(frozen.issuer_seq_min === r.issuer_seq_min && frozen.issuer_seq_max === r.issuer_seq_max)
     require(frozen.members.every((m, i) => m.receipt_hash === epoch.members[i].receipt_hash))
   }
   const hashes = new Set<string>()
   const ids = new Set<string>()
+  const issuerSeqs = new Map<string, number[]>()
   for (const receipt of state.receipts) {
     require(receipt && isHex32(receipt.hash) && validateReceiptBody(receipt.body).ok)
     require(uint(receipt.issued_at) && typeof receipt.seeded === 'boolean')
     require(!hashes.has(receipt.hash) && !ids.has(receipt.body.receipt_id))
     hashes.add(receipt.hash)
     ids.add(receipt.body.receipt_id)
+    const seqs = issuerSeqs.get(receipt.body.issuer_id) ?? []
+    seqs.push(receipt.body.issuer_seq)
+    issuerSeqs.set(receipt.body.issuer_id, seqs)
     require(await receiptHash(receipt.body) === receipt.hash)
     const epoch = state.epochs.find((e) => e.record.epoch_id === receipt.epoch_id)
     require(receipt.epoch_id === null ? receipt.proof === null : epoch && receipt.proof)
@@ -100,6 +108,10 @@ export async function validateState(state: AppState): Promise<void> {
       require(canonicalize(frozen.proofs[receipt.hash]) === canonicalize(receipt.proof))
       require(epoch.members.some((m) => m.mine && m.receipt_hash === receipt.hash && m.receipt_id === receipt.body.receipt_id))
     }
+  }
+  for (const seqs of issuerSeqs.values()) {
+    seqs.sort((a, b) => a - b)
+    require(seqs.every((seq, index) => seq === index + 1))
   }
   const transitions = new Set<string>()
   for (const receipt of state.receipts) {

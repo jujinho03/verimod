@@ -12,11 +12,11 @@ from canonical_golden import canonicalize
 ROOT = Path(__file__).resolve().parents[2]
 DOMAIN = b"verimod:receipt:v1\x00"
 EXPECTED = {
-    "original": "0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f",
-    "top-reordered": "0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f",
-    "payload-reordered": "0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f",
-    "unicode-issuer": "0x3b81c92138cb069a92c83890ee4b9037ffb9abb975397cca6e53a75513f37a41",
-    "unicode-evidence-method": "0x139bdf5bb1a1a57d1af6ad98d7339c6732006e8282df13a71530781967308611",
+    "original": "0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b",
+    "top-reordered": "0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b",
+    "payload-reordered": "0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b",
+    "unicode-issuer": "0x0a58cb18d79833d39291cd56df7d57b896ff3be324aa6db79f5ec7694631b8e3",
+    "unicode-evidence-method": "0x75829c21256d20745530788b343889b53f521bd81e4a991d5b99ba7f409b9542",
 }
 
 
