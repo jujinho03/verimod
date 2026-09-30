@@ -25,7 +25,7 @@ STATUS: DRAFT
 
 2026-09-12 C01의 필드·오류 후보를 바탕으로 최신 상태를 정리한다. 문서와 C01 전체는 계속 **DRAFT**이며, 아래 ADOPTED는 [결정 기록](02-decision-register.md)의 해당 제약만 뜻한다. 문서 상단의 과거 승인 전 설명과 구분하며 C01 전체 schema의 승인·구현 완료를 뜻하지 않는다.
 
-근거는 사용자 최신 결정 → 실제 최신 main/code/tests/CI → VERIFIED FINAL → Master Plan v1.2.1 → 최신 decision register → 기존 문서 순이다. AI-01/AI-02는 Command Center에서 PASS된 연구·feasibility 결과를 참조하며, 별도 repository 연구 보고서가 존재한다고 주장하지 않는다.
+근거는 사용자 최신 결정 → 실제 최신 main/code/tests/CI → VERIFIED FINAL → Master Plan v1.2.1 → 최신 decision register → 기존 문서 순이다. AI-01/AI-02 W1 research evidence는 [dataset comparison / mapping feasibility](research/ai-01-02-dataset-taxonomy.md)에 기록되어 있다(W1 late evidence closure — 2026-09-30). Primary dataset, final taxonomy, exact required keys는 여전히 UNRESOLVED이며 I1 schema 의미를 변경하지 않는다.
 
 #### 1. Contract boundary
 
