@@ -24,6 +24,9 @@ export interface EpochRecord {
   protocol_version: number
   publisher: string
   issuer_commitment: Hex32
+  /** 이 epoch에 포함한 이 발급자의 연속 issuer_seq 구간. */
+  issuer_seq_min: number | null
+  issuer_seq_max: number | null
   anchored_block: number
 }
 
@@ -144,6 +147,10 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
       epoch.epoch_id !== anchor.epoch_id || !isHex32(epoch.root) ||
       !Number.isSafeInteger(epoch.anchored_block) || epoch.anchored_block < 0 ||
       !Number.isSafeInteger(epoch.receipt_count) || epoch.receipt_count < 1 || epoch.receipt_count > 0xffffffff
+      || !((epoch.issuer_seq_min === null && epoch.issuer_seq_max === null) ||
+        (typeof epoch.issuer_seq_min === 'number' && typeof epoch.issuer_seq_max === 'number' &&
+          Number.isSafeInteger(epoch.issuer_seq_min) && Number.isSafeInteger(epoch.issuer_seq_max) &&
+          epoch.issuer_seq_min >= 1 && epoch.issuer_seq_max >= epoch.issuer_seq_min))
     ))) throw new RpcUnavailableError('잘못된 원장 응답')
   } catch {
     step('epoch', 'PENDING', 'RPC가 응답하지 않아 원장을 조회하지 못했습니다. 변조로 판단하지 않습니다')
@@ -161,7 +168,8 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
     step('epoch', 'FAILED', `지원하지 않는 protocol version ${epoch.protocol_version}으로 등록된 epoch입니다`)
     return done('UNSUPPORTED_VERSION')
   }
-  step('epoch', 'PASSED', `epoch #${epoch.epoch_id} · receipt ${epoch.receipt_count}건 · block ${epoch.anchored_block}`)
+  const seqRange = epoch.issuer_seq_min === null ? 'issuer_seq 없음' : `issuer_seq ${epoch.issuer_seq_min}~${epoch.issuer_seq_max}`
+  step('epoch', 'PASSED', `epoch #${epoch.epoch_id} · receipt ${epoch.receipt_count}건 · ${seqRange} · block ${epoch.anchored_block}`)
 
   if (proof.tree_size !== epoch.receipt_count) {
     step('inclusion', 'FAILED', `증명의 트리 크기 ${proof.tree_size}가 원장의 receipt 수 ${epoch.receipt_count}와 다릅니다`)

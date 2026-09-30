@@ -146,6 +146,7 @@ function receiptBody(value: unknown): ReceiptBody {
     'content_commitment',
     'event_kind',
     'issuer_id',
+    'issuer_seq',
     'payload',
     'previous_receipt_hash',
     'protocol_version',
@@ -156,6 +157,7 @@ function receiptBody(value: unknown): ReceiptBody {
   literal(body.protocol_version, 'receipt_body.protocol_version', [PROTOCOL_VERSION])
   uuid(body.receipt_id, 'receipt_body.receipt_id')
   string(body.issuer_id, 'receipt_body.issuer_id')
+  integer(body.issuer_seq, 'receipt_body.issuer_seq', 1, Number.MAX_SAFE_INTEGER)
   isoTime(body.recorded_at, 'receipt_body.recorded_at')
   const content = hex32(body.content_commitment, 'receipt_body.content_commitment')
   const kind = literal(body.event_kind, 'receipt_body.event_kind', ['APPEAL', 'DECISION', 'REVIEW'])

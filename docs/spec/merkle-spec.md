@@ -22,6 +22,7 @@ consistency proof, global append-only log, head registry는 이 버전에 포함
 - receipt_id와 receipt_hash는 각각 epoch 안에서 유일해야 한다.
 - leaf_index는 정렬 뒤의 0-based index이고, tree_size는 정렬된 member 수다.
 - proof의 sibling은 leaf에서 root 방향 순서다.
+- issuer가 발급한 member의 issuer_seq는 1 이상 safe integer여야 하며 epoch 안에서 중복이나 구멍 없이 연속이다. 동결 결과는 issuer_seq_min/max 범위를 함께 기록한다. 합성 외부 filler는 이 범위에 포함하지 않는다.
 - 같은 receipt를 둘 이상의 frozen epoch에 넣지 않는 V2 저장소 제약은 이 문서의 tree 함수 범위 밖이며, persistence 구현에서 보장한다.
 
 ## 검증 경계

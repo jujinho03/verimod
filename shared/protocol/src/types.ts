@@ -69,6 +69,8 @@ interface ReceiptBase {
   protocol_version: typeof PROTOCOL_VERSION
   receipt_id: string
   issuer_id: string
+  /** 발급자별 1부터 빈틈없이 증가하는 감사용 순번. */
+  issuer_seq: number
   recorded_at: string
   content_commitment: Hex32
 }

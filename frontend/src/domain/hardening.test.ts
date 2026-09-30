@@ -90,12 +90,14 @@ describe('epoch compatibility and independent Merkle reference', () => {
       for (let i = 0; i < n; i++) expect(await verifyInclusion(entries[i], i, n, await inclusionProof(entries, i), root)).toBe(true)
     }
   })
-  it('rejects empty and duplicate members, preserves a snapshot across awaits', async () => {
+  it('rejects empty, duplicate, and gapped issuer_seq members, preserves a snapshot across awaits', async () => {
     const a = { receipt_id: '00000000-0000-4000-8000-000000000001', receipt_hash: H }
     const b = { receipt_id: '00000000-0000-4000-8000-000000000002', receipt_hash: `0x${'cd'.repeat(32)}` as Hex32 }
     await expect(freezeEpoch([])).rejects.toThrow()
     await expect(freezeEpoch([a, { ...b, receipt_id: a.receipt_id }])).rejects.toThrow('중복')
     await expect(freezeEpoch([a, { ...b, receipt_hash: a.receipt_hash }])).rejects.toThrow('중복')
+    await expect(freezeEpoch([{ ...a, issuer_seq: 1 }, { ...b, issuer_seq: 3 }])).rejects.toThrow('구멍')
+    await expect(freezeEpoch([{ ...a, issuer_seq: 1 }, { ...b, issuer_seq: 1 }])).rejects.toThrow('중복')
     const expected = await freezeEpoch([a, b])
     const pending = freezeEpoch([b, a])
     a.receipt_hash = b.receipt_hash
@@ -115,19 +117,19 @@ describe('epoch compatibility and independent Merkle reference', () => {
       expect(await verifyInclusion(entries[0], index, 2, proof, root)).toBe(false)
     }
   })
-  it('keeps the five receipt hashes and three roots captured BEFORE P0 edits at 908f64e', async () => {
+  it('keeps the five receipt hashes and three roots frozen with issuer_seq', async () => {
     const seed = await buildSeedState()
     expect(seed.receipts.map((r) => r.hash)).toEqual([
-      '0x3d025217441ade9f894603476a66a5627168cab5f90c7d4cf347ad397d5c8151',
-      '0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f',
-      '0xf95ac6d6c7cd255be4fdd2db809b0b6a946cbb389cd360188ab7e7b7ee6b4563',
-      '0x621889d300a699f5a2155974a0b1d5ce786cb2304205ed943c3c2be5ede5ccb1',
-      '0x4d0c5b70d0957fdaeeb224c1a59bfcdd275ed2afb0f19252c60818f25413e60f',
+      '0x8bd30dea7cd80284ba88a0dda216194b681f4f8d1c5d04d1102cc7d08dd9d22f',
+      '0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b',
+      '0x48512541984a5259cae2ce83c3a069556da35c8e3b8bdee79198b58068248159',
+      '0xcfd5e512ede80c461963fa217695487200d4a2ffe786b50340cb1d482732214f',
+      '0xd33473c2b348b5a4cc95bef59beeb7f2e93cbbfc47fea31d6483afc61f5602c8',
     ])
     expect(seed.epochs.map((e) => e.record.root)).toEqual([
-      '0x591581275bfa1666d7a918df669157509cbb0b930b7066bba7dcf784fe881589',
-      '0x59026f4deca36a8c9436e032b8da8fd7e49398cde6a23249ab5099e8b2f2bec0',
-      '0xa9d8491ed18f963ea19faca1a6f494ffeaa20bad59d04e95d0ef4a5b1fe0caa4',
+      '0xba844768703d601ead2438d4f132b6cabd7ac8f8d6f6c50f0bca51b9e5f7491d',
+      '0xe99e483e07f47fdf8348f2ed4b196f0420fa5c375210a0b4e260027475904481',
+      '0x322c9b7b6891c68bf2de07a98c98e8d17e1591b7053c76d2c7389a0f62df80d6',
     ])
   })
 })

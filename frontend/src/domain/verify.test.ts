@@ -42,6 +42,7 @@ async function fixture() {
   })
   const decision = buildDecision({
     receiptId: crypto.randomUUID(),
+    issuerSeq: 1,
     recordedAt: '2026-09-08T01:12:30.000Z',
     inference,
     policy: evaluatePolicy(inference, manifests.policy),
@@ -49,6 +50,7 @@ async function fixture() {
   const decisionHash = await receiptHash(decision)
   const appeal = buildAppeal({
     receiptId: crypto.randomUUID(),
+    issuerSeq: 2,
     recordedAt: '2026-09-08T02:00:00.000Z',
     decision,
     decisionHash,
@@ -58,6 +60,7 @@ async function fixture() {
   const appealHash = await receiptHash(appeal)
   const review = buildReview({
     receiptId: crypto.randomUUID(),
+    issuerSeq: 3,
     recordedAt: '2026-09-09T09:00:00.000Z',
     decision,
     decisionHash,
@@ -92,6 +95,8 @@ async function fixture() {
     protocol_version: 1,
     publisher: PUBLISHER,
     issuer_commitment: issuer,
+    issuer_seq_min: frozen.issuer_seq_min,
+    issuer_seq_max: frozen.issuer_seq_max,
     anchored_block: 1000,
   }
   const chain = { block: 1100, rpcDown: false }

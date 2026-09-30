@@ -126,6 +126,8 @@ export async function sealEpoch(
         protocol_version: PROTOCOL_VERSION_NUMBER,
         publisher: SIM_CHAIN.publisher,
         issuer_commitment,
+        issuer_seq_min: frozen.issuer_seq_min,
+        issuer_seq_max: frozen.issuer_seq_max,
         anchored_block: anchoredBlock,
       },
       frozen_at: frozenAt,
