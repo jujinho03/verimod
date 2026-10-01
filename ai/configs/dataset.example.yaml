@@ -1,0 +1,17 @@
+# TEMPLATE ONLY — not read by any code.
+# The pinned, actually-used Primary acquisition config is configs/w2_dataset.json.
+status: partially_resolved
+
+primary_dataset:
+  source_of_truth: configs/w2_dataset.json         # BEEP! Korean HateSpeech (AI-04, W2)
+  decision_record: docs/research/w2-primary-dataset-decision.md
+
+secondary_dataset: null       # NOT ADOPTED; Primary<->Secondary overlap check is blocked
+candidate_research: docs/research/ai-01-02-dataset-taxonomy.md
+
+final_taxonomy: null          # UNRESOLVED (AI-20 / AI-02, GATE-2)
+labels: []                    # UNRESOLVED; do not copy the synthetic 5-label demo set
+                              # misinformation is out of scope (D02)
+
+split_evidence: docs/research/w2-split-leakage.md
+test_policy: unresolved       # Row-25; internal TEST is sealed until W5

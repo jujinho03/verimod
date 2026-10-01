@@ -27,3 +27,8 @@ cache/
 *.log
 .DS_Store
 Thumbs.db
+
+# AI workspace: re-include the policy folders matched by data/ and artifacts/ above.
+# ai/.gitignore keeps their contents deny-by-default.
+!ai/data/
+!ai/artifacts/
