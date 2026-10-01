@@ -88,6 +88,15 @@ Verifier는 **schema → hash → trust config → epoch metadata → inclusion 
 | [store/](frontend/src/store) | browser state·localStorage·simulated ledger |
 | [pages/](frontend/src/pages), [features/](frontend/src/features) | routes와 재사용 UX |
 | [backend/](backend/README.md), [contracts/](backend/contracts/README.md) | health / toolchain scaffold |
+| [ai/](ai/README.md) | Python AI workspace scaffold, W2 dataset split/leakage script. 학습·추론·평가 미구현 |
+
+| Workspace | Owner | 책임 |
+|---|---|---|
+| `ai/` | A / 주진호 | dataset, training, inference, evaluation |
+| `backend/` | T / 설경민 (설계·protocol 연동), F / 노유신 (API 구현) | backend service |
+| `backend/contracts/` | T / 설경민 | blockchain / Solidity / Base Sepolia |
+| `frontend/` | F / 노유신 | web UI / browser 검증 화면 |
+| `docs/` | 공동 | 결정·명세·연구·evidence |
 
 Routes: `/`, `/check`, `/receipts`, `/receipts/:receiptId`, `/verify`, `/review`, `/protocol`.
 
@@ -108,6 +117,8 @@ npm --prefix backend/contracts ci
 npm --prefix backend/contracts test
 npm --prefix backend/contracts run build
 ```
+
+AI workspace(Python 3.10+)는 `check-all.mjs`에 포함되지 않습니다. `ai/`에서 `python -m pip install -e ".[dev]"` 후 `pytest`로 실행합니다([ai/README](ai/README.md)).
 
 [실행 결과·위험별 테스트 표](docs/07-validation-2026-09-13.md)는 unit/exhaustive/integration/fixture 검사와 아직 없는 UI·browser E2E 계층을 구분합니다. CI 통과는 production 보안 인증이나 실제 체인 배포가 아닙니다.
 
