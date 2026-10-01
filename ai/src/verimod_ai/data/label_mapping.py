@@ -1,26 +1,38 @@
-"""Native dataset labels -> future VeriMod taxonomy.
+"""Native dataset labels -> VeriMod taxonomy classes.
 
-The final taxonomy and mapping are not frozen (AI-20 / AI-02, GATE-2), so this
-module deliberately refuses to map. No fake or provisional mapping is provided.
-Mapping feasibility: docs/research/ai-01-02-dataset-taxonomy.md#mapping-feasibility
+Only the Primary dataset (BEEP!) has an A-side mapping, PROPOSED FOR GATE-2
+(docs/research/w2-taxonomy-decision.md). Any other source still refuses to map;
+no fake or provisional mapping is provided. The result is a training class, not
+a policy action: ``none`` maps to the reference class, never to ALLOW.
 """
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 
+from verimod_ai.data.taxonomy import NATIVE_TARGET, PRIMARY_DATASET
+
 
 class LabelMappingNotConfigured(RuntimeError):
-    """Raised while no frozen native -> VeriMod mapping exists."""
+    """Raised while no native -> VeriMod mapping exists for a source."""
+
+
+class UnsupportedNativeLabel(ValueError):
+    """Raised for a native label outside the supported mapping; never silently dropped."""
 
 
 def map_native_labels(native_labels: Sequence[str], *, source_dataset: str) -> tuple[str, ...]:
-    """Map native labels to VeriMod taxonomy label ids.
+    """Map one record's native hate-axis label to its VeriMod training class.
 
-    Single-label vs multi-label semantics and negative-label handling are
-    unresolved; the return shape may change when the mapping is frozen.
+    BEEP! is single-label, so exactly one label is accepted.
     """
-    raise LabelMappingNotConfigured(
-        f"No frozen VeriMod taxonomy mapping for {source_dataset!r}; "
-        "final taxonomy is UNRESOLVED (AI-20 / AI-02, GATE-2)."
-    )
+    if source_dataset != PRIMARY_DATASET:
+        raise LabelMappingNotConfigured(
+            f"No VeriMod taxonomy mapping for {source_dataset!r}; only the Primary dataset is mapped."
+        )
+    if len(native_labels) != 1:
+        raise UnsupportedNativeLabel("BEEP! hate axis is single-label; exactly one label is required")
+    (label,) = native_labels
+    if label not in NATIVE_TARGET:
+        raise UnsupportedNativeLabel(f"Unsupported native label: {label!r}")
+    return (label,)
