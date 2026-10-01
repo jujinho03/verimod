@@ -28,3 +28,15 @@
 - API 연결·server persistence·authorization·idempotency·Private Package·실 RPC는 후속 TARGET.
 - 실제 브라우저 screenshot·접근성·동작 QA는 미실행. 기존 docs/assets 이미지를 이번 실행 증거로 재사용하지 않음.
 - 팀 결정은 docs/02-decision-register.md D01~17 ADOPTED 및 D18~28 WORKING ASSUMPTION을 따른다. T의 이번 API/DB 초안 리뷰는 아직 없음.
+
+## 2026-09-30 W1 late browser evidence closure
+
+- 실제 실행: 2026-09-30 20:11–20:24 KST, Codex In-app Browser.
+- 검증 main SHA: `19f77a2079f118e71a1a7c3ef83dd469c99e2b48`.
+- [Browser QA evidence](../evidence/fe-00-browser-qa-w1.md): 주요 7개 정적 경로(404 포함) 및 기존 합성 receipt 상세를 확인했다.
+- [Routing screenshot](../assets/w1-fe-routing-2026-09-30.png), [verification status](../assets/w1-fe-status-badges-2026-09-30.png), [anchor badges](../assets/w1-fe-anchor-badges-2026-09-30.png).
+- 기존 AnchorBadge/StatusBadge와 synthetic pill 렌더링, 합성 원장 기준 VALID 및 RPC_UNAVAILABLE 표시 확인. 실제 public-chain 검증 증거가 아니다.
+- frontend 104 tests / lint / build 통과. 정확한 브라우저 엔진 버전은 지원 API에서 확인하지 못했다.
+- Historical static audit (2026-09-27): browser QA NOT RUN.
+- Later W1 evidence closure (2026-09-30): browser QA evidence PASS (위 문서의 범위·제한 적용).
+- 과거 정적 audit 사실은 그대로 보존한다. API/SQLite/실제 AI/Base Sepolia 통합 또는 W2 완료를 주장하지 않는다.
