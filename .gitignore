@@ -32,3 +32,4 @@ Thumbs.db
 # ai/.gitignore keeps their contents deny-by-default.
 !ai/data/
 !ai/artifacts/
+!ai/src/verimod_ai/data/
