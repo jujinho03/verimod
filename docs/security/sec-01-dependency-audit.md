@@ -110,8 +110,28 @@ Closure guard: current critical **0**, production-only high/critical **0**, HIGH
 
 D01~D17 ADOPTED / D18~D28 WORKING ASSUMPTION, Row-25/32 UNRESOLVED 유지. TRUST-01의 상세 freeze, FRZ-01, deployment/funding, OPS-01/02, W2는 이 security assessment의 완료 범위가 아니다.
 
+## 2026-10-01 W1 final audit refresh
+
+This is a fresh observation on `docs/w1-t-final-closure` from `origin/main` `edbf446d834aa75078493337b617a379c1757509`; it does not overwrite the historical audit sections above.
+
+- Node: `v22.14.0`; npm: `10.9.2`.
+- `backend/contracts/package-lock.json` SHA-256: `e8318cc35ef3a0bd2674014fae96b906fb246782b6bd7d195c4c98ead67d8c49`.
+- `npm audit --json`: critical 0, high 2, moderate 1, low 12, total 15.
+- `npm audit --omit=dev --json`: critical 0, high 0, moderate 0, low 0, total 0.
+
+| Package | Severity observed | Dependency path observed with `npm explain` | Scope / production inclusion | Current disposition |
+|---|---:|---|---|---|
+| `brace-expansion` | HIGH | Mocha 11.8.0 → glob 10.5.0 → minimatch 9.0.9 → brace-expansion 2.1.4; TypeChain also reaches 1.1.18 via glob 7 | Transitive contracts development / CI; omitted from production-only audit | Assessed; no dependency change in this W1 closure |
+| `serialize-javascript` 6.0.2 | HIGH and related MODERATE | root dev Mocha 11.8.0 → serialize-javascript 6.0.2; Hardhat-Mocha/toolbox peers also require Mocha | Transitive contracts development / CI; omitted from production-only audit | Assessed; Mocha major-transition compatibility remains unverified, so deferred |
+| `diff` 7.0.0 and elliptic propagation tree | LOW entries | Mocha reaches `diff`; Hardhat verify/TypeChain toolchain reaches the legacy elliptic tree | Development / CI tooling; omitted from production-only audit | Assessed; no dependency change in this W1 closure |
+
+The full audit therefore remains a contracts development/CI-toolchain concern. A zero production-only observation is **not** a statement that the repository has no security risk: development and CI exposure remains, and npm dev packages are not Solidity deployed bytecode. The current Solidity test contract does not import npm JavaScript packages; that separation does not eliminate compiler, developer-machine, CI, or supply-chain risk.
+
+`npm audit fix`, `npm audit fix --force`, package-lock changes, and Mocha major upgrades were **not** performed. **Assessed != fixed.** SEC-01 = **PASS — W1 audit refresh / impact and disposition evidence** only; it is not a claim that all vulnerabilities are remediated.
+
 ## Sources
 
+- npm `audit --json`, `audit --omit=dev --json`, and `explain` executed **2026-10-01** for the final refresh; the counts and lockfile hash are recorded in the refresh section.
 - npm `audit --json`, `audit --omit=dev --json`, `explain`의 **2026-09-30 실제 실행 결과**. 기준 package/lock SHA 및 commands는 위에 기록했다.
 - Repository manifests, lockfiles, scripts/config, source, CI: 모두 기준 SHA `8fa24f28e6bea4b1ac11c2a50c78ae6c66a2f2c7`에서 검사. 문서 상대 링크는 파일 위치이며 감사 시점은 이 고정 SHA다.
 - [S1 — serialize-javascript RCE advisory][S1], [S2 — serialize-javascript CPU DoS advisory][S2], [S3 — jsdiff patch DoS advisory][S3], [S4 — elliptic ECDSA advisory][S4]: GitHub Reviewed Advisory Database, accessed **2026-09-30**. 각각 공격 전제·affected/patched version 확인. npm aggregate package severity와 개별 advisory severity를 구분한다.
