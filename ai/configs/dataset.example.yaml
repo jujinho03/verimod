@@ -9,8 +9,9 @@ primary_dataset:
 secondary_dataset: null       # NOT ADOPTED; Primary<->Secondary overlap check is blocked
 candidate_research: docs/research/ai-01-02-dataset-taxonomy.md
 
-final_taxonomy: null          # UNRESOLVED (AI-20 / AI-02, GATE-2)
-labels: []                    # UNRESOLVED; do not copy the synthetic 5-label demo set
+final_taxonomy: src/verimod_ai/data/taxonomy.py   # A-side AI-02 decision, PROPOSED FOR GATE-2
+labels: [hate, offensive]     # score keys; "none" is the reference class, not a key
+                              # do not copy the synthetic 5-label demo set
                               # misinformation is out of scope (D02)
 
 split_evidence: docs/research/w2-split-leakage.md
