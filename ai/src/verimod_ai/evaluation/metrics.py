@@ -1,42 +1,80 @@
-"""Evaluation metric boundaries.
+"""AI-06: model metrics for the single-label native classifier (stdlib only).
 
-Model metrics and policy metrics are kept separate. All functions raise
-NotImplementedError until the taxonomy and label semantics are frozen; no
-placeholder numbers are returned.
+Evidence: docs/research/w2-evaluation-skeleton.md
 
-Policy selection (D25, WORKING ASSUMPTION) runs on validation only:
-minimize HAR subject to FRR <= X and HRR_TOTAL <= B; ties -> higher RP, then
-lower HRR_TOTAL. X and B are UNRESOLVED. Exact metric definitions are not yet
-recorded in this repository (TODO). The sealed internal TEST is not used here.
+Classes are the native classifier classes ``hate / offensive / none``. These
+are not the consumer-facing score keys (``hate / offensive``) and not policy
+actions; policy metrics live in policy_metrics.py.
+
+Zero-division rule: a precision, recall or F1 whose denominator is 0 is
+reported as 0.0 and flagged ``*_defined = False``. Macro-F1 averages over every
+declared class, including zero-support classes. No numbers are produced
+without real predictions; nothing here loads data.
 """
 
 from __future__ import annotations
 
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
+
+from verimod_ai.data.taxonomy import NATIVE_TARGET
 
 
-# --- model metrics -----------------------------------------------------------
-
-def per_label_metrics(y_true: Sequence, y_pred: Sequence) -> Mapping[str, Mapping[str, float]]:
-    """Per-label precision / recall / F1 / support (and FPR / FNR)."""
-    raise NotImplementedError("model metrics: label semantics UNRESOLVED")
-
-
-def macro_f1(y_true: Sequence, y_pred: Sequence) -> float:
-    raise NotImplementedError("model metrics: label semantics UNRESOLVED")
-
-
-def micro_f1(y_true: Sequence, y_pred: Sequence) -> float:
-    raise NotImplementedError("model metrics: label semantics UNRESOLVED")
+def _validate(y_true: Sequence[str], y_pred: Sequence[str], classes: Sequence[str]) -> None:
+    if len(y_true) != len(y_pred):
+        raise ValueError("y_true and y_pred must have the same length")
+    if not y_true:
+        raise ValueError("at least one example is required")
+    if len(set(classes)) != len(classes):
+        raise ValueError("classes must be unique")
+    unknown = (set(y_true) | set(y_pred)) - set(classes)
+    if unknown:
+        raise ValueError(f"labels outside declared classes: {sorted(unknown)}")
 
 
-def confusion(y_true: Sequence, y_pred: Sequence) -> object:
-    """Confusion matrix (single-label) or per-label confusion (multi-label)."""
-    raise NotImplementedError("model metrics: single- vs multi-label UNRESOLVED")
+def _ratio(numerator: int, denominator: int) -> tuple[float, bool]:
+    return (numerator / denominator, True) if denominator else (0.0, False)
 
 
-# --- policy metrics ----------------------------------------------------------
+def confusion_matrix(y_true: Sequence[str], y_pred: Sequence[str],
+                     classes: Sequence[str] = NATIVE_TARGET) -> dict[str, dict[str, int]]:
+    """Counts as matrix[true_class][predicted_class]."""
+    _validate(y_true, y_pred, classes)
+    matrix = {t: {p: 0 for p in classes} for t in classes}
+    for t, p in zip(y_true, y_pred):
+        matrix[t][p] += 1
+    return matrix
 
-def policy_metrics(actions: Sequence[str], references: Sequence) -> Mapping[str, float]:
-    """FRR, RP, HAR and HRR_TOTAL for a policy applied to validation scores."""
-    raise NotImplementedError("policy metrics: definitions and reference labels UNRESOLVED")
+
+def per_class_metrics(y_true: Sequence[str], y_pred: Sequence[str],
+                      classes: Sequence[str] = NATIVE_TARGET) -> dict[str, dict]:
+    matrix = confusion_matrix(y_true, y_pred, classes)
+    result = {}
+    for c in classes:
+        tp = matrix[c][c]
+        support = sum(matrix[c].values())
+        predicted = sum(matrix[t][c] for t in classes)
+        precision, p_ok = _ratio(tp, predicted)
+        recall, r_ok = _ratio(tp, support)
+        f1, f_ok = _ratio(2 * tp, predicted + support)  # == 2PR/(P+R) when defined
+        result[c] = {"precision": precision, "recall": recall, "f1": f1, "support": support,
+                     "precision_defined": p_ok, "recall_defined": r_ok, "f1_defined": f_ok}
+    return result
+
+
+def macro_f1(y_true: Sequence[str], y_pred: Sequence[str], classes: Sequence[str] = NATIVE_TARGET) -> float:
+    per_class = per_class_metrics(y_true, y_pred, classes)
+    return sum(per_class[c]["f1"] for c in classes) / len(classes)
+
+
+def micro_f1(y_true: Sequence[str], y_pred: Sequence[str], classes: Sequence[str] = NATIVE_TARGET) -> float:
+    """For single-label multiclass over all classes this equals accuracy."""
+    matrix = confusion_matrix(y_true, y_pred, classes)
+    return sum(matrix[c][c] for c in classes) / len(y_true)
+
+
+def model_report(y_true: Sequence[str], y_pred: Sequence[str], classes: Sequence[str] = NATIVE_TARGET) -> dict:
+    return {"classes": list(classes), "n": len(y_true),
+            "confusion_matrix": confusion_matrix(y_true, y_pred, classes),
+            "per_class": per_class_metrics(y_true, y_pred, classes),
+            "macro_f1": macro_f1(y_true, y_pred, classes),
+            "micro_f1": micro_f1(y_true, y_pred, classes)}

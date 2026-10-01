@@ -33,7 +33,7 @@ A blockchain anchor does not prove that a model ran or that its score was correc
 | Preprocessing v1 (AI-05) | `verimod-ko-text-v1`, synthetic-test validated | [src/verimod_ai/data/preprocessing.py](src/verimod_ai/data/preprocessing.py), [docs/research/w2-preprocessing.md](../docs/research/w2-preprocessing.md) |
 | Model training | NOT STARTED | `src/verimod_ai/training/` |
 | Inference | CONTRACT DRAFT ONLY | `src/verimod_ai/inference/` |
-| Evaluation | NOT STARTED | `src/verimod_ai/evaluation/` |
+| Evaluation skeleton (AI-06) | Metrics, policy metrics, validation-only selection, bootstrap — synthetic tests only; nothing evaluated | [src/verimod_ai/evaluation/](src/verimod_ai/evaluation/), [docs/research/w2-evaluation-skeleton.md](../docs/research/w2-evaluation-skeleton.md) |
 | Notebooks | NOT STARTED | `notebooks/` |
 
 ## Decided vs unresolved
