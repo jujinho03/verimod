@@ -82,7 +82,7 @@ Semantics carried with the candidates: model class ≠ policy action; dataset la
 - **DEPENDENCY — downstream I1 consumer alignment required.** The current I1 consumers (`frontend/src/domain` types, schema, policy and manifest) use the synthetic 5-label taxonomy `verimod-example-ko / 0`. Moving to the A-side taxonomy is not A's change.
   - BLOCKED — T owner 산출물 필요 (protocol/schema side of the I1 freeze)
   - BLOCKED — F owner 산출물 필요 (issuance/consumer implementation)
-- **Policy parity with Node issuance:** BLOCKED — F owner 산출물 필요. The backend has no issuance implementation to compare against yet.
+- **Policy parity with Node issuance:** BLOCKED — F owner 산출물 필요.
 - **Content commitment:** handled outside AI preprocessing. A defines no commitment or hashing.
 
 These record dependency existence only; no T/F implementation is assessed.
@@ -101,7 +101,7 @@ These record dependency existence only; no T/F implementation is assessed.
 | Tokenizer max token length | W3 |
 | Training | NOT STARTED |
 | Secondary overlap | BLOCKED, but Secondary is not part of Primary training by default (D28 WORKING ASSUMPTION) |
-| Environment | No NVIDIA GPU on the current A laptop; W3 needs an external GPU runtime |
+| Training runtime / accelerator environment | W3 |
 
 ## Boundaries
 
