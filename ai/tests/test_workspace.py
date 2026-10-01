@@ -25,10 +25,9 @@ class WorkspaceTests(unittest.TestCase):
         with self.assertRaises(LabelMappingNotConfigured):
             map_native_labels(["hate"], source_dataset="synthetic")
 
-    def test_metrics_are_not_faked(self):
-        for fn in (metrics.macro_f1, metrics.micro_f1, metrics.per_label_metrics,
-                   metrics.confusion, metrics.policy_metrics):
-            with self.assertRaises(NotImplementedError):
+    def test_metrics_produce_no_numbers_without_predictions(self):
+        for fn in (metrics.macro_f1, metrics.micro_f1, metrics.per_class_metrics, metrics.confusion_matrix):
+            with self.assertRaises(ValueError):
                 fn([], [])
 
 

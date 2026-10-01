@@ -6,7 +6,8 @@ status: unresolved
 model_name: null
 model_revision: null
 tokenizer: null
-max_input_length: null        # tokenizer truncation rule and FULL/TRUNCATED mapping UNRESOLVED
+preprocessing_version: verimod-ko-text-v1   # AI-05: 500 code-point head truncation, no normalization
+max_input_length: null        # tokenizer (subword) limit UNRESOLVED; W3
 
 score_semantics: UNCALIBRATED # D07: no probability claim without calibration evidence
 calibration: null             # UNRESOLVED

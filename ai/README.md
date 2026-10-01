@@ -30,9 +30,10 @@ A blockchain anchor does not prove that a model ran or that its score was correc
 | EDA (AI-20) | W2 evidence — TRAIN + VALIDATION only | [scripts/eda_w2.py](scripts/eda_w2.py), [artifacts/reports/w2_eda/](artifacts/reports/w2_eda/), [docs/research/w2-eda.md](../docs/research/w2-eda.md) |
 | Supported taxonomy (AI-02) | A-side decision, PROPOSED FOR GATE-2 | [src/verimod_ai/data/taxonomy.py](src/verimod_ai/data/taxonomy.py), [docs/research/w2-taxonomy-decision.md](../docs/research/w2-taxonomy-decision.md) |
 | Dataset code (package) | Taxonomy constants and BEEP! label mapping only | `src/verimod_ai/data/` |
+| Preprocessing v1 (AI-05) | `verimod-ko-text-v1`, synthetic-test validated | [src/verimod_ai/data/preprocessing.py](src/verimod_ai/data/preprocessing.py), [docs/research/w2-preprocessing.md](../docs/research/w2-preprocessing.md) |
 | Model training | NOT STARTED | `src/verimod_ai/training/` |
 | Inference | CONTRACT DRAFT ONLY | `src/verimod_ai/inference/` |
-| Evaluation | NOT STARTED | `src/verimod_ai/evaluation/` |
+| Evaluation skeleton (AI-06) | Metrics, policy metrics, validation-only selection, bootstrap — synthetic tests only; nothing evaluated | [src/verimod_ai/evaluation/](src/verimod_ai/evaluation/), [docs/research/w2-evaluation-skeleton.md](../docs/research/w2-evaluation-skeleton.md) |
 | Notebooks | NOT STARTED | `notebooks/` |
 
 ## Decided vs unresolved
