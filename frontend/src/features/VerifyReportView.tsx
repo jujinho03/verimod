@@ -39,7 +39,7 @@ export function VerifyReportView({ report }: { report: VerifyReport }) {
             <div>
               <p className="check-row__title">
                 {STEP_LABEL[step.id]}
-                <span className="sr-only"> {STATE_TEXT[step.state]}</span>
+                <span className="small faint"> · {STATE_TEXT[step.state]}</span>
               </p>
               <p className="check-row__detail">{step.detail}</p>
             </div>
