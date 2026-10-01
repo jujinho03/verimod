@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Native hate label x bias (row-normalized)</title>
+<rect width="640" height="300" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Native hate label x bias (row-normalized)</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<text x="84" y="86" font-size="13" font-weight="600" fill="#0b0b0b">train (n=5,857)</text>
+<text x="122.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=gender</text>
+<text x="198.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=others</text>
+<text x="274.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=none</text>
+<text x="76" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="end">hate</text>
+<rect x="85" y="113" width="74" height="42" rx="3" fill="#6da7ec"><title>train hate x gender: 561 (39.4% of hate)</title></rect>
+<text x="122.0" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="middle">39.4%</text>
+<rect x="161" y="113" width="74" height="42" rx="3" fill="#6da7ec"><title>train hate x others: 454 (31.9% of hate)</title></rect>
+<text x="198.0" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="middle">31.9%</text>
+<rect x="237" y="113" width="74" height="42" rx="3" fill="#6da7ec"><title>train hate x none: 408 (28.7% of hate)</title></rect>
+<text x="274.0" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="middle">28.7%</text>
+<text x="76" y="182.0" font-size="12" fill="#0b0b0b" text-anchor="end">offensive</text>
+<rect x="85" y="157" width="74" height="42" rx="3" fill="#9ec5f4"><title>train offensive x gender: 272 (14.4% of offensive)</title></rect>
+<text x="122.0" y="182.0" font-size="12" fill="#0b0b0b" text-anchor="middle">14.4%</text>
+<rect x="161" y="157" width="74" height="42" rx="3" fill="#6da7ec"><title>train offensive x others: 549 (29.2% of offensive)</title></rect>
+<text x="198.0" y="182.0" font-size="12" fill="#0b0b0b" text-anchor="middle">29.2%</text>
+<rect x="237" y="157" width="74" height="42" rx="3" fill="#3987e5"><title>train offensive x none: 1,061 (56.4% of offensive)</title></rect>
+<text x="274.0" y="182.0" font-size="12" fill="#ffffff" text-anchor="middle">56.4%</text>
+<text x="76" y="226.0" font-size="12" fill="#0b0b0b" text-anchor="end">none</text>
+<rect x="85" y="201" width="74" height="42" rx="3" fill="#cde2fb"><title>train none x gender: 54 (2.1% of none)</title></rect>
+<text x="122.0" y="226.0" font-size="12" fill="#0b0b0b" text-anchor="middle">2.1%</text>
+<rect x="161" y="201" width="74" height="42" rx="3" fill="#cde2fb"><title>train none x others: 99 (3.9% of none)</title></rect>
+<text x="198.0" y="226.0" font-size="12" fill="#0b0b0b" text-anchor="middle">3.9%</text>
+<rect x="237" y="201" width="74" height="42" rx="3" fill="#0d366b"><title>train none x none: 2,399 (94.0% of none)</title></rect>
+<text x="274.0" y="226.0" font-size="12" fill="#ffffff" text-anchor="middle">94.0%</text>
+<text x="348" y="86" font-size="13" font-weight="600" fill="#0b0b0b">validation (n=1,255)</text>
+<text x="386.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=gender</text>
+<text x="462.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=others</text>
+<text x="538.0" y="104" font-size="11" fill="#52514e" text-anchor="middle">bias=none</text>
+<rect x="349" y="113" width="74" height="42" rx="3" fill="#3987e5"><title>validation hate x gender: 134 (43.9% of hate)</title></rect>
+<text x="386.0" y="138.0" font-size="12" fill="#ffffff" text-anchor="middle">43.9%</text>
+<rect x="425" y="113" width="74" height="42" rx="3" fill="#6da7ec"><title>validation hate x others: 91 (29.8% of hate)</title></rect>
+<text x="462.0" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="middle">29.8%</text>
+<rect x="501" y="113" width="74" height="42" rx="3" fill="#9ec5f4"><title>validation hate x none: 80 (26.2% of hate)</title></rect>
+<text x="538.0" y="138.0" font-size="12" fill="#0b0b0b" text-anchor="middle">26.2%</text>
+<rect x="349" y="157" width="74" height="42" rx="3" fill="#cde2fb"><title>validation offensive x gender: 51 (12.7% of offensive)</title></rect>
+<text x="386.0" y="182.0" font-size="12" fill="#0b0b0b" text-anchor="middle">12.7%</text>
+<rect x="425" y="157" width="74" height="42" rx="3" fill="#6da7ec"><title>validation offensive x others: 123 (30.5% of offensive)</title></rect>
+<text x="462.0" y="182.0" font-size="12" fill="#0b0b0b" text-anchor="middle">30.5%</text>
+<rect x="501" y="157" width="74" height="42" rx="3" fill="#3987e5"><title>validation offensive x none: 229 (56.8% of offensive)</title></rect>
+<text x="538.0" y="182.0" font-size="12" fill="#ffffff" text-anchor="middle">56.8%</text>
+<rect x="349" y="201" width="74" height="42" rx="3" fill="#cde2fb"><title>validation none x gender: 18 (3.3% of none)</title></rect>
+<text x="386.0" y="226.0" font-size="12" fill="#0b0b0b" text-anchor="middle">3.3%</text>
+<rect x="425" y="201" width="74" height="42" rx="3" fill="#cde2fb"><title>validation none x others: 27 (4.9% of none)</title></rect>
+<text x="462.0" y="226.0" font-size="12" fill="#0b0b0b" text-anchor="middle">4.9%</text>
+<rect x="501" y="201" width="74" height="42" rx="3" fill="#0d366b"><title>validation none x none: 502 (91.8% of none)</title></rect>
+<text x="538.0" y="226.0" font-size="12" fill="#ffffff" text-anchor="middle">91.8%</text>
+<text x="24" y="266" font-size="11" fill="#8a8984">Row-normalized: share of each native hate label in each bias value. Counts in tooltips and summary.json.</text>
+<text x="24" y="282" font-size="11" fill="#8a8984">Descriptive co-occurrence only; no correlation or causal claim.</text>
+</svg>

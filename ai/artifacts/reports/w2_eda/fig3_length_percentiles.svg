@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Comment length percentiles</title>
+<rect width="640" height="380" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Comment length percentiles</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<rect x="64" y="69" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="79" y="78" font-size="12" fill="#52514e">train</text>
+<rect x="124" y="69" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="139" y="78" font-size="12" fill="#52514e">validation</text>
+<line x1="64" x2="616" y1="320.0" y2="320.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="324.0" font-size="11" fill="#8a8984" text-anchor="end">0</text>
+<line x1="64" x2="616" y1="275.2" y2="275.2" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="279.2" font-size="11" fill="#8a8984" text-anchor="end">30</text>
+<line x1="64" x2="616" y1="230.4" y2="230.4" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="234.4" font-size="11" fill="#8a8984" text-anchor="end">60</text>
+<line x1="64" x2="616" y1="185.6" y2="185.6" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="189.6" font-size="11" fill="#8a8984" text-anchor="end">90</text>
+<line x1="64" x2="616" y1="140.8" y2="140.8" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="144.8" font-size="11" fill="#8a8984" text-anchor="end">120</text>
+<line x1="64" x2="616" y1="96.0" y2="96.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="100.0" font-size="11" fill="#8a8984" text-anchor="end">150</text>
+<text x="616" y="78" font-size="11" fill="#52514e" text-anchor="end">500-code-point candidate boundary is above the axis (max 135)</text>
+<circle cx="103.0" cy="314.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train min: 4</title></circle>
+<circle cx="117.0" cy="314.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation min: 4</title></circle>
+<text x="110.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">min</text>
+<text x="110.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">4/4</text>
+<circle cx="195.0" cy="273.7" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train p50: 31</title></circle>
+<circle cx="209.0" cy="273.7" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation p50: 31</title></circle>
+<text x="202.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">p50</text>
+<text x="202.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">31/31</text>
+<circle cx="287.0" cy="199.0" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train p90: 81</title></circle>
+<circle cx="301.0" cy="202.0" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation p90: 79</title></circle>
+<text x="294.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">p90</text>
+<text x="294.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">81/79</text>
+<circle cx="379.0" cy="175.1" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train p95: 97</title></circle>
+<circle cx="393.0" cy="175.1" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation p95: 97</title></circle>
+<text x="386.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">p95</text>
+<text x="386.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">97/97</text>
+<circle cx="471.0" cy="140.8" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train p99: 120</title></circle>
+<circle cx="485.0" cy="143.8" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation p99: 118</title></circle>
+<text x="478.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">p99</text>
+<text x="478.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">120/118</text>
+<circle cx="563.0" cy="118.4" r="5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>train max: 135</title></circle>
+<circle cx="577.0" cy="128.9" r="5" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>validation max: 128</title></circle>
+<text x="570.0" y="336" font-size="12" fill="#0b0b0b" text-anchor="middle">max</text>
+<text x="570.0" y="351" font-size="10" fill="#8a8984" text-anchor="middle">135/128</text>
+<line x1="64" x2="616" y1="320" y2="320" stroke="#8a8984" stroke-width="1"/>
+<text x="64" y="366" font-size="11" fill="#8a8984">Unicode code points, nearest-rank percentiles. Numbers under each tick: train/validation.</text>
+</svg>

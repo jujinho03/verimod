@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Native bias-axis distribution</title>
+<rect width="640" height="380" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Native bias-axis distribution</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<rect x="64" y="69" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="79" y="78" font-size="12" fill="#52514e">train</text>
+<rect x="124" y="69" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="139" y="78" font-size="12" fill="#52514e">validation</text>
+<line x1="64" x2="616" y1="330.0" y2="330.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="334.0" font-size="11" fill="#8a8984" text-anchor="end">0%</text>
+<line x1="64" x2="616" y1="296.6" y2="296.6" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="300.6" font-size="11" fill="#8a8984" text-anchor="end">10%</text>
+<line x1="64" x2="616" y1="263.1" y2="263.1" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="267.1" font-size="11" fill="#8a8984" text-anchor="end">20%</text>
+<line x1="64" x2="616" y1="229.7" y2="229.7" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="233.7" font-size="11" fill="#8a8984" text-anchor="end">30%</text>
+<line x1="64" x2="616" y1="196.3" y2="196.3" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="200.3" font-size="11" fill="#8a8984" text-anchor="end">40%</text>
+<line x1="64" x2="616" y1="162.9" y2="162.9" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="166.9" font-size="11" fill="#8a8984" text-anchor="end">50%</text>
+<line x1="64" x2="616" y1="129.4" y2="129.4" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="133.4" font-size="11" fill="#8a8984" text-anchor="end">60%</text>
+<line x1="64" x2="616" y1="96.0" y2="96.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="100.0" font-size="11" fill="#8a8984" text-anchor="end">70%</text>
+<path d="M131.0,330.0 V283.4 Q131.0,279.4 135.0,279.4 H151.0 Q155.0,279.4 155.0,283.4 V330.0 Z" fill="#2a78d6"><title>train gender: 887 (15.1%)</title></path>
+<path d="M157.0,330.0 V279.9 Q157.0,275.9 161.0,275.9 H177.0 Q181.0,275.9 181.0,279.9 V330.0 Z" fill="#eb6834"><title>validation gender: 203 (16.2%)</title></path>
+<text x="156.0" y="269.9" font-size="11" fill="#52514e" text-anchor="middle">15.1% / 16.2%</text>
+<text x="156.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">gender</text>
+<path d="M315.0,330.0 V271.1 Q315.0,267.1 319.0,267.1 H335.0 Q339.0,267.1 339.0,271.1 V330.0 Z" fill="#2a78d6"><title>train others: 1,102 (18.8%)</title></path>
+<path d="M341.0,330.0 V269.8 Q341.0,265.8 345.0,265.8 H361.0 Q365.0,265.8 365.0,269.8 V330.0 Z" fill="#eb6834"><title>validation others: 241 (19.2%)</title></path>
+<text x="340.0" y="259.8" font-size="11" fill="#52514e" text-anchor="middle">18.8% / 19.2%</text>
+<text x="340.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">others</text>
+<path d="M499.0,330.0 V113.2 Q499.0,109.2 503.0,109.2 H519.0 Q523.0,109.2 523.0,113.2 V330.0 Z" fill="#2a78d6"><title>train none: 3,868 (66.0%)</title></path>
+<path d="M525.0,330.0 V118.0 Q525.0,114.0 529.0,114.0 H545.0 Q549.0,114.0 549.0,118.0 V330.0 Z" fill="#eb6834"><title>validation none: 811 (64.6%)</title></path>
+<text x="524.0" y="103.2" font-size="11" fill="#52514e" text-anchor="middle">66.0% / 64.6%</text>
+<text x="524.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">none</text>
+<line x1="64" x2="616" y1="330" y2="330" stroke="#8a8984" stroke-width="1"/>
+<text x="64" y="364" font-size="11" fill="#8a8984">Labels: train / validation share. Bias is a separate axis, not merged into the target.</text>
+</svg>
