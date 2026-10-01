@@ -36,7 +36,7 @@ Both checks returned the same dedicated public address above. RPC URLs are not r
 - Public transaction: [`0x904f8dd671132e236f206ddf61c82a3bdb88799f7cbdf640129f3ac3bce53884`](https://sepolia.basescan.org/tx/0x904f8dd671132e236f206ddf61c82a3bdb88799f7cbdf640129f3ac3bce53884)
 - Network: Base Sepolia, chain ID 84532
 - Transaction status: success (`0x1`)
-- Registration block: 47,527,690
+- Transaction block: 47,527,690
 
 The top-level transaction is a zero-value `claim(address receiver,uint256 amount)` call to the faucet proxy. This is expected for a contract-mediated faucet claim. Independent public explorer inspection of its internal transactions shows a successful internal `call` from the verified `NativeTokenFaucet` implementation to `0xd47675BE41eC3476F541C1d8d8a9F622c90182Ed` for `100000000000000` wei. The decoded `receiver` and `amount` arguments match that internal transfer.
 

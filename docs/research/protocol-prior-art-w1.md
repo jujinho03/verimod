@@ -89,7 +89,7 @@ TEE and remote attestation are future directions for strengthening execution-env
 |---|---|---|---|---|---|---|---|
 | Sigstore Rekor | Signed software metadata | Merkle inclusion, signed tree head, consistency audit | Sigstore trust root plus monitors/auditors | No | No artifact semantic correctness | Public signed metadata is auditable | Prior-art only |
 | su3.io Ethereum witness reference | Rekor tree heads and consistency proofs | Public-chain state commitment plus Rekor/operator proofs | Prototype's Ethereum/Scroll and verifier assumptions | No | No entry/artifact correctness | Public commitments/evidence may be observable | Prior-art only; not adopted |
-| VeriMod W1 design | Decision Receipt epoch commitment | Receipt hash, ordered Merkle linkage, planned external anchor | Approved TrustProfile is the planned verifier authority | No | No AI-decision correctness | Do not put original content/salt on chain | Design drafts; no VeriModAnchor deployment or epoch anchor |
+| VeriMod W1 design | Decision Receipt epoch commitment | Receipt hash, ordered Merkle linkage, planned external anchor | TrustProfile working-assumption draft is the planned verifier authority; FRZ-01 pending | No | No AI-decision correctness | Do not put original content/salt on chain | Design drafts; no VeriModAnchor deployment or epoch anchor |
 | TEE / remote attestation future direction | Measured inference/signing environment | Attestation evidence, endorsements, reference values, policy | Hardware/platform root and verifier policy | Potentially yes | No semantic AI correctness | Attestation material may disclose platform metadata | Research only; not selected or implemented |
 
 ## 5. VeriMod Design Takeaway
