@@ -2,6 +2,7 @@ import { randomHex32, type Hex32 } from '../domain/hash'
 import { manifestHashes } from '../domain/manifests'
 import { evaluatePolicy } from '../domain/policy'
 import {
+  ISSUER_ID,
   appealCommitment,
   buildAppeal,
   buildDecision,
@@ -246,12 +247,19 @@ export class VeriModStore {
     return receipt
   }
 
+  /** 발급자별 순번은 영수증을 삭제해도 재사용하지 않는다. */
+  private nextIssuerSeq(issuerId: string): number {
+    return this.state.receipts
+      .filter((receipt) => receipt.body.issuer_id === issuerId)
+      .reduce((max, receipt) => Math.max(max, receipt.body.issuer_seq), 0) + 1
+  }
+
   async issueDecision(draft: DecisionDraft): Promise<StoredReceipt> {
     if (this.resetting) throw new StoreError('초기화 중입니다. 잠시 후 다시 시도하세요.')
     const generation = this.generation
     draft = structuredClone(draft)
     const now = this.clock()
-    const body = buildDecision({ receiptId: crypto.randomUUID(), recordedAt: isoTime(now), inference: draft.inference, policy: draft.policy })
+    const body = buildDecision({ receiptId: crypto.randomUUID(), issuerSeq: this.nextIssuerSeq(ISSUER_ID), recordedAt: isoTime(now), inference: draft.inference, policy: draft.policy })
     const hash = await receiptHash(body)
     if (generation !== this.generation) throw new StoreError('저장 상태가 바뀌었습니다. 다시 시도하세요.')
     return this.add(
@@ -274,6 +282,7 @@ export class VeriModStore {
     const commitment = await appealCommitment(salt, text)
     const body = buildAppeal({
       receiptId: crypto.randomUUID(),
+      issuerSeq: this.nextIssuerSeq(decision.body.issuer_id),
       recordedAt: isoTime(now),
       decision: decision.body,
       decisionHash: decision.hash,
@@ -314,6 +323,7 @@ export class VeriModStore {
     const manifests = await manifestHashes()
     const body = buildReview({
       receiptId: crypto.randomUUID(),
+      issuerSeq: this.nextIssuerSeq(decision.body.issuer_id),
       recordedAt: isoTime(now),
       decision: decision.body,
       decisionHash: decision.hash,
@@ -346,7 +356,7 @@ export class VeriModStore {
       }))
       const { epoch, proofs } = await sealEpoch(
         epochId,
-        pending.map((r) => ({ receipt_id: r.body.receipt_id, receipt_hash: r.hash })),
+        pending.map((r) => ({ receipt_id: r.body.receipt_id, receipt_hash: r.hash, issuer_seq: r.body.issuer_seq })),
         others,
         now,
       )

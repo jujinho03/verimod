@@ -1,0 +1,26 @@
+{
+  "profile": "verimod-canonical-profile-v1",
+  "hash": "verimod:receipt:v1",
+  "cases": [
+    {"id":"normal-valid","input":"docs/examples/01-valid.json#/receipt_body","expected_hash":"0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b"},
+    {"id":"normal-tampered-body","input":"docs/examples/02-tampered.json#/receipt_body","expected_hash":"0xbdcc8f261a3e0fa41d1fa8827c0aa3a98ef1a253f9756109165df0a05d6a7b20"},
+    {"id":"normal-rehashed","input":"docs/examples/03-rehashed.json#/receipt_body","expected_hash":"0xbdcc8f261a3e0fa41d1fa8827c0aa3a98ef1a253f9756109165df0a05d6a7b20"},
+    {"id":"key-top-level","input":{"b":2,"a":1},"expected_canonical":"{\"a\":1,\"b\":2}"},
+    {"id":"key-nested","input":{"x":{"z":2,"a":1}},"expected_canonical":"{\"x\":{\"a\":1,\"z\":2}}"},
+    {"id":"key-receipt-body","input":"docs/examples/01-valid.json#/receipt_body reversed-keys","expected":"same-bytes"},
+    {"id":"unicode-korean","input":{"text":"한글 영수증"},"expected_canonical":"{\"text\":\"한글 영수증\"}"},
+    {"id":"unicode-astral","input":{"text":"😀"},"expected_canonical":"{\"text\":\"😀\"}"},
+    {"id":"unicode-no-nfc","input":{"text":"é"},"expected_canonical":"{\"text\":\"é\"}"},
+    {"id":"null-required","input":"docs/examples/01-valid.json#/receipt_body","expected":"schema-accept"},
+    {"id":"required-omitted","input":"docs/examples/01-valid.json#/receipt_body minus subject_receipt_hash","expected":"INVALID_SCHEMA"},
+    {"id":"null-vs-omitted","input":{"x":null},"expected_canonical":"{\"x\":null}"},
+    {"id":"integer-max-safe","input":{"value":9007199254740991},"expected_canonical":"{\"value\":9007199254740991}"},
+    {"id":"integer-min-safe","input":{"value":-9007199254740991},"expected_canonical":"{\"value\":-9007199254740991}"},
+    {"id":"integer-unsafe","input":{"value":9007199254740992},"expected":"canonical-reject"},
+    {"id":"duplicate-literal","input":"{\"x\":1,\"x\":2}","expected":"parse-reject"},
+    {"id":"duplicate-escaped","input":"{\"x\":1,\"\\u0078\":2}","expected":"parse-reject"},
+    {"id":"time-valid","input":"2026-09-08T01:12:30.000Z","expected":"schema-accept"},
+    {"id":"time-invalid-date","input":"2026-02-30T01:12:30.000Z","expected":"INVALID_SCHEMA"},
+    {"id":"time-invalid-format","input":"2026-09-08T01:12:30Z","expected":"INVALID_SCHEMA"}
+  ]
+}

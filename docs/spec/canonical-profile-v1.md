@@ -1,6 +1,6 @@
-# Canonical Profile v1 — W1 초안
+# Canonical Profile v1 — W2 validation candidate
 
-상태: **D11 Canonical Profile v1 방향은 ADOPTED**. 상세 schema / limits / cross-runtime rules / golden vectors는 **DRAFT / FRZ-01 pending**이다. 소유: PROTOCOL. ADOPTED는 상세 명세 완료나 모든 runtime의 구현 완료를 뜻하지 않는다. 이 문서는 W1에서 확인한 browser PoC의 현재 바이트 동작과 후속 동결 대상을 분리한다. [결정 등록부](../02-decision-register.md)의 D11 및 [계약 초안 C04](../04-interface-contract-draft.md)를 따른다.
+상태: **D11 Canonical Profile v1 방향은 ADOPTED**. W2의 shared runtime·Node/browser·독립 golden 검증은 완료 후보 근거이며, FRZ-01과 Team GATE-2는 아직 pending이다. 소유: PROTOCOL. 이 문서는 [결정 등록부](../02-decision-register.md)의 D11 및 [계약 초안 C04](../04-interface-contract-draft.md)를 따른다.
 
 ## 목적과 범위
 
@@ -38,3 +38,9 @@ receipt hash는 `SHA-256(ASCII("verimod:receipt:v1") || 0x00 || canonical_body_u
 - DECISION/APPEAL/REVIEW의 required, null, unknown-field 행렬을 schema에 고정한다.
 - 기존 3종 fixture의 canonical bytes와 receipt hash를 회귀 벡터로 고정한다.
 - 한글, astral key, null-vs-omitted, safe-integer 경계, duplicate key를 포함한 golden vector를 추가한다.
+
+## W2 검증 결과
+
+외부 JSON 숫자는 native JSON parser가 1e3과 1.0을 각각 정수 1000과 1로 만든 뒤 canonicalize한다. duplicate key는 escape 해제 후 같은 key도 거부한다. 이 lexical 정책을 PROTOCOL freeze candidate로 유지한다.
+
+Node와 Chromium에서 정상3·키순서3·Unicode3·null/누락3·정수경계3·중복키2·시간형식3의 20개 회귀가 모두 통과했다. Python 표준 라이브러리 독립 구현은 canonical golden 6/6과 공개 ReceiptBody domain hash 3/3을 확인했다.

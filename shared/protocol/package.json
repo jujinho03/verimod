@@ -1,0 +1,17 @@
+{
+  "name": "@verimod/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./canonical": "./src/canonical.ts",
+    "./epoch": "./src/epoch.ts",
+    "./hash": "./src/hash.ts",
+    "./json": "./src/json.ts",
+    "./manifests": "./src/manifests.ts",
+    "./merkle": "./src/merkle.ts",
+    "./receipt": "./src/receipt.ts",
+    "./schema": "./src/schema.ts",
+    "./types": "./src/types.ts"
+  }
+}

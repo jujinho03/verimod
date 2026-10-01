@@ -1,0 +1,42 @@
+{
+  "profile": "verimod-canonical-profile-v1",
+  "hash": "sha256(utf8(canonical_json))",
+  "vectors": [
+    {
+      "id": "ascii-key-order",
+      "input": { "z": 1, "a": null, "middle": true },
+      "canonical_json": "{\"a\":null,\"middle\":true,\"z\":1}",
+      "sha256": "492a5b7685b78971b520762a7fef0055a6ddecf103d2181fcb6616b94f006053"
+    },
+    {
+      "id": "korean-string",
+      "input": { "message": "한글", "tags": ["검증", "영수증"] },
+      "canonical_json": "{\"message\":\"한글\",\"tags\":[\"검증\",\"영수증\"]}",
+      "sha256": "ae2711606e73ecd8d6572dbf84e5647582b2b33450ee3c229934638e57ba2677"
+    },
+    {
+      "id": "astral-key-order",
+      "input": { "😀": "grinning", "\uffff": "bmp", "a": "ascii" },
+      "canonical_json": "{\"a\":\"ascii\",\"😀\":\"grinning\",\"￿\":\"bmp\"}",
+      "sha256": "fd567e89636ad558c2b8e9e8a1d2bc0683c48fea57b113ba6fa51caf2ff85cda"
+    },
+    {
+      "id": "json-escaping",
+      "input": { "text": "quote: \" newline: \n tab: \t slash: \\" },
+      "canonical_json": "{\"text\":\"quote: \\\" newline: \\n tab: \\t slash: \\\\\"}",
+      "sha256": "1ec499f9abf9229bce615e21b8bd589cdf3f56d7c17eb823635d888c9eebfc1e"
+    },
+    {
+      "id": "safe-integer-boundaries",
+      "input": { "min": -9007199254740991, "max": 9007199254740991, "zero": 0 },
+      "canonical_json": "{\"max\":9007199254740991,\"min\":-9007199254740991,\"zero\":0}",
+      "sha256": "b7b2401ddca2165824e98c61890c0aaec470258d3119dd265d02be9438bf47e6"
+    },
+    {
+      "id": "null-vs-present",
+      "input": { "present": null, "nested": { "kept": null } },
+      "canonical_json": "{\"nested\":{\"kept\":null},\"present\":null}",
+      "sha256": "0cb32eed600e1c9a434445c1a0c1f3bc8a5e6ad84f273e7a5e4145776ab049df"
+    }
+  ]
+}
