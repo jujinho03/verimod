@@ -1,0 +1,25 @@
+{
+  "dataset": "BEEP! Korean HateSpeech",
+  "repository": "kocohub/korean-hate-speech",
+  "revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+  "license": "CC BY-SA 4.0",
+  "source_sha256": {
+    "labeled/train.tsv": "ebebacdcd023af2c4acc8c0a37695fb6433ac04fc009feff8f222724e303a5a9",
+    "labeled/dev.tsv": "232b615d6e359a9d31dfb8370f32e1733dc5bb3f9c5430d34d7fcc7ba4b7e8ef",
+    "news_title/train.news_title.txt": "80fcb349633ddf38062c17363f18e62b3e533640c2a31ba50468963ff5db1492",
+    "news_title/dev.news_title.txt": "5332b771458697677396a6bae8de0f590be9b4b8718592d6e1a92b6592b5d47f",
+    "README.md": "12d2668b0c23b048b16da8ccc5bd3b8f2e940b305a12324d22c330d1705c8fee",
+    "LICENSE.md": "87a816969906840bf7af8d4d01cdfad4741b18946365e1f286007935509f2edb"
+  },
+  "official_rows": {"train": 7896, "dev": 471},
+  "native_target": {
+    "axis": "hate",
+    "labels": ["hate", "offensive", "none"],
+    "task_semantics": "single-label 3-class"
+  },
+  "seed": 45126,
+  "ratios": {"train": 0.70, "validation": 0.15, "test": 0.15},
+  "normalization_version": "w2-leakage-nfc-whitespace-v1",
+  "split_algorithm": "group-greedy-class-aware-v1",
+  "near_duplicate": {"minimum_characters": 12, "jaccard_threshold": 0.90, "maximum_posting_visits": 15000000}
+}
