@@ -1,9 +1,9 @@
 # notebooks
 
-Notebooks are for EDA, visual inspection and experiment exploration only.
+Notebook은 EDA, 시각적 확인, 실험 탐색 용도로만 사용합니다.
 
-- Reproducible logic must move into `src/verimod_ai/` (or `scripts/`) before it is used as evidence.
-- Do not open or inspect the sealed internal TEST in a notebook.
-- Do not commit notebook outputs that contain dataset text.
+- 재현이 필요한 로직은 evidence로 쓰기 전에 `src/verimod_ai/`(또는 `scripts/`)로 옮겨야 합니다.
+- Notebook에서 sealed internal TEST를 열거나 들여다보지 마세요.
+- dataset 텍스트가 포함된 notebook 출력은 commit하지 마세요.
 
-No notebook exists yet.
+아직 notebook은 없습니다.

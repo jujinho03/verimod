@@ -12,7 +12,7 @@ STATUS: CURRENT
 
 확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
 
-## 2026-09-30 operational schedule override
+## 2026-09-30 운영 일정 조정(override)
 
 출처: 2026-09-30 사용자 `CORRECTED ATOMIC TASK — Stage 8D`의 최신 운영 사실·역할 정정. 과거 계획 당시 W1 예정이었던 항목은 역사로 보존하며, 실제 external prerequisite unavailable에 따라 아래 실행 일정을 우선 적용한다.
 
@@ -97,7 +97,7 @@ STATUS: CURRENT
 
 수정 전 frontend 테스트는 7파일 54건이었다. P0에서 부정 입력·경합·복구·독립 Node crypto Merkle reference·기존 seed 해시 검사를 추가했다. 파일 존재와 실행 성공을 구분하며, 00 문서의 과거 팀원 보고를 이번 결과로 재사용하지 않는다.
 
-## 2026-10-01 Team W1 final closure
+## 2026-10-01 Team W1 최종 closure
 
 Team W1 repository-evidence closure was completed on 2026-10-01 as a **late, retrospective W1 closure**. [Final W1 evidence and per-ticket boundaries](progress/W1.md#team-w1-final-closure--2026-10-01) record A / 주진호 W1 owner COMPLETE, T / 설경민 W1 evidence COMPLETE, and F / 노유신 W1 owner COMPLETE. **TEAM W1 STATUS: CLOSED.**
 

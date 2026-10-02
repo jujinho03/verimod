@@ -1,6 +1,6 @@
-# DOC-14 — Cross-Document Conflict Audit
+# DOC-14 — 문서 간 충돌 감사 (Cross-Document Conflict Audit)
 
-## 1. Scope
+## 1. 범위
 
 2026-09-24 · **W1 DOC-14 audit / DRAFT**. source synchronization 전 conflict identification 단계다. Cross-LLM 원문 자체는 아직 수정하지 않았으며 각 담당 확인도 완료로 간주하지 않는다. 이 문서는 새 기술 결정·계약·MUST를 만들지 않는다.
 
@@ -10,7 +10,7 @@ Preflight: `main`, HEAD = fetch 후 `origin/main` = `f807585dae3930e8c249c5975d0
 
 판정 단위는 표의 각 행이다. ALIGNED / STALE / CONFLICT / AMBIGUOUS / MISSING / NOT APPLICABLE만 사용한다. MISSING은 지정 문서의 핵심 planning 설명 누락이지 저장소 전체에 근거가 없다는 뜻이 아니다. 과거 snapshot은 날짜가 오래됐다는 이유만으로 오류로 분류하지 않는다. superseded PROPOSED 초안의 잔존과 승인된 결정의 충돌도 구분한다.
 
-## 2. Authority Order
+## 2. 권한 우선순위
 
 1. 최신 사용자 지시
 2. 실제 최신 GitHub main / code / tests / CI
@@ -22,11 +22,11 @@ Preflight: `main`, HEAD = fetch 후 `origin/main` = `f807585dae3930e8c249c5975d0
 
 CURRENT code는 구현 사실의 근거이며 TARGET 설계의 자동 승인 근거가 아니다. ADOPTED는 결정 승인, WORKING ASSUMPTION은 FRZ-01 전 잠정 기준, PROPOSED는 미승인 초안, UNRESOLVED는 미확정이다. NEXT/TARGET을 구현 완료로 읽지 않는다.
 
-## 3. Source Inventory
+## 3. 출처 목록
 
 아래 repo 경로·행 번호는 감사 base SHA 기준이다. FINAL/MP 페이지 번호는 PDF의 1-based 페이지다. Cross 행 번호는 직접 읽은 원본 Markdown 기준이다. PDF는 텍스트를 읽었으며 원본을 수정·복제하지 않았다.
 
-| Source | Version / Date | Role | Editable in this task |
+| 출처 | 버전 / 날짜 | 역할 | 이번 작업에서 수정 가능 여부 |
 |---|---|---|---|
 | latest GitHub main | f807585dae3930e8c249c5975d0d4cb88b060cb4; 2026-09-24 조회; CI #30 | CURRENT 기준 | NO |
 | VERIFIED FINAL (FINAL) | 첨부 49쪽; 표지 2026-09-23 / v1.2.1 synchronized 표기 | 실행 planning; p.4~10,18,40,49 직접 대조 | NO |
@@ -49,11 +49,11 @@ CURRENT code는 구현 사실의 근거이며 TARGET 설계의 자동 승인 근
 - Cross SHA-256: `95a6b7004e0279e545b1164181dd5dadf834cbe1798e8b1f30332c6ecee2ab41`
 - MP SHA-256: `7f59ae235701ebd4bac5bec031332f9528e0f70eb23e19582485b299bbf3e19d`
 
-### Decision baseline 직접 확인
+### 결정 기준선 직접 확인
 
 02 L25~41의 17행은 모두 ADOPTED, L49~59의 11행은 모두 WORKING ASSUMPTION이다. 아래는 원문 상태를 보존한 요약이며 재승인하지 않는다.
 
-| IDs | Repository status | 직접 확인한 결정 내용 | Location |
+| ID | Repository 상태 | 직접 확인한 결정 내용 | 위치 |
 |---|---|---|---|
 | D01 / D02 / D03 | ADOPTED | 한국어 encoder·I1 유지 fallback / native labels 우선·misinformation 제외·GATE-2 taxonomy / reason_codes·triggered_rule_ids MUST, span SHOULD | 02 L25~27 |
 | D04 / D05 / D06 | ADOPTED | SQLite / epoch Merkle batching / 새 APPEAL·REVIEW receipt | 02 L28~30 |
@@ -66,11 +66,11 @@ CURRENT code는 구현 사실의 근거이며 TARGET 설계의 자동 승인 근
 | D24 / D25 / D26 | WORKING ASSUMPTION | 503·미발급·fake ALLOW 금지 / FRR≤X·HRR_TOTAL≤B에서 HAR 최소 / Gate fallback | 02 L55~57 |
 | D27 / D28 | WORKING ASSUMPTION | TEST 사용·재실행 제한(문구 모순은 Row-25) / Primary 하나·Secondary 외부 평가 SHOULD | 02 L58~59 |
 
-## 4. Conflict Matrix
+## 4. 충돌 매트릭스
 
 Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며 실제 확인 완료나 새 업무 배정을 뜻하지 않는다. Row 번호는 이 문서 내부 식별자일 뿐 project ticket이 아니다.
 
-| ID | Topic | Source / Location | Current Text or Meaning | Latest Authority | Status | Required Action | Owner |
+| ID | 주제 | 출처 / 위치 | 현재 문구 또는 의미 | 최신 권한 근거 | 상태 | 필요한 조치 | 담당 |
 |---|---|---|---|---|---|---|---|
 | Row-01 | A · Identity | Cross L61~84; README L3~4; 02 D09 | HTTP 451 / VeriMod / User-Verifiable AI Moderation Protocol / Decide. Prove. Appeal. | D09 ADOPTED; FINAL p.7 | ALIGNED | 유지 | A / 주진호 |
 | Row-02 | B · AI correctness / 실행 진실성 | Cross L197~217; README L118; mentor L57~58 | AI 정답성·실제 모델 실행·거짓 score·완전성을 증명하지 않음 | FINAL p.7,10; D20 WA | ALIGNED | 목표와 CURRENT 검증 범위 구분 유지 | JOINT |
@@ -110,7 +110,7 @@ Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며
 | Row-36 | Mentoring scope | mentor L18~28,44~53; MP p.17 M6 | APPEAL/REVIEW SHOULD 선택지를 멘토 질문으로 제시 | 최신 사용자 DOC-04가 정확히 요구한 질문·잠정 판단; FINAL M6는 현 execution 목표 | ALIGNED | 질문을 이미 확정된 scope-cut으로 읽지 않음; 희망 배정 미확정 유지 | A / 주진호 |
 | Row-37 | P0 잔여 lint | 06 L108 'lint UI 경고'; 05 L7 | backlog에 기존 lint warning 해소 전 표현 잔존 | 05 09/14 재점검: '기존 8개 lint 경고 ... 해소'; 최신 CI success | STALE | 해소 이력과 진짜 잔여 위험 분리; CI success만으로 모든 위험 해소 주장 금지 | F / 노유신 |
 
-## 5. High-Risk Conflicts
+## 5. 고위험 충돌
 
 - **Row-19 / protocolVersion / CONFLICT / T:** contract-side 지원 검사 초안은 D14에 의해 superseded. 현재 실제 Solidity는 ToolchainCheck이므로 잘못된 epoch contract가 배포됐다는 뜻이 아니다.
 - **Row-20 / registration-time / CONFLICT / T:** block.timestamp/block.number 저장 초안은 D15에 의해 superseded. 등록 증거는 tx receipt/event 경로다.
@@ -120,22 +120,22 @@ Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며
 - **Row-17,34 / TrustProfile·Package / STALE·MISSING / T,F:** 옛 TrustConfig 중심 TARGET 및 소유자 salt 전달·no echo·3 write 멱등키 설명의 누락. locator를 trust root로 삼는 문장이나 실제 공개 salt 노출은 이번 조사에서 발견하지 않았다.
 - 검토한 범위에서 **synthetic 5-label을 final로 확정하는 주장, AI correctness 보장 주장, Primary 최종 선택 주장은 NONE FOUND**. CURRENT 5-key schema 자체는 TARGET 승인 근거가 아니다.
 
-## 6. Cross-LLM Status
+## 6. Cross-LLM 상태
 
 - Cross-LLM 원문 수정 여부: **NO**
 - synchronization status: **AUDIT ONLY / NOT YET SYNCHRONIZED**
 - 로컬 원문을 직접 읽어 대조했다. VERIFIED FINAL 표지의 synchronized 표기만으로 이 원문이 최신이라고 간주하지 않는다.
 - 이 감사 파일은 synchronization patch도, A/T/F 확인 완료 증거도 아니다.
 
-## 7. Owner Confirmation Required
+## 7. 담당자 확인 필요 항목
 
-| Role | Owner | Areas to Confirm | Status |
+| 역할 | 담당 | 확인할 영역 | 상태 |
 |---|---|---|---|
 | A | 주진호 | AI / planning / docs; 특히 TEST 선택 문구·authority·W1/W2·Gate | PENDING |
 | T | 설경민 | protocol / chain / security; D14·D15·D22·TrustProfile·shared 경계 | PENDING |
 | F | 노유신 | service / API / DB / frontend; SQLite·Idempotency-Key·Package privacy | PENDING |
 
-## 8. Proposed Next Step
+## 8. 제안하는 다음 단계
 
 - **Repository docs 수정 필요:** Row-04,06,09,14,18~20,22,24,35,37의 stale 또는 superseded 표현. 역사 기록은 보존하고 최신 결정으로 연결하는 후속 patch 범위를 검토한다.
 - **Cross-LLM source 수정 필요:** Row-03,11~12,15,17,21,23,26~29,31의 누락·일정·상태 표현. 현재 파일을 수정하지 않는다.
@@ -145,13 +145,13 @@ Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며
 
 이번 산출물은 conflict identification 초안 한 파일이다. 기존 문서·code 변경, owner confirmation 완료 처리, OPS-02, W1 progress 문서, W2 작업, commit/push/PR은 수행하지 않는다.
 
-## 9. Synchronization Scope
+## 9. 동기화 범위
 
 2026-09-24 · DOC-14 Stage 2 / SCOPE ONLY. Preflight branch `docs/w1-doc-14-conflict-audit`, HEAD = fetch 후 origin/main = `f807585dae3930e8c249c5975d0d4cb88b060cb4`, ahead/behind 0/0, 감사 파일만 untracked. §1~8 및 기존 matrix는 그대로 보존한다. 아래는 Stage 1의 수정 후보를 최소 범위로 구체화한 계획이며 source patch 실행·승인 완료가 아니다. §8의 포괄적 후보보다 다음 Stage의 구체적 범위는 이 절을 따른다.
 
-### 9.1 Disposition Legend
+### 9.1 처분(disposition) 범례
 
-| Disposition | Meaning |
+| 처분 | 의미 |
 |---|---|
 | PATCH_REPO_DOC | repository 현재 설명 문서의 최소 수정 필요 |
 | PATCH_CROSS_LLM | 재사용되는 Cross-LLM Master Prompt 원문 수정 필요 |
@@ -164,9 +164,9 @@ Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며
 
 행마다 disposition은 하나다. PATCH 계열은 후속 Stage의 대상 지정일 뿐 이번 수정 허가가 아니다. Human Decision Needed의 NO는 owner 확인 완료를 뜻하지 않는다. 모든 owner 확인은 PENDING이다. Row-31은 변경 가능한 Cross를 기준으로 PATCH_CROSS_LLM 하나를 부여하며 PDF 충돌은 기존 Row-31 correction evidence로만 남긴다. PDF를 추가 patch 대상으로 세지 않는다.
 
-### 9.2 Row-by-Row Sync Plan
+### 9.2 행별 동기화 계획
 
-| Row | Topic | Current Status | Disposition | Target Source | Exact Scope | Owner | Human Decision Needed |
+| Row | 주제 | 현재 상태 | 처분 | 대상 출처 | 정확한 범위 | 담당 | 사람의 결정 필요 여부 |
 |---|---|---|---|---|---|---|---|
 | Row-01 | Identity | ALIGNED | NO_CHANGE | NONE | 명칭·영문 정의·메시지 이미 일치; 중복 수정 없음 | A / 주진호 | NO |
 | Row-02 | AI correctness / 실행 진실성 | ALIGNED | OWNER_CONFIRMATION_ONLY | NONE | 보장 한계가 유지되는지 확인만; 재서술 없음 | JOINT | NO |
@@ -208,11 +208,11 @@ Owner는 02 L70 및 FINAL p.4의 담당 영역에 따른 **확인 책임**이며
 
 Disposition 집계: PATCH_REPO_DOC 10 / PATCH_CROSS_LLM 12 / PATCH_BOTH 2 / CORRECTION_NOTE_ONLY 0 / HUMAN_DECISION_REQUIRED 2 / OWNER_CONFIRMATION_ONLY 6 / NO_CHANGE 3 / HISTORICAL_PRESERVE 2 = **37**. Stage 1 classification은 ALIGNED 10 / STALE 9 / CONFLICT 6 / AMBIGUOUS 1 / MISSING 10 / NOT APPLICABLE 1로 유지한다.
 
-### 9.3 Proposed Patch Set
+### 9.3 제안 patch 목록
 
 **Repository — 다음 Stage의 후보는 아래 5개뿐이다.** 같은 문서의 관련 행을 하나의 최소 patch로 묶고 02의 결정 내용 전체를 복제하지 않는다. 변경 시점의 코드·Git 기준은 다시 확인한다.
 
-| File | Related rows | Exact meaning to correct |
+| 파일 | 관련 행 | 바로잡을 정확한 의미 |
 |---|---|---|
 | docs/01-domain-and-interfaces.md | 19,20,22,35 | 옛 I4 version·등록시간·앵커 planning과 RESOLVED 승인 상태를 최신 결정 참조로 구분; 기존 제안 이력 보존 |
 | docs/03-current-status.md | 04,06,18 | 현재 SHA 안내·일괄 승인 없음·chain 미정 표현만 교정; 역사 구간 보존 |
@@ -232,20 +232,20 @@ Disposition 집계: PATCH_REPO_DOC 10 / PATCH_CROSS_LLM 12 / PATCH_BOTH 2 / CORR
 
 **Reference-only / 보존 대상:** VERIFIED FINAL PDF, Master Plan v1.2.1 PDF는 직접 수정 대상이 아니다. Row-25/31/32의 차이는 이 audit evidence에 남기며 source PDF나 plan을 재작성하지 않는다. docs/02-decision-register.md는 baseline으로 보존한다. docs/05·07 및 Cross §6/FINAL p.6/02 L11의 역사 snapshot도 보존한다. README.md, docs/README.md, mentor-prep-w1.md, code/tests/CI는 patch set에 넣지 않는다. 새 correction-note 파일은 제안하지 않으며 기존 audit의 Row-25/31/32를 참조한다.
 
-### 9.4 Human Decisions Required
+### 9.4 사람의 결정이 필요한 항목
 
-| Row | Issue | Required human input | Why not decided here | Until resolved |
+| Row | 쟁점 | 필요한 사람의 입력 | 여기서 결정하지 않는 이유 | 해결 전까지의 처리 |
 |---|---|---|---|---|
 | Row-25 | TEST 선택 문구와 validation→LOCK→TEST 직접 충돌 | A/사용자가 D27 WA의 의도와 최종 정합 문구·methodology를 명시하고 FRZ-01에서 수정/채택 여부 확인 | authority 우선순위는 알지만 WA를 최종 평가 방법으로 재설계할 권한은 이번 scope task에 없음 | 최신 사용자 승인 planning 우선 적용이라는 상태만 보존; ADOPTED 승격·평가 실행·원문 재작성 없음 |
 | Row-32 | FINAL 표지 synchronized의 원본 이력 | A/사용자가 당시 Cross 원본 식별자·버전·시점 또는 확인 가능한 이력 제공 | 현재 로컬 사본의 차이만으로 과거 동기화 대상을 추정할 수 없음 | AUDIT ONLY / NOT YET SYNCHRONIZED 유지; 과거 완료 기록 창작 없음 |
 
 Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 별도 기술 결정은 요구하지 않는다. PDF는 correction evidence로 보존하고 Cross만 후속 동기화한다. 위 두 보류 항목은 scope 표의 완성을 막지 않지만, 해당 내용의 최종 source patch를 허가하는 것도 아니다.
 
-### 9.5 Owner Confirmation Map
+### 9.5 담당자 확인 지도
 
 확인 책임은 Stage 1 소유 경계를 유지한다. 아래는 최종 patch 후 확인할 범위이며 지금은 전부 PENDING이다. NO_CHANGE/HISTORICAL_PRESERVE 행도 담당 범위의 보존 여부를 확인할 수 있지만 새 내용 결정을 요구하지 않는다.
 
-| Role | Owner | Rows / Areas to Confirm | Status |
+| 역할 | 담당 | 확인할 행 / 영역 | 상태 |
 |---|---|---|---|
 | A | 주진호 | 01,04,05,08~11,25~27,30,32,33,36: AI/I1·평가·planning·docs, 역사 SHA 보존, TEST·provenance 보류 유지 | PENDING |
 | T | 설경민 | 03,13~23,35: protocol·shared·trust·chain·옛 ABI 제안의 supersedes, D22 WA와 CURRENT 상태 구분 | PENDING |
@@ -253,14 +253,14 @@ Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 
 | JOINT | A / 주진호 + T / 설경민 + F / 노유신 | 02,06,07,12,28,29,31: 보장·개별 승인/전체 DRAFT·실제 구현·I1 실패 경계·freeze/Gate·authority; lifecycle 문구는 T의 Row-35와 F 소비 경계 함께 확인 | PENDING |
 
 실제 source synchronization patch 0건. D18~D28은 WORKING ASSUMPTION, 모든 미확정 값은 미확정 유지. owner confirmation 완료 처리, OPS-02, W1 progress 작성, W2, commit/push/PR은 수행하지 않는다.
-## 10. Stage 3 Synchronization Execution
+## 10. Stage 3 동기화 실행
 
 - execution date: 2026-09-27
 - base main SHA: `f807585dae3930e8c249c5975d0d4cb88b060cb4`
 - starting branch commit: `86bd8122fd66af80c0300a046a0c46ed3d61d5a3` (`docs/w1-doc-14-conflict-audit`)
 - source synchronization: **PATCHED** — 아래 승인 범위만 실제 수정. §1~§9는 당시 AUDIT / SCOPE ONLY evidence로 그대로 보존한다.
 
-| Repository file patched | Applied rows |
+| 수정한 repository 파일 | 적용한 행 |
 |---|---|
 | docs/01-domain-and-interfaces.md | 19,20,22,35 |
 | docs/03-current-status.md | 04,06,18 |
@@ -268,7 +268,7 @@ Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 
 | docs/06-p1-backlog.md | 09,18,19,24,35,37 |
 | docs/08-submission-guide.md | 04 |
 
-### Cross source selection and byte evidence
+### Cross 원본 선택과 byte evidence
 
 - Historical Stage-1 audit source SHA-256: `95a6b7004e0279e545b1164181dd5dadf834cbe1798e8b1f30332c6ecee2ab41` — historical source이며 현재 canonical이라고 주장하지 않는다.
 - Current source selection: **USER-APPROVED on 2026-09-27 / SELECTED**.
@@ -283,7 +283,7 @@ Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 
 - Cross rows applied: 03,11,12,14,15,17,21,23,26,27,28,29,31,34.
 - `자료/기획·발표/` 및 `C:/Users/jinho/Downloads/`의 동명 Cross 사본은 수정하지 않는다.
 
-### Deferred decisions and boundaries
+### 보류한 결정과 경계
 
 - Row-25: **DEFERRED / UNRESOLVED / HUMAN_DECISION_REQUIRED**. TEST methodology·validation/LOCK/TEST 절차와 D27 WORKING ASSUMPTION을 변경하지 않았다.
 - Row-32: historical synchronized provenance **DEFERRED / UNRESOLVED / HUMAN_DECISION_REQUIRED**; current canonical source selection만 **SELECTED**다. FINAL의 과거 synchronized claim 대상 원본·버전·시점은 확인되지 않았다.
@@ -294,12 +294,12 @@ Row-31의 현재 감사 authority는 최신 사용자 지시로 명확하므로 
 - OPS-02: **NO**; W1 progress 작성: **NO**; W2 work: **NO**.
 - commit / push / PR: **NO**.
 
-## 11. Owner Confirmation Results
+## 11. 담당자 확인 결과
 
 - DOC-14 Stage 4B completed: **2026-09-27**.
 - 아래 결과는 §9~§10의 당시 PENDING 기록 이후 완료된 Stage 4B 최종 상태다.
 
-| Review | Owner | Result |
+| 검토 | 담당 | 결과 |
 |---|---|---|
 | A | 주진호 | CONFIRMED |
 | T | 설경민 | CONFIRMED |

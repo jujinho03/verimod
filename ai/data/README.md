@@ -1,19 +1,19 @@
 # data
 
-Local dataset workspace. **Everything here is ignored by Git except this README and `fixtures/`.**
+로컬 dataset 작업 공간입니다. **이 README와 `fixtures/`를 제외한 모든 파일은 Git에서 무시됩니다.**
 
-Never commit:
+절대 commit하지 않는 항목:
 
-- raw datasets (`data/raw/`)
-- processed or split datasets (`data/processed/`)
-- download caches (`data/cache/`, `data/downloads/`)
-- temporary preprocessing outputs
+- 원본 dataset (`data/raw/`)
+- 전처리되었거나 split된 dataset (`data/processed/`)
+- 다운로드 cache (`data/cache/`, `data/downloads/`)
+- 임시 전처리 산출물
 
-May be committed (small, reviewed, no source text from licensed datasets):
+commit할 수 있는 항목(작고, 검토를 거쳤으며, 라이선스가 있는 dataset의 원문 텍스트를 포함하지 않는 것):
 
-- synthetic test fixtures (`data/fixtures/`)
-- metadata, manifests, schemas and split definitions — prefer `configs/` and `docs/research/`
+- synthetic test fixture (`data/fixtures/`)
+- metadata, manifest, schema, split 정의 — 가능하면 `configs/`와 `docs/research/`에 둡니다
 
-The W2 BEEP! source files and the sealed internal TEST live outside the repository in
-`../verimod-local-data/w2/` (see [AI-04](../../docs/research/w2-primary-dataset-decision.md)).
-Their integrity is recorded as SHA-256 values, not as files in Git.
+W2 BEEP! 원본 파일과 sealed internal TEST는 repository 밖의
+`../verimod-local-data/w2/`에 있습니다([AI-04](../../docs/research/w2-primary-dataset-decision.md) 참조).
+이 파일들의 무결성은 Git의 파일이 아니라 SHA-256 값으로 기록합니다.

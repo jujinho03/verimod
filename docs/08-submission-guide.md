@@ -10,7 +10,7 @@ VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판�
 
 | 질문 | 근거 |
 |---|---|
-| 무엇이 구현됐나? | [현재 구현 표](../README.md#current-implementation) |
+| 무엇이 구현됐나? | [현재 구현 표](../README.md#현재-구현-상태) |
 | 실제 화면이 있나? | [홈](assets/p0-home-2026-09-13.jpg) · [판정](assets/p0-check-2026-09-13.jpg) · [변조 실패](assets/p0-tamper-2026-09-13.jpg) |
 | 직접 검증 가능한가? | [정상·변조 JSON 3개](examples/README.md), 아래 실행 순서 |
 | 테스트를 실행했나? | [실행 기록](07-validation-2026-09-13.md) · [GitHub CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml) |

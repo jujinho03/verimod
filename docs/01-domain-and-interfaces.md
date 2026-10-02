@@ -55,7 +55,7 @@ AI adapter는 추론 결과를, policy evaluator는 행동 결정을, receipt bu
 - MVP는 최초 판정당 한 개의 열린 appeal과 한 개의 최종 review를 제안한다. 재심은 후속 확장으로 남긴다.
 - hash 연결은 기록 연결만 증명한다. 실제 사용자 권한, reviewer 자격, 중복 요청·동시 처리 통제는 backend 책임이다.
 
-## 3. I1 — AI moderation output
+## 3. I1 — AI moderation 출력
 
 최초 대상은 한국어 텍스트 분류다. label taxonomy는 데이터셋 라이선스·라벨을 확인한 뒤 확정한다. hate/violence/sexual/spam 전체를 미리 강제하지 않는다.
 
@@ -147,7 +147,7 @@ Proof 필드: merkle_spec=`ct-sha256-receipt-v1`, leaf_index(0-based), tree_size
 
 batch 동결 후 root와 receipt 목록을 변경하지 않는다. 새 receipt는 다음 epoch로 보낸다. receipt_count는 발급자의 포함 목록 길이이며 전체 moderation event 수를 증명하지 않는다. contract는 목록 자체를 보지 못하므로 count의 진실성도 독립 검증하지 못한다.
 
-## 6. I4 — Smart Contract epoch commitment
+## 6. I4 — Smart contract epoch commitment
 
 MVP 제안: 플랫폼 하나당 단순한 non-upgradeable contract 하나. 배포 시 허용 publisher와 issuer_commitment를 고정하고, 사용자 wallet 없이 읽기 검증한다. 체인은 EVM testnet 후보를 유지한다.
 

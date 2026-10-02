@@ -1,4 +1,4 @@
-# Backend Architecture — W1 초안
+# Backend 아키텍처 — W1 초안
 
 상태: **WORKING ASSUMPTION**. 소유: PROTOCOL 설계, SERVICE 구현. 현재 backend는 health endpoint 뼈대이며 아래 구조는 구현 완료가 아니다.
 

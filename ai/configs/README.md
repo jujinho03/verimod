@@ -1,11 +1,11 @@
 # configs
 
-| File | Kind |
+| 파일 | 종류 |
 |---|---|
-| `w2_dataset.json` | **Pinned, in use.** Read by `scripts/prepare_w2_dataset.py` (AI-04/AI-15). Do not edit without a new evidence record. |
-| `dataset.example.yaml` | Template only — not read by any code |
-| `model.example.yaml` | Template only — not read by any code |
-| `training.example.yaml` | Template only — not read by any code |
+| `w2_dataset.json` | **고정(pinned), 사용 중.** `scripts/prepare_w2_dataset.py`(AI-04/AI-15)가 읽습니다. 새 evidence 기록 없이 수정하지 마세요. |
+| `dataset.example.yaml` | 템플릿 전용 — 어떤 코드도 읽지 않음 |
+| `model.example.yaml` | 템플릿 전용 — 어떤 코드도 읽지 않음 |
+| `training.example.yaml` | 템플릿 전용 — 어떤 코드도 읽지 않음 |
 
-The templates mark which values are still unresolved. `null` / `unresolved` means "not decided", not "use a default".
-No YAML parser is a dependency yet; a loader is added when a config is actually consumed.
+템플릿은 아직 미해결인 값을 표시합니다. `null` / `unresolved`는 "기본값 사용"이 아니라 "아직 결정하지 않음"을 뜻합니다.
+아직 YAML parser는 dependency에 없습니다. config를 실제로 사용하게 될 때 loader를 추가합니다.

@@ -11,7 +11,7 @@
 - `ai/**` 변경의 primary reviewer는 A / 주진호다.
 - `ai/` 변경이 I1 등 protocol interface에 영향을 주면 T / 설경민 검토가 필요하다.
 - frontend가 소비하는 계약에 영향을 주면 F / 노유신 검토가 필요하다.
-- 영역별 담당은 [README Code map](README.md#code-map)을 따른다.
+- 영역별 담당은 [README Code map](README.md#코드-구성)을 따른다.
 
 ## FRZ-01 이후 protocol 변경
 

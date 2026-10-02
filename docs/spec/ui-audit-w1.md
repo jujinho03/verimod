@@ -29,7 +29,7 @@
 - 실제 브라우저 screenshot·접근성·동작 QA는 미실행. 기존 docs/assets 이미지를 이번 실행 증거로 재사용하지 않음.
 - 팀 결정은 docs/02-decision-register.md D01~17 ADOPTED 및 D18~28 WORKING ASSUMPTION을 따른다. T의 이번 API/DB 초안 리뷰는 아직 없음.
 
-## 2026-09-30 W1 late browser evidence closure
+## 2026-09-30 W1 브라우저 evidence 사후 closure
 
 - 실제 실행: 2026-09-30 20:11–20:24 KST, Codex In-app Browser.
 - 검증 main SHA: `19f77a2079f118e71a1a7c3ef83dd469c99e2b48`.

@@ -1,4 +1,4 @@
-# P1 integration backlog — PROPOSED / DEFERRED
+# P1 통합 backlog — PROPOSED / DEFERRED
 
 STATUS: PROPOSED
 
@@ -32,7 +32,7 @@ A/B/C 모두 browser Web Crypto와 Node Web Crypto를 adapter 또는 동일 pure
 
 완료조건: C03/C04/C05와 C09 채택 기록, export/input/error matrix, Node/browser 동일 fixture, Vite production build·backend emitted import 성공, 기존 synthetic demo 유지, bytes/version migration 합의. 사용자 승인 없이 directory migration하지 않는다.
 
-## 2. Authoritative backend MVP와 persistence
+## 2. 기준(authoritative) backend MVP와 영속 저장
 
 제안 API (frontend 현재는 store 직접 호출, 확정 API integration 없음):
 

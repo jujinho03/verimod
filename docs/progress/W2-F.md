@@ -1,6 +1,6 @@
 # W2 — F / 노유신 실행·검증 기록
 
-Status: **F W2 mock UI and component regression work complete; team review / FRZ-01 pending.**
+상태: **F W2 mock UI 및 component 회귀 작업 완료; 팀 리뷰 / FRZ-01 대기.**
 
 ## 기준과 범위
 
