@@ -73,4 +73,3 @@ describe('F UI consumption of T shared regression vectors', () => {
       steps: report.steps.map(({ id, state }) => ({ id, state })), card }).toMatchSnapshot()
   })
 })
-
