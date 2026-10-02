@@ -1,0 +1,85 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`W2 decision card > ALLOW shows policy reasons and synthetic scores without exposing salt 1`] = `"<div class="result"><div class="result__head"><span class="action action--ALLOW action--lg">승인</span><span class="pill pill--synthetic">합성 점수</span></div><p class="summary-line">어떤 항목도 검토 기준에 닿지 않아 승인으로 기록했습니다.</p><h3 class="mono faint sub-label">항목별 점수</h3><div class="score-bars"><div class="score-row score-row--none"><span class="score-row__label">혐오</span><div class="score-row__rail" role="img" aria-label="혐오 점수 43,123, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:4.3123%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">43,123</code></div><div class="score-row score-row--none"><span class="score-row__label">욕설</span><div class="score-row__rail" role="img" aria-label="욕설 점수 93,846, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:9.3846%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">93,846</code></div><div class="score-row score-row--none"><span class="score-row__label">성적 표현</span><div class="score-row__rail" role="img" aria-label="성적 표현 점수 76,546, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:7.6546%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">76,546</code></div><div class="score-row score-row--none"><span class="score-row__label">스팸</span><div class="score-row__rail" role="img" aria-label="스팸 점수 46,947, 검토 기준 400,000, 제한 기준 850,000"><i class="score-row__fill" style="width:4.6947%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:85%"></b></div><code class="score-row__value">46,947</code></div><div class="score-row score-row--none"><span class="score-row__label">폭력</span><div class="score-row__rail" role="img" aria-label="폭력 점수 125,233, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:12.5233%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">125,233</code></div><div class="score-legend mono faint"><span><b class="legend-tick"></b> 검토 기준</span><span><b class="legend-tick legend-tick--restrict"></b> 제한 기준</span><span>단위 ppm · 보정하지 않은 합성 점수</span></div></div><h3 class="mono faint sub-label">근거 구간</h3><p class="muted small">표시된 구간은 합성 키워드의 일치 위치이며, 모델 판단의 인과적 설명이 아닙니다.</p><p class="muted">표시할 근거 구간이 없습니다. 합성 점수기는 키워드가 일치한 구간만 근거로 기록합니다.</p><dl class="kv"><dt>사유 코드</dt><dd>NO_THRESHOLD_REACHED</dd><dt>적용 규칙</dt><dd>없음</dd><dt>입력 상태</dt><dd>전체 사용</dd><dt>모델 manifest</dt><dd><code class="hash">0xb7389fdf…5113aa</code> <span class="faint">합성 점수기 0.1.0</span></dd><dt>정책 manifest</dt><dd><code class="hash">0x3afff177…6efb48</code> <span class="faint">2026-09-synthetic</span></dd><dt>commitment</dt><dd><code class="hash">0x12121212…121212</code></dd></dl><div class="btn-row"><button type="button" class="btn btn--blue">영수증 발급</button></div><p class="muted small">영수증을 발급해야 기록이 남습니다. 발급 후 약 20초 동안 배치 포함, 트랜잭션 제출, 블록 확인을 거칩니다.</p></div>"`;
+
+exports[`W2 decision card > HUMAN_REVIEW shows policy reasons and synthetic scores without exposing salt 1`] = `"<div class="result"><div class="result__head"><span class="action action--HUMAN_REVIEW action--lg">검토 보류</span><span class="pill pill--synthetic">합성 점수</span></div><p class="summary-line">욕설 점수가 검토 기준 이상이라 사람 검토로 보냈습니다.</p><h3 class="mono faint sub-label">항목별 점수</h3><div class="score-bars"><div class="score-row score-row--none"><span class="score-row__label">혐오</span><div class="score-row__rail" role="img" aria-label="혐오 점수 67,428, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:6.7428%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">67,428</code></div><div class="score-row score-row--review"><span class="score-row__label">욕설</span><div class="score-row__rail" role="img" aria-label="욕설 점수 465,077, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:46.5077%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">465,077</code></div><div class="score-row score-row--none"><span class="score-row__label">성적 표현</span><div class="score-row__rail" role="img" aria-label="성적 표현 점수 82,519, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:8.2519%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">82,519</code></div><div class="score-row score-row--none"><span class="score-row__label">스팸</span><div class="score-row__rail" role="img" aria-label="스팸 점수 54,353, 검토 기준 400,000, 제한 기준 850,000"><i class="score-row__fill" style="width:5.4353%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:85%"></b></div><code class="score-row__value">54,353</code></div><div class="score-row score-row--none"><span class="score-row__label">폭력</span><div class="score-row__rail" role="img" aria-label="폭력 점수 131,857, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:13.1857%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">131,857</code></div><div class="score-legend mono faint"><span><b class="legend-tick"></b> 검토 기준</span><span><b class="legend-tick legend-tick--restrict"></b> 제한 기준</span><span>단위 ppm · 보정하지 않은 합성 점수</span></div></div><h3 class="mono faint sub-label">근거 구간</h3><p class="muted small">표시된 구간은 합성 키워드의 일치 위치이며, 모델 판단의 인과적 설명이 아닙니다.</p><div class="evidence-block"><p class="evidence-text"><span>배송이 일주일째 안 와서 너무 </span><mark class="evidence" title="욕설 · synthetic-keyword-match 0.1">짜증나<span class="evidence__label mono">욕설</span></mark><span>요.</span></p></div><dl class="kv"><dt>사유 코드</dt><dd>SCORE_GTE_REVIEW_THRESHOLD</dd><dt>적용 규칙</dt><dd>R-PROFANITY-REVIEW</dd><dt>입력 상태</dt><dd>전체 사용</dd><dt>모델 manifest</dt><dd><code class="hash">0xb7389fdf…5113aa</code> <span class="faint">합성 점수기 0.1.0</span></dd><dt>정책 manifest</dt><dd><code class="hash">0x3afff177…6efb48</code> <span class="faint">2026-09-synthetic</span></dd><dt>commitment</dt><dd><code class="hash">0x12121212…121212</code></dd></dl><div class="btn-row"><button type="button" class="btn btn--blue">영수증 발급</button></div><p class="muted small">영수증을 발급해야 기록이 남습니다. 발급 후 약 20초 동안 배치 포함, 트랜잭션 제출, 블록 확인을 거칩니다.</p></div>"`;
+
+exports[`W2 decision card > RESTRICT shows policy reasons and synthetic scores without exposing salt 1`] = `"<div class="result"><div class="result__head"><span class="action action--RESTRICT action--lg">제한</span><span class="pill pill--synthetic">합성 점수</span></div><p class="summary-line">스팸 점수가 제한 기준 이상이라 제한으로 기록했습니다.</p><h3 class="mono faint sub-label">항목별 점수</h3><div class="score-bars"><div class="score-row score-row--none"><span class="score-row__label">혐오</span><div class="score-row__rail" role="img" aria-label="혐오 점수 49,707, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:4.9707%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">49,707</code></div><div class="score-row score-row--none"><span class="score-row__label">욕설</span><div class="score-row__rail" role="img" aria-label="욕설 점수 50,270, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:5.027%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">50,270</code></div><div class="score-row score-row--none"><span class="score-row__label">성적 표현</span><div class="score-row__rail" role="img" aria-label="성적 표현 점수 104,859, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:10.4859%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">104,859</code></div><div class="score-row score-row--restrict"><span class="score-row__label">스팸</span><div class="score-row__rail" role="img" aria-label="스팸 점수 990,000, 검토 기준 400,000, 제한 기준 850,000"><i class="score-row__fill" style="width:99%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:85%"></b></div><code class="score-row__value">990,000</code></div><div class="score-row score-row--none"><span class="score-row__label">폭력</span><div class="score-row__rail" role="img" aria-label="폭력 점수 92,405, 검토 기준 400,000, 제한 기준 800,000"><i class="score-row__fill" style="width:9.2405%"></i><b class="score-row__tick" style="left:40%"></b><b class="score-row__tick score-row__tick--restrict" style="left:80%"></b></div><code class="score-row__value">92,405</code></div><div class="score-legend mono faint"><span><b class="legend-tick"></b> 검토 기준</span><span><b class="legend-tick legend-tick--restrict"></b> 제한 기준</span><span>단위 ppm · 보정하지 않은 합성 점수</span></div></div><h3 class="mono faint sub-label">근거 구간</h3><p class="muted small">표시된 구간은 합성 키워드의 일치 위치이며, 모델 판단의 인과적 설명이 아닙니다.</p><div class="evidence-block"><p class="evidence-text"><mark class="evidence" title="스팸 · synthetic-keyword-match 0.1">무료<span class="evidence__label mono">스팸</span></mark><span> </span><mark class="evidence" title="스팸 · synthetic-keyword-match 0.1">당첨<span class="evidence__label mono">스팸</span></mark><span>! 지금 바로 </span><mark class="evidence" title="스팸 · synthetic-keyword-match 0.1">클릭<span class="evidence__label mono">스팸</span></mark><span>하고 </span><mark class="evidence" title="스팸 · synthetic-keyword-match 0.1">할인코드<span class="evidence__label mono">스팸</span></mark><span> 받으세요</span></p></div><dl class="kv"><dt>사유 코드</dt><dd>SCORE_GTE_RESTRICT_THRESHOLD</dd><dt>적용 규칙</dt><dd>R-SPAM-RESTRICT</dd><dt>입력 상태</dt><dd>전체 사용</dd><dt>모델 manifest</dt><dd><code class="hash">0xb7389fdf…5113aa</code> <span class="faint">합성 점수기 0.1.0</span></dd><dt>정책 manifest</dt><dd><code class="hash">0x3afff177…6efb48</code> <span class="faint">2026-09-synthetic</span></dd><dt>commitment</dt><dd><code class="hash">0x12121212…121212</code></dd></dl><div class="btn-row"><button type="button" class="btn btn--blue">영수증 발급</button></div><p class="muted small">영수증을 발급해야 기록이 남습니다. 발급 후 약 20초 동안 배치 포함, 트랜잭션 제출, 블록 확인을 거칩니다.</p></div>"`;
+
+exports[`W2 report rendering from actual local verifier > HASH_MISMATCH preserves verdict and step states 1`] = `
+{
+  "steps": [
+    "<p class="check-row__title">형식 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">해시 재계산<span class="small faint"> · 실패</span></p>",
+    "<p class="check-row__title">신뢰 앵커 확인<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">원장 조회<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">포함 증명<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">블록 확정<span class="small faint"> · 건너뜀</span></p>",
+  ],
+  "verdict": "<div class="verdict verdict--fail" aria-live="polite"><p class="verdict__code">HASH_MISMATCH</p><p class="verdict__title">해시 불일치</p><p class="verdict__desc">본문이 발급 당시와 다릅니다. 점수·정책·조치·근거 중 무언가가 바뀌었습니다.</p></div>",
+}
+`;
+
+exports[`W2 report rendering from actual local verifier > INVALID_PROOF preserves verdict and step states 1`] = `
+{
+  "steps": [
+    "<p class="check-row__title">형식 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">해시 재계산<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">신뢰 앵커 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">원장 조회<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">포함 증명<span class="small faint"> · 실패</span></p>",
+    "<p class="check-row__title">블록 확정<span class="small faint"> · 건너뜀</span></p>",
+  ],
+  "verdict": "<div class="verdict verdict--fail" aria-live="polite"><p class="verdict__code">INVALID_PROOF</p><p class="verdict__title">포함 증명 실패</p><p class="verdict__desc">이 영수증 해시에서 출발한 경로가 원장에 기록된 root로 이어지지 않습니다.</p></div>",
+}
+`;
+
+exports[`W2 report rendering from actual local verifier > PENDING_ANCHOR preserves verdict and step states 1`] = `
+{
+  "steps": [
+    "<p class="check-row__title">형식 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">해시 재계산<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">신뢰 앵커 확인<span class="small faint"> · 대기</span></p>",
+    "<p class="check-row__title">원장 조회<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">포함 증명<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">블록 확정<span class="small faint"> · 건너뜀</span></p>",
+  ],
+  "verdict": "<div class="verdict verdict--pending" aria-live="polite"><p class="verdict__code">PENDING_ANCHOR</p><p class="verdict__title">앵커 대기</p><p class="verdict__desc">원장 기록 확인이 아직 끝나지 않았습니다. 확정 전에는 일치로 표시하지 않습니다.</p></div>",
+}
+`;
+
+exports[`W2 report rendering from actual local verifier > RPC_UNAVAILABLE preserves verdict and step states 1`] = `
+{
+  "steps": [
+    "<p class="check-row__title">형식 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">해시 재계산<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">신뢰 앵커 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">원장 조회<span class="small faint"> · 대기</span></p>",
+    "<p class="check-row__title">포함 증명<span class="small faint"> · 건너뜀</span></p>",
+    "<p class="check-row__title">블록 확정<span class="small faint"> · 건너뜀</span></p>",
+  ],
+  "verdict": "<div class="verdict verdict--pending" aria-live="polite"><p class="verdict__code">RPC_UNAVAILABLE</p><p class="verdict__title">원장 조회 불가</p><p class="verdict__desc">RPC가 응답하지 않았습니다. 변조로 판단하지 않으며 나중에 다시 확인해야 합니다.</p></div>",
+}
+`;
+
+exports[`W2 report rendering from actual local verifier > VALID preserves verdict and step states 1`] = `
+{
+  "steps": [
+    "<p class="check-row__title">형식 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">해시 재계산<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">신뢰 앵커 확인<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">원장 조회<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">포함 증명<span class="small faint"> · 통과</span></p>",
+    "<p class="check-row__title">블록 확정<span class="small faint"> · 통과</span></p>",
+  ],
+  "verdict": "<div class="verdict verdict--pass" aria-live="polite"><p class="verdict__code">VALID</p><p class="verdict__title">기록 일치</p><p class="verdict__desc">영수증이 신뢰한 원장의 root에 포함되고 블록 확인도 끝났습니다. 판정 내용이 옳다는 뜻은 아닙니다.</p></div>",
+}
+`;
+
+exports[`W2 report rendering from actual local verifier > never marks BATCHED as anchored 1`] = `"<span class="status status--pending">배치 포함</span>"`;
+
+exports[`W2 report rendering from actual local verifier > never marks CONFIRMING as anchored 1`] = `"<span class="status status--pending">블록 확인 0/12</span>"`;
+
+exports[`W2 report rendering from actual local verifier > never marks ISSUED as anchored 1`] = `"<span class="status status--pending">발급</span>"`;
+
+exports[`W2 report rendering from actual local verifier > never marks SUBMITTED as anchored 1`] = `"<span class="status status--pending">트랜잭션 제출</span>"`;
