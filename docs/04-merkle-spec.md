@@ -2,7 +2,7 @@
 
 상태: **W2 동결 후보**. 이 문서는 `docs/spec/merkle-spec.md`의 배포 경로 호환 사본이며 W2 제출물의 기준 경로다.
 
-## Tree rule
+## Tree 규칙
 
 - `merkle_spec` = `ct-sha256-receipt-v1`.
 - leaf = `SHA-256(0x00 || receipt_hash_raw32)`.
@@ -11,7 +11,7 @@
 - receipt hash의 hex 텍스트가 아니라 decode한 32 raw bytes를 leaf 입력으로 쓴다.
 - single leaf의 proof는 빈 배열이며 empty epoch는 거부한다.
 
-## Epoch freeze rule
+## Epoch freeze 규칙
 
 - member는 `receipt_id` ASCII 오름차순으로 결정적으로 정렬한다.
 - 빈 epoch, 중복 `receipt_id`, 중복 `receipt_hash`를 거부한다.

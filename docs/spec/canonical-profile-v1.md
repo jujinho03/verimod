@@ -1,4 +1,4 @@
-# Canonical Profile v1 — W2 validation candidate
+# Canonical Profile v1 — W2 검증 후보
 
 상태: **D11 Canonical Profile v1 방향은 ADOPTED**. W2의 shared runtime·Node/browser·독립 golden 검증은 완료 후보 근거이며, FRZ-01과 Team GATE-2는 아직 pending이다. 소유: PROTOCOL. 이 문서는 [결정 등록부](../02-decision-register.md)의 D11 및 [계약 초안 C04](../04-interface-contract-draft.md)를 따른다.
 

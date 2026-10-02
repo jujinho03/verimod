@@ -79,7 +79,7 @@ verimod/
 
 판정·receipt·해시·앵커링 로직은 아직 없다. `backend/contracts/contracts/ToolchainCheck.sol`은 툴체인 확인용 임시 컨트랙트다. contracts 의존성에서 `npm audit`이 15건(low 8, moderate 6, high 1)을 보고했으며 아직 조치하지 않았다.
 
-## Frontend protocol PoC update (2026-09-12)
+## Frontend protocol PoC 갱신 (2026-09-12)
 
 위 2026-09-11 scaffold audit는 역사 기록으로 보존한다. 신규 제품 commit은 `908f64eec5933dce2371ca48d35893fa01d0a8e8` (`feat(frontend): ship VeriMod receipt site with verification flows`)이며 2026-09-13 fetch에서 origin/main과 일치했다.
 

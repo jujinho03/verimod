@@ -21,13 +21,13 @@ STATUS: DRAFT
 
 ## C01. AI 출력·정책
 
-### 2026-09-24 AI-03 W1 I1 update
+### 2026-09-24 AI-03 W1 I1 갱신
 
 2026-09-12 C01의 필드·오류 후보를 바탕으로 최신 상태를 정리한다. 문서와 C01 전체는 계속 **DRAFT**이며, 아래 ADOPTED는 [결정 기록](02-decision-register.md)의 해당 제약만 뜻한다. 문서 상단의 과거 승인 전 설명과 구분하며 C01 전체 schema의 승인·구현 완료를 뜻하지 않는다.
 
 근거는 사용자 최신 결정 → 실제 최신 main/code/tests/CI → VERIFIED FINAL → Master Plan v1.2.1 → 최신 decision register → 기존 문서 순이다. AI-01/AI-02 W1 research evidence는 [dataset comparison / mapping feasibility](research/ai-01-02-dataset-taxonomy.md)에 기록되어 있다(W1 late evidence closure — 2026-09-30). Primary dataset, final taxonomy, exact required keys는 여전히 UNRESOLVED이며 I1 schema 의미를 변경하지 않는다.
 
-#### 1. Contract boundary
+#### 1. 계약 경계
 
 **PROPOSED:** AI adapter → policy / receipt 발급 경계에서 InferenceOutput과 PolicyEvaluation을 분리하는 기존 방향을 유지한다.
 
@@ -40,18 +40,18 @@ dataset label은 policy reason/action과 같지 않다. 예를 들어 Gender lab
 
 AI-02 후보는 K-MHaS / BEEP! / UnSmile이며 Primary dataset과 final supported taxonomy는 **UNRESOLVED**다. 이번 AI-03은 어느 후보도 선택하지 않는다. 세 후보에서 violence / sexual / spam은 독립 native supervision으로 지원되지 않으므로 지원 class로 문서화하지 않는다. K-MHaS Not Hate Speech, BEEP! none, UnSmile clean은 각 annotation 체계의 negative label이며, 자동으로 ALLOW 또는 모든 moderation policy 위반 없음으로 해석하지 않는다. 이 경계 정리는 새 policy rule을 정하는 것이 아니다.
 
-#### 2. Adopted constraints
+#### 2. 채택된 제약
 
 - **D01 / ADOPTED:** 한국어 encoder fine-tuning이 AI 주 경로다. GATE-4 실패 시 guard model/API fallback을 허용하되 모델 변경 후에도 I1 consumer-facing meaning을 유지한다. fallback provider/API/model name은 정하지 않는다.
 - **D02 / ADOPTED:** native labels → mapping feasibility → supported taxonomy 순서를 따른다. synthetic 5-label 강제·억지 mapping을 금지하고 misinformation을 제외한다. 필요 시 5→3 축소 가능성은 유지하되 라벨 수를 여기서 정하지 않는다. final taxonomy는 GATE-2에서 확정한다.
 - **D03 / ADOPTED:** reason_codes = MUST, triggered_rule_ids = MUST. evidence span / attribution = SHOULD이며 attribution을 causal explanation으로 표현하지 않는다. 이는 아래 evidence 필드의 exact schema requiredness를 새로 확정하거나 기존 필드를 제거하는 결정이 아니다.
 - **D07 / ADOPTED:** scores_ppm의 각 score는 integer 0..1,000,000이다. probability-like float p를 사용하는 경우 Python inference boundary에서 floor(p*1,000,000 + 0.5)를 단 한 번 적용한다. downstream policy는 전달된 integer를 사용하며 재반올림하지 않는다. 미보정 score는 UNCALIBRATED이며 calibration 근거 없이 probability라고 부르지 않는다. 반드시 5개 score를 요구한다는 뜻은 아니다.
 
-#### 3. Working assumptions
+#### 3. Working assumption
 
 **D24 / WORKING ASSUMPTION:** inference unavailable 시 503 INFERENCE_UNAVAILABLE, DECISION 미발급, fake ALLOW 금지 방향이다. ADOPTED가 아니며 구현된 HTTP API를 뜻하지 않는다. 아래 기존 오류·transport 후보의 나머지 세부사항은 PROPOSED로 유지한다.
 
-#### 4. Proposed fields
+#### 4. 제안 field
 
 **PROPOSED:** taxonomy_id / taxonomy_version은 label set과 의미 정의를 식별하고, taxonomy 변경 시 consumer가 의미를 구분하기 위한 값이다. 실제 ID/version 값과 exact label set은 정하지 않는다. taxonomy별 필수 score key 집합을 확인하고 누락·추가를 거부하는 기존 방향은 제안으로 유지하되, exact required-key validation semantics는 final taxonomy와 consumer agreement 전까지 미확정이다.
 
@@ -89,13 +89,13 @@ span을 제공한다면 전처리·tokenizer index를 adapter가 원문 code poi
 
 기존 시험 taxonomy의 검토 예시: TRUNCATED이고 모든 점수가 1,000,000이어도 초안 정책은 HUMAN_REVIEW다. 시험 구현의 필수 hate 점수가 빠지거나 1,000,001이면 INVALID_MODEL_OUTPUT 후보에 해당한다. 이는 target taxonomy에 hate key를 필수로 확정한 예시가 아니다. float→integer 변환의 경계 검증은 후속 공통 벡터 검토 대상으로 남긴다.
 
-#### 5. Current implementation mismatch
+#### 5. 현재 구현과의 불일치
 
 **CURRENT implementation constraint:** [types.ts](../frontend/src/domain/types.ts)의 LABEL_IDS / ScoresPpm은 hate / profanity / sexual / spam / violence의 5개 label/key를 기대하는 demo/test 구조다. [manifests.ts](../frontend/src/domain/manifests.ts)의 verimod-example-ko / 0은 시험값이며, [schema.ts](../frontend/src/domain/schema.ts)는 이 taxonomy identity와 고정 key 집합 및 evidence 배열을 검사한다. [policy.ts](../frontend/src/domain/policy.ts)도 5개 score를 검사하고 합성 정책 규칙으로 reason_codes와 triggered_rule_ids를 생성한다.
 
 **TARGET/DRAFT:** AI-03 I1은 특정 5개 key를 최종 계약으로 고정하지 않는다. D03의 SHOULD는 현재 schema에서 evidence 배열이 요구된다는 관찰과 별개이며, 이를 근거로 target requiredness를 확정하지 않는다. 현재 코드가 AI-03 target contract를 구현 완료한 것은 아니다. [현재 상태](03-current-status.md)의 backend health scaffold와 D24의 목표 HTTP 실패 동작도 구분한다. 이번 작업은 code/schema/API를 수정하지 않는다.
 
-#### 6. Unresolved decisions
+#### 6. 미해결 결정
 
 **AI-03에서 아직 확정하지 않는 항목 — 모두 UNRESOLVED:**
 

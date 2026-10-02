@@ -1,4 +1,4 @@
-# FE-00: 화면 요구사항과 기존 UI audit
+# FE-00: 화면 요구사항과 기존 UI 점검
 
 담당: 노유신 · 상태: 요구사항 초안 및 정적 코드 audit 완료. 브라우저 시각 점검은 미실행.
 근거: PDF pp.6, 25, 33, 38–40, 43–47, 49. 저장소 f807585의 실제 소스를 확인했다. 아래 요구사항의 현재 구현 근거와 차이는 [UI audit](ui-audit-w1.md)에 기록한다. 브라우저 실행 화면은 이번에 확인하지 않았다.
@@ -9,7 +9,7 @@
 
 ## 2. 화면별 필드·행동 계약
 
-| 화면/영역 | 표시·입력 | 근거/authority | 필수 상태·행동 |
+| 화면/영역 | 표시·입력 | 근거/권한 | 필수 상태·행동 |
 |---|---|---|---|
 | 판정 입력 | 원문, supported taxonomy에 따른 점수·action·reason_codes·triggered_rule_ids·model manifest hash | 입력 원문은 브라우저, 추론은 I1, 판정은 서버 receipt | fixture는 합성 표시; 503은 발급 실패; ALLOW 대체 금지 |
 | 발급 receipt | body/hash, 앵커 대기 표시 | authoritative server issuance | fresh receipt는 PENDING; 원문 echo 불필요 |

@@ -2,9 +2,9 @@
 
 STATUS: CURRENT (decision evidence; 개별 결정 상태는 아래 표 기준)
 
-## W1 kickoff decision evidence — 2026-09-23
+## W1 kickoff 결정 evidence — 2026-09-23
 
-### 승인 출처와 authority
+### 승인 출처와 권한(authority)
 
 DOC-01 / DOC-02: **사용자가 이 Command Center에서 D01~D17을 승인하고 D18~D28을 W1~W2 WORKING ASSUMPTION으로 승인한 것**을 기록한다. 승인 근거는 2026-09-23 사용자 `[ATOMIC TASK]`의 `DECISIONS TO RECORD`와 `Authority` 명시다. 오프라인 회의 개최·참석자·발언·팀원별 투표를 증명하는 기록은 아니다. 21:00 kickoff는 외부 계획의 예정 시각이며 실제 회의 시각으로 기록하지 않는다.
 
@@ -20,7 +20,7 @@ CURRENT는 실제 구현/검증 사실, NEXT/TARGET은 앞으로 수행할 작�
 
 각 행의 승인일은 2026-09-23이며 승인 주체·근거는 위 사용자 명시다. 이유는 별도 회의 발언을 재구성하지 않고 승인된 문구의 목적·경계만 요약한다.
 
-| ID | Date | Status | Decision | Reason / boundary | Superseded proposal / conflict | Impact |
+| ID | 날짜 | 상태 | 결정 | 이유 / 경계 | 대체된 제안 / 충돌 | 영향 |
 |---|---|---|---|---|---|---|
 | D01 | 2026-09-23 | ADOPTED | 한국어 encoder fine-tuning을 AI 주 경로로 한다. GATE-4 실패 시 guard model/API fallback을 허용하되 I1 contract는 유지한다. | AI 경로를 정하되 소비 계약 유지 | 기존 AI 방식 미선택 상태를 이 범위에서 갱신 | A의 연구·평가 방향. 특정 model 채택·학습 완료 아님 |
 | D02 | 2026-09-23 | ADOPTED | Primary dataset native labels → mapping feasibility → supported taxonomy 순서. synthetic 5-label 강제·억지 mapping 금지, 필요 시 5→3, misinformation 제외. 최종 taxonomy는 GATE-2에서 확정한다. | 실제 데이터의 라벨 의미 존중 | 시험 5라벨을 최종값으로 승계하지 않음 | A의 조사·I1 초안 기준. 최종 taxonomy 미정 |
@@ -44,7 +44,7 @@ CURRENT는 실제 구현/검증 사실, NEXT/TARGET은 앞으로 수행할 작�
 
 각 행은 2026-09-23 사용자가 승인한 **W1~W2 잠정 planning 기준**이다. FRZ-01에서 수정 또는 채택하기 전까지 ADOPTED로 표시하지 않는다.
 
-| ID | Date | Status | Decision / working assumption | Reason / boundary | Superseded proposal / conflict | Impact |
+| ID | 날짜 | 상태 | 결정 / working assumption | 이유 / 경계 | 대체된 제안 / 충돌 | 영향 |
 |---|---|---|---|---|---|---|
 | D18 | 2026-09-23 | WORKING ASSUMPTION | I1~I4 semantic freeze는 W2 말(10/03~04)에 수행하며 W1은 초안만 만든다. | 초안과 동결 구분 | 기존 동결 일정 대신 잠정 기준 | W2 구현·freeze 완료 아님 |
 | D19 | 2026-09-23 | WORKING ASSUMPTION | 소유자 발급 material의 salt/receipt material + 브라우저 입력 원문으로 Private Receipt Package 구성 방향. 원문/salt는 ReceiptBody/on-chain에 넣지 않는다. | private 자료와 공개 기록 분리 | 기존 전달 방식 미정 사항의 잠정 방향 | Package/schema/API 구현 아님 |
@@ -58,30 +58,30 @@ CURRENT는 실제 구현/검증 사실, NEXT/TARGET은 앞으로 수행할 작�
 | D27 | 2026-09-23 | WORKING ASSUMPTION | TEST는 model/threshold/policy 선택에 1회 사용. 버그 수정 또는 동일 LOCK 재현은 사유와 commit 기록이 있는 경우에만 재실행 가능. | TEST 재사용 경계 | 기존 평가 계획에 잠정 제약 명시 | TEST 열람·실행 없음 |
 | D28 | 2026-09-23 | WORKING ASSUMPTION | Primary dataset 1개로 train/validation/test. Secondary는 기본적으로 train에 합치지 않고 외부 평가 SHOULD 용도로 사용. | 학습/외부 평가 경계 | 기존 dataset 후보를 선정한 것은 아님 | dataset 다운로드·선택·학습 없음 |
 
-### Explicit supersedes and planning conflicts
+### 명시적 대체 관계와 계획 충돌
 
 - **D14 / ADOPTED:** [01의 I4](01-domain-and-interfaces.md) `protocol_version: MVP는 지원하는 1만 허용`, [04의 C06](04-interface-contract-draft.md) `미지원 version 검사`, [06의 실제 epoch commitment contract](06-p1-backlog.md) `unsupported version`, 이 문서 아래 과거 Contract 검증 행의 지원 안 되는 version 거부는 contract-side 지원 판정에 한해 superseded다. version 지원 여부는 verifier 책임으로 읽는다. 나머지 미승인 ABI를 일괄 채택하지 않으며 코드는 변경하지 않는다.
 - **D15 / ADOPTED:** 01의 I4 `anchored_at / anchored_block` 행의 `contract가 block.timestamp / block.number로 기록` 제안을 supersede한다. 별도 registration timestamp field를 두지 않고 등록 block/time evidence는 tx receipt/event를 통해 확인한다. 기존 코드를 수정하거나 새 storage layout을 만들지 않는다.
 - **D22 / WORKING ASSUMPTION:** 01의 I4 `PENDING → SUBMITTED → CONFIRMING → ANCHORED` 및 04 C06의 `BATCHED/SUBMITTED/CONFIRMING`, `ANCHORED` planning과 충돌한다. 새 계획에는 D22의 잠정 상태를 우선 적용하되 FRZ-01 전 ADOPTED로 취급하지 않는다. 현재 코드/UI 상태명을 바꾸거나 core verification의 PENDING 의미를 재정의하지 않는다.
 - D04·D12는 06의 DB/testnet 후보 상태를 명시된 범위에서 갱신한다. D08·D11 등 채택된 방향은 과거 '미채택' 문구보다 우선하되, 세부 계약 전체·정상 bytes 변경·새 schema/API/ABI의 승인을 뜻하지 않는다. 이전 문서는 변경 경위를 추적할 수 있도록 보존한다.
 
-### W1 ownership and Gate planning
+### W1 담당과 Gate 계획
 
 W1은 2026-09-21~09-27이며 계약·데이터·신뢰 경계·API/DB 정리가 목적이다. 기존 2026-09-19 역할 기록과 FINAL의 A/T/F를 연결한다: A 주진호는 dataset research → taxonomy → I1, T 설경민은 Canonical Profile → TrustProfile → I4 ABI 초안 및 backend 설계·리뷰, F 노유신은 existing UI audit → API/DB 계약 및 backend API·frontend 구현 담당이다. 이 기록은 해당 작업의 착수·완료 evidence가 아니다.
 
 다음은 D10의 execution schedule 및 D26의 **WORKING ASSUMPTION** 실패 경로다. 날짜는 2026년 계획이며 Gate PASS/FAIL 판정은 아직 기록하지 않는다.
 
-| Gate | Planning date | 실패 시 FINAL planning 경로 |
+| Gate | 계획 날짜 | 실패 시 FINAL 계획 경로 |
 |---|---|---|
 | GATE-2 | 10/04(일) 21:00; FRZ-01 semantic freeze 10/03~04 | 5→3 labels, span 제거, 추가 UI 중지, protocol vectors 우선 |
 | GATE-4 | 10/18(일) 21:00 | AI: guard model/API fallback(I1 유지), 정상 model/provider fallback의 마지막 주요 분기. Chain: LOCAL 개발 + T testnet 복구. Verifier: T reader 지원 |
 | GATE-5 | 10/25(일) 21:00 | SHOULD=0, 신규 feature=0, 미완 MUST는 W6 첫 3일 마감, 필요 시 scope-cut. LOCK 이후 model 교체는 demo continuity fallback으로만 표시 |
 
-### Unresolved values — do not invent
+### 미해결 값 — 임의로 만들지 않음
 
 X, B, final supported taxonomy, exact Base min_confirmations, epoch size, epoch freeze cadence, exact RPC vendor, dataset selection, final threshold, model choice, block time/gas 세부값은 **미확정**이다. 이미 승인되지 않은 실제 schema/API/ABI 구현 세부사항도 확정하지 않는다. D04 SQLite·D12 Base Sepolia의 방향 승인과 이 미확정 값들을 구분한다.
 
-### W1 evidence location and recording scope
+### W1 evidence 위치와 기록 범위
 
 기존 `docs/progress/`, `docs/progress/W1.md`, `docs/spec/` 또는 동등한 W1 전용 문서는 preflight에서 없었다. 기존 decision register의 이 섹션이 이번 kickoff/decision recording evidence를 함께 수용하므로 새 파일은 만들지 않는다. [문서 안내](README.md)에서 연결한다. 향후 W1 progress 문서를 만들 경우 이 기록을 연결하며, 계약 초안·Gate 결과·실행 로그가 이미 존재한다고 표시하지 않는다.
 

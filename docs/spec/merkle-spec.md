@@ -7,7 +7,7 @@
 이 규격은 receipt hash의 ordered inclusion proof와 epoch 동결만 다룬다.
 consistency proof, global append-only log, head registry는 이 버전에 포함하지 않는다.
 
-## Tree
+## Tree 규칙
 
 - merkle_spec은 ct-sha256-receipt-v1이다.
 - leaf는 SHA-256(0x00 || receipt_hash_raw32)이다.
@@ -16,7 +16,7 @@ consistency proof, global append-only log, head registry는 이 버전에 포함
 - 단일 leaf의 proof는 빈 배열이다.
 - empty epoch는 root를 만들지 않으며 거부한다.
 
-## Epoch freeze
+## Epoch freeze 규칙
 
 - 입력 member는 receipt_id ASCII 오름차순으로 정렬한다.
 - receipt_id와 receipt_hash는 각각 epoch 안에서 유일해야 한다.
