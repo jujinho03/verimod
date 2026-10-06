@@ -7,7 +7,8 @@
     "build": "hardhat build",
     "test": "hardhat test",
     "wallet:provision": "node scripts/provision-test-wallet.mjs",
-    "base:check": "node --env-file-if-exists=.env scripts/check-base-sepolia.mjs"
+    "base:check": "node --env-file-if-exists=.env scripts/check-base-sepolia.mjs",
+    "deploy:base-sepolia": "node --env-file-if-exists=.env ./node_modules/hardhat/dist/src/cli.js run --network baseSepolia scripts/deploy-verimod-anchor.ts"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.7",

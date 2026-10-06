@@ -1,6 +1,6 @@
-# TrustProfile — W1 초안
+# TrustProfile — W3 freeze candidate
 
-상태: **WORKING ASSUMPTION** (W2 FRZ-01에서 동결). 소유: PROTOCOL. `TrustProfile`은 검증기의 신뢰 루트이며, receipt bundle·API·RPC endpoint가 제공한 locator는 신뢰 루트가 아니다.
+상태: **W3 FREEZE CANDIDATE — Entry Closure evidence 전에는 FRZ-01 PASS가 아님.** 소유: PROTOCOL. `TrustProfile`은 검증기의 신뢰 루트이며, receipt bundle·API·RPC endpoint가 제공한 locator는 신뢰 루트가 아니다.
 
 ```ts
 type TrustProfile = {
@@ -13,6 +13,18 @@ type TrustProfile = {
   min_confirmations: number
 }
 ```
+
+## W3 field semantics
+
+- `profile_id`: build에 승인·내장된 profile 식별자다. bundle/API가 새 profile을 공급할 수 없다.
+- `chain_id`: verifier가 raw RPC `eth_chainId`와 수치로 비교하는 chain direction이다. Base Sepolia target은 `84532`다.
+- `contract_address`: verifier가 읽을 대상의 normalized 20-byte address다. bundle locator 값이 이를 대체할 수 없다.
+- `publisher`: 해당 `contract_address`의 immutable `publisher()`와 일치해야 한다. server relayer와 같은 뜻이 아니다.
+- `supported_protocol_version`: contract가 저장한 `protocolVersion`의 지원 여부를 verifier가 판정하는 기준이다. contract는 version을 거부하지 않는다.
+- `min_confirmations`: profile별 verification policy다. Base의 정확한 수는 mentor/testnet 관측 후 W4 배포 전에 확정한다.
+- RPC URL, explorer URL, API response, bundle anchor locator는 transport/lookup metadata이며 trust root가 아니다.
+
+deployment 전에는 `contract_address`, actual `publisher`, deployment tx/block, explorer evidence, Base `min_confirmations`를 placeholder나 추정값으로 확정하지 않는다.
 
 ## CURRENT과 TARGET의 차이
 
