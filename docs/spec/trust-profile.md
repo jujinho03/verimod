@@ -26,6 +26,20 @@ type TrustProfile = {
 
 deployment 전에는 `contract_address`, actual `publisher`, deployment tx/block, explorer evidence, Base `min_confirmations`를 placeholder나 추정값으로 확정하지 않는다.
 
+### W3 Base Sepolia observed deployment evidence
+
+W3 smoke deployment은 아래 값으로 관측·재조회되었다. 이는 profile registry의 activation이나 FRZ-01 PASS가 아니라, deployment-dependent fields를 연결할 때 사용할 testnet evidence다.
+
+| field | observed value |
+|---|---|
+| `chain_id` | `84532` |
+| `contract_address` | `0xcf689273a16965320aa7d8a23c14e1236287fed8` |
+| `publisher` | `0xd47675be41ec3476f541c1d8d8a9f622c90182ed` |
+| deployment tx / block | [`0xefe124…8eaab2`](https://sepolia.basescan.org/tx/0xefe124dcd6c97c6cc77b9e7ca8b711a425e80321f07d270bbb6def25b98eaab2) / `47757394` |
+| test epoch tx / block | [`0x153356…3afa86`](https://sepolia.basescan.org/tx/0x153356a74296dd45dbf2653581944b401a169b5b49c0d35ea6539c96dc3afa86) / `47757422` |
+
+`min_confirmations`만은 mentor decision과 testnet observation 전까지 deliberately unresolved다.
+
 ## CURRENT과 TARGET의 차이
 
 | 항목 | CURRENT browser PoC | TARGET |
@@ -45,7 +59,7 @@ deployment 전에는 `contract_address`, actual `publisher`, deployment tx/block
 - Receipt bundle, API response, RPC response, AnchorLocator는 새 profile을 추가하거나 trusted contract address/publisher를 교체할 수 없다. locator는 lookup hint이며 trust authority가 아니다.
 - **Backend TARGET:** `VERIMOD_PROFILE`로 내장 profile ID 중 하나를 선택한다. 임의 external profile이나 bundle locator를 활성 profile로 승격하지 않는다.
 - **Browser/demo TARGET:** 기본값은 `BASE_SEPOLIA_DEMO`다. demo selector 또는 `?profile=` 방식을 사용하더라도 선택값은 내장된 승인 profile으로 제한한다. 어떤 UX를 실제 사용할지는 미확정이다. `LOCAL_HARDHAT_FALLBACK`은 “로컬 폴백 - 공개 체인 증거 아님” 표시를 유지한다.
-- Base `contract_address`, `publisher`, `min_confirmations`, actual deployed contract, final profile switch UX와 frozen implementation details는 **UNRESOLVED**다. 상세 동결은 W2 FRZ-01, 실제 주소/publisher는 deployment evidence의 경계를 따른다. FRZ-01 pending / deployment pending을 유지한다.
+- W3 smoke artifact의 Base `contract_address`와 `publisher`는 위 evidence로 확인됐다. 그러나 `min_confirmations`, final profile switch UX와 frozen runtime implementation details는 **UNRESOLVED**다. Entry Closure/FRZ-01 pending을 유지하며, smoke deployment 자체를 active trust profile이나 production deployment로 승격하지 않는다.
 
 TRUST-01 = **PASS — W1 DRAFT ONLY**는 내장 위치와 선택 규칙을 설명한 초안의 완전성 판정이다. profile 최종 동결이나 runtime 구현 완료를 뜻하지 않는다.
 
