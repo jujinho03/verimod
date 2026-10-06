@@ -7,6 +7,7 @@ import { PageHero } from '../features/PageHero'
 import { TamperPanel } from '../features/TamperPanel'
 import { useVerify } from '../features/useVerify'
 import { VerifyReportView } from '../features/VerifyReportView'
+import { VerificationStagePanel } from '../features/VerificationStagePanel'
 import { SIM_CHAIN, trustConfig } from '../store/ledger'
 import { useAppState, useStore } from '../store/context'
 import { ArrowLink } from '../ui/bits'
@@ -176,20 +177,12 @@ export function VerifyPage() {
 
           <aside className="work__side" aria-live="polite">
             {verify.report ? (
-              <VerifyReportView report={verify.report} />
+              <>
+                <VerificationStagePanel report={verify.report} />
+                <VerifyReportView report={verify.report} />
+              </>
             ) : (
-              <div className="empty">
-                <p className="mono faint">검증 순서</p>
-                <h2 className="title-s">영수증을 고르고 검증하기를 누르세요</h2>
-                <ol className="empty__steps">
-                  <li>형식과 protocol version 확인</li>
-                  <li>본문으로 영수증 해시 재계산</li>
-                  <li>신뢰 설정의 체인·컨트랙트인지 확인</li>
-                  <li>원장에서 epoch root 조회</li>
-                  <li>포함 증명으로 root까지 경로 계산</li>
-                  <li>블록 확인 {REQUIRED_CONFIRMATIONS}회 이상인지 확인</li>
-                </ol>
-              </div>
+              <VerificationStagePanel />
             )}
           </aside>
         </div>

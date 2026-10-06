@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { REVIEW_REASONS } from '../domain/manifests'
 import type { FinalAction } from '../domain/types'
 import { EvidenceText } from '../features/EvidenceText'
+import { FalsePositiveCasePreview } from '../features/FalsePositiveCasePreview'
 import { decisionSentence } from '../features/explain'
 import { PageHero } from '../features/PageHero'
 import { ScoreBars } from '../features/ScoreBars'
@@ -183,6 +184,7 @@ export function ReviewPage() {
 
       <section className="band" data-tone="mist">
         <div className="frame inset list-section">
+          <FalsePositiveCasePreview />
           <h2 className="title-m">최근 검토 기록</h2>
           {reviews.length === 0 ? (
             <p className="muted">아직 검토 기록이 없습니다.</p>
