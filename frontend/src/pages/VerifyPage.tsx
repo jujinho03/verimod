@@ -162,7 +162,7 @@ export function VerifyPage() {
                 </dd>
                 <dt>발급자</dt>
                 <dd>
-                  {trust?.issuer_id ?? '계산 중'} <code className="hash faint">{trust ? shortHash(trust.issuer_commitment) : ''}</code>
+                  {trust?.issuer_id ?? '계산 중'} <code className="hash faint">{trust?.issuer_commitment ? shortHash(trust.issuer_commitment) : ''}</code>
                 </dd>
                 <dt>확정 기준</dt>
                 <dd>블록 확인 {REQUIRED_CONFIRMATIONS}회 · protocol 1</dd>

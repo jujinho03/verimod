@@ -1,10 +1,11 @@
 import { network } from "hardhat";
 
-const publisher = process.env.VERIMOD_PUBLISHER_ADDRESS;
-if (!publisher) throw new Error("VERIMOD_PUBLISHER_ADDRESS is required and must be the dedicated publisher EOA.");
-
 const { ethers } = await network.connect();
 const [deployer] = await ethers.getSigners();
+// A deployment must never accept a publisher unrelated to the signing key.
+// Keeping this optional makes an existing dedicated-key .env sufficient while
+// still allowing an operator to pin the expected public address explicitly.
+const publisher = process.env.VERIMOD_PUBLISHER_ADDRESS ?? deployer.address;
 if (deployer.address.toLowerCase() !== publisher.toLowerCase()) {
   throw new Error("Deployer key does not match VERIMOD_PUBLISHER_ADDRESS.");
 }

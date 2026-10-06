@@ -3,8 +3,9 @@ import type { ManifestHashes } from './manifests'
 import { verifyInclusion } from './merkle'
 import { contentCommitment, receiptHash } from './receipt'
 import { parseBundleJson, validateBundle } from './schema'
-import type { AppealBody, ReceiptBody, ReviewBody, VerificationBundle } from './types'
+import type { AnchorLocator, AppealBody, ReceiptBody, ReviewBody, VerificationBundle } from './types'
 
+/** Legacy simulation default only. Public-chain policy is profile-specific. */
 export const REQUIRED_CONFIRMATIONS = 12
 
 /** 검증기가 미리 믿기로 정한 체인·컨트랙트·발급자. 번들에 적힌 locator는 신뢰 근거가 아니다. */
@@ -12,9 +13,11 @@ export interface TrustConfig {
   chain_id: string
   contract_address: string
   issuer_id: string
-  issuer_commitment: Hex32
+  /** Legacy synthetic-ledger binding. Actual I4 ABI does not store this field. */
+  issuer_commitment?: Hex32
   publisher: string
   protocol_version: number
+  min_confirmations: number
 }
 
 export interface EpochRecord {
@@ -23,7 +26,7 @@ export interface EpochRecord {
   receipt_count: number
   protocol_version: number
   publisher: string
-  issuer_commitment: Hex32
+  issuer_commitment?: Hex32
   /** 이 epoch에 포함한 이 발급자의 연속 issuer_seq 구간. */
   issuer_seq_min: number | null
   issuer_seq_max: number | null
@@ -31,11 +34,14 @@ export interface EpochRecord {
 }
 
 export class RpcUnavailableError extends Error {}
+export class UntrustedAnchorError extends Error {}
 
 export interface LedgerReader {
   /** 컨트랙트에 등록된 epoch를 조회한다. 아직 블록에 포함되지 않았으면 null. RPC 장애는 RpcUnavailableError. */
   getEpoch(contractAddress: string, epochId: string): Promise<EpochRecord | null>
   blockNumber(): Promise<number>
+  /** Optional actual-RPC evidence check for the bundle locator. */
+  validateAnchor?(anchor: AnchorLocator): Promise<void>
 }
 
 export interface PrivateContent {
@@ -138,6 +144,19 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
   }
   step('anchor', 'PASSED', `신뢰 설정의 체인 ${anchor.chain_id}과 컨트랙트를 가리킵니다`)
 
+  if (ctx.ledger.validateAnchor) {
+    try {
+      await ctx.ledger.validateAnchor(anchor)
+    } catch (error) {
+      if (error instanceof UntrustedAnchorError) {
+        step('epoch', 'FAILED', error.message)
+        return done('UNTRUSTED_ANCHOR')
+      }
+      step('epoch', 'PENDING', 'RPC가 등록 transaction을 조회하지 못했습니다. 변조로 판단하지 않습니다')
+      return done('RPC_UNAVAILABLE')
+    }
+  }
+
   let epoch: EpochRecord | null
   let block: number
   try {
@@ -160,7 +179,8 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
     step('epoch', 'PENDING', `원장에 epoch #${anchor.epoch_id}가 아직 기록되지 않았습니다`)
     return done('PENDING_ANCHOR')
   }
-  if (epoch.publisher !== ctx.trust.publisher || epoch.issuer_commitment !== ctx.trust.issuer_commitment) {
+  if (epoch.publisher !== ctx.trust.publisher ||
+      (ctx.trust.issuer_commitment !== undefined && epoch.issuer_commitment !== ctx.trust.issuer_commitment)) {
     step('epoch', 'FAILED', '원장에 epoch를 등록한 주체가 신뢰 설정과 다릅니다')
     return done('UNTRUSTED_ANCHOR')
   }
@@ -190,11 +210,11 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
 
   const confirmations = Math.max(0, block - epoch.anchored_block + 1)
   partial.confirmations = confirmations
-  if (confirmations < REQUIRED_CONFIRMATIONS) {
-    step('finality', 'PENDING', `블록 확인 ${confirmations}/${REQUIRED_CONFIRMATIONS}회. 확정 전에는 VALID로 표시하지 않습니다`)
+  if (confirmations < ctx.trust.min_confirmations) {
+    step('finality', 'PENDING', `블록 확인 ${confirmations}/${ctx.trust.min_confirmations}회. 확정 전에는 VALID로 표시하지 않습니다`)
     return done('PENDING_ANCHOR')
   }
-  step('finality', 'PASSED', `블록 확인 ${confirmations}회 (기준 ${REQUIRED_CONFIRMATIONS}회)`)
+  step('finality', 'PASSED', `블록 확인 ${confirmations}회 (profile 기준 ${ctx.trust.min_confirmations}회)`)
   return done('VALID')
 }
 

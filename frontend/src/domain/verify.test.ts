@@ -16,6 +16,7 @@ import {
 import { runSyntheticInference } from './scorer'
 import type { ReceiptBody, VerificationBundle } from './types'
 import {
+  REQUIRED_CONFIRMATIONS,
   RpcUnavailableError,
   transitionProblem,
   verifyReceipt,
@@ -87,6 +88,7 @@ async function fixture() {
     issuer_commitment: issuer,
     publisher: PUBLISHER,
     protocol_version: 1,
+    min_confirmations: REQUIRED_CONFIRMATIONS,
   }
   const epoch: EpochRecord = {
     epoch_id: '1',
