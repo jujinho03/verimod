@@ -1,6 +1,6 @@
-# I4 Anchor ABI — W1 초안
+# I4 Anchor ABI — W3 minimal implementation
 
-상태: **WORKING ASSUMPTION**. FRZ-01 동결 전까지 구현 계약으로 사용하지 않는다.
+상태: **IMPLEMENTED MINIMAL ABI; semantic freeze/GATE-2는 별도 PENDING.** `backend/contracts/contracts/VeriModAnchor.sol`과 이 ABI의 diff는 0이다. 이 구현은 I1 taxonomy/API consumer semantics의 freeze 또는 actual deployment를 뜻하지 않는다.
 
 ```solidity
 struct Epoch {
@@ -42,4 +42,4 @@ function registerEpoch(
 
 ## CURRENT과 구현 전제
 
-현재 `backend/contracts/contracts/ToolchainCheck.sol`은 툴체인 확인용이며 이 ABI를 구현하지 않는다. W3의 `CHAIN-04`는 FRZ-01 동결 ABI와 diff 0일 때만 시작한다. deployment script는 zero publisher를 거부해야 한다.
+`ToolchainCheck.sol`은 별도의 툴체인 확인용 회귀 파일로 남는다. `VeriModAnchor` constructor와 deployment script는 zero publisher를 거부한다. actual Base Sepolia contract address/publisher/tx/block은 배포 증거가 생길 때만 TrustProfile에 기록한다.
