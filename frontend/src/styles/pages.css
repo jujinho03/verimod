@@ -694,6 +694,58 @@
   gap: 18px;
 }
 
+.verification-design {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.verification-design__head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.verification-design__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.verification-design__step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+  padding-block: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.verification-design__number {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.verification-design__step code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.verification-design__step p {
+  margin-top: 4px;
+  font-weight: 600;
+}
+
 /* 검증기의 유일한 과감한 요소: 결과 코드를 크게 읽힌다 */
 .verdict {
   display: grid;
@@ -1125,6 +1177,44 @@
   width: auto;
 }
 
+.false-positive {
+  display: grid;
+  gap: 24px;
+  margin-bottom: clamp(36px, 5vw, 64px);
+  padding-bottom: clamp(36px, 5vw, 64px);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.false-positive__head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.false-positive__grid,
+.false-positive__notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+}
+
+.false-positive blockquote {
+  margin: 0;
+  padding: 24px;
+  border-left: 3px solid var(--accent);
+  background: var(--paper);
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.5;
+}
+
+.false-positive__notes > div {
+  display: grid;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
 /* ── 프로토콜 문서 ───────────────────────────────────────── */
 .docs {
   display: grid;
@@ -1283,7 +1373,9 @@
   }
 
   .docs-grid,
-  .hero-facts {
+  .hero-facts,
+  .false-positive__grid,
+  .false-positive__notes {
     grid-template-columns: minmax(0, 1fr);
   }
 
