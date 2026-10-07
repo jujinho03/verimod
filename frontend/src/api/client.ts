@@ -53,7 +53,7 @@ function decodePrivateMaterial(value: unknown): PrivateReceiptMaterial {
 }
 
 export function decodeDecisionCreated(value: unknown): DecisionCreated {
-  if (!isObject(value) || Object.keys(value).sort().join(',') !== 'bundle,private_package') {
+  if (!isObject(value) || !['bundle,private_package','bundle,private_package,state'].includes(Object.keys(value).sort().join(','))) {
     throw new ApiClientError('INVALID_RESPONSE', '판정 발급 data 형식이 계약과 다릅니다')
   }
   const bundle = decodeBundle(value.bundle)
@@ -61,10 +61,14 @@ export function decodeDecisionCreated(value: unknown): DecisionCreated {
   if (bundle.receipt_body.event_kind !== 'DECISION' || bundle.proof !== null || bundle.anchor !== null) {
     throw new ApiClientError('INVALID_RESPONSE', '신규 판정 응답은 미앵커 DECISION bundle이어야 합니다')
   }
+  const actual = bundle.receipt_body.payload.inference.taxonomy_id === 'verimod-ko-beep-hate'
+  if ((actual || 'state' in value) && value.state !== 'PENDING_ANCHOR') {
+    throw new ApiClientError('INVALID_RESPONSE', '실제 W3 신규 발급 상태는 PENDING_ANCHOR여야 합니다')
+  }
   if (material.receipt_id !== bundle.receipt_body.receipt_id || material.content_commitment !== bundle.receipt_body.content_commitment) {
     throw new ApiClientError('INVALID_RESPONSE', 'private_package가 발급된 영수증과 일치하지 않습니다')
   }
-  return { bundle, private_package: material }
+  return { bundle, private_package: material, ...(value.state === 'PENDING_ANCHOR' ? {state:'PENDING_ANCHOR' as const} : {}) }
 }
 
 export class VeriModApiClient {

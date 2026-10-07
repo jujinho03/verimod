@@ -18,7 +18,14 @@ x-demo-principal: <non-empty demo principal>
 x-demo-role: DEMO_USER | DEMO_REVIEWER | DEMO_OPERATOR
 ```
 
-The current server intentionally has no live model adapter. Tests inject a deterministic BEEP-shaped fixture with native classes `hate/offensive/none` and score keys `hate/offensive`; the fixture is not a trained model. The T-owned shared runtime schema still describes the legacy five-label demo, so the W3 entry freeze must close that consumer mismatch before live integration.
+The current server has no live model adapter. Unit tests retain their synthetic BEEP-shaped fixture;
+joint integration tests separately replay A's actual selected-model output fixture with native
+`hate/offensive/none` and exposed `hate/offensive` scores. Shared schema validates the actual
+`verimod-ko-beep-hate/1` profile separately from the historical five-label synthetic profile before persistence.
+Fresh F commitments replace only the fixture transport commitment; model scores and manifest hash stay unchanged.
+The fixed HUMAN_REVIEW policy in joint tests is a test dependency, not a threshold or policy lock.
+`AppOptions.actualModelManifest` optionally exposes an approved actual manifest alongside explicitly legacy manifests.
+See [W3 team integration](../docs/evidence/w3-team-integration.md) for the local checkpoint and boundaries.
 
 ## Run
 

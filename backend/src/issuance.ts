@@ -3,7 +3,7 @@ import type { DatabaseSync } from 'node:sqlite'
 import { canonicalBytes, canonicalize } from '@verimod/protocol/canonical'
 import { bytesToHex, randomHex32, sha256, type Hex32 } from '@verimod/protocol/hash'
 import { contentCommitment, ISSUER_ID, receiptHash } from '@verimod/protocol/receipt'
-import type { ReceiptBody } from '@verimod/protocol/types'
+import { validateReceiptBody } from '@verimod/protocol/schema'
 import { transaction } from './database.js'
 import {
   assertValidInference,
@@ -135,9 +135,10 @@ export class IssuanceService {
         previous_receipt_hash: null,
         payload: { inference, policy },
       }
-      // W3 uses shared canonical/hash. The shared runtime ReceiptBody schema still
-      // carries the legacy five-label demo and must be closed by the T-owned freeze.
-      const hash = await receiptHash(body as unknown as ReceiptBody)
+      // The shared schema now validates the actual profile before any persistence.
+      const validated = validateReceiptBody(body)
+      if (!validated.ok) throw new Error('invalid decision receipt')
+      const hash = await receiptHash(validated.value)
       const response: DecisionCreated = {
         bundle: { receipt_body: body, receipt_hash: hash, proof: null, anchor: null },
         private_package: {

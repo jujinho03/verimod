@@ -1,0 +1,54 @@
+{
+  "command": "node scripts/check-all.mjs",
+  "exit_code": 0,
+  "raw_log_path": "ai/artifacts/results/w3-team-integration/check-all-final.log",
+  "raw_log_sha256": "6a1b954dbcc622c33c601d2fce45e6425cdb29d9ab8e56288e9501acdb59ca36",
+  "frontend": {
+    "files": 18,
+    "passed": 192,
+    "lint": "PASS",
+    "build": "PASS",
+    "browser_passed": 1,
+    "browser_matrix": "20/20"
+  },
+  "backend": {
+    "files": 5,
+    "passed": 20,
+    "typecheck": "PASS",
+    "build": "PASS"
+  },
+  "hardhat": {
+    "passed": 10,
+    "build": "PASS",
+    "network": "LOCAL HARDHAT"
+  },
+  "shared_domain_targeted": {
+    "passed": 134,
+    "includes": "11 actual-profile boundary tests plus existing domain tests"
+  },
+  "golden_commands": {
+    "ai/.venv/Scripts/python.exe -B tools/golden/canonical_golden.py": "PASS 6/6",
+    "ai/.venv/Scripts/python.exe -B tools/golden/receipt_golden.py": "PASS 5/5"
+  },
+  "npm_audit": {
+    "frontend": {
+      "high": 1
+    },
+    "backend": {
+      "high": 1,
+      "critical": 1
+    },
+    "contracts": {
+      "low": 9,
+      "moderate": 1,
+      "high": 2
+    }
+  },
+  "dependency_lock_changes": false,
+  "new_dependency_added": false,
+  "audit_findings_increased": false,
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "model_inference_executed": false,
+  "new_training_executed": false
+}

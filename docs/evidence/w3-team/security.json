@@ -1,0 +1,259 @@
+{
+  "checked_at_utc": "2026-10-07T05:29:58.665823+00:00",
+  "scope": "All integrated changed files plus exact final glue candidates",
+  "files_checked": [
+    {
+      "path": "ai/scripts/check_w3_integration.py",
+      "sha256": "8dfb1dc741e29a8e9c45c0aa927f9594250b2cbaabd52bccf66301ba3cedb39a",
+      "bytes": 1574
+    },
+    {
+      "path": "backend/README.md",
+      "sha256": "5079f7429d9c2033149bcffa48d96468acb148b9c5813709f409f6c273e28d3e",
+      "bytes": 2135
+    },
+    {
+      "path": "backend/contracts/.env.example",
+      "sha256": "73e4a6fcbf4096094a0b43d5cbfe399557a0ec326a6f961a4ca5aafdef158d14",
+      "bytes": 510
+    },
+    {
+      "path": "backend/contracts/README.md",
+      "sha256": "d50e01b52159cdb3b80acf6be0bc232c6847b2e4871234012e9889ea04a449d4",
+      "bytes": 959
+    },
+    {
+      "path": "backend/contracts/contracts/VeriModAnchor.sol",
+      "sha256": "5467072a2674206336a5afd1ff6b777266164262a0aa3fe42b57d5f479e6aa0f",
+      "bytes": 1413
+    },
+    {
+      "path": "backend/contracts/package.json",
+      "sha256": "053b339cb1269667b8d27ba6f08d5a9698b2a5f797f6ede3d3e540fab1f28863",
+      "bytes": 811
+    },
+    {
+      "path": "backend/contracts/scripts/deploy-verimod-anchor.ts",
+      "sha256": "3b11b3b284a4b7c1f6297cc4c0683d29461d9a06df3e2fedf1c4bbe6c9654815",
+      "bytes": 896
+    },
+    {
+      "path": "backend/contracts/test/VeriModAnchor.ts",
+      "sha256": "f911f93035009a8913c81c61bf741b2d3573602539afaf0b56482d13b4fd4ad9",
+      "bytes": 2628
+    },
+    {
+      "path": "backend/contracts/test/W3JointCheckpoint.ts",
+      "sha256": "f9da3c7c0525b144aeaf1b2c2938f0cb9c8ba203cdd274994b81512e981bf781",
+      "bytes": 2230
+    },
+    {
+      "path": "backend/src/app.ts",
+      "sha256": "5ac8a0cc5f3d8a4684299378322b60f6b4d371a058a93f6a27a9fb6528b19976",
+      "bytes": 6829
+    },
+    {
+      "path": "backend/src/database.ts",
+      "sha256": "9d680ffb293e96f86a13376a5d72910a3c9fae0854e175b30a0120cb831f5226",
+      "bytes": 3298
+    },
+    {
+      "path": "backend/src/inference.ts",
+      "sha256": "65f4c5cfde0bad81c8bc4457e126437c7611e05833e6542a4ed82ac1cdee036a",
+      "bytes": 2879
+    },
+    {
+      "path": "backend/src/issuance.ts",
+      "sha256": "66e2fdcaa87b0b08899fa37a318ffabadcee9ca1968c32b3a28f0f90975b7acd",
+      "bytes": 7779
+    },
+    {
+      "path": "backend/src/server.ts",
+      "sha256": "8a57c8a3d0ef94b3bc7b4e09e4f8a5ae88fabb16c187d5fd6893f8d67dd02eb7",
+      "bytes": 526
+    },
+    {
+      "path": "backend/test/database.test.ts",
+      "sha256": "81a92e23e0c4120bc4c9f93b83a02b3f7ac754ef06598741cce4345b1bd3b31e",
+      "bytes": 2494
+    },
+    {
+      "path": "backend/test/decisions.test.ts",
+      "sha256": "007f0d9b344e7e4bdf6e34a6b6c6248cb1038b07632140b33d717d16fc8bfcef",
+      "bytes": 9886
+    },
+    {
+      "path": "backend/test/helpers/w3-joint.ts",
+      "sha256": "a52beaf5f7acd242181b4ba4479b87428e51526ade5f8d2cebec73b8d0af4985",
+      "bytes": 7184
+    },
+    {
+      "path": "backend/test/w3-joint.test.ts",
+      "sha256": "2483a85a8a4a47db6d16e00f7d742ca92e22f86448acd9863404374dc6f223c3",
+      "bytes": 2153
+    },
+    {
+      "path": "docs/04-interface-contract-draft.md",
+      "sha256": "4f9930483ed179b54aaeb11c6f23b69b3366ac0c9b277a4ac6b931d3794ca20f",
+      "bytes": 28649
+    },
+    {
+      "path": "docs/evidence/w3-team-integration.md",
+      "sha256": "5f5a14028882dbd53237981622e96e056236bfcba426cca45b15b9e666a8bac0",
+      "bytes": 12605
+    },
+    {
+      "path": "docs/evidence/w3-team/ai-tests.json",
+      "sha256": "3ebd76fbf201d469818d8bde1e314a96e24d9949d3e27783a6e244bdf984d2d9",
+      "bytes": 347
+    },
+    {
+      "path": "docs/evidence/w3-team/branch-audit.json",
+      "sha256": "e150f30cc2f58fd29f2a94e11ef81a63ff05e538deeea0c4153dba48264d0d74",
+      "bytes": 14389
+    },
+    {
+      "path": "docs/evidence/w3-team/joint-checkpoint.json",
+      "sha256": "b3441f9b013dadd630167b6b8d4bb0902fe9c5c2b82a9dbac7edec5363da00c7",
+      "bytes": 8585
+    },
+    {
+      "path": "docs/evidence/w3-team/regression.json",
+      "sha256": "1450fc29b6131246b6f75e4f9faf1d406e5c8f211d08c4f495e2afa073dcdb1e",
+      "bytes": 1335
+    },
+    {
+      "path": "docs/progress/W3.md",
+      "sha256": "5f4e53e52b6d22c9cfbda631bb20042dfedf6aa91142bcd20671deceb30343b5",
+      "bytes": 19908
+    },
+    {
+      "path": "docs/spec/i4-anchor-abi.md",
+      "sha256": "807b0e0081e115c37b012abf31c0d46880c20f0eedc3b0c564f202e7d6b9766d",
+      "bytes": 1820
+    },
+    {
+      "path": "docs/spec/trust-profile.md",
+      "sha256": "6fe9fbd1f55e688074a623a84e4d50383fcf2b0d2cfad774d2fee5836472720f",
+      "bytes": 6740
+    },
+    {
+      "path": "frontend/src/api/client.test.ts",
+      "sha256": "ef5cd79292d69648002faad757f5f7815cfccc69cd6b153ef68acd125892545c",
+      "bytes": 3986
+    },
+    {
+      "path": "frontend/src/api/client.ts",
+      "sha256": "1955a85e706f59e5974df03bb41abda3dd8dd848706ba5d2fe8d96b9ac2c0dc5",
+      "bytes": 6814
+    },
+    {
+      "path": "frontend/src/api/types.ts",
+      "sha256": "8134321ade58ff142288b04bc60ee8ba11fed6c73472f3665e144e125bffd8c5",
+      "bytes": 1392
+    },
+    {
+      "path": "frontend/src/api/w3-issuance.test.ts",
+      "sha256": "a5beb1c3d3e765fc73a8a0168df75735f241833ac854054cba79a4dee6136072",
+      "bytes": 1455
+    },
+    {
+      "path": "frontend/src/domain/policy.ts",
+      "sha256": "a28cd18c20a5dbf69ddfd332ee5cefa03b368308e5cdc291dcc2da75b54dd8fd",
+      "bytes": 2221
+    },
+    {
+      "path": "frontend/src/domain/scorer.ts",
+      "sha256": "402f7e0a5c5c795173209a322332b6f0e7b21133dde65ebdabb92f50dcf2dba9",
+      "bytes": 4037
+    },
+    {
+      "path": "frontend/src/domain/verify.test.ts",
+      "sha256": "55c35091496b9381918c88c99ddb9cc173556d16ea33c32d7ebb741f27c418d1",
+      "bytes": 9752
+    },
+    {
+      "path": "frontend/src/domain/w3-actual-schema.test.ts",
+      "sha256": "cba0cc90de87620d66ba5f6f19030f10751df85ca4d8d433a13bc775ebd55b2f",
+      "bytes": 2983
+    },
+    {
+      "path": "frontend/src/features/EvidenceText.tsx",
+      "sha256": "404ffb978ed48dbf8f6cbc97b9b629aebb82586f4a868787533f67f312e65c67",
+      "bytes": 1815
+    },
+    {
+      "path": "frontend/src/features/FalsePositiveCasePreview.tsx",
+      "sha256": "82489d66116935498ac70e1a805d55a82e7bd94572db61e35f3642179e58dc98",
+      "bytes": 1720
+    },
+    {
+      "path": "frontend/src/features/ScoreBars.tsx",
+      "sha256": "9382aa462e554fac627176f4a4f18073a55d942684c9872eb1d16a98b3565a1b",
+      "bytes": 2239
+    },
+    {
+      "path": "frontend/src/features/VerificationStagePanel.test.tsx",
+      "sha256": "84fa290fa59d3b78bc8438d2c5152ac57f7f88572e22b3d83f97c99fb0c5548d",
+      "bytes": 2022
+    },
+    {
+      "path": "frontend/src/features/VerificationStagePanel.tsx",
+      "sha256": "4757a8920ec547aac19b9613217d62183d056e5b604d162fdf508266d82d7a1c",
+      "bytes": 1885
+    },
+    {
+      "path": "frontend/src/features/tamper.ts",
+      "sha256": "8c07658e797000bc2d76c81171762227d256a23f4cec9679a8ce4f2812a09d11",
+      "bytes": 4612
+    },
+    {
+      "path": "frontend/src/features/verificationStages.ts",
+      "sha256": "cf5d1c995675a82af1d00a2498b128b90dc7d6010e84845513f7211cc754a2c8",
+      "bytes": 2335
+    },
+    {
+      "path": "frontend/src/pages/ReviewPage.tsx",
+      "sha256": "d08178cd5f203da1808bdb5f1f39a774d162eba1d69ca263ac418e5d582b7a77",
+      "bytes": 12570
+    },
+    {
+      "path": "frontend/src/pages/VerifyPage.tsx",
+      "sha256": "5aa86aaff543564dc8493fee7b2b7b694f5454f33e9e0ca03f2dc645153d6063",
+      "bytes": 9961
+    },
+    {
+      "path": "frontend/src/styles/pages.css",
+      "sha256": "29a113ac482c372b9a44e059dbe789bd9d2515c394fe7af54a34809d1a0d083e",
+      "bytes": 26853
+    },
+    {
+      "path": "shared/protocol/src/schema.ts",
+      "sha256": "eac673bc1bdff984f4adfc8e1f38fe2f9ec00fa4a9b4ea92dd0cd307dcfc6901",
+      "bytes": 12779
+    },
+    {
+      "path": "shared/protocol/src/types.ts",
+      "sha256": "2cb4e29c8c98bdc1d3f0433f9b3a2c5de4920d36b80560ba8d5e54e9962f691c",
+      "bytes": 4108
+    }
+  ],
+  "secret_scan": "PASS",
+  "personal_absolute_path_scan": "PASS",
+  "json_parse": "PASS",
+  "raw_dataset_export": "NONE; tests use authored synthetic inputs, no BEEP content opened/copied",
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "weights_checkpoints_predictions_added": 0,
+  "private_issuer_salts_in_joint_report": 0,
+  "public_private_material_leak": 0,
+  "existing_A_fixture_public_salts": "Unchanged historical synthetic fixture salts; never reused as F private issuance salts.",
+  "env_example": "Only existing placeholder template changed by T; no .env or key material included.",
+  "lockfiles_changed": false,
+  "raw_logs": "Ignored ai/artifacts/results/w3-team-integration/; not staged",
+  "excluded_untracked": [
+    "output/",
+    "ai/artifacts/reports/w3_baseline/beep-klue-roberta-base-w3-seed45126-cpu/",
+    "ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/progress.json"
+  ]
+}

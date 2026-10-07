@@ -1,0 +1,10 @@
+{
+  "command": "ai/.venv/Scripts/python.exe -B ai/scripts/check_w3_integration.py",
+  "executed_at_utc": "2026-10-07T05:21:20.103905+00:00",
+  "exit_code": 0,
+  "summary": "95 passed, 27 subtests passed in 31.00s",
+  "actual_dataset_access_attempts": [],
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "new_training_executed": false
+}

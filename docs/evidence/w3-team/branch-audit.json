@@ -1,0 +1,359 @@
+{
+  "base": "c5df2c51cb2d4b0ed7ec70af7da25a03711a8da2",
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "A_preserved": true,
+  "branches": {
+    "T": {
+      "ref": "origin/seolkyeongmin",
+      "actual_latest": "0b6622cdcca843a7ec0638a6cf84fcf31f01ba87",
+      "commits": [
+        {
+          "original_sha": "6c62e42dc628fd734cbefc94d043a9830eab235e",
+          "message": "docs: add W1 protocol and Base Sepolia setup",
+          "paths": [
+            "CONTRIBUTING.md",
+            "backend/contracts/.env.example",
+            "backend/contracts/hardhat.config.ts",
+            "backend/contracts/package-lock.json",
+            "backend/contracts/package.json",
+            "backend/contracts/scripts/check-base-sepolia.mjs",
+            "backend/contracts/scripts/provision-test-wallet.mjs",
+            "docs/progress/W1.md",
+            "docs/spec/backend-architecture-w1.md",
+            "docs/spec/canonical-profile-v1.md",
+            "docs/spec/i4-anchor-abi.md",
+            "docs/spec/trust-profile.md"
+          ],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "27e125b17dd982db16a7ca03295514e571f25e3a",
+          "message": "Merge remote-tracking branch 'origin/main' into seolkyeongmin",
+          "paths": [],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "e62062dd7c9c2ff1f5b20464042ca6d91c7f7973",
+          "message": "feat(protocol): complete W2 shared vectors and golden tests",
+          "paths": [
+            ".github/workflows/ci.yml",
+            ".gitignore",
+            "backend/package-lock.json",
+            "backend/package.json",
+            "backend/test/protocol.test.ts",
+            "docs/progress/W2.md",
+            "docs/spec/canonical-profile-v1.md",
+            "docs/spec/merkle-spec.md",
+            "frontend/e2e/protocol.spec.ts",
+            "frontend/package-lock.json",
+            "frontend/package.json",
+            "frontend/playwright.config.ts",
+            "frontend/src/domain/canonical.test.ts",
+            "frontend/src/domain/canonical.ts",
+            "frontend/src/domain/epoch.ts",
+            "frontend/src/domain/hash.ts",
+            "frontend/src/domain/json.ts",
+            "frontend/src/domain/manifests.ts",
+            "frontend/src/domain/merkle.ts",
+            "frontend/src/domain/receipt.ts",
+            "frontend/src/domain/schema.ts",
+            "frontend/src/domain/types.ts",
+            "frontend/src/domain/w2-regression.test.ts",
+            "frontend/src/domain/w2-schema.test.ts",
+            "frontend/src/store/state.test.ts",
+            "frontend/src/store/state.ts",
+            "frontend/vitest.config.ts",
+            "scripts/check-all.mjs",
+            "shared/protocol/package.json",
+            "shared/protocol/src/canonical.ts",
+            "shared/protocol/src/epoch.ts",
+            "shared/protocol/src/hash.ts",
+            "shared/protocol/src/json.ts",
+            "shared/protocol/src/manifests.ts",
+            "shared/protocol/src/merkle.ts",
+            "shared/protocol/src/receipt.ts",
+            "shared/protocol/src/schema.ts",
+            "shared/protocol/src/types.ts",
+            "shared/vectors/golden/canonical-v1.json",
+            "shared/vectors/receipt-regression-v1.json",
+            "tools/golden/canonical_golden.py",
+            "tools/golden/receipt_golden.py"
+          ],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "072eff2e3ca1ad6937d1c046ce5661e29d22ef76",
+          "message": "test(protocol): close W2 golden and browser evidence gaps",
+          "paths": [
+            "frontend/e2e/protocol.spec.ts",
+            "shared/vectors/receipt-regression-results.json",
+            "tools/golden/receipt_golden.py"
+          ],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "06a454bdc2fd720b794f996ab15f97e945d6e413",
+          "message": "Merge remote-tracking branch 'origin/main' into seolkyeongmin",
+          "paths": [],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "10e8769d4f15d2163faf0c1c0705281948a22901",
+          "message": "feat(protocol): freeze W2 issuer sequence epochs",
+          "paths": [
+            "docs/04-merkle-spec.md",
+            "docs/examples/01-valid.json",
+            "docs/examples/02-tampered.json",
+            "docs/examples/03-rehashed.json",
+            "docs/progress/W2.md",
+            "docs/spec/merkle-spec.md",
+            "frontend/src/domain/hardening.test.ts",
+            "frontend/src/domain/verify.test.ts",
+            "frontend/src/domain/verify.ts",
+            "frontend/src/store/ledger.ts",
+            "frontend/src/store/seed.ts",
+            "frontend/src/store/state.ts",
+            "frontend/src/store/store.ts",
+            "shared/protocol/src/epoch.ts",
+            "shared/protocol/src/receipt.ts",
+            "shared/protocol/src/schema.ts",
+            "shared/protocol/src/types.ts",
+            "tools/golden/receipt_golden.py"
+          ],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "a954d0757e571a0700ad76178ed196da8c4d08d8",
+          "message": "merge: sync latest main into seolkyeongmin",
+          "paths": [],
+          "w3_relevant": false,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "W1/W2 or historical merge; existing main supplies required protocol foundation"
+        },
+        {
+          "original_sha": "cd5a0c14f2a1a15154683b2aeceed6a939e670b3",
+          "message": "feat(chain): add W3 VeriMod anchor smoke path",
+          "paths": [
+            ".github/workflows/ci.yml",
+            "backend/contracts/.env.example",
+            "backend/contracts/README.md",
+            "backend/contracts/contracts/VeriModAnchor.sol",
+            "backend/contracts/package.json",
+            "backend/contracts/scripts/deploy-verimod-anchor.ts",
+            "backend/contracts/test/VeriModAnchor.ts",
+            "docs/progress/W3.md",
+            "docs/spec/i4-anchor-abi.md",
+            "docs/spec/trust-profile.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "7ce02c0d5a93d89099f3ea3cb437b96fc4b468b7",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "64de5a3b52341a853e5c3cba575d050e941de6fb",
+          "message": "docs: record W3 anchor freeze evidence",
+          "paths": [
+            "docs/progress/W3.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "6efec62d45ae64a2658eb4286aa67bad49aa5434",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "db8741ef9d830a4e6f16ace3f2606bb52a6e755c",
+          "message": "docs: reconcile W3 trust deployment evidence",
+          "paths": [
+            "docs/spec/trust-profile.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "9303866e0f626f1302a31c93454ff8c74b037745",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "2c7e7ef0e304f3efbcb8f2c364f93abb04391dbc",
+          "message": "ci: run Hardhat 3 checks on Node 24",
+          "paths": [
+            ".github/workflows/ci.yml",
+            "docs/progress/W3.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "bc8748025b27f05d0bddb077d98848f5bc070576",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "0b6622cdcca843a7ec0638a6cf84fcf31f01ba87",
+          "message": "docs: record green W3 contract CI evidence",
+          "paths": [
+            "docs/progress/W3.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "8f1ff4b30bf0f68ea6ad83b48c0e2baac3c4513c",
+          "reason": "Selected W3 implementation/evidence dependency"
+        }
+      ]
+    },
+    "F": {
+      "ref": "origin/f-w3-api-prep",
+      "actual_latest": "e5f2bdcc49a5182d25ba9cfb96f6d591d44ca0a4",
+      "commits": [
+        {
+          "original_sha": "cd7a7d52cda5c971e8d426a686cb2c42a0d56b4a",
+          "message": "feat: add W3 issuance service",
+          "paths": [
+            "backend/src/app.ts",
+            "backend/src/database.ts",
+            "backend/src/inference.ts",
+            "backend/src/issuance.ts",
+            "backend/src/server.ts"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "8ce4888eab0d61d7865543cc70b071703d32f245",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "cb1b942fcdc1cfcce5cc3e7fc65437f923f10ccc",
+          "message": "docs: update W3 backend status",
+          "paths": [
+            "backend/README.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "652a70f19591466ffb332c4e85917e887553e0f7",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "e0c07f721f909a150cc8165bf92c5dc8ef0b9c49",
+          "message": "test: cover W3 issuance and persistence",
+          "paths": [
+            "backend/test/database.test.ts",
+            "backend/test/decisions.test.ts"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "20c54f9fb793420c6bf27067af3d6978b0bed3f1",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "42c0bdfae7440896ec94d9e3f2992496f07f1d37",
+          "message": "docs: record F W3 execution",
+          "paths": [
+            "docs/progress/W3.md"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "91f058e14f5c457b930948c2aa12900d6e745488",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "8d0530a3964f9e4c25315b8f406db2d2b2e960f7",
+          "message": "feat: add W3 API client preparation",
+          "paths": [
+            "frontend/src/api/client.test.ts",
+            "frontend/src/api/client.ts",
+            "frontend/src/api/types.ts"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "9ee6f6d66268d844b9ef9ca079aceef909e2b8b8",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "44f0d85dd1c5e5c15753a867b1a6fb7751278c44",
+          "message": "feat: add W3 verification details",
+          "paths": [
+            "frontend/src/features/FalsePositiveCasePreview.tsx",
+            "frontend/src/features/VerificationStagePanel.test.tsx",
+            "frontend/src/features/VerificationStagePanel.tsx",
+            "frontend/src/features/verificationStages.ts"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "c617b948dd8f3edd9e9a941c2934dcb0e454c08b",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "d44a0ec5e90280cf7c1c8bfd5bfc94582b2420a8",
+          "message": "feat: integrate W3 review and verify panels",
+          "paths": [
+            "frontend/src/pages/ReviewPage.tsx",
+            "frontend/src/pages/VerifyPage.tsx"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "c510f020daceaf577979db1fb18da3034a36d0d9",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "79bab8bc3cc73d0daa1e3b99d215b5080880bbc6",
+          "message": "style: add W3 verification layouts",
+          "paths": [
+            "frontend/src/styles/pages.css"
+          ],
+          "w3_relevant": true,
+          "required": true,
+          "integrated_sha": "952fb3a611d1d6987748bf0a9b8e9b4e43baf21a",
+          "reason": "Selected W3 implementation/evidence dependency"
+        },
+        {
+          "original_sha": "35dd9f16530394790b16589056f318b98b4fa638",
+          "message": "chore: preserve backend source line endings",
+          "paths": [
+            "backend/src/server.ts"
+          ],
+          "w3_relevant": true,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "Line-ending-only; ignored-EOL diff empty"
+        },
+        {
+          "original_sha": "a0dd6d786e9426549157e4b6c44b2d6c12ceb4ab",
+          "message": "chore: preserve W3 page line endings",
+          "paths": [
+            "frontend/src/pages/ReviewPage.tsx",
+            "frontend/src/pages/VerifyPage.tsx"
+          ],
+          "w3_relevant": true,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "Line-ending-only; ignored-EOL diff empty"
+        },
+        {
+          "original_sha": "e5f2bdcc49a5182d25ba9cfb96f6d591d44ca0a4",
+          "message": "chore: preserve W3 style line endings",
+          "paths": [
+            "frontend/src/styles/pages.css"
+          ],
+          "w3_relevant": true,
+          "required": false,
+          "integrated_sha": null,
+          "reason": "Line-ending-only; ignored-EOL diff empty"
+        }
+      ]
+    }
+  }
+}

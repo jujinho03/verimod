@@ -2,6 +2,13 @@
 
 STATUS: DRAFT
 
+2026-10-07 W3 integration update: actual `verimod-ko-beep-hate/1` native classes are
+`hate/offensive/none`; exposed scores are exactly `hate/offensive`. The shared validator
+separates this profile from historical `verimod-example-ko/0`. W3 local issuance, demo
+request/principal boundary and joint checkpoint evidence supersede the corresponding
+historical unresolved statements below: [W3 team integration](evidence/w3-team-integration.md).
+Production authentication, policy thresholds and public-chain runtime remain outside this update.
+
 제품 baseline 908f64e의 protocol 초안이다. 후속 P0 hardening은 정상 receipt bytes·seed hash·Merkle root를 변경하지 않았다. 현재 구현/검증 시점은 [03](03-current-status.md)과 [07](07-validation-2026-09-13.md)을 따른다.
 
 2026-09-12 · v0.1 · **PROPOSED — 팀 승인 전** · 제품 코드 기준 `908f64e`

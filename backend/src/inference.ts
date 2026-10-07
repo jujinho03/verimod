@@ -1,17 +1,8 @@
 import { isHex32, type Hex32 } from '@verimod/protocol/hash'
+import { ACTUAL_TAXONOMY, type ActualInferenceOutput } from '@verimod/protocol/types'
 
-export interface W3InferenceOutput {
-  output_version: 'inference/1'
-  inference_id: string
-  content_commitment: Hex32
-  model_manifest_hash: Hex32
-  taxonomy_id: 'verimod-ko-beep-hate'
-  taxonomy_version: string
-  scores_ppm: { hate: number; offensive: number }
-  score_semantics: 'CALIBRATED' | 'UNCALIBRATED'
-  input_status: 'FULL' | 'TRUNCATED'
+export interface W3InferenceOutput extends ActualInferenceOutput {
   evidence: []
-  inferred_at: string
 }
 
 export interface W3PolicyEvaluation {
@@ -54,7 +45,7 @@ export function assertValidInference(value: W3InferenceOutput, commitment: Hex32
     || value.content_commitment !== commitment
     || !isHex32(value.model_manifest_hash)
     || value.taxonomy_id !== 'verimod-ko-beep-hate'
-    || value.taxonomy_version.length === 0
+    || value.taxonomy_version !== ACTUAL_TAXONOMY.version
     || scoreKeys.length !== 2
     || !scoreKeys.includes('hate')
     || !scoreKeys.includes('offensive')

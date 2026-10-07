@@ -20,7 +20,7 @@ function dependencies(delay = 0) {
         content_commitment: contentCommitment,
         model_manifest_hash: MODEL_HASH,
         taxonomy_id: 'verimod-ko-beep-hate',
-        taxonomy_version: 'w3-fixture-1',
+        taxonomy_version: '1',
         scores_ppm: { hate: 125_000, offensive: 625_000 },
         score_semantics: 'UNCALIBRATED',
         input_status: 'FULL',
@@ -149,7 +149,7 @@ describe('API-02/API-09 authoritative decision issuance', () => {
     expect(response.status).toBe(200)
     expect(response.body.data.model.scope).toBe('LEGACY_SYNTHETIC_DEMO')
     expect(response.body.data.target_taxonomy).toEqual({
-      status: 'AWAITING_W3_FREEZE',
+      status: 'W3_SCHEMA_ALIGNED',
       taxonomy_id: 'verimod-ko-beep-hate',
       native_classes: ['hate', 'offensive', 'none'],
       score_keys: ['hate', 'offensive'],
@@ -184,7 +184,7 @@ describe('API-09 safe failure', () => {
       content_commitment: contentCommitment,
       model_manifest_hash: MODEL_HASH,
       taxonomy_id: 'verimod-ko-beep-hate',
-      taxonomy_version: 'w3-fixture-1',
+      taxonomy_version: '1',
       scores_ppm: { hate: -1, offensive: 625_000 },
       score_semantics: 'UNCALIBRATED',
       input_status: 'FULL',

@@ -1,0 +1,222 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "fixture_type": "REAL_MODEL_OUTPUT_FIXTURE",
+  "fixture_count": 3,
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "results": [
+    {
+      "fixture_id": "W3-R01-SYN-01",
+      "receipt_id": "2a669e5f-a2cf-4f6f-ac55-b35d903296e4",
+      "issuer_seq": 1,
+      "receipt_hash": "0x7cf5e669cc501c5618908c7ad7d7fb45dff856d229a0162dfd7450c3f0768686",
+      "receipt_body": {
+        "protocol_version": "verimod/1",
+        "receipt_id": "2a669e5f-a2cf-4f6f-ac55-b35d903296e4",
+        "issuer_id": "verimod-example-platform",
+        "issuer_seq": 1,
+        "event_kind": "DECISION",
+        "recorded_at": "2026-10-07T00:00:00.000Z",
+        "content_commitment": "0x1d1d358a49ba18809b2cb60e80219f3b4e395346726e6ed71ce7afc210bc3fbb",
+        "subject_receipt_hash": null,
+        "previous_receipt_hash": null,
+        "payload": {
+          "inference": {
+            "output_version": "inference/1",
+            "inference_id": "45126001-0000-4000-8000-000000000001",
+            "content_commitment": "0x1d1d358a49ba18809b2cb60e80219f3b4e395346726e6ed71ce7afc210bc3fbb",
+            "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+            "taxonomy_id": "verimod-ko-beep-hate",
+            "taxonomy_version": "1",
+            "scores_ppm": {
+              "hate": 3770,
+              "offensive": 14497
+            },
+            "score_semantics": "UNCALIBRATED",
+            "input_status": "FULL",
+            "evidence": [],
+            "inferred_at": "2026-10-07T00:57:49.362Z"
+          },
+          "policy": {
+            "policy_manifest_hash": "0x64058eb30a827273ee984d5fbd75526d1318db42db8cb7083f6fccde68b72af6",
+            "action": "HUMAN_REVIEW",
+            "reason_codes": [
+              "W3_JOINT_TEST_ONLY"
+            ],
+            "triggered_rule_ids": []
+          }
+        }
+      },
+      "i1": "PASS",
+      "issuance": "PASS",
+      "public_privacy": "PASS",
+      "status": "PENDING_ANCHOR"
+    },
+    {
+      "fixture_id": "W3-R01-SYN-02",
+      "receipt_id": "a330ca43-e85e-43cf-9a3e-1b5cc6bcc57c",
+      "issuer_seq": 2,
+      "receipt_hash": "0x73a578212d8ca4d3c72a2d4223695c6a988b8c9348ef1d8e0f51cc2f8b58b52a",
+      "receipt_body": {
+        "protocol_version": "verimod/1",
+        "receipt_id": "a330ca43-e85e-43cf-9a3e-1b5cc6bcc57c",
+        "issuer_id": "verimod-example-platform",
+        "issuer_seq": 2,
+        "event_kind": "DECISION",
+        "recorded_at": "2026-10-07T00:00:00.000Z",
+        "content_commitment": "0x2c77ff2e2005985ea431c6d2dcaf353142b0812d4fe54c46547d24e2cbd0287f",
+        "subject_receipt_hash": null,
+        "previous_receipt_hash": null,
+        "payload": {
+          "inference": {
+            "output_version": "inference/1",
+            "inference_id": "45126002-0000-4000-8000-000000000002",
+            "content_commitment": "0x2c77ff2e2005985ea431c6d2dcaf353142b0812d4fe54c46547d24e2cbd0287f",
+            "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+            "taxonomy_id": "verimod-ko-beep-hate",
+            "taxonomy_version": "1",
+            "scores_ppm": {
+              "hate": 341067,
+              "offensive": 627244
+            },
+            "score_semantics": "UNCALIBRATED",
+            "input_status": "FULL",
+            "evidence": [],
+            "inferred_at": "2026-10-07T00:57:49.362Z"
+          },
+          "policy": {
+            "policy_manifest_hash": "0x64058eb30a827273ee984d5fbd75526d1318db42db8cb7083f6fccde68b72af6",
+            "action": "HUMAN_REVIEW",
+            "reason_codes": [
+              "W3_JOINT_TEST_ONLY"
+            ],
+            "triggered_rule_ids": []
+          }
+        }
+      },
+      "i1": "PASS",
+      "issuance": "PASS",
+      "public_privacy": "PASS",
+      "status": "PENDING_ANCHOR"
+    },
+    {
+      "fixture_id": "W3-R01-SYN-03",
+      "receipt_id": "1a24f12c-b1f3-4479-96e2-f979add4ea2e",
+      "issuer_seq": 3,
+      "receipt_hash": "0xdf47d0b5e4806dbe86a42ff7f71ebdb204d38e1ba0363cfa889e7a1824bc40a9",
+      "receipt_body": {
+        "protocol_version": "verimod/1",
+        "receipt_id": "1a24f12c-b1f3-4479-96e2-f979add4ea2e",
+        "issuer_id": "verimod-example-platform",
+        "issuer_seq": 3,
+        "event_kind": "DECISION",
+        "recorded_at": "2026-10-07T00:00:00.000Z",
+        "content_commitment": "0xe9951e0f08802f62d22d8fa4bef7afec7689aa42f2e556250998adbd176bcdd6",
+        "subject_receipt_hash": null,
+        "previous_receipt_hash": null,
+        "payload": {
+          "inference": {
+            "output_version": "inference/1",
+            "inference_id": "45126003-0000-4000-8000-000000000003",
+            "content_commitment": "0xe9951e0f08802f62d22d8fa4bef7afec7689aa42f2e556250998adbd176bcdd6",
+            "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+            "taxonomy_id": "verimod-ko-beep-hate",
+            "taxonomy_version": "1",
+            "scores_ppm": {
+              "hate": 495749,
+              "offensive": 435979
+            },
+            "score_semantics": "UNCALIBRATED",
+            "input_status": "FULL",
+            "evidence": [],
+            "inferred_at": "2026-10-07T00:57:49.362Z"
+          },
+          "policy": {
+            "policy_manifest_hash": "0x64058eb30a827273ee984d5fbd75526d1318db42db8cb7083f6fccde68b72af6",
+            "action": "HUMAN_REVIEW",
+            "reason_codes": [
+              "W3_JOINT_TEST_ONLY"
+            ],
+            "triggered_rule_ids": []
+          }
+        }
+      },
+      "i1": "PASS",
+      "issuance": "PASS",
+      "public_privacy": "PASS",
+      "status": "PENDING_ANCHOR"
+    }
+  ],
+  "root": "0xcde3523e0ad12e1d4601ee53fe27441763df60d643af32b28d0438369cbd5237",
+  "count": 3,
+  "issuer_seq_min": 1,
+  "issuer_seq_max": 3,
+  "leaves": [
+    {
+      "receipt_hash": "0xdf47d0b5e4806dbe86a42ff7f71ebdb204d38e1ba0363cfa889e7a1824bc40a9",
+      "leaf_hash": "0xb513cb13a6f6f45fd4d5afbef5efc1b69c32fa7d1347f0d782f96d1deaa12837",
+      "proof": {
+        "merkle_spec": "ct-sha256-receipt-v1",
+        "leaf_index": 0,
+        "tree_size": 3,
+        "siblings": [
+          "0x6abb49078878268090ec4ebaf25a448ea81446647122b824d45fc09f92ca1d2e",
+          "0x3d541971e71a6b3435952ceadcf15b90dfbece8d45821c6d56c233ae8c9cd834"
+        ]
+      }
+    },
+    {
+      "receipt_hash": "0x7cf5e669cc501c5618908c7ad7d7fb45dff856d229a0162dfd7450c3f0768686",
+      "leaf_hash": "0x6abb49078878268090ec4ebaf25a448ea81446647122b824d45fc09f92ca1d2e",
+      "proof": {
+        "merkle_spec": "ct-sha256-receipt-v1",
+        "leaf_index": 1,
+        "tree_size": 3,
+        "siblings": [
+          "0xb513cb13a6f6f45fd4d5afbef5efc1b69c32fa7d1347f0d782f96d1deaa12837",
+          "0x3d541971e71a6b3435952ceadcf15b90dfbece8d45821c6d56c233ae8c9cd834"
+        ]
+      }
+    },
+    {
+      "receipt_hash": "0x73a578212d8ca4d3c72a2d4223695c6a988b8c9348ef1d8e0f51cc2f8b58b52a",
+      "leaf_hash": "0x3d541971e71a6b3435952ceadcf15b90dfbece8d45821c6d56c233ae8c9cd834",
+      "proof": {
+        "merkle_spec": "ct-sha256-receipt-v1",
+        "leaf_index": 2,
+        "tree_size": 3,
+        "siblings": [
+          "0xe96d11552aa781082cdc02fddafec351e1d078223c1df345b425ad4aa0715416"
+        ]
+      }
+    }
+  ],
+  "canonical_hash_deterministic": true,
+  "merkle_order_deterministic": true,
+  "public_manifest_hash_verified": true,
+  "idempotent_replay": "PASS",
+  "raw_text_exported": false,
+  "salts_exported": false,
+  "policy_scope": "FIXED HUMAN_REVIEW TEST DEPENDENCY; NO THRESHOLD/POLICY LOCK",
+  "receipt_state": "PENDING_ANCHOR",
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "model_inference_executed": false,
+  "status": "TEAM_W3_INTEGRATION_PASS",
+  "generated_at": "2026-10-07T05:27:19.300Z",
+  "network": "LOCAL HARDHAT",
+  "public_chain_evidence": false,
+  "boundary": "LOCAL HARDHAT — NOT PUBLIC CHAIN EVIDENCE",
+  "epoch_id": "1",
+  "protocol_version_number": 1,
+  "contract_address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "publisher": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+  "chain_id": "31337",
+  "register_tx": "0x2c6be71416ad1c899c1ae2e82e222ce945a67c8ad335c226b702ec6bae2390fa",
+  "register_block": 2,
+  "register_status": 1,
+  "read_back": "MATCH",
+  "publisher_authorization": "PASS",
+  "duplicate_protection": "PASS",
+  "external_anchor_state": "PENDING_ANCHOR"
+}

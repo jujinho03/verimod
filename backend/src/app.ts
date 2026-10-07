@@ -2,6 +2,8 @@ import { randomUUID } from 'node:crypto'
 import type { DatabaseSync } from 'node:sqlite'
 import express, { type Request, type Response } from 'express'
 import { manifestHashes, MODEL_MANIFEST, POLICY_MANIFEST, REVIEW_POLICY_MANIFEST } from '@verimod/protocol/manifests'
+import { canonicalBytes } from '@verimod/protocol/canonical'
+import { DOMAINS, domainHash } from '@verimod/protocol/hash'
 import { openDatabase } from './database.js'
 import {
   type InferenceAdapter,
@@ -16,6 +18,8 @@ export interface AppOptions {
   inference?: InferenceAdapter
   policy?: PolicyEvaluator
   now?: () => Date
+  /** Approved manifest supplied by integration wiring; no live model is implied. */
+  actualModelManifest?: Record<string, unknown>
 }
 
 type DemoRole = 'DEMO_OPERATOR' | 'DEMO_REVIEWER' | 'DEMO_USER'
@@ -118,8 +122,13 @@ export function createApp(options: AppOptions = {}) {
         model: { manifest: MODEL_MANIFEST, hash: hashes.model, scope: 'LEGACY_SYNTHETIC_DEMO' },
         policy: { manifest: POLICY_MANIFEST, hash: hashes.policy, scope: 'LEGACY_SYNTHETIC_DEMO' },
         review: { manifest: REVIEW_POLICY_MANIFEST, hash: hashes.review, scope: 'LEGACY_SYNTHETIC_DEMO' },
+        ...(options.actualModelManifest ? { actual_model: {
+          manifest: options.actualModelManifest,
+          hash: await domainHash(DOMAINS.model, canonicalBytes(options.actualModelManifest)),
+          scope: 'ACTUAL_TRAINED_MODEL',
+        } } : {}),
         target_taxonomy: {
-          status: 'AWAITING_W3_FREEZE',
+          status: 'W3_SCHEMA_ALIGNED',
           taxonomy_id: 'verimod-ko-beep-hate',
           native_classes: ['hate', 'offensive', 'none'],
           score_keys: ['hate', 'offensive'],

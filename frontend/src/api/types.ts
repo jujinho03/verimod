@@ -25,6 +25,8 @@ export interface PrivateReceiptMaterial {
 export interface DecisionCreated {
   bundle: VerificationBundle
   private_package: PrivateReceiptMaterial
+  /** Required for actual W3 issuance; historical synthetic fixtures may omit it. */
+  state?: 'PENDING_ANCHOR'
 }
 
 export type ApiErrorKind = 'TIMEOUT' | 'NETWORK' | 'HTTP' | 'INVALID_RESPONSE'
