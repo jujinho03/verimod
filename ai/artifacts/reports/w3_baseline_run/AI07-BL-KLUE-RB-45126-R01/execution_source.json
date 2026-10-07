@@ -1,0 +1,18 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "sha256": {
+    "ai/scripts/train_w3_baseline.py": "afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab",
+    "ai/src/verimod_ai/training/runner.py": "a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26",
+    "ai/src/verimod_ai/training/dataset.py": "70c2a59ff388e27baae0d038ffd9ab2b63571329d2d8df1a727e334a7f391414",
+    "ai/src/verimod_ai/training/reproducibility.py": "e5e084d2dedc2b21685c9f87044dd7b819bc1b9d84cfcb9a0426b2ed035362b5",
+    "ai/src/verimod_ai/training/metrics.py": "ab4cf10b83e5d0c719b17632ce76e72820748c74143c5f977344a4e8ac45330a",
+    "ai/src/verimod_ai/data/taxonomy.py": "595e2c26403b32291722c03152d688924948f08d297aca23b004efc5f13c0077",
+    "ai/src/verimod_ai/data/label_mapping.py": "edb914efec8a4312fa8ce79c5f6565552778fff28ac7b159976a8ca06d3d5a75",
+    "ai/src/verimod_ai/data/preprocessing.py": "888db925ca63ae8abeb4ce47f29a8dc99d662d287e68325fbc4416289bbc9f77",
+    "ai/src/verimod_ai/evaluation/metrics.py": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13",
+    "ai/configs/w3_baseline.json": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+    "ai/configs/w2_dataset.json": "41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27",
+    "ai/requirements-w3.lock.txt": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde"
+  },
+  "training_settings_modified": false
+}

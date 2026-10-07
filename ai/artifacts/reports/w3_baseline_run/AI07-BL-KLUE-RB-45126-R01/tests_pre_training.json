@@ -1,0 +1,7 @@
+{
+  "executed_at_utc": "2026-10-06T14:53:09.481125+00:00",
+  "exit_code": 0,
+  "stdout": "..............................................uuu..................uuuuu [ 77%]\n..............uuuuuuuu......                                             [100%]\n84 passed, 16 subtests passed in 17.73s\n",
+  "external_dataset_open_attempts": [],
+  "test_accessed": false
+}

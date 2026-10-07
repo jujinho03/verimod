@@ -1,0 +1,207 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "execution_base_head": "09d72598dcd1d6744d4c80b99af0721d4c1efedc",
+  "execution_branch": "main",
+  "execution_worktree_state": "DIRTY",
+  "source_commit_at_execution": null,
+  "source_snapshot_commit": null,
+  "verified_at_utc": "2026-10-06T23:41:55.646460+00:00",
+  "execution_source_reference": "ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/execution_source.json",
+  "source_files": [
+    {
+      "path": "ai/scripts/train_w3_baseline.py",
+      "sha256": "afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab"
+    },
+    {
+      "path": "ai/src/verimod_ai/training/runner.py",
+      "sha256": "a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26"
+    },
+    {
+      "path": "ai/src/verimod_ai/training/dataset.py",
+      "sha256": "70c2a59ff388e27baae0d038ffd9ab2b63571329d2d8df1a727e334a7f391414"
+    },
+    {
+      "path": "ai/src/verimod_ai/training/reproducibility.py",
+      "sha256": "e5e084d2dedc2b21685c9f87044dd7b819bc1b9d84cfcb9a0426b2ed035362b5"
+    },
+    {
+      "path": "ai/src/verimod_ai/training/metrics.py",
+      "sha256": "ab4cf10b83e5d0c719b17632ce76e72820748c74143c5f977344a4e8ac45330a"
+    },
+    {
+      "path": "ai/src/verimod_ai/data/taxonomy.py",
+      "sha256": "595e2c26403b32291722c03152d688924948f08d297aca23b004efc5f13c0077"
+    },
+    {
+      "path": "ai/src/verimod_ai/data/label_mapping.py",
+      "sha256": "edb914efec8a4312fa8ce79c5f6565552778fff28ac7b159976a8ca06d3d5a75"
+    },
+    {
+      "path": "ai/src/verimod_ai/data/preprocessing.py",
+      "sha256": "888db925ca63ae8abeb4ce47f29a8dc99d662d287e68325fbc4416289bbc9f77"
+    },
+    {
+      "path": "ai/src/verimod_ai/evaluation/metrics.py",
+      "sha256": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13"
+    },
+    {
+      "path": "ai/configs/w3_baseline.json",
+      "sha256": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f"
+    },
+    {
+      "path": "ai/configs/w2_dataset.json",
+      "sha256": "41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27"
+    },
+    {
+      "path": "ai/requirements-w3.lock.txt",
+      "sha256": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde"
+    }
+  ],
+  "supplemental_current_files": [
+    {
+      "path": "ai/pyproject.toml",
+      "execution_sha256": null,
+      "current_sha256": "474bab5cb469a3b86166ebeeedd4add7cc5f38d6d6a1de0650a0efd1d6bf2c97",
+      "historical_verification": "NOT_RECORDED",
+      "limitation": "Execution-time byte hash unavailable"
+    }
+  ],
+  "baseline_config_sha256": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+  "dependency_lock_sha256": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+  "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "recorded_source_file_count": 12,
+  "recorded_source_status": "MATCHED_CURRENT_WORKTREE",
+  "source_snapshot_status": "SOURCE_PROVENANCE_VERIFIED_WITH_LIMITATION",
+  "missing_execution_references": [
+    "ai/pyproject.toml"
+  ],
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "training_executed_during_provenance_audit": false,
+  "inference_executed_during_provenance_audit": false,
+  "scope": "Post-run verified source snapshot preparation; AI-21/AI-08/AI-16 not complete",
+  "command_center_decision": "PASS_WITH_DOCUMENTED_LIMITATION",
+  "decision_recorded_at_utc": "2026-10-07T00:43:17.678964+00:00",
+  "limitations": [
+    "ai/pyproject.toml historical SHA-256 was not recorded at R01 execution time.",
+    "The current pyproject SHA MUST NOT be represented as the historical execution SHA.",
+    "Effective runtime dependency provenance is separately preserved by the execution-time requirements lock hash and recorded runtime package/environment evidence.",
+    "No evidence of source divergence was found among the 12 execution-critical files whose historical hashes were recorded.",
+    "R01 is NOT being rerun."
+  ],
+  "source_snapshot_commit_record_location": "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/source_snapshot_post_commit.json",
+  "git_byte_preservation": {
+    "core_autocrlf": "true",
+    "source_files": [
+      {
+        "path": "ai/scripts/train_w3_baseline.py",
+        "execution_sha256": "afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab",
+        "execution_line_endings": "LF",
+        "crlf_count": 0,
+        "lf_only_count": 66,
+        "expected_git_normalized_sha256": "afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab",
+        "restore_rule": "Use LF blob bytes unchanged"
+      },
+      {
+        "path": "ai/src/verimod_ai/training/runner.py",
+        "execution_sha256": "a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26",
+        "execution_line_endings": "LF",
+        "crlf_count": 0,
+        "lf_only_count": 403,
+        "expected_git_normalized_sha256": "a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26",
+        "restore_rule": "Use LF blob bytes unchanged"
+      },
+      {
+        "path": "ai/src/verimod_ai/training/dataset.py",
+        "execution_sha256": "70c2a59ff388e27baae0d038ffd9ab2b63571329d2d8df1a727e334a7f391414",
+        "execution_line_endings": "LF",
+        "crlf_count": 0,
+        "lf_only_count": 120,
+        "expected_git_normalized_sha256": "70c2a59ff388e27baae0d038ffd9ab2b63571329d2d8df1a727e334a7f391414",
+        "restore_rule": "Use LF blob bytes unchanged"
+      },
+      {
+        "path": "ai/src/verimod_ai/training/reproducibility.py",
+        "execution_sha256": "e5e084d2dedc2b21685c9f87044dd7b819bc1b9d84cfcb9a0426b2ed035362b5",
+        "execution_line_endings": "LF",
+        "crlf_count": 0,
+        "lf_only_count": 26,
+        "expected_git_normalized_sha256": "e5e084d2dedc2b21685c9f87044dd7b819bc1b9d84cfcb9a0426b2ed035362b5",
+        "restore_rule": "Use LF blob bytes unchanged"
+      },
+      {
+        "path": "ai/src/verimod_ai/training/metrics.py",
+        "execution_sha256": "ab4cf10b83e5d0c719b17632ce76e72820748c74143c5f977344a4e8ac45330a",
+        "execution_line_endings": "LF",
+        "crlf_count": 0,
+        "lf_only_count": 43,
+        "expected_git_normalized_sha256": "ab4cf10b83e5d0c719b17632ce76e72820748c74143c5f977344a4e8ac45330a",
+        "restore_rule": "Use LF blob bytes unchanged"
+      },
+      {
+        "path": "ai/src/verimod_ai/data/taxonomy.py",
+        "execution_sha256": "595e2c26403b32291722c03152d688924948f08d297aca23b004efc5f13c0077",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 30,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "b72a4a9306da9c767cad635326974cd4a5ba706b9d26404ae3c9f697e12e179a",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/src/verimod_ai/data/label_mapping.py",
+        "execution_sha256": "edb914efec8a4312fa8ce79c5f6565552778fff28ac7b159976a8ca06d3d5a75",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 38,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "4552850c3e5f0a776fe356cead62c237883a074d96b65c03f6169574e09a8be8",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/src/verimod_ai/data/preprocessing.py",
+        "execution_sha256": "888db925ca63ae8abeb4ce47f29a8dc99d662d287e68325fbc4416289bbc9f77",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 66,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "0bc3568a58a3a549ab69e7f89ee8c1f596724d0ba7c70e199aefa2c3a9c51abd",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/src/verimod_ai/evaluation/metrics.py",
+        "execution_sha256": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 80,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "c06eb63e7dd069e682d47bfdd280d6b5e5c2fa0f74c210df64ac23a9667bdbea",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/configs/w3_baseline.json",
+        "execution_sha256": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 105,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "16f5c3d48576e39229245d7be558cbac707ff3460418263ac1ab690a690188ef",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/configs/w2_dataset.json",
+        "execution_sha256": "41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 25,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "8605e41df52fc15d6e34f5acb96ed510fe1a9a38678574961e6ea09ddf8875af",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      },
+      {
+        "path": "ai/requirements-w3.lock.txt",
+        "execution_sha256": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+        "execution_line_endings": "CRLF",
+        "crlf_count": 37,
+        "lf_only_count": 0,
+        "expected_git_normalized_sha256": "442f7fce453348aeb1701ba4915e7ac7cfbdc003f0fcc273a1f93297b90e919a",
+        "restore_rule": "Replace each LF with CRLF before checking execution hash"
+      }
+    ],
+    "rule": "Preserve execution raw-byte hashes; verify normalized Git blobs and explicit per-file restoration separately."
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "split": "validation",
+  "n": 1255,
+  "classes": [
+    "hate",
+    "offensive",
+    "none"
+  ],
+  "macro_f1": 0.6524599868976999,
+  "micro_f1": 0.6629482071713148,
+  "accuracy": 0.6629482071713148,
+  "per_class": {
+    "hate": {
+      "precision": 0.7797356828193832,
+      "recall": 0.580327868852459,
+      "f1": 0.6654135338345865,
+      "support": 305,
+      "precision_defined": true,
+      "recall_defined": true,
+      "f1_defined": true
+    },
+    "offensive": {
+      "precision": 0.5243619489559165,
+      "recall": 0.5607940446650124,
+      "f1": 0.5419664268585132,
+      "support": 403,
+      "precision_defined": true,
+      "recall_defined": true,
+      "f1_defined": true
+    },
+    "none": {
+      "precision": 0.7185929648241206,
+      "recall": 0.7842778793418648,
+      "f1": 0.75,
+      "support": 547,
+      "precision_defined": true,
+      "recall_defined": true,
+      "f1_defined": true
+    }
+  },
+  "confusion_matrix": [
+    [
+      177,
+      100,
+      28
+    ],
+    [
+      37,
+      226,
+      140
+    ],
+    [
+      13,
+      105,
+      429
+    ]
+  ],
+  "confusion_orientation": "rows=true, columns=pred",
+  "ovr": {
+    "hate": {
+      "tp": 177,
+      "fp": 50,
+      "fn": 128,
+      "tn": 900,
+      "fpr": 0.05263157894736842,
+      "fpr_defined": true,
+      "fnr": 0.419672131147541,
+      "fnr_defined": true
+    },
+    "offensive": {
+      "tp": 226,
+      "fp": 205,
+      "fn": 177,
+      "tn": 647,
+      "fpr": 0.24061032863849766,
+      "fpr_defined": true,
+      "fnr": 0.4392059553349876,
+      "fnr_defined": true
+    },
+    "none": {
+      "tp": 429,
+      "fp": 168,
+      "fn": 118,
+      "tn": 540,
+      "fpr": 0.23728813559322035,
+      "fpr_defined": true,
+      "fnr": 0.21572212065813529,
+      "fnr_defined": true
+    }
+  },
+  "score_semantics": "UNCALIBRATED",
+  "zero_denominator_rule": "0.0 with *_defined=false; explicit undefined flag, not silent NaN replacement"
+}

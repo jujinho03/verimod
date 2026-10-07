@@ -2,8 +2,11 @@
 
 **담당:** 주진호 / A / AI & Data Science
 
-**상태: SCAFFOLD + W2 data evidence** — AI-04/AI-15 split 및 leakage 점검(PR #16), AI-20 EDA, AI-02 A-side taxonomy.
-학습된 모델은 없고, inference 서비스도 없으며, 평가도 실행하지 않았습니다.
+**상태: W2 data evidence + W3 AI-07 첫 공식 baseline 완료** — AI-04/AI-15 split 및 leakage 점검(PR #16), AI-20 EDA, AI-02 A-side taxonomy.
+W3 CPU 실행 spec과 dependency lock은 [baseline evidence](../docs/evidence/w3-a-baseline-spec.md)에 기록했습니다.
+공식 `AI07-BL-KLUE-RB-45126-R01`의 3-epoch 학습과 full VALIDATION 평가는 [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md)에 기록했습니다. TEST는 미열람 상태이며 inference 서비스는 아직 없습니다.
+R01은 dirty tree에서 실행됐습니다. 실행 source 12개 hash의 일치와 `pyproject.toml` historical hash 누락의 승인된 limitation은 [source provenance](../docs/evidence/w3-a-r01-source-provenance.md)에 기록했습니다. source snapshot commit은 실행 이후의 기록이며 execution-time commit이 아닙니다.
+Training runner의 tiny **SMOKE_ONLY** 학습·평가 경로 검증은 [smoke evidence](../docs/evidence/w3-a-runner-smoke.md)에 별도로 기록합니다.
 
 > CURRENT != TARGET · DRAFT != IMPLEMENTED · ADOPTED != TRAINED
 
@@ -31,9 +34,9 @@ Merkle batching, anchoring은 다른 영역이 담당합니다([I1 계약 초안
 | Supported taxonomy (AI-02) | A-side 결정, PROPOSED FOR GATE-2 | [src/verimod_ai/data/taxonomy.py](src/verimod_ai/data/taxonomy.py), [docs/research/w2-taxonomy-decision.md](../docs/research/w2-taxonomy-decision.md) |
 | Dataset 코드 (package) | taxonomy 상수와 BEEP! label 매핑만 존재 | `src/verimod_ai/data/` |
 | Preprocessing v1 (AI-05) | `verimod-ko-text-v1`, synthetic test로 검증 | [src/verimod_ai/data/preprocessing.py](src/verimod_ai/data/preprocessing.py), [docs/research/w2-preprocessing.md](../docs/research/w2-preprocessing.md) |
-| 모델 학습 | NOT STARTED | `src/verimod_ai/training/` |
+| 모델 학습 | 공식 R01 3-epoch baseline 완료; best VALIDATION Macro-F1 checkpoint 보존 | `src/verimod_ai/training/`, [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md) |
 | Inference | CONTRACT DRAFT ONLY | `src/verimod_ai/inference/` |
-| Evaluation skeleton (AI-06) | metrics, policy metrics, validation 전용 선택, bootstrap — synthetic test만 수행했고 실제 평가는 없음 | [src/verimod_ai/evaluation/](src/verimod_ai/evaluation/), [docs/research/w2-evaluation-skeleton.md](../docs/research/w2-evaluation-skeleton.md) |
+| Evaluation skeleton (AI-06) | 기존 skeleton + 실제 3-class VALIDATION metrics/OVR; policy/threshold/bootstrap 평가는 미실행 | [src/verimod_ai/evaluation/](src/verimod_ai/evaluation/), [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md) |
 | Notebooks | NOT STARTED | `notebooks/` |
 
 ## 결정된 항목과 미해결 항목
@@ -66,14 +69,16 @@ ai/
 
 ## 설치
 
-Python 3.10+가 필요합니다. `ai/`에서 실행합니다.
+W3 검증 환경은 Windows x64 / Python 3.12.14 / CPU입니다. `ai/`에서 실행합니다.
 
 ```sh
-python -m venv .venv            # or: uv venv .venv --python 3.12 --seed
-.venv\Scripts\activate          # Windows (POSIX: source .venv/bin/activate)
-python -m pip install -e ".[dev]"
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements-w3.lock.txt
+python -m pip install -e . --no-deps
+python -m pip install pytest==9.1.1
 pytest
 ```
 
-아직 runtime dependency는 없습니다. ML framework와 CUDA 전용 PyTorch build는
-모델/toolchain 결정 이후에만 추가합니다.
+전체 재현 순서와 TRAIN/VALIDATION tokenizer 분석 명령은 baseline evidence를 참조하세요.
+CUDA 환경은 이번 CPU lock으로 검증하지 않았습니다.

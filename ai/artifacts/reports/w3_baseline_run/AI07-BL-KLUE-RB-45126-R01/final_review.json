@@ -1,0 +1,122 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "reviewed_at_utc": "2026-10-06T16:46:02.788020+00:00",
+  "git": {
+    "status": {
+      "exit_code": 0,
+      "stdout": " M ai/README.md\n M ai/configs/README.md\n M ai/pyproject.toml\n M ai/src/verimod_ai/training/README.md\n M ai/src/verimod_ai/training/__init__.py\n?? ai/artifacts/reports/w3_baseline/\n?? ai/artifacts/reports/w3_baseline_run/\n?? ai/artifacts/reports/w3_runner_smoke/\n?? ai/configs/w3_baseline.json\n?? ai/requirements-w3.lock.txt\n?? ai/scripts/analyze_w3_token_lengths.py\n?? ai/scripts/train_w3_baseline.py\n?? ai/src/verimod_ai/training/dataset.py\n?? ai/src/verimod_ai/training/metrics.py\n?? ai/src/verimod_ai/training/reproducibility.py\n?? ai/src/verimod_ai/training/runner.py\n?? ai/tests/test_w3_baseline_config.py\n?? ai/tests/test_w3_training_runner.py\n?? docs/evidence/w3-a-ai07-baseline-run.md\n?? docs/evidence/w3-a-baseline-spec.md\n?? docs/evidence/w3-a-runner-smoke.md\n?? output/\n",
+      "stderr": ""
+    },
+    "diff_stat": {
+      "exit_code": 0,
+      "stdout": " ai/README.md                           | 24 ++++++++++++++----------\n ai/configs/README.md                   |  3 ++-\n ai/pyproject.toml                      | 15 ++++++++++++---\n ai/src/verimod_ai/training/README.md   | 31 +++++++++++++++++++++++--------\n ai/src/verimod_ai/training/__init__.py |  2 +-\n 5 files changed, 52 insertions(+), 23 deletions(-)\n",
+      "stderr": "warning: in the working copy of 'ai/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/configs/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/pyproject.toml', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/src/verimod_ai/training/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/src/verimod_ai/training/__init__.py', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    "diff_check": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'ai/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/configs/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/pyproject.toml', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/src/verimod_ai/training/README.md', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'ai/src/verimod_ai/training/__init__.py', LF will be replaced by CRLF the next time Git touches it\n"
+    },
+    "staged": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "untracked": {
+      "exit_code": 0,
+      "stdout": "ai/artifacts/reports/w3_baseline/beep-klue-roberta-base-w3-seed45126-cpu/run_summary.json\nai/artifacts/reports/w3_baseline/beep-klue-roberta-base-w3-seed45126-cpu/validation_metrics.json\nai/artifacts/reports/w3_baseline/environment.json\nai/artifacts/reports/w3_baseline/model_source.json\nai/artifacts/reports/w3_baseline/token_length_summary.json\nai/artifacts/reports/w3_baseline/verification.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/artifact_hashes.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/epoch_log.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/execution_source.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/latency.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/metrics.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/preflight.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/progress.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/run_identity.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/run_summary.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/tests_pre_training.json\nai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/validation_integrity.json\nai/artifacts/reports/w3_runner_smoke/review.json\nai/artifacts/reports/w3_runner_smoke/smoke_summary.json\nai/artifacts/reports/w3_runner_smoke/test_results.json\nai/configs/w3_baseline.json\nai/requirements-w3.lock.txt\nai/scripts/analyze_w3_token_lengths.py\nai/scripts/train_w3_baseline.py\nai/src/verimod_ai/training/dataset.py\nai/src/verimod_ai/training/metrics.py\nai/src/verimod_ai/training/reproducibility.py\nai/src/verimod_ai/training/runner.py\nai/tests/test_w3_baseline_config.py\nai/tests/test_w3_training_runner.py\ndocs/evidence/w3-a-ai07-baseline-run.md\ndocs/evidence/w3-a-baseline-spec.md\ndocs/evidence/w3-a-runner-smoke.md\noutput/mentor-round1/VeriMod_W2_Progress_2026-10-02.html\noutput/mentor-round1/VeriMod_W2_Progress_2026-10-02.md\noutput/mentor-round1/VeriMod_W2_Progress_2026-10-02.pdf\noutput/mentor-round1/VeriMod_W2_Progress_2026-10-02.png\n",
+      "stderr": ""
+    },
+    "branch": {
+      "exit_code": 0,
+      "stdout": "main\n",
+      "stderr": ""
+    },
+    "head": {
+      "exit_code": 0,
+      "stdout": "09d72598dcd1d6744d4c80b99af0721d4c1efedc\n",
+      "stderr": ""
+    }
+  },
+  "source_hash_matches_execution": {
+    "ai/scripts/train_w3_baseline.py": true,
+    "ai/src/verimod_ai/training/runner.py": true,
+    "ai/src/verimod_ai/training/dataset.py": true,
+    "ai/src/verimod_ai/training/reproducibility.py": true,
+    "ai/src/verimod_ai/training/metrics.py": true,
+    "ai/src/verimod_ai/data/taxonomy.py": true,
+    "ai/src/verimod_ai/data/label_mapping.py": true,
+    "ai/src/verimod_ai/data/preprocessing.py": true,
+    "ai/src/verimod_ai/evaluation/metrics.py": true,
+    "ai/configs/w3_baseline.json": true,
+    "ai/configs/w2_dataset.json": true,
+    "ai/requirements-w3.lock.txt": true
+  },
+  "official_artifact_ignore_checks": {
+    "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/model.safetensors": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/model.safetensors\n",
+      "stderr": ""
+    },
+    "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/validation_predictions.jsonl": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/validation_predictions.jsonl\n",
+      "stderr": ""
+    },
+    "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/trainer_state.json": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/trainer_state.json\n",
+      "stderr": ""
+    },
+    "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/config.json": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/config.json\n",
+      "stderr": ""
+    },
+    "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/baseline_execution_config.json": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/baseline_execution_config.json\n",
+      "stderr": ""
+    },
+    "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/training.log": {
+      "exit_code": 0,
+      "stdout": "ai/.gitignore:22:artifacts/*\tai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/training.log\n",
+      "stderr": ""
+    }
+  },
+  "small_report_ignore_checks": {
+    "metrics.json": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "latency.json": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "artifact_hashes.json": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    "validation_integrity.json": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "staged_count": 0,
+  "raw_data_staged": 0,
+  "test_artifacts_staged": 0,
+  "weights_staged": 0,
+  "checkpoints_staged": 0,
+  "secrets_staged": 0,
+  "hf_token_pattern_matches": [],
+  "actual_local_path_literal_matches": [],
+  "frozen_config_absolute_paths": 0,
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "commit_executed": false,
+  "push_executed": false
+}

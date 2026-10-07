@@ -1,0 +1,105 @@
+{
+  "run_name": "beep-klue-roberta-base-w3-seed45126-cpu",
+  "task": "single_label_text_classification",
+  "primary_dataset": "BEEP! Korean HateSpeech",
+  "dataset_revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+  "dataset_config": "ai/configs/w2_dataset.json",
+  "native_labels": [
+    "hate",
+    "offensive",
+    "none"
+  ],
+  "exposed_score_keys": [
+    "hate",
+    "offensive"
+  ],
+  "reference_class": "none",
+  "label2id": {
+    "hate": 0,
+    "offensive": 1,
+    "none": 2
+  },
+  "model_id": "klue/roberta-base",
+  "model_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "tokenizer_id": "klue/roberta-base",
+  "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "trust_remote_code": false,
+  "use_fast_tokenizer": true,
+  "add_special_tokens": true,
+  "preprocessing_version": "verimod-ko-text-v1",
+  "max_code_points": 500,
+  "preprocessing_order": [
+    "codepoint_head_truncation",
+    "tokenization",
+    "token_head_truncation"
+  ],
+  "seed": 45126,
+  "data_seed": 45126,
+  "max_length": 128,
+  "tokenizer_truncation_side": "right",
+  "padding": "longest_in_batch",
+  "padding_side": "right",
+  "loss": "cross_entropy",
+  "epochs": 3,
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "lr_scheduler": "linear",
+  "max_grad_norm": 1.0,
+  "optimizer": "adamw_torch",
+  "train_batch_size": 4,
+  "eval_batch_size": 8,
+  "gradient_accumulation_steps": 4,
+  "effective_train_batch_size": 16,
+  "class_weighting": null,
+  "device": "cpu",
+  "mixed_precision": "none",
+  "torch_num_threads": 4,
+  "torch_num_interop_threads": 1,
+  "dataloader_num_workers": 0,
+  "dataloader_pin_memory": false,
+  "full_determinism": false,
+  "gradient_checkpointing": false,
+  "selection_split": "validation",
+  "selection_metric": "macro_f1",
+  "checkpoint_selection_metric": "macro_f1",
+  "greater_is_better": true,
+  "eval_strategy": "epoch",
+  "save_strategy": "epoch",
+  "load_best_model_at_end": true,
+  "save_total_limit": 2,
+  "score_semantics": "UNCALIBRATED",
+  "score_to_ppm_rule": "floor(score * 1000000 + 0.5)",
+  "test_access": "SEALED",
+  "training_status": "NOT_STARTED",
+  "data_location_env": "VERIMOD_BEEP_SPLITS",
+  "split_files": {
+    "train": "train.jsonl",
+    "validation": "validation.jsonl"
+  },
+  "split_provenance": {
+    "train": {
+      "count": 5857,
+      "class_counts": {
+        "hate": 1423,
+        "offensive": 1882,
+        "none": 2552
+      },
+      "sha256": "fc9a70cdffc2dad297d37e1724d8011e070e17dd251f2d061ec40f7ea2d89a2b"
+    },
+    "validation": {
+      "count": 1255,
+      "class_counts": {
+        "hate": 305,
+        "offensive": 403,
+        "none": 547
+      },
+      "sha256": "a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a"
+    }
+  },
+  "artifact_path": "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu",
+  "result_path": "ai/artifacts/reports/w3_baseline/beep-klue-roberta-base-w3-seed45126-cpu",
+  "source_cache_path": "ai/.venv/hf-cache",
+  "dependency_lock": "ai/requirements-w3.lock.txt",
+  "token_length_evidence": "ai/artifacts/reports/w3_baseline/token_length_summary.json"
+}

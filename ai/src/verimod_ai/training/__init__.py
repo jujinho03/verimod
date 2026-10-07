@@ -1,1 +1,1 @@
-"""Training is intentionally not implemented. See README.md in this folder."""
+"""W3 frozen baseline runner with explicit TRAIN/VALIDATION and smoke boundaries."""

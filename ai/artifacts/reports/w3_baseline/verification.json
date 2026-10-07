@@ -1,0 +1,84 @@
+{
+  "executed_at_utc": "2026-10-06T13:45:17.013229+00:00",
+  "config_json_parse": "PASS",
+  "config_training_arguments_validation": "PASS",
+  "pytest_exit_code": 0,
+  "pytest_output": "..............................................uuu..................uuuuu [ 94%]\n.....                                                                    [100%]\n69 passed, 8 subtests passed in 0.84s\n",
+  "pytest_version": "9.1.1",
+  "safe_existing_tests_review": "All existing AI test source reviewed; uses synthetic/temp data only.",
+  "data_open_audit": {
+    "allowlist": [
+      "train.jsonl",
+      "validation.jsonl"
+    ],
+    "analysis_opens": [
+      "train.jsonl",
+      "validation.jsonl"
+    ],
+    "denied_opens": [],
+    "tests_external_dataset_opens": 0
+  },
+  "token_summary_same_stack_replay_equal": true,
+  "runtime_pins_match_installed": true,
+  "runtime_package_count": 33,
+  "pip_check_exit_code": 0,
+  "pip_check_output": "No broken requirements found.",
+  "git_staged_paths": [],
+  "test_accessed": false,
+  "training_executed": false,
+  "validation_inference_executed": false,
+  "sha256": {
+    "ai/configs/w3_baseline.json": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+    "ai/requirements-w3.lock.txt": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+    "ai/scripts/analyze_w3_token_lengths.py": "efcbd2929fec05c342a5aee402c2ff4350e0ac1eaf0d159c32826b80afbf32a2"
+  },
+  "prior_sandbox_attempt": {
+    "exit_code": 1,
+    "failed": 15,
+    "passed": 54,
+    "errors": 6,
+    "subtests_passed": 8,
+    "reason": "Windows sandbox temporary directory PermissionError / WinError 5",
+    "resolution": "Same data read guard, rerun outside sandbox; no test implementation changes."
+  },
+  "config_and_boundary_tests_passed": 10,
+  "existing_tests_passed": 59,
+  "git_diff_stat_tracked": "ai/README.md         | 17 ++++++++++-------\n ai/configs/README.md |  3 ++-\n ai/pyproject.toml    | 15 ++++++++++++---\n 3 files changed, 24 insertions(+), 11 deletions(-)",
+  "new_untracked_spec_files": [
+    "ai/artifacts/reports/w3_baseline/environment.json",
+    "ai/artifacts/reports/w3_baseline/model_source.json",
+    "ai/artifacts/reports/w3_baseline/token_length_summary.json",
+    "ai/artifacts/reports/w3_baseline/verification.json",
+    "ai/configs/w3_baseline.json",
+    "ai/requirements-w3.lock.txt",
+    "ai/scripts/analyze_w3_token_lengths.py",
+    "ai/tests/test_w3_baseline_config.py",
+    "docs/evidence/w3-a-baseline-spec.md"
+  ],
+  "final_review": {
+    "changed_files_reviewed": [
+      "ai/pyproject.toml",
+      "ai/README.md",
+      "ai/configs/README.md",
+      "ai/configs/w3_baseline.json",
+      "ai/requirements-w3.lock.txt",
+      "ai/scripts/analyze_w3_token_lengths.py",
+      "ai/tests/test_w3_baseline_config.py",
+      "docs/evidence/w3-a-baseline-spec.md",
+      "ai/artifacts/reports/w3_baseline/environment.json",
+      "ai/artifacts/reports/w3_baseline/model_source.json",
+      "ai/artifacts/reports/w3_baseline/token_length_summary.json",
+      "ai/artifacts/reports/w3_baseline/verification.json"
+    ],
+    "json_parse": "PASS",
+    "python_ast_parse": "PASS",
+    "trailing_whitespace": "NONE",
+    "dependency_local_absolute_paths": 0,
+    "staged_raw_dataset_model_weights": 0,
+    "staged_secret_api_tokens": 0,
+    "secret_pattern_scan": "No matching token patterns in changed files; not a general secret audit.",
+    "git_diff_check": "PASS",
+    "commit_executed": false,
+    "push_executed": false
+  }
+}

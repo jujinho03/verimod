@@ -1,0 +1,21 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "prediction_n": 1255,
+  "score_shape": [
+    1255,
+    3
+  ],
+  "nan_inf_score_count": 0,
+  "confusion_sum": 1255,
+  "support_sum": 1255,
+  "canonical_labels_only": true,
+  "raw_text_included": false,
+  "independent_sklearn_recomputation": "PASS",
+  "sklearn_metrics": {
+    "macro_f1": 0.6524599868976999,
+    "micro_f1": 0.6629482071713148,
+    "accuracy": 0.6629482071713148
+  },
+  "test_accessed": false,
+  "secondary_accessed": false
+}

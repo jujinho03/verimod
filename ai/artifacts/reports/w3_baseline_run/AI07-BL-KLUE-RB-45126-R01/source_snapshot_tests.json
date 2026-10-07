@@ -1,0 +1,20 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "scope": "POST_RUN_SOURCE_SNAPSHOT_UNIT_TESTS",
+  "executed_at_utc": "2026-10-07T00:43:11.506950+00:00",
+  "command": "ai/.venv/Scripts/python.exe -B <external test harness>; pytest -q -p no:cacheprovider -c ai/pyproject.toml ai/tests",
+  "exit_code": 0,
+  "stdout": "..............................................uuu..................uuuuu [ 77%]\n..............uuuuuuuu......                                             [100%]\n84 passed, 16 subtests passed in 17.44s\n",
+  "external_dataset_filesystem_attempts": [],
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "training_rerun": false,
+  "model_inference_rerun": false,
+  "fixture_boundary": "Synthetic temporary fixtures/config/toy arrays only; offline; no pretrained model execution",
+  "previous_attempt": {
+    "exit_code": 1,
+    "reason": "Sandbox Windows temporary-directory write/cleanup PermissionError (WinError 5)",
+    "full_log": "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/source_snapshot_tests_sandbox_failure.json",
+    "privacy": "Full failed log includes local paths; ignored and excluded from commit"
+  }
+}

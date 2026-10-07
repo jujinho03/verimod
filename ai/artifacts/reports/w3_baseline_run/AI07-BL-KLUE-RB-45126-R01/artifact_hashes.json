@@ -1,0 +1,19 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "selected_epoch": 3.0,
+  "selected_step": 1101,
+  "selected_checkpoint": "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/checkpoint-1101",
+  "validation_macro_f1": 0.6524599868976999,
+  "weight_path": "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/model.safetensors",
+  "weight_bytes": 442505820,
+  "weight_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "sharded": false,
+  "model_reloaded": true,
+  "parameter_count": 110620419,
+  "prediction_path": "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/validation_predictions.jsonl",
+  "prediction_rows": 1255,
+  "prediction_format": "JSONL",
+  "raw_text_included": false,
+  "postprocessing_source_path": "ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/postprocessing_r01.py",
+  "postprocessing_source_sha256": "18b32ca2aa76793232ec4cadf28d52fec19be048de1c0f884202111435fa4197"
+}

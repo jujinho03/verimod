@@ -1,0 +1,48 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "epochs": [
+    {
+      "epoch": 1.0,
+      "step": 367,
+      "train_loss": 0.8948584831176163,
+      "train_examples": 5857,
+      "val_loss": 0.8028474450111389,
+      "macro_f1": 0.5902545155953854,
+      "micro_f1": 0.6247011952191235,
+      "accuracy": 0.6247011952191235,
+      "learning_rate": 1.482828282828283e-05,
+      "epoch_seconds_including_validation": 2110.456528400071,
+      "elapsed_seconds": 2110.468633200042,
+      "process_rss_bytes": 1815154688
+    },
+    {
+      "epoch": 2.0,
+      "step": 734,
+      "train_loss": 0.6432405674602059,
+      "train_examples": 5857,
+      "val_loss": 0.7850009799003601,
+      "macro_f1": 0.6496297858760262,
+      "micro_f1": 0.6645418326693228,
+      "accuracy": 0.6645418326693228,
+      "learning_rate": 7.414141414141415e-06,
+      "epoch_seconds_including_validation": 2132.8578447001055,
+      "elapsed_seconds": 4245.152732699877,
+      "process_rss_bytes": 1799352320
+    },
+    {
+      "epoch": 3.0,
+      "step": 1101,
+      "train_loss": 0.4486435999286364,
+      "train_examples": 5857,
+      "val_loss": 0.8719839453697205,
+      "macro_f1": 0.6524599868976999,
+      "micro_f1": 0.6629482071713148,
+      "accuracy": 0.6629482071713148,
+      "learning_rate": 0.0,
+      "epoch_seconds_including_validation": 2139.2805806999095,
+      "elapsed_seconds": 6386.560201799963,
+      "process_rss_bytes": 1807355904
+    }
+  ],
+  "train_loss_definition": "sample-weighted unscaled forward cross entropy; observation only"
+}

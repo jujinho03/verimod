@@ -1,0 +1,93 @@
+{
+  "observed_at_utc": "2026-10-06T13:31:11.9360645Z",
+  "model_id": "klue/roberta-base",
+  "model_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "tokenizer_id": "klue/roberta-base",
+  "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "private": false,
+  "gated": false,
+  "disabled": false,
+  "api_source": "https://huggingface.co/api/models/klue/roberta-base/revision/02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "model_card_source": "https://huggingface.co/klue/roberta-base/resolve/02f94ba5e3fcb7e2a58a390b8639b0fac974a8da/README.md",
+  "model_config": {
+    "architectures": [
+      "RobertaForMaskedLM"
+    ],
+    "attention_probs_dropout_prob": 0.1,
+    "bos_token_id": 0,
+    "eos_token_id": 2,
+    "gradient_checkpointing": false,
+    "hidden_act": "gelu",
+    "hidden_dropout_prob": 0.1,
+    "hidden_size": 768,
+    "initializer_range": 0.02,
+    "intermediate_size": 3072,
+    "layer_norm_eps": 1e-05,
+    "max_position_embeddings": 514,
+    "model_type": "roberta",
+    "num_attention_heads": 12,
+    "num_hidden_layers": 12,
+    "pad_token_id": 1,
+    "type_vocab_size": 1,
+    "vocab_size": 32000,
+    "tokenizer_class": "BertTokenizer"
+  },
+  "safetensors_metadata": {
+    "parameters": {
+      "I64": 514,
+      "F32": 110651648
+    },
+    "total": 110652162
+  },
+  "hub_license_metadata": null,
+  "upstream_repository": "https://github.com/KLUE-benchmark/KLUE",
+  "upstream_revision": "3efd98708a40ff49251fddde35453f8fbb11f536",
+  "upstream_license": "CC-BY-SA-4.0",
+  "upstream_license_source": "https://raw.githubusercontent.com/KLUE-benchmark/KLUE/3efd98708a40ff49251fddde35453f8fbb11f536/License.md",
+  "license_note": "HF card has no license field and no separate license file. The linked official KLUE repository explicitly licenses the work under CC BY-SA 4.0; this source-level declaration is recorded without inventing a weight-specific Hub license tag.",
+  "trust_remote_code": false,
+  "model_card_tokenizer_note": "AutoTokenizer loads BertTokenizer, not RobertaTokenizer",
+  "checkpoint_task": "masked_language_modeling",
+  "target_task": "single_label_sequence_classification_3_classes",
+  "trained_moderation_model": false,
+  "compatibility_check": "VERIFIED_PRETRAINED_LOAD_NO_FORWARD",
+  "compatibility_checked_at_utc": "2026-10-06T13:38:29.241565+00:00",
+  "auto_config_class": "RobertaConfig",
+  "auto_model_class": "RobertaForSequenceClassification",
+  "loaded_sequence_classifier_parameters": 110620419,
+  "pretrained_weight_file": "model.safetensors",
+  "pretrained_weight_bytes": 442635012,
+  "pretrained_weight_sha256": "0833ea5b78f6d45cc713d097ebd8206d30c892ddbb46ae6c6122aae2efcb7c59",
+  "classifier_head_status": "NEWLY_INITIALIZED_UNTRAINED",
+  "missing_keys": [
+    "classifier.dense.bias",
+    "classifier.dense.weight",
+    "classifier.out_proj.bias",
+    "classifier.out_proj.weight"
+  ],
+  "unexpected_keys": [
+    "lm_head.bias",
+    "lm_head.dense.bias",
+    "lm_head.dense.weight",
+    "lm_head.layer_norm.bias",
+    "lm_head.layer_norm.weight"
+  ],
+  "mismatched_keys": [],
+  "error_messages": [],
+  "tokenizer_class": "BertTokenizerFast",
+  "tokenizer_is_fast": true,
+  "tokenizer_special_tokens_to_add": 2,
+  "tokenizer_model_max_length": 512,
+  "tokenizer_padding_side": "right",
+  "tokenizer_truncation_side": "right",
+  "forward_executed": false,
+  "training_executed": false,
+  "training_arguments_validation": {
+    "result": "VALID",
+    "api": "transformers.TrainingArguments",
+    "eval_strategy": "IntervalStrategy.EPOCH",
+    "save_strategy": "SaveStrategy.EPOCH",
+    "optimizer": "OptimizerNames.ADAMW_TORCH",
+    "device": "cpu"
+  }
+}

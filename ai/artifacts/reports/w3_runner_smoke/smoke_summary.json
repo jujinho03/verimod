@@ -1,0 +1,139 @@
+{
+  "scope": "SMOKE_ONLY",
+  "official_baseline_executed": false,
+  "executed_at_utc": "2026-10-06T14:31:23.551259+00:00",
+  "branch": "main",
+  "head": "09d72598dcd1d6744d4c80b99af0721d4c1efedc",
+  "dirty": true,
+  "model_id": "klue/roberta-base",
+  "model_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "label2id": {
+    "hate": 0,
+    "offensive": 1,
+    "none": 2
+  },
+  "device": "cpu",
+  "torch": "2.14.1+cpu",
+  "transformers": "4.57.6",
+  "seed_controls": {
+    "seed": 45126,
+    "data_seed": 45126,
+    "controls": [
+      "random",
+      "numpy",
+      "torch_cpu",
+      "Trainer.seed",
+      "Trainer.data_seed"
+    ],
+    "cuda_seed_applied": false,
+    "pythonhashseed": "45126",
+    "deterministic_algorithms": false,
+    "bitwise_reproducibility_claimed": false
+  },
+  "split_counts": {
+    "train": 32,
+    "validation": 32
+  },
+  "subset_class_counts": {
+    "train": {
+      "hate": 12,
+      "none": 15,
+      "offensive": 5
+    },
+    "validation": {
+      "none": 18,
+      "offensive": 6,
+      "hate": 8
+    }
+  },
+  "data_read_guard": {
+    "opened_splits": [
+      "train",
+      "validation"
+    ],
+    "denied_opens": 0
+  },
+  "test_accessed": false,
+  "execution_counts": {
+    "train_forwards": 8,
+    "eval_forwards": 12,
+    "backwards": 8,
+    "train_examples_seen": 32
+  },
+  "scheduler_last_epoch": 2,
+  "eval_macro_f1_present": true,
+  "best_checkpoint_selected": true,
+  "saved_label_mapping_verified": true,
+  "metric_boundary": "SMOKE METRICS ARE NOT MODEL PERFORMANCE RESULTS.",
+  "smoke_overrides": {
+    "max_steps": 2,
+    "eval_save_strategy": "steps",
+    "eval_save_steps": 1,
+    "save_only_model": true
+  },
+  "artifact_path": "ai/artifacts/smoke/w3_runner/20261006T143104675080Z/checkpoints",
+  "result_path": "ai/artifacts/smoke/w3_runner/20261006T143104675080Z/results",
+  "throughput": {
+    "model_load_seconds": 0.7555438000708818,
+    "dataset_load_seconds": 0.07915710005909204,
+    "preprocessing_tokenization_seconds": 0.1051161999348551,
+    "train_wall_seconds": 15.00548839988187,
+    "optimizer_steps": 2,
+    "optimizer_step_seconds": [
+      3.5564663999248296,
+      4.785320400027558
+    ],
+    "optimizer_step_mean_seconds": 4.170893399976194,
+    "optimizer_step_p50_seconds": 4.170893399976194,
+    "train_examples_per_second": 2.132553046407468,
+    "train_steps_per_second": 0.13328456540046674,
+    "train_compute_seconds": 8.341786799952388,
+    "validation_seconds": 2.3677119000349194,
+    "validation_examples_per_second": 13.515157819466152,
+    "checkpoint_save_seconds": [
+      0.7383447999600321,
+      0.5446622001472861
+    ],
+    "peak_process_rss_bytes": 2468663296,
+    "memory_method": "100ms process RSS polling plus Windows peak_wset when available"
+  },
+  "full_baseline_estimate": {
+    "kind": "ESTIMATE",
+    "train_n": 5857,
+    "validation_n": 1255,
+    "epochs": 3,
+    "micro_batch": 4,
+    "gradient_accumulation": 4,
+    "micro_batches_per_epoch": 1465,
+    "micro_batches_total": 4395,
+    "optimizer_updates_per_epoch": 367,
+    "optimizer_updates_total": 1101,
+    "validation_passes_including_final_export": 4,
+    "model_save_events_including_final_export": 4,
+    "seconds": 4978.591033209814,
+    "hours": 1.3829419536693928,
+    "scheduling_class": "FEASIBLE_LOCAL_CPU",
+    "method": "mean observed optimizer-update compute duration + epoch validation and final prediction export + load/tokenization/checkpoint overhead",
+    "limitations": [
+      "2 updates only",
+      "dynamic padding subset shapes",
+      "cold-start/thermal/load variation",
+      "smoke saves model only; full checkpoint optimizer I/O is unmeasured",
+      "process startup/library imports not included",
+      "not a measured full-training runtime"
+    ]
+  },
+  "elapsed_seconds": 19.33580349991098,
+  "full_estimate_recomputed_after_smoke": true,
+  "full_estimate_recompute_reason": "Include final prediction export and selected-model save in addition to epoch events.",
+  "pretrained_weight_hash_verified": true,
+  "frozen_config_sha256": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+  "smoke_config_scope_marked_after_run": true,
+  "smoke_config_scope_mark_reason": "Add explicit artifact metadata label without changing weights or prediction semantics.",
+  "saved_configs_checked": [
+    "ai/artifacts/smoke/w3_runner/20261006T143104675080Z/checkpoints/checkpoint-1/config.json",
+    "ai/artifacts/smoke/w3_runner/20261006T143104675080Z/checkpoints/checkpoint-2/config.json",
+    "ai/artifacts/smoke/w3_runner/20261006T143104675080Z/checkpoints/selected_model/config.json"
+  ]
+}
