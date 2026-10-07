@@ -1,13 +1,13 @@
 import type { Hex32 } from './hash'
 import { POLICY_MANIFEST, TRUNCATION_RULE_ID } from './manifests'
-import { LABEL_IDS, type InferenceOutput, type PolicyEvaluation } from './types'
+import { LABEL_IDS, type LegacyInferenceOutput, type PolicyEvaluation } from './types'
 
 /**
  * docs/01 §3의 규칙 제안: 입력이 잘렸으면 먼저 검토 보류, 그다음 제한 threshold, 검토 threshold 순.
  * 점수는 생산자가 만든 정수 ppm만 비교한다.
  */
 export function evaluatePolicy(
-  inference: Pick<InferenceOutput, 'input_status' | 'scores_ppm'>,
+  inference: Pick<LegacyInferenceOutput, 'input_status' | 'scores_ppm'>,
   policyManifestHash: Hex32,
 ): PolicyEvaluation {
   if (!['FULL', 'TRUNCATED'].includes(inference.input_status) || !inference.scores_ppm ||

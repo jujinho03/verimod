@@ -1,6 +1,6 @@
 import { sha256, utf8, type Hex32 } from './hash'
 import { MAX_INPUT_CODE_POINTS, TAXONOMY } from './manifests'
-import { LABEL_IDS, type EvidenceSpan, type InferenceOutput, type LabelId, type ScoresPpm } from './types'
+import { LABEL_IDS, type EvidenceSpan, type LegacyInferenceOutput, type LabelId, type ScoresPpm } from './types'
 
 /**
  * 합성 점수 생성기. 실제 AI 추론이 아니다.
@@ -85,7 +85,7 @@ export interface InferenceContext {
   modelManifestHash: Hex32
 }
 
-export async function runSyntheticInference(text: string, ctx: InferenceContext): Promise<InferenceOutput> {
+export async function runSyntheticInference(text: string, ctx: InferenceContext): Promise<LegacyInferenceOutput> {
   if (text.trim().length === 0) {
     throw new InferenceError('EMPTY_INPUT', '판정할 내용을 입력하세요.')
   }

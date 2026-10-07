@@ -1,8 +1,17 @@
 import { LABEL_NAMES, thresholdsOf } from '../domain/manifests'
-import { LABEL_IDS, type ScoresPpm } from '../domain/types'
+import { ACTUAL_SCORE_KEYS, LABEL_IDS, type ActualScoresPpm, type ScoresPpm } from '../domain/types'
 import { formatPpm } from '../ui/format'
 
-export function ScoreBars({ scores }: { scores: ScoresPpm }) {
+export function ScoreBars({ scores }: { scores: ScoresPpm | ActualScoresPpm }) {
+  if ('offensive' in scores) {
+    return <div className="score-bars">
+      {ACTUAL_SCORE_KEYS.map((label) => <div className="score-row" key={label}>
+        <span className="score-row__label">{label === 'hate' ? '혐오' : '모욕적 표현'}</span>
+        <code className="score-row__value">{formatPpm(scores[label])}</code>
+      </div>)}
+      <div className="score-legend mono faint">단위 ppm · 실제 모델 점수 · 정책 기준 미동결</div>
+    </div>
+  }
   return (
     <div className="score-bars">
       {LABEL_IDS.map((label) => {

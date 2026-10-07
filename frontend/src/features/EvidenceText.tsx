@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { LABEL_NAMES } from '../domain/manifests'
 import type { EvidenceSpan } from '../domain/types'
+const EVIDENCE_NAMES = { ...LABEL_NAMES, offensive: '모욕적 표현' }
 
 /** 원문 위에 근거 구간을 표시한다. 위치는 Unicode code point 기준이다. */
 export function EvidenceText({ text, evidence, truncatedAt }: { text: string; evidence: EvidenceSpan[]; truncatedAt?: number }) {
@@ -20,9 +21,9 @@ export function EvidenceText({ text, evidence, truncatedAt }: { text: string; ev
     if (span.start < cursor || span.end > chars.length) continue
     plain(cursor, span.start)
     parts.push(
-      <mark key={`m${span.start}-${span.label_id}`} className="evidence" title={`${LABEL_NAMES[span.label_id]} · ${span.method_id} ${span.method_version}`}>
+      <mark key={`m${span.start}-${span.label_id}`} className="evidence" title={`${EVIDENCE_NAMES[span.label_id]} · ${span.method_id} ${span.method_version}`}>
         {chars.slice(span.start, span.end).join('')}
-        <span className="evidence__label mono">{LABEL_NAMES[span.label_id]}</span>
+        <span className="evidence__label mono">{EVIDENCE_NAMES[span.label_id]}</span>
       </mark>,
     )
     cursor = span.end

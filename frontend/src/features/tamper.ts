@@ -1,6 +1,6 @@
 import type { Hex32 } from '../domain/hash'
 import { APPEAL_REASONS } from '../domain/manifests'
-import { LABEL_IDS, type ReceiptBody } from '../domain/types'
+import { type ReceiptBody } from '../domain/types'
 
 export interface TamperChange {
   path: string
@@ -30,7 +30,7 @@ export function tamperOptions(body: ReceiptBody): TamperOption[] {
         apply: (b) => {
           if (b.event_kind !== 'DECISION') throw new Error('판정 영수증이 아닙니다')
           const scores = b.payload.inference.scores_ppm
-          const label = LABEL_IDS.reduce((top, id) => (scores[id] > scores[top] ? id : top), LABEL_IDS[0])
+          const label = Object.keys(scores).reduce((top, id) => (scores[id as keyof typeof scores] > scores[top as keyof typeof scores] ? id : top)) as keyof typeof scores
           const before = scores[label]
           scores[label] = before >= 400_000 ? 120_000 : 910_000
           return { path: `scores_ppm.${label}`, before: String(before), after: String(scores[label]) }

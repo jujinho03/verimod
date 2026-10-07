@@ -183,6 +183,7 @@ describe('verifyReceipt', () => {
   it('사본의 점수를 바꾸면 HASH_MISMATCH', async () => {
     const copy = clone(f.decision)
     if (copy.receipt_body.event_kind !== 'DECISION') throw new Error('fixture')
+    if (copy.receipt_body.payload.inference.taxonomy_id !== 'verimod-example-ko') throw new Error('legacy fixture')
     copy.receipt_body.payload.inference.scores_ppm.violence = 120_000
     const report = await verifyReceipt(copy, f.ctx)
     expect(report.code).toBe('HASH_MISMATCH')

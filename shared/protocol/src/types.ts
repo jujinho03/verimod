@@ -13,32 +13,47 @@ export type EventKind = 'DECISION' | 'APPEAL' | 'REVIEW'
  */
 export type ReviewOutcome = 'OVERTURN' | 'RESOLVED' | 'UPHOLD'
 
-/** ASCII 오름차순. 기획서의 예시 항목 중 허위정보는 별도 검토 대상이라 넣지 않았다. */
+/** Historical synthetic demo only. Never require these keys for actual BEEP inference. */
 export const LABEL_IDS = ['hate', 'profanity', 'sexual', 'spam', 'violence'] as const
 export type LabelId = (typeof LABEL_IDS)[number]
 export type ScoresPpm = Record<LabelId, number>
+export const ACTUAL_TAXONOMY = { id: 'verimod-ko-beep-hate', version: '1' } as const
+export const ACTUAL_NATIVE_CLASSES = ['hate', 'offensive', 'none'] as const
+export const ACTUAL_SCORE_KEYS = ['hate', 'offensive'] as const
+export type ActualScoresPpm = Record<(typeof ACTUAL_SCORE_KEYS)[number], number>
 
 export interface EvidenceSpan {
   start: number
   end: number
-  label_id: LabelId
+  label_id: LabelId | 'offensive'
   method_id: string
   method_version: string
 }
 
-export interface InferenceOutput {
+interface InferenceBase {
   output_version: 'inference/1'
   inference_id: string
   content_commitment: Hex32
   model_manifest_hash: Hex32
-  taxonomy_id: string
-  taxonomy_version: string
-  scores_ppm: ScoresPpm
   score_semantics: 'CALIBRATED' | 'UNCALIBRATED'
   input_status: 'FULL' | 'TRUNCATED'
   evidence: EvidenceSpan[]
   inferred_at: string
 }
+
+export interface LegacyInferenceOutput extends InferenceBase {
+  taxonomy_id: 'verimod-example-ko'
+  taxonomy_version: '0'
+  scores_ppm: ScoresPpm
+}
+
+export interface ActualInferenceOutput extends InferenceBase {
+  taxonomy_id: typeof ACTUAL_TAXONOMY.id
+  taxonomy_version: typeof ACTUAL_TAXONOMY.version
+  scores_ppm: ActualScoresPpm
+}
+
+export type InferenceOutput = LegacyInferenceOutput | ActualInferenceOutput
 
 export interface PolicyEvaluation {
   policy_manifest_hash: Hex32
