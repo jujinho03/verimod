@@ -1,0 +1,216 @@
+{
+  "fixture_type": "REAL_MODEL_OUTPUT_FIXTURE",
+  "execution_mode": "OFFLINE_SELECTED_MODEL",
+  "live_inference": false,
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "model_manifest": "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "manifest_hash_mechanism": {
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+    "mechanism": "domainHash(DOMAINS.model, canonicalBytes(manifest))",
+    "modules": [
+      "shared/protocol/src/canonical.ts",
+      "shared/protocol/src/hash.ts"
+    ],
+    "protocol_version": "verimod/1",
+    "domain": "verimod:model:v1",
+    "reference_call": "shared/protocol/src/manifests.ts:manifestHashes",
+    "content_commitments": [
+      {
+        "fixture_id": "W3-R01-SYN-01",
+        "synthetic_public_salt": "0x0101010101010101010101010101010101010101010101010101010101010101",
+        "content_commitment": "0x03f9168e6cba3ae62f25d2e83760238d43594d8728ac42f3ec6eb02779aff4c0"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-02",
+        "synthetic_public_salt": "0x0202020202020202020202020202020202020202020202020202020202020202",
+        "content_commitment": "0xe0fa5a69aef8183b4bc48c74e7a7db8084b0694de48da55730fcb48a385bb6b7"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-03",
+        "synthetic_public_salt": "0x0303030303030303030303030303030303030303030303030303030303030303",
+        "content_commitment": "0xcbdb9b6886096f2f56d307e6fa983569e332aa6f2c517d37a98067a8173b4fe3"
+      }
+    ]
+  },
+  "manifest_file_sha256": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+  "score_semantics": "UNCALIBRATED",
+  "generated_at": "2026-10-07T00:57:49.362Z",
+  "input_source": "AI_AUTHORED_SYNTHETIC",
+  "source_dataset": null,
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "supported_labels": [
+    "hate",
+    "offensive"
+  ],
+  "native_classes": [
+    "hate",
+    "offensive",
+    "none"
+  ],
+  "runtime": {
+    "device": "cpu",
+    "torch": "2.14.1+cpu",
+    "batch_size": 3,
+    "parameter_count": 110620419,
+    "seed_controls": {
+      "seed": 45126,
+      "data_seed": 45126,
+      "controls": [
+        "random",
+        "numpy",
+        "torch_cpu",
+        "Trainer.seed",
+        "Trainer.data_seed"
+      ],
+      "cuda_seed_applied": false,
+      "pythonhashseed": null,
+      "deterministic_algorithms": false,
+      "bitwise_reproducibility_claimed": false
+    }
+  },
+  "salt_boundary": "Public deterministic salts for synthetic fixture only; F supplies a fresh commitment on real issuance",
+  "results": [
+    {
+      "fixture_id": "W3-R01-SYN-01",
+      "text_category": "GENERAL_NON_HARMFUL",
+      "synthetic_text": "오늘 회의 자료를 정리해서 팀원들에게 공유했습니다.",
+      "preprocessing_version": "verimod-ko-text-v1",
+      "input_status": "FULL",
+      "predicted_native_class": "none",
+      "raw_logits": [
+        -2.370302200317383,
+        -1.0235551595687866,
+        3.191818952560425
+      ],
+      "native_scores": {
+        "hate": 0.0037704617716372013,
+        "offensive": 0.014497046358883381,
+        "none": 0.9817325472831726
+      },
+      "native_scores_ppm": {
+        "hate": 3770,
+        "offensive": 14497,
+        "none": 981733
+      },
+      "score_semantics": "UNCALIBRATED",
+      "token_length_before_truncation": 17,
+      "synthetic_public_salt": "0x0101010101010101010101010101010101010101010101010101010101010101",
+      "i1_response": {
+        "ok": true,
+        "request_id": "W3-R01-SYN-01",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "45126001-0000-4000-8000-000000000001",
+          "content_commitment": "0x03f9168e6cba3ae62f25d2e83760238d43594d8728ac42f3ec6eb02779aff4c0",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 3770,
+            "offensive": 14497
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-07T00:57:49.362Z"
+        }
+      }
+    },
+    {
+      "fixture_id": "W3-R01-SYN-02",
+      "text_category": "PERSONAL_INSULT",
+      "synthetic_text": "너는 정말 무능하고 한심한 사람이야.",
+      "preprocessing_version": "verimod-ko-text-v1",
+      "input_status": "FULL",
+      "predicted_native_class": "offensive",
+      "raw_logits": [
+        0.7197515368461609,
+        1.3290079832077026,
+        -1.656348705291748
+      ],
+      "native_scores": {
+        "hate": 0.34106695652008057,
+        "offensive": 0.6272437572479248,
+        "none": 0.031689275056123734
+      },
+      "native_scores_ppm": {
+        "hate": 341067,
+        "offensive": 627244,
+        "none": 31689
+      },
+      "score_semantics": "UNCALIBRATED",
+      "token_length_before_truncation": 13,
+      "synthetic_public_salt": "0x0202020202020202020202020202020202020202020202020202020202020202",
+      "i1_response": {
+        "ok": true,
+        "request_id": "W3-R01-SYN-02",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "45126002-0000-4000-8000-000000000002",
+          "content_commitment": "0xe0fa5a69aef8183b4bc48c74e7a7db8084b0694de48da55730fcb48a385bb6b7",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 341067,
+            "offensive": 627244
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-07T00:57:49.362Z"
+        }
+      }
+    },
+    {
+      "fixture_id": "W3-R01-SYN-03",
+      "text_category": "GROUP_TARGETED_HATE",
+      "synthetic_text": "외국인들은 모두 열등하니 우리 동네에서 나가야 한다.",
+      "preprocessing_version": "verimod-ko-text-v1",
+      "input_status": "FULL",
+      "predicted_native_class": "hate",
+      "raw_logits": [
+        0.757660448551178,
+        0.6291854977607727,
+        -1.2249089479446411
+      ],
+      "native_scores": {
+        "hate": 0.4957488477230072,
+        "offensive": 0.4359791576862335,
+        "none": 0.06827201694250107
+      },
+      "native_scores_ppm": {
+        "hate": 495749,
+        "offensive": 435979,
+        "none": 68272
+      },
+      "score_semantics": "UNCALIBRATED",
+      "token_length_before_truncation": 15,
+      "synthetic_public_salt": "0x0303030303030303030303030303030303030303030303030303030303030303",
+      "i1_response": {
+        "ok": true,
+        "request_id": "W3-R01-SYN-03",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "45126003-0000-4000-8000-000000000003",
+          "content_commitment": "0xcbdb9b6886096f2f56d307e6fa983569e332aa6f2c517d37a98067a8173b4fe3",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 495749,
+            "offensive": 435979
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-07T00:57:49.362Z"
+        }
+      }
+    }
+  ]
+}

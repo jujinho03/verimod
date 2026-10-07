@@ -1,0 +1,5 @@
+[
+  {"fixture_id":"W3-R01-SYN-01","text_category":"GENERAL_NON_HARMFUL","synthetic_text":"오늘 회의 자료를 정리해서 팀원들에게 공유했습니다."},
+  {"fixture_id":"W3-R01-SYN-02","text_category":"PERSONAL_INSULT","synthetic_text":"너는 정말 무능하고 한심한 사람이야."},
+  {"fixture_id":"W3-R01-SYN-03","text_category":"GROUP_TARGETED_HATE","synthetic_text":"외국인들은 모두 열등하니 우리 동네에서 나가야 한다."}
+]

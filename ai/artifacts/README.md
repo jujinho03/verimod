@@ -13,4 +13,5 @@
 - model manifest와 그 hash (`artifacts/manifests/`)
 - 평가 요약과 작은 JSON metadata (`artifacts/reports/`)
 
-아직 artifact는 없습니다. 학습을 시작하지 않았습니다.
+W3 R01 selected model은 ignored checkpoint 경로에 보존합니다. 실제 manifest는 `manifests/`,
+validation 및 handoff 검증 요약은 `reports/`에 있습니다. [W3 A final](../../docs/evidence/w3-a-final.md)을 참조하세요.

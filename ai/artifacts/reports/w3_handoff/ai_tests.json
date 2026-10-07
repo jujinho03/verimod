@@ -1,0 +1,10 @@
+{
+  "suite": "AI",
+  "command": "pytest -q -p no:cacheprovider -c ai/pyproject.toml ai/tests",
+  "executed_at_utc": "2026-10-07T01:35:04.480867+00:00",
+  "exit_code": 0,
+  "stdout": "..............................................uuu..................uuuuu [ 68%]\n......uuuuuu...uuuuu................uuuuuuuu......                       [100%]\n95 passed, 27 subtests passed in 16.09s\n",
+  "actual_dataset_access_attempts": [],
+  "test_accessed": false,
+  "secondary_accessed": false
+}

@@ -1,0 +1,48 @@
+{
+  "command": "node scripts/check-all.mjs",
+  "exit_code": 0,
+  "raw_log_path": "ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/closure_repository_check.log",
+  "raw_log_sha256": "6a74b73741a583f9147212ad07e0212d8ab03486f8a2690cfa1a376d82dc08d0",
+  "node": "24.10.0",
+  "npm": "11.6.1",
+  "frontend_shared_unit_tests": {
+    "passed": 172,
+    "files": 14
+  },
+  "frontend_browser_tests": {
+    "passed": 1,
+    "receipt_matrix_passed": 20,
+    "receipt_matrix_total": 20
+  },
+  "frontend_lint": "PASS",
+  "frontend_build": "PASS",
+  "backend_unit_tests": {
+    "passed": 3,
+    "files": 2
+  },
+  "backend_typecheck": "PASS",
+  "backend_build": "PASS",
+  "contracts_tests": {
+    "passed": 1,
+    "scope": "main ToolchainCheck, not T branch W3 integration"
+  },
+  "contracts_build": "PASS",
+  "installation": "Sandbox npm install failed; same full script passed with approved normal permissions.",
+  "existing_npm_audit_findings": {
+    "frontend": {
+      "high": 1
+    },
+    "backend": {
+      "high": 1,
+      "critical": 1
+    },
+    "contracts": {
+      "low": 9,
+      "moderate": 1,
+      "high": 2
+    }
+  },
+  "dependency_autofix_performed": false,
+  "test_dataset_accessed": false,
+  "training_executed": false
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "status": "PASS",
+  "independent_process_runs": 2,
+  "predicted_classes_equal": true,
+  "scores_ppm_equal": true,
+  "native_scores_exact_equal": true,
+  "logits_exact_equal": true,
+  "input_status_equal": true,
+  "manifest_reference_equal": true,
+  "tolerance_used": false,
+  "max_score_absolute_difference": 0,
+  "cross_machine_verification": "NOT_EXECUTED",
+  "test_accessed": false,
+  "secondary_accessed": false
+}

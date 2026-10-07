@@ -1,0 +1,94 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "metadata_validation": "PASS",
+  "a_python_i1": "PASS",
+  "model_artifact": "SHA256_MATCH",
+  "execution_source_files_restorable": [
+    "ai/scripts/train_w3_baseline.py",
+    "ai/src/verimod_ai/training/runner.py",
+    "ai/src/verimod_ai/training/dataset.py",
+    "ai/src/verimod_ai/training/reproducibility.py",
+    "ai/src/verimod_ai/training/metrics.py",
+    "ai/src/verimod_ai/data/taxonomy.py",
+    "ai/src/verimod_ai/data/label_mapping.py",
+    "ai/src/verimod_ai/data/preprocessing.py",
+    "ai/src/verimod_ai/evaluation/metrics.py",
+    "ai/configs/w3_baseline.json",
+    "ai/configs/w2_dataset.json",
+    "ai/requirements-w3.lock.txt"
+  ],
+  "status": "VERIFIED_LOCAL_PACKAGE",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "manifest_file_sha256": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+  "shared_protocol": {
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+    "mechanism": "domainHash(DOMAINS.model, canonicalBytes(manifest))",
+    "modules": [
+      "shared/protocol/src/canonical.ts",
+      "shared/protocol/src/hash.ts"
+    ],
+    "protocol_version": "verimod/1",
+    "domain": "verimod:model:v1",
+    "reference_call": "shared/protocol/src/manifests.ts:manifestHashes",
+    "shared_label_ids": [
+      "hate",
+      "profanity",
+      "sexual",
+      "spam",
+      "violence"
+    ],
+    "shared_receipt_schema_probes": [
+      {
+        "fixture_id": "W3-R01-SYN-01",
+        "validation": {
+          "ok": false,
+          "code": "INVALID_SCHEMA",
+          "message": "receipt_body.payload.inference.taxonomy_id: 지원하지 않는 라벨 체계입니다"
+        }
+      },
+      {
+        "fixture_id": "W3-R01-SYN-02",
+        "validation": {
+          "ok": false,
+          "code": "INVALID_SCHEMA",
+          "message": "receipt_body.payload.inference.taxonomy_id: 지원하지 않는 라벨 체계입니다"
+        }
+      },
+      {
+        "fixture_id": "W3-R01-SYN-03",
+        "validation": {
+          "ok": false,
+          "code": "INVALID_SCHEMA",
+          "message": "receipt_body.payload.inference.taxonomy_id: 지원하지 않는 라벨 체계입니다"
+        }
+      }
+    ],
+    "receipts_issued": 0,
+    "f_consumer_ref": "e5f2bdcc49a5182d25ba9cfb96f6d591d44ca0a4",
+    "f_consumer_path": "backend/src/inference.ts",
+    "f_consumer_checks": [
+      {
+        "fixture_id": "W3-R01-SYN-01",
+        "status": "PASS"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-02",
+        "status": "PASS"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-03",
+        "status": "PASS"
+      }
+    ]
+  },
+  "handoff_status": "A_OUTPUT_READY_CONSUMER_ALIGNMENT_REQUIRED",
+  "integration_blocker": "HANDOFF_CONTRACT_MISMATCH: shared receipt schema requires legacy taxonomy/5-label scores",
+  "authoritative_receipt_issuance_executed": false,
+  "anchor_state": "PENDING_ANCHOR",
+  "cross_machine_verification": "NOT_EXECUTED",
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "training_executed": false,
+  "model_inference_executed": false
+}

@@ -10,6 +10,11 @@ Training runner의 tiny **SMOKE_ONLY** 학습·평가 경로 검증은 [smoke ev
 
 > CURRENT != TARGET · DRAFT != IMPLEMENTED · ADOPTED != TRAINED
 
+W3 A packaging은 registry·actual manifest·synthetic real-model fixture까지 완료했습니다.
+[최종 evidence](../docs/evidence/w3-a-final.md)와 [재현·handoff](../docs/evidence/w3-a-reproducibility-handoff.md)를 참조하세요.
+Shared Receipt schema 정렬은 남아 있어 `W3_A_COMPLETE_WITH_INTEGRATION_BLOCKER`입니다.
+다른 PC 검증은 미실행이며, 최종 publication 상태는 commit/push 검증 기록을 따릅니다.
+
 ## 목적
 
 이 작업 공간은 VeriMod의 AI 영역을 담당합니다.

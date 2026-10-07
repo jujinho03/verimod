@@ -1,0 +1,67 @@
+{
+  "manifest_type": "ACTUAL_TRAINED_MODEL",
+  "manifest_version": "model-manifest/1",
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "model_id": "klue/roberta-base",
+  "model_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "tokenizer_id": "klue/roberta-base",
+  "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+  "trust_remote_code": false,
+  "architecture": "RobertaForSequenceClassification",
+  "parameter_count": 110620419,
+  "artifact_type": "safetensors",
+  "artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "dataset_name": "BEEP! Korean HateSpeech",
+  "dataset_revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+  "split_seed": 45126,
+  "preprocessing_version": "verimod-ko-text-v1",
+  "native_classes": [
+    "hate",
+    "offensive",
+    "none"
+  ],
+  "label2id": {
+    "hate": 0,
+    "offensive": 1,
+    "none": 2
+  },
+  "exposed_score_keys": [
+    "hate",
+    "offensive"
+  ],
+  "reference_class": "none",
+  "reference_class_is_policy_allow": false,
+  "taxonomy_id": "verimod-ko-beep-hate",
+  "taxonomy_version": "1",
+  "score_semantics": "UNCALIBRATED",
+  "score_to_ppm_rule": "floor(score * 1_000_000 + 0.5)",
+  "max_length": 128,
+  "truncation_rule": "verimod-ko-text-v1: 500 Unicode code point HEAD, then tokenizer right truncation to 128 tokens including special tokens; longest-in-batch padding",
+  "training_seed": 45126,
+  "evaluation_split": "validation",
+  "evaluation_n": 1255,
+  "evaluation_metrics": {
+    "macro_f1": "0.6524599868976999",
+    "micro_f1": "0.6629482071713148",
+    "accuracy": "0.6629482071713148"
+  },
+  "evaluation_metric_encoding": "Exact decimal strings from metrics.json; shared canonical profile permits only safe integer JSON numbers",
+  "evaluation_provenance": "ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/metrics.json",
+  "execution_base_head": "09d72598dcd1d6744d4c80b99af0721d4c1efedc",
+  "source_commit_at_execution": null,
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "provenance_status": "PASS_WITH_DOCUMENTED_LIMITATION",
+  "dependency_lock_sha256": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+  "baseline_config_sha256": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+  "test_status": "SEALED",
+  "limitations": [
+    "Validation evidence only; no TEST performance claim",
+    "TEST sealed and not accessed",
+    "Scores uncalibrated",
+    "No production fitness claim",
+    "Blockchain does not prove actual model execution",
+    "Source execution commit did not exist because R01 ran from dirty worktree",
+    "ai/pyproject.toml execution-time SHA-256 was not recorded; its current hash is not historical. Execution lock hash and runtime inventory are preserved.",
+    "No calibration, threshold selection, policy lock or cross-machine verification"
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "checked_at_utc": "2026-10-07T01:35:41.907367+00:00",
+  "candidate_files": [
+    {
+      "path": "ai/README.md",
+      "bytes": 6091,
+      "sha256": "5fb5b7682cb9a81e160851a32aa816a666f105c454548688920a01fb66f98469"
+    },
+    {
+      "path": "ai/artifacts/README.md",
+      "bytes": 793,
+      "sha256": "b3797955f15ca7e8ad6cfcf6931a6bcfbffbc9b2f65a444b5c291b7f537c839a"
+    },
+    {
+      "path": "ai/experiments/registry.jsonl",
+      "bytes": 5281,
+      "sha256": "d8cb72885815cf8052c3931321231a8eaf0313d65b536ddb24a2fb537b943d49"
+    },
+    {
+      "path": "ai/experiments/README.md",
+      "bytes": 854,
+      "sha256": "3de0e213983dc6acf60fb7eb08a4cda4aef3d9ed45bd395ec6d099659f9cacc3"
+    },
+    {
+      "path": "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json",
+      "bytes": 2873,
+      "sha256": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2"
+    },
+    {
+      "path": "ai/fixtures/w3_synthetic_inputs.json",
+      "bytes": 470,
+      "sha256": "a0402e0e05ba44e0aceba3a70706877a19ef211e4d9572514cae1548007434da"
+    },
+    {
+      "path": "ai/fixtures/w3_real_model_i1_fixture.json",
+      "bytes": 7784,
+      "sha256": "8ec5b9c897a9d00057538994d698e9f3d3b8e21c8ff88b661ff797783a45b2b9"
+    },
+    {
+      "path": "ai/fixtures/README.md",
+      "bytes": 1465,
+      "sha256": "378f470a077e15d2319df192c99ac5015e4809cf24a355dec3689a9476b7dc4f"
+    },
+    {
+      "path": "ai/scripts/package_w3_baseline.py",
+      "bytes": 7448,
+      "sha256": "5f86ac41f61b7d3b3ebce63b7eb37ff41da85a7083f56fee125313c5994bc7c2"
+    },
+    {
+      "path": "ai/scripts/generate_w3_fixture.py",
+      "bytes": 8053,
+      "sha256": "9ed5edc14bd554eb509ee201ac5324c198238e5d24ccadb965ffc405faf72bd0"
+    },
+    {
+      "path": "ai/scripts/verify_w3_handoff.py",
+      "bytes": 4615,
+      "sha256": "a8d0b9f080a8c8fdb8db66b820c5e92e1d23db533e378065bdab9a288b05708e"
+    },
+    {
+      "path": "ai/scripts/w3_protocol_bridge.mts",
+      "bytes": 4081,
+      "sha256": "3b43af65930c514d6089de54925eacbb29de185e2eb3aab199869b2d216d051c"
+    },
+    {
+      "path": "ai/src/verimod_ai/inference/w3_handoff.py",
+      "bytes": 8680,
+      "sha256": "4b10352bc9b944f13b5dc7335cfe588fe3bf1149861550a8552bdcbe08e4c050"
+    },
+    {
+      "path": "ai/tests/test_w3_handoff.py",
+      "bytes": 4920,
+      "sha256": "03275ad8351a17c58a460455733c0e54232fda31964c1fa4a439937eeb669069"
+    },
+    {
+      "path": "docs/evidence/w3-a-reproducibility-handoff.md",
+      "bytes": 9920,
+      "sha256": "ff30996b759479893f0eeabf858077f9badae9152bb4a0dd568875337a6efbc3"
+    },
+    {
+      "path": "docs/evidence/w3-a-final.md",
+      "bytes": 4616,
+      "sha256": "956f4f23f94d394c45d67b63b6dff118f59ad81c6da4fa80a234f7f6d6664e1c"
+    },
+    {
+      "path": "docs/progress/W3-A.md",
+      "bytes": 1379,
+      "sha256": "1bf285f2972136999b8a2b246fd8915df33a825e5b4d9780224c4df635dbf39c"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/fixture_reproducibility.json",
+      "bytes": 463,
+      "sha256": "0fe7dbe2b2c634a7e9092407c2a37cd3dc70110ff931921537286ad3ec205311"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/verification.json",
+      "bytes": 3233,
+      "sha256": "e43854fa12e5eb99a2c1ccb319a8178736f15e600ea759495ee74c23ab426bfd"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/metadata_only_verification.json",
+      "bytes": 2868,
+      "sha256": "752c9e55fe5d2439ada6cc16c9a2e86e49e80448ebb7bb51b32e7786fd808d04"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/ai_tests.json",
+      "bytes": 487,
+      "sha256": "1113ba7ca891b67bfd6edbca422b186e9eca92284c00eee7a24af18ee7e0b583"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/repository_checks.json",
+      "bytes": 1225,
+      "sha256": "fd745901bbc1851075facdd8267f55bfc7d069b74fa143402643ba3fc9614fbd"
+    },
+    {
+      "path": "ai/artifacts/reports/w3_handoff/sync.json",
+      "bytes": 767,
+      "sha256": "d4b427e02a124e3643a0cf0253d1d46a4827f30b9b915fdb9f9ebd61a045b19f"
+    }
+  ],
+  "json_parse": "PASS",
+  "secret_pattern_scan": "PASS",
+  "private_absolute_path_scan": "PASS",
+  "username_path_scan": "PASS",
+  "raw_text_review": "Only three explicitly AI-authored synthetic Korean inputs in fixture/input JSON; no raw BEEP dataset was opened or copied.",
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "training_executed": false,
+  "excluded": [
+    "output/",
+    "ai/.venv/",
+    "raw datasets",
+    "weights/checkpoints",
+    "full validation predictions",
+    "local logs/results",
+    "duplicate/intermediate reports"
+  ],
+  "note": "Candidate content hashes precede staging; this audit report is not self-hashed. Post-push SHA is recorded outside this commit."
+}

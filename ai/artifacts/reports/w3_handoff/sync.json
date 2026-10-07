@@ -1,0 +1,18 @@
+{
+  "initial_local_head": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "origin_main_before_sync": "09d72598dcd1d6744d4c80b99af0721d4c1efedc",
+  "initial_sync_case": "A_REMOTE_ANCESTOR",
+  "merge_performed": false,
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "observed_f_branch": {
+    "ref": "origin/f-w3-api-prep",
+    "sha": "e5f2bdcc49a5182d25ba9cfb96f6d591d44ca0a4"
+  },
+  "observed_t_branch": {
+    "ref": "origin/seolkyeongmin",
+    "sha": "0b6622cdcca843a7ec0638a6cf84fcf31f01ba87"
+  },
+  "team_feature_branches_merged": false,
+  "scope": "Only origin/main synchronization authorized; feature branches inspected read-only.",
+  "post_commit_remote_race_check": "Required before push; final outcome recorded outside the commit."
+}
