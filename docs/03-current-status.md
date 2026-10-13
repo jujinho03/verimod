@@ -96,3 +96,9 @@ STATUS: CURRENT
 앞선 문서 인수인계에 이어 이번 사용자 요청의 P0 제품 보강을 적용했다. 정상 hash 바이트·body·ABI를 바꾸지 않고 validation·저장 복구·경합·simulation disclosure·CI를 보강했다. 실제 테스트/lint/build/브라우저 결과는 [검증 기록](07-validation-2026-09-13.md)을 따른다. 모델 평가와 testnet은 실행하지 않았다.
 
 수정 전 frontend 테스트는 7파일 54건이었다. P0에서 부정 입력·경합·복구·독립 Node crypto Merkle reference·기존 seed 해시 검사를 추가했다. 파일 존재와 실행 성공을 구분하며, 00 문서의 과거 팀원 보고를 이번 결과로 재사용하지 않는다.
+
+## 2026-10-01 Team W1 final closure
+
+Team W1 repository-evidence closure was completed on 2026-10-01 as a **late, retrospective W1 closure**. [Final W1 evidence and per-ticket boundaries](progress/W1.md#team-w1-final-closure--2026-10-01) record A / 주진호 W1 owner COMPLETE, T / 설경민 W1 evidence COMPLETE, and F / 노유신 W1 owner COMPLETE. **TEAM W1 STATUS: CLOSED.**
+
+This closure preserves the historical sections above. It does not roll back or supersede [W2 work already present on main](progress/W2.md), and does not claim product completion, production readiness, FRZ-01, deployment, epoch anchoring, model training, or security remediation. The W1 deferral of OPS-01 / OPS-02 / actual mentor activity records the historical external-prerequisite treatment, not current account or assignment availability. Row-25 TEST methodology and Row-32 historical synchronization provenance remain unresolved in the latest evidence.

@@ -1,74 +1,155 @@
-import type { AnchorLocator } from './types'
-import { isHex32, type Hex32 } from './hash'
-import type { ApprovedProfile } from './approvedProfiles'
-import { RpcUnavailableError, UntrustedAnchorError, type EpochRecord, type LedgerReader } from './verify'
+import type { Hex32 } from './hash'
+import {
+  RpcUnavailableError,
+  UntrustedLedgerError,
+  type EpochRecord,
+  type LedgerReader,
+  type TrustConfig,
+} from './verify'
 
-const PUBLISHER_SELECTOR = '0x8c72c54e'
+const ADDRESS = /^0x[0-9a-f]{40}$/
+const HEX_QUANTITY = /^0x(?:0|[1-9a-f][0-9a-f]*)$/
+const HEX_DATA = /^0x[0-9a-f]*$/
 const EPOCHS_SELECTOR = '0x4bd2d7f9'
+const PUBLISHER_SELECTOR = '0x8c72c54e'
 const EPOCH_REGISTERED_TOPIC = '0x71ec63fe81bedeb984bf4a9033c8cb5d207929603415afbf0a88e1322887a6c4'
-const quantity = (value: string): number => {
-  if (!/^0x[0-9a-f]+$/i.test(value)) throw new RpcUnavailableError('invalid RPC quantity')
-  const n = Number(BigInt(value))
-  if (!Number.isSafeInteger(n) || n < 0) throw new RpcUnavailableError('unsafe RPC quantity')
-  return n
-}
-const word = (hex: string, index: number): string => `0x${hex.slice(2 + index * 64, 2 + (index + 1) * 64)}`
-const address = (value: string): string => {
-  if (!/^0x[0-9a-f]{40}$/i.test(value)) throw new RpcUnavailableError('invalid EVM address')
-  return value.toLowerCase()
+
+export interface ApprovedTrustProfile extends TrustConfig {
+  profile_id: 'BASE_SEPOLIA_DEMO'
+  chain_id: '84532'
+  issuer_id: 'verimod-demo-issuer'
+  rpc_urls: readonly string[]
+  deployment_block: number
+  min_confirmations: number
 }
 
-/** Minimal browser JSON-RPC reader. It trusts only its selected built-in profile, never bundle metadata. */
-export class RpcLedgerReader implements LedgerReader {
-  private readonly registrationBlocks = new Map<string, number>()
-  private readonly profile: ApprovedProfile
-  private readonly rpcUrl: string
-  constructor(profile: ApprovedProfile, rpcUrl: string) {
-    this.profile = profile
-    this.rpcUrl = rpcUrl
+type Env = Record<string, unknown>
+
+/** T가 승인한 실제 값이 모두 주입된 경우에만 Base profile을 활성화한다. */
+export function baseSepoliaProfileFromEnv(env: Env): ApprovedTrustProfile | null {
+  const contract = String(env.VITE_BASE_SEPOLIA_CONTRACT_ADDRESS ?? '').toLowerCase()
+  const publisher = String(env.VITE_BASE_SEPOLIA_PUBLISHER ?? '').toLowerCase()
+  const rpcUrls = String(env.VITE_BASE_SEPOLIA_RPC_URLS ?? '').split(',').map((value) => value.trim()).filter(Boolean)
+  const deploymentBlock = Number(env.VITE_BASE_SEPOLIA_DEPLOYMENT_BLOCK)
+  const confirmations = Number(env.VITE_BASE_SEPOLIA_MIN_CONFIRMATIONS)
+  if (!ADDRESS.test(contract) || !ADDRESS.test(publisher) || rpcUrls.length === 0 ||
+    rpcUrls.some((url) => !/^https:\/\//.test(url)) || !Number.isSafeInteger(deploymentBlock) || deploymentBlock < 0 ||
+    !Number.isSafeInteger(confirmations) || confirmations < 1) return null
+  return {
+    profile_id: 'BASE_SEPOLIA_DEMO', chain_id: '84532', contract_address: contract,
+    publisher, issuer_id: 'verimod-demo-issuer', protocol_version: 1,
+    rpc_urls: rpcUrls, deployment_block: deploymentBlock, min_confirmations: confirmations,
+  }
+}
+
+function word(value: bigint): string {
+  if (value < 0n || value >= 1n << 256n) throw new RpcUnavailableError('ABI word out of range')
+  return value.toString(16).padStart(64, '0')
+}
+
+function quantity(value: unknown): number {
+  if (typeof value !== 'string' || !HEX_QUANTITY.test(value)) throw new RpcUnavailableError('invalid RPC quantity')
+  const parsed = Number(BigInt(value))
+  if (!Number.isSafeInteger(parsed) || parsed < 0) throw new RpcUnavailableError('RPC quantity exceeds browser range')
+  return parsed
+}
+
+function bytes32(value: string): Hex32 {
+  if (!/^0x[0-9a-f]{64}$/.test(value)) throw new RpcUnavailableError('invalid bytes32')
+  return value as Hex32
+}
+
+function words(data: unknown, count: number): string[] {
+  if (typeof data !== 'string' || !HEX_DATA.test(data) || data.length !== 2 + count * 64) throw new RpcUnavailableError('invalid ABI response')
+  return Array.from({ length: count }, (_, index) => data.slice(2 + index * 64, 2 + (index + 1) * 64))
+}
+
+function addressWord(data: unknown): string {
+  const [value] = words(data, 1)
+  if (!/^0{24}[0-9a-f]{40}$/.test(value)) throw new RpcUnavailableError('invalid address response')
+  return `0x${value.slice(24)}`
+}
+
+export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: typeof fetch = fetch): LedgerReader {
+  let requestId = 0
+  const callUrl = async (url: string, method: string, params: unknown[]) => {
+    const response = await fetcher(url, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jsonrpc: '2.0', id: ++requestId, method, params }),
+    })
+    if (!response.ok) throw new RpcUnavailableError(`RPC HTTP ${response.status}`)
+    const payload = await response.json() as { result?: unknown; error?: unknown }
+    if (payload.error || !Object.hasOwn(payload, 'result')) throw new RpcUnavailableError('RPC error response')
+    return payload.result
+  }
+  const rpc = async (method: string, params: unknown[]) => {
+    let untrusted: UntrustedLedgerError | null = null
+    for (const url of profile.rpc_urls) {
+      try {
+        const chain = await callUrl(url, 'eth_chainId', [])
+        if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
+          untrusted = new UntrustedLedgerError('RPC chain id mismatch')
+          continue
+        }
+        return await callUrl(url, method, params)
+      } catch (error) {
+        if (error instanceof UntrustedLedgerError) untrusted = error
+      }
+    }
+    if (untrusted) throw untrusted
+    throw new RpcUnavailableError('approved RPC endpoints are unavailable')
   }
 
-  private async call<T>(method: string, params: unknown[]): Promise<T> {
-    let response: Response
-    try {
-      response = await fetch(this.rpcUrl, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params }) })
-    } catch { throw new RpcUnavailableError('RPC transport failure') }
-    if (!response.ok) throw new RpcUnavailableError('RPC HTTP failure')
-    const body: unknown = await response.json()
-    if (!body || typeof body !== 'object' || (body as { jsonrpc?: unknown }).jsonrpc !== '2.0' || 'error' in body) throw new RpcUnavailableError('RPC error')
-    return (body as { result: T }).result
+  const publisher = async () => {
+    const actual = addressWord(await rpc('eth_call', [{ to: profile.contract_address, data: PUBLISHER_SELECTOR }, 'latest']))
+    if (actual !== profile.publisher) throw new UntrustedLedgerError('publisher mismatch')
+    return actual
   }
 
-  async getEpoch(contractAddress: string, epochId: string): Promise<EpochRecord | null> {
-    if (address(contractAddress) !== this.profile.contract_address) throw new UntrustedAnchorError('승인 profile과 다른 contract입니다')
-    if (!/^[1-9]\d*$/.test(epochId)) throw new RpcUnavailableError('invalid epoch id')
-    const callData = `${EPOCHS_SELECTOR}${BigInt(epochId).toString(16).padStart(64, '0')}`
-    const result = await this.call<string>('eth_call', [{ to: this.profile.contract_address, data: callData }, 'latest'])
-    if (!/^0x[0-9a-f]{192}$/i.test(result)) throw new RpcUnavailableError('invalid epochs result')
-    const root = word(result, 0).toLowerCase() as Hex32
-    const count = quantity(word(result, 1))
-    const protocolVersion = quantity(word(result, 2))
-    if (!isHex32(root) || root === `0x${'0'.repeat(64)}` || count === 0) return null
-    return { epoch_id: epochId, root, receipt_count: count, protocol_version: protocolVersion, publisher: this.profile.publisher, issuer_seq_min: null, issuer_seq_max: null, anchored_block: this.registrationBlocks.get(epochId) ?? -1 }
-  }
+  return {
+    async getEpoch(contractAddress, epochId): Promise<EpochRecord | null> {
+      if (contractAddress !== profile.contract_address || !/^[1-9]\d*$/.test(epochId)) throw new UntrustedLedgerError('unapproved anchor')
+      await publisher()
+      const epoch = BigInt(epochId)
+      if (epoch > 18_446_744_073_709_551_615n) throw new RpcUnavailableError('epoch id exceeds uint64')
+      const getter = words(await rpc('eth_call', [{ to: profile.contract_address, data: `${EPOCHS_SELECTOR}${word(epoch)}` }, 'latest']), 3)
+      const root = bytes32(`0x${getter[0]}`)
+      const count = Number(BigInt(`0x${getter[1]}`))
+      const protocolVersion = Number(BigInt(`0x${getter[2]}`))
+      if (/^0x0{64}$/.test(root)) return null
+      if (!Number.isSafeInteger(count) || count < 1 || count > 0xffffffff || !Number.isSafeInteger(protocolVersion)) {
+        throw new RpcUnavailableError('invalid epoch getter')
+      }
 
-  async blockNumber(): Promise<number> { return quantity(await this.call<string>('eth_blockNumber', [])) }
-
-  async validateAnchor(anchor: AnchorLocator): Promise<void> {
-    const chainId = quantity(await this.call<string>('eth_chainId', []))
-    if (String(chainId) !== this.profile.chain_id) throw new UntrustedAnchorError('RPC가 승인 profile과 다른 chain을 반환했습니다')
-    const publisher = await this.call<string>('eth_call', [{ to: this.profile.contract_address, data: PUBLISHER_SELECTOR }, 'latest'])
-    if (!/^0x[0-9a-f]{64}$/i.test(publisher) || address(`0x${publisher.slice(-40)}`) !== this.profile.publisher) throw new UntrustedAnchorError('contract publisher()가 승인 profile과 다릅니다')
-    const receipt = await this.call<{ status?: string, to?: string | null, blockNumber?: string, logs?: Array<{ address?: string, topics?: string[], data?: string }> } | null>('eth_getTransactionReceipt', [anchor.tx_hash])
-    if (!receipt || receipt.status !== '0x1' || address(receipt.to ?? '') !== this.profile.contract_address || !receipt.blockNumber) throw new UntrustedAnchorError('등록 tx가 성공한 trusted contract transaction이 아닙니다')
-    const topicEpoch = `0x${BigInt(anchor.epoch_id).toString(16).padStart(64, '0')}`
-    const event = receipt.logs?.find((log) => address(log.address ?? '') === this.profile.contract_address && log.topics?.[0]?.toLowerCase() === EPOCH_REGISTERED_TOPIC && log.topics?.[1]?.toLowerCase() === topicEpoch && typeof log.data === 'string' && /^0x[0-9a-f]{192}$/i.test(log.data))
-    if (!event) throw new UntrustedAnchorError('EpochRegistered event를 찾지 못했습니다')
-    const epoch = await this.getEpoch(this.profile.contract_address, anchor.epoch_id)
-    const data = event.data as string
-    if (!epoch || word(data, 0).toLowerCase() !== epoch.root || quantity(word(data, 1)) !== epoch.receipt_count || quantity(word(data, 2)) !== epoch.protocol_version) throw new UntrustedAnchorError('event와 epochs getter가 일치하지 않습니다')
-    const block = quantity(receipt.blockNumber)
-    if (anchor.block_number !== String(block)) throw new UntrustedAnchorError('bundle block_number가 실제 receipt와 다릅니다')
-    this.registrationBlocks.set(anchor.epoch_id, block)
+      const topicEpoch = `0x${word(epoch)}`
+      const logs = await rpc('eth_getLogs', [{
+        address: profile.contract_address,
+        fromBlock: `0x${profile.deployment_block.toString(16)}`,
+        toBlock: 'latest',
+        topics: [EPOCH_REGISTERED_TOPIC, topicEpoch],
+      }])
+      if (!Array.isArray(logs) || logs.length !== 1) throw new RpcUnavailableError('epoch event is missing or ambiguous')
+      const log = logs[0] as Record<string, unknown>
+      if (log.removed === true) throw new RpcUnavailableError('removed epoch event')
+      const event = words(log.data, 3)
+      if (`0x${event[0]}` !== root || Number(BigInt(`0x${event[1]}`)) !== count || Number(BigInt(`0x${event[2]}`)) !== protocolVersion) {
+        throw new RpcUnavailableError('event/getter mismatch')
+      }
+      const block = quantity(log.blockNumber)
+      const transactionHash = bytes32(String(log.transactionHash))
+      const blockHash = bytes32(String(log.blockHash))
+      const receipt = await rpc('eth_getTransactionReceipt', [transactionHash]) as Record<string, unknown> | null
+      if (!receipt || receipt.status !== '0x1' || String(receipt.to).toLowerCase() !== profile.contract_address ||
+        quantity(receipt.blockNumber) !== block || bytes32(String(receipt.blockHash)) !== blockHash) {
+        throw new RpcUnavailableError('transaction receipt does not authenticate the event')
+      }
+      return {
+        epoch_id: epochId, root, receipt_count: count, protocol_version: protocolVersion,
+        publisher: profile.publisher, issuer_seq_min: null, issuer_seq_max: null, anchored_block: block,
+      }
+    },
+    async blockNumber() {
+      return quantity(await rpc('eth_blockNumber', []))
+    },
   }
 }

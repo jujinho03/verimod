@@ -1,0 +1,13 @@
+# TEMPLATE ONLY — not read by any code.
+# D01 (ADOPTED) sets the direction: Korean encoder fine-tuning, guard model/API fallback on GATE-4 failure.
+# ADOPTED DIRECTION != FINAL TRAINED MODEL. No model has been selected or trained.
+status: unresolved
+
+model_name: null
+model_revision: null
+tokenizer: null
+preprocessing_version: verimod-ko-text-v1   # AI-05: 500 code-point head truncation, no normalization
+max_input_length: null        # tokenizer (subword) limit UNRESOLVED; W3
+
+score_semantics: UNCALIBRATED # D07: no probability claim without calibration evidence
+calibration: null             # UNRESOLVED

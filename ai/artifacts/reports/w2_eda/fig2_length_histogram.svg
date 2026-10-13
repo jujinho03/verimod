@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Comment length distribution</title>
+<rect width="640" height="380" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Comment length distribution</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<rect x="64" y="69" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="79" y="78" font-size="12" fill="#52514e">train</text>
+<rect x="124" y="69" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="139" y="78" font-size="12" fill="#52514e">validation</text>
+<line x1="64" x2="616" y1="320.0" y2="320.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="324.0" font-size="11" fill="#8a8984" text-anchor="end">0%</text>
+<line x1="64" x2="616" y1="264.0" y2="264.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="268.0" font-size="11" fill="#8a8984" text-anchor="end">6%</text>
+<line x1="64" x2="616" y1="208.0" y2="208.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="212.0" font-size="11" fill="#8a8984" text-anchor="end">12%</text>
+<line x1="64" x2="616" y1="152.0" y2="152.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="156.0" font-size="11" fill="#8a8984" text-anchor="end">18%</text>
+<line x1="64" x2="616" y1="96.0" y2="96.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="100.0" font-size="11" fill="#8a8984" text-anchor="end">24%</text>
+<text x="64.0" y="336" font-size="11" fill="#8a8984" text-anchor="middle">0</text>
+<text x="162.6" y="336" font-size="11" fill="#8a8984" text-anchor="middle">25</text>
+<text x="261.1" y="336" font-size="11" fill="#8a8984" text-anchor="middle">50</text>
+<text x="359.7" y="336" font-size="11" fill="#8a8984" text-anchor="middle">75</text>
+<text x="458.3" y="336" font-size="11" fill="#8a8984" text-anchor="middle">100</text>
+<text x="556.9" y="336" font-size="11" fill="#8a8984" text-anchor="middle">125</text>
+<text x="616" y="108" font-size="11" fill="#52514e" text-anchor="end">500-code-point candidate boundary is beyond the axis: 0 records exceed it</text>
+<polyline points="83.7,259.4 123.1,116.5 162.6,132.8 202.0,188.5 241.4,229.8 280.9,247.9 320.3,265.5 359.7,284.6 399.1,286.7 438.6,295.3 478.0,304.0 517.4,305.6 556.9,310.6 596.3,319.3" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><title>train</title></polyline>
+<polyline points="83.7,279.1 123.1,110.3 162.6,122.1 202.0,195.0 241.4,203.2 280.9,244.9 320.3,283.6 359.7,280.6 399.1,287.2 438.6,303.7 478.0,299.2 517.4,304.4 556.9,313.3 596.3,320.0" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><title>validation</title></polyline>
+<line x1="64" x2="616" y1="320" y2="320" stroke="#8a8984" stroke-width="1"/>
+<text x="340.0" y="356" font-size="12" fill="#0b0b0b" text-anchor="middle">Length (Unicode code points, 10-point bins)</text>
+<text x="18" y="208.0" font-size="12" fill="#0b0b0b" text-anchor="middle" transform="rotate(-90 18 208.0)">Share of split</text>
+</svg>

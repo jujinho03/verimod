@@ -29,6 +29,7 @@ export function ReceiptSummary({ receipt }: { receipt: StoredReceipt }) {
         <p className="summary-line">{decisionSentence(inference, policy)}</p>
         <ScoreBars scores={inference.scores_ppm} />
         <h3 className="mono faint sub-label">근거 구간</h3>
+        <p className="muted small">표시된 구간은 합성 키워드의 일치 위치이며, 모델 판단의 인과적 설명이 아닙니다.</p>
         {own ? (
           inference.evidence.length > 0 ? (
             <EvidenceText text={own.text} evidence={inference.evidence} truncatedAt={inference.input_status === 'TRUNCATED' ? MAX_INPUT_CODE_POINTS : undefined} />

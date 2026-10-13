@@ -12,9 +12,9 @@ test('browser runs the W2 ReceiptBody regression matrix 20/20', async ({ page })
     const body = seed.receipts[0].body
     const out: boolean[] = []
     const expected = [
-      '0x3d025217441ade9f894603476a66a5627168cab5f90c7d4cf347ad397d5c8151',
-      '0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f',
-      '0xf95ac6d6c7cd255be4fdd2db809b0b6a946cbb389cd360188ab7e7b7ee6b4563',
+      '0x8bd30dea7cd80284ba88a0dda216194b681f4f8d1c5d04d1102cc7d08dd9d22f',
+      '0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b',
+      '0x48512541984a5259cae2ce83c3a069556da35c8e3b8bdee79198b58068248159',
     ]
     for (let i = 0; i < 3; i++) out.push(await receipt.receiptHash(seed.receipts[i].body) === expected[i])
     out.push(canonical.canonicalize({ b: 2, a: 1 }) === canonical.canonicalize({ a: 1, b: 2 }))

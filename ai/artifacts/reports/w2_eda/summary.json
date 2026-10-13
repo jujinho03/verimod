@@ -1,0 +1,404 @@
+{
+  "ai15_leakage": {
+    "atomic_groups_all_splits": 1479,
+    "cross_split_overlap": {
+      "exact_overlap": 0,
+      "near_cluster_overlap": 0,
+      "normalized_overlap": 0,
+      "stable_record_overlap": 0,
+      "title_group_overlap": 0
+    },
+    "duplicates": {
+      "conflicting_quarantined": 0,
+      "exact_duplicate_excess": 0,
+      "normalized_duplicate_excess": 0,
+      "same_label_removed": 0
+    },
+    "near_duplicate": {
+      "matched_pairs": 2,
+      "posting_visits": 4909653,
+      "short_text_skipped": 857,
+      "status": "CHECKED - eligible texts",
+      "threshold": 0.9
+    },
+    "title_proxy_groups_all_splits": 1480
+  },
+  "bias_values": [
+    "gender",
+    "others",
+    "none"
+  ],
+  "dataset": "BEEP! Korean HateSpeech",
+  "figures": [
+    "fig1_label_distribution.svg",
+    "fig2_length_histogram.svg",
+    "fig3_length_percentiles.svg",
+    "fig4_bias_distribution.svg",
+    "fig5_label_bias_heatmap.svg",
+    "fig6_title_group_sizes.svg"
+  ],
+  "imbalance_train": {
+    "largest": "none",
+    "largest_to_smallest_ratio": 1.793,
+    "smallest": "hate"
+  },
+  "input_scope": {
+    "read": [
+      "train.jsonl",
+      "validation.jsonl"
+    ],
+    "test": "NOT OPENED; pre-seal aggregate from AI-04 evidence only"
+  },
+  "length_boundary_candidate": 500,
+  "length_histogram": {
+    "bin_width": 10,
+    "counts": {
+      "train": [
+        380,
+        1277,
+        1175,
+        825,
+        566,
+        453,
+        342,
+        222,
+        209,
+        155,
+        100,
+        90,
+        59,
+        4
+      ],
+      "validation": [
+        55,
+        282,
+        266,
+        168,
+        157,
+        101,
+        49,
+        53,
+        44,
+        22,
+        28,
+        21,
+        9,
+        0
+      ]
+    },
+    "upper_exclusive": 140
+  },
+  "length_unit": "Unicode code points of stored comment text; no normalization",
+  "native_labels": [
+    "hate",
+    "offensive",
+    "none"
+  ],
+  "percentile_method": "nearest-rank",
+  "python": "3.12.14",
+  "revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+  "script_version": "w2-eda-v1",
+  "split_algorithm": "group-greedy-class-aware-v1",
+  "split_seed": 45126,
+  "splits": {
+    "train": {
+      "bias": {
+        "counts": {
+          "gender": 887,
+          "none": 3868,
+          "others": 1102
+        },
+        "pct": {
+          "gender": 15.14,
+          "none": 66.04,
+          "others": 18.82
+        }
+      },
+      "contain_gender_bias": {
+        "counts": {
+          "False": 4970,
+          "True": 887
+        },
+        "pct": {
+          "False": 84.86,
+          "True": 15.14
+        }
+      },
+      "contain_gender_bias_by_bias": {
+        "gender": {
+          "False": 0,
+          "True": 887
+        },
+        "none": {
+          "False": 3868,
+          "True": 0
+        },
+        "others": {
+          "False": 1102,
+          "True": 0
+        }
+      },
+      "count": 5857,
+      "label_x_bias": {
+        "counts": {
+          "hate": {
+            "gender": 561,
+            "none": 408,
+            "others": 454
+          },
+          "none": {
+            "gender": 54,
+            "none": 2399,
+            "others": 99
+          },
+          "offensive": {
+            "gender": 272,
+            "none": 1061,
+            "others": 549
+          }
+        },
+        "pct_of_split": {
+          "hate": {
+            "gender": 9.58,
+            "none": 6.97,
+            "others": 7.75
+          },
+          "none": {
+            "gender": 0.92,
+            "none": 40.96,
+            "others": 1.69
+          },
+          "offensive": {
+            "gender": 4.64,
+            "none": 18.12,
+            "others": 9.37
+          }
+        },
+        "pct_within_label": {
+          "hate": {
+            "gender": 39.42,
+            "none": 28.67,
+            "others": 31.9
+          },
+          "none": {
+            "gender": 2.12,
+            "none": 94.0,
+            "others": 3.88
+          },
+          "offensive": {
+            "gender": 14.45,
+            "none": 56.38,
+            "others": 29.17
+          }
+        }
+      },
+      "labels": {
+        "counts": {
+          "hate": 1423,
+          "none": 2552,
+          "offensive": 1882
+        },
+        "pct": {
+          "hate": 24.3,
+          "none": 43.57,
+          "offensive": 32.13
+        }
+      },
+      "length": {
+        "max": 135,
+        "mean": 38.79,
+        "min": 4,
+        "p50": 31,
+        "p90": 81,
+        "p95": 97,
+        "p99": 120
+      },
+      "length_median_by_label": {
+        "hate": 38,
+        "none": 26,
+        "offensive": 31
+      },
+      "over_500": {
+        "count": 0,
+        "pct": 0.0
+      },
+      "title_proxy_groups": {
+        "samples_per_group": {
+          "max": 8,
+          "mean": 5.08,
+          "min": 1,
+          "p50": 5,
+          "p95": 7
+        },
+        "singleton_groups": 19,
+        "size_histogram": {
+          "1": 19,
+          "2": 66,
+          "3": 113,
+          "4": 213,
+          "5": 233,
+          "6": 259,
+          "7": 212,
+          "8": 39
+        },
+        "unique": 1154
+      }
+    },
+    "validation": {
+      "bias": {
+        "counts": {
+          "gender": 203,
+          "none": 811,
+          "others": 241
+        },
+        "pct": {
+          "gender": 16.18,
+          "none": 64.62,
+          "others": 19.2
+        }
+      },
+      "contain_gender_bias": {
+        "counts": {
+          "False": 1052,
+          "True": 203
+        },
+        "pct": {
+          "False": 83.82,
+          "True": 16.18
+        }
+      },
+      "contain_gender_bias_by_bias": {
+        "gender": {
+          "False": 0,
+          "True": 203
+        },
+        "none": {
+          "False": 811,
+          "True": 0
+        },
+        "others": {
+          "False": 241,
+          "True": 0
+        }
+      },
+      "count": 1255,
+      "label_x_bias": {
+        "counts": {
+          "hate": {
+            "gender": 134,
+            "none": 80,
+            "others": 91
+          },
+          "none": {
+            "gender": 18,
+            "none": 502,
+            "others": 27
+          },
+          "offensive": {
+            "gender": 51,
+            "none": 229,
+            "others": 123
+          }
+        },
+        "pct_of_split": {
+          "hate": {
+            "gender": 10.68,
+            "none": 6.37,
+            "others": 7.25
+          },
+          "none": {
+            "gender": 1.43,
+            "none": 40.0,
+            "others": 2.15
+          },
+          "offensive": {
+            "gender": 4.06,
+            "none": 18.25,
+            "others": 9.8
+          }
+        },
+        "pct_within_label": {
+          "hate": {
+            "gender": 43.93,
+            "none": 26.23,
+            "others": 29.84
+          },
+          "none": {
+            "gender": 3.29,
+            "none": 91.77,
+            "others": 4.94
+          },
+          "offensive": {
+            "gender": 12.66,
+            "none": 56.82,
+            "others": 30.52
+          }
+        }
+      },
+      "labels": {
+        "counts": {
+          "hate": 305,
+          "none": 547,
+          "offensive": 403
+        },
+        "pct": {
+          "hate": 24.3,
+          "none": 43.59,
+          "offensive": 32.11
+        }
+      },
+      "length": {
+        "max": 128,
+        "mean": 38.6,
+        "min": 4,
+        "p50": 31,
+        "p90": 79,
+        "p95": 97,
+        "p99": 118
+      },
+      "length_median_by_label": {
+        "hate": 38,
+        "none": 28,
+        "offensive": 31
+      },
+      "over_500": {
+        "count": 0,
+        "pct": 0.0
+      },
+      "title_proxy_groups": {
+        "samples_per_group": {
+          "max": 12,
+          "mean": 7.75,
+          "min": 2,
+          "p50": 8,
+          "p95": 10
+        },
+        "singleton_groups": 0,
+        "size_histogram": {
+          "10": 19,
+          "11": 5,
+          "12": 3,
+          "2": 3,
+          "3": 5,
+          "4": 10,
+          "5": 10,
+          "6": 12,
+          "7": 7,
+          "8": 50,
+          "9": 38
+        },
+        "unique": 162
+      }
+    }
+  },
+  "test_pre_seal_aggregate": {
+    "class_counts": {
+      "hate": 305,
+      "none": 547,
+      "offensive": 403
+    },
+    "count": 1255,
+    "source": "AI-04 pre-seal aggregate (beep-evidence.json)"
+  },
+  "train_validation_title_proxy_overlap": 0
+}

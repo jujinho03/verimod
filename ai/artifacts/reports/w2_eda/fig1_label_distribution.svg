@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Native hate-axis label distribution</title>
+<rect width="640" height="380" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Native hate-axis label distribution</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<rect x="64" y="69" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="79" y="78" font-size="12" fill="#52514e">train</text>
+<rect x="124" y="69" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="139" y="78" font-size="12" fill="#52514e">validation</text>
+<line x1="64" x2="616" y1="330.0" y2="330.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="334.0" font-size="11" fill="#8a8984" text-anchor="end">0%</text>
+<line x1="64" x2="616" y1="283.2" y2="283.2" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="287.2" font-size="11" fill="#8a8984" text-anchor="end">10%</text>
+<line x1="64" x2="616" y1="236.4" y2="236.4" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="240.4" font-size="11" fill="#8a8984" text-anchor="end">20%</text>
+<line x1="64" x2="616" y1="189.6" y2="189.6" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="193.6" font-size="11" fill="#8a8984" text-anchor="end">30%</text>
+<line x1="64" x2="616" y1="142.8" y2="142.8" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="146.8" font-size="11" fill="#8a8984" text-anchor="end">40%</text>
+<line x1="64" x2="616" y1="96.0" y2="96.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="100.0" font-size="11" fill="#8a8984" text-anchor="end">50%</text>
+<path d="M131.0,330.0 V220.3 Q131.0,216.3 135.0,216.3 H151.0 Q155.0,216.3 155.0,220.3 V330.0 Z" fill="#2a78d6"><title>train hate: 1,423 (24.3%)</title></path>
+<path d="M157.0,330.0 V220.3 Q157.0,216.3 161.0,216.3 H177.0 Q181.0,216.3 181.0,220.3 V330.0 Z" fill="#eb6834"><title>validation hate: 305 (24.3%)</title></path>
+<text x="156.0" y="210.3" font-size="11" fill="#52514e" text-anchor="middle">24.3% / 24.3%</text>
+<text x="156.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">hate</text>
+<path d="M315.0,330.0 V183.6 Q315.0,179.6 319.0,179.6 H335.0 Q339.0,179.6 339.0,183.6 V330.0 Z" fill="#2a78d6"><title>train offensive: 1,882 (32.1%)</title></path>
+<path d="M341.0,330.0 V183.7 Q341.0,179.7 345.0,179.7 H361.0 Q365.0,179.7 365.0,183.7 V330.0 Z" fill="#eb6834"><title>validation offensive: 403 (32.1%)</title></path>
+<text x="340.0" y="173.6" font-size="11" fill="#52514e" text-anchor="middle">32.1% / 32.1%</text>
+<text x="340.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">offensive</text>
+<path d="M499.0,330.0 V130.1 Q499.0,126.1 503.0,126.1 H519.0 Q523.0,126.1 523.0,130.1 V330.0 Z" fill="#2a78d6"><title>train none: 2,552 (43.6%)</title></path>
+<path d="M525.0,330.0 V130.0 Q525.0,126.0 529.0,126.0 H545.0 Q549.0,126.0 549.0,130.0 V330.0 Z" fill="#eb6834"><title>validation none: 547 (43.6%)</title></path>
+<text x="524.0" y="120.0" font-size="11" fill="#52514e" text-anchor="middle">43.6% / 43.6%</text>
+<text x="524.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">none</text>
+<line x1="64" x2="616" y1="330" y2="330" stroke="#8a8984" stroke-width="1"/>
+<text x="64" y="364" font-size="11" fill="#8a8984">Labels: train / validation share. 'none' is a native negative label, not ALLOW.</text>
+</svg>

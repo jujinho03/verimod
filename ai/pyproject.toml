@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "verimod-ai"
+version = "0.0.0"
+description = "VeriMod AI / Data Science workspace (scaffold)."
+readme = "README.md"
+requires-python = ">=3.10"
+# No runtime dependencies yet. ML frameworks (torch, transformers, datasets, ...)
+# are intentionally not pinned before the model/toolchain decision.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

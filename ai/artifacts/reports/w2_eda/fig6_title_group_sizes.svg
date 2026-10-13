@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img">
+<title>Records per news-title proxy group</title>
+<rect width="640" height="380" fill="#fcfcfb"/>
+<text x="24" y="32" font-size="16" font-weight="600" fill="#0b0b0b">Records per news-title proxy group</text>
+<text x="24" y="52" font-size="12" fill="#52514e">Scope: TRAIN n=5,857 | VALIDATION n=1,255 | sealed TEST excluded</text>
+<rect x="64" y="69" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="79" y="78" font-size="12" fill="#52514e">train</text>
+<rect x="124" y="69" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="139" y="78" font-size="12" fill="#52514e">validation</text>
+<line x1="64" x2="616" y1="330.0" y2="330.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="334.0" font-size="11" fill="#8a8984" text-anchor="end">0%</text>
+<line x1="64" x2="616" y1="271.5" y2="271.5" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="275.5" font-size="11" fill="#8a8984" text-anchor="end">10%</text>
+<line x1="64" x2="616" y1="213.0" y2="213.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="217.0" font-size="11" fill="#8a8984" text-anchor="end">20%</text>
+<line x1="64" x2="616" y1="154.5" y2="154.5" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="158.5" font-size="11" fill="#8a8984" text-anchor="end">30%</text>
+<line x1="64" x2="616" y1="96.0" y2="96.0" stroke="#e4e3df" stroke-width="1"/>
+<text x="58" y="100.0" font-size="11" fill="#8a8984" text-anchor="end">40%</text>
+<path d="M69.0,330.0 V324.3 Q69.0,320.3 73.0,320.3 H82.0 Q86.0,320.3 86.0,324.3 V330.0 Z" fill="#2a78d6"><title>train 1: 19 (1.6%)</title></path>
+<text x="87.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">1</text>
+<path d="M115.0,330.0 V300.5 Q115.0,296.5 119.0,296.5 H128.0 Q132.0,296.5 132.0,300.5 V330.0 Z" fill="#2a78d6"><title>train 2: 66 (5.7%)</title></path>
+<path d="M134.0,330.0 V323.2 Q134.0,319.2 138.0,319.2 H147.0 Q151.0,319.2 151.0,323.2 V330.0 Z" fill="#eb6834"><title>validation 2: 3 (1.9%)</title></path>
+<text x="133.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">2</text>
+<path d="M161.0,330.0 V276.7 Q161.0,272.7 165.0,272.7 H174.0 Q178.0,272.7 178.0,276.7 V330.0 Z" fill="#2a78d6"><title>train 3: 113 (9.8%)</title></path>
+<path d="M180.0,330.0 V315.9 Q180.0,311.9 184.0,311.9 H193.0 Q197.0,311.9 197.0,315.9 V330.0 Z" fill="#eb6834"><title>validation 3: 5 (3.1%)</title></path>
+<text x="179.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">3</text>
+<path d="M207.0,330.0 V226.0 Q207.0,222.0 211.0,222.0 H220.0 Q224.0,222.0 224.0,226.0 V330.0 Z" fill="#2a78d6"><title>train 4: 213 (18.5%)</title></path>
+<path d="M226.0,330.0 V297.9 Q226.0,293.9 230.0,293.9 H239.0 Q243.0,293.9 243.0,297.9 V330.0 Z" fill="#eb6834"><title>validation 4: 10 (6.2%)</title></path>
+<text x="225.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">4</text>
+<path d="M253.0,330.0 V215.9 Q253.0,211.9 257.0,211.9 H266.0 Q270.0,211.9 270.0,215.9 V330.0 Z" fill="#2a78d6"><title>train 5: 233 (20.2%)</title></path>
+<path d="M272.0,330.0 V297.9 Q272.0,293.9 276.0,293.9 H285.0 Q289.0,293.9 289.0,297.9 V330.0 Z" fill="#eb6834"><title>validation 5: 10 (6.2%)</title></path>
+<text x="271.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">5</text>
+<path d="M299.0,330.0 V202.7 Q299.0,198.7 303.0,198.7 H312.0 Q316.0,198.7 316.0,202.7 V330.0 Z" fill="#2a78d6"><title>train 6: 259 (22.4%)</title></path>
+<path d="M318.0,330.0 V290.7 Q318.0,286.7 322.0,286.7 H331.0 Q335.0,286.7 335.0,290.7 V330.0 Z" fill="#eb6834"><title>validation 6: 12 (7.4%)</title></path>
+<text x="317.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">6</text>
+<path d="M345.0,330.0 V226.5 Q345.0,222.5 349.0,222.5 H358.0 Q362.0,222.5 362.0,226.5 V330.0 Z" fill="#2a78d6"><title>train 7: 212 (18.4%)</title></path>
+<path d="M364.0,330.0 V308.7 Q364.0,304.7 368.0,304.7 H377.0 Q381.0,304.7 381.0,308.7 V330.0 Z" fill="#eb6834"><title>validation 7: 7 (4.3%)</title></path>
+<text x="363.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">7</text>
+<path d="M391.0,330.0 V314.2 Q391.0,310.2 395.0,310.2 H404.0 Q408.0,310.2 408.0,314.2 V330.0 Z" fill="#2a78d6"><title>train 8: 39 (3.4%)</title></path>
+<path d="M410.0,330.0 V153.5 Q410.0,149.5 414.0,149.5 H423.0 Q427.0,149.5 427.0,153.5 V330.0 Z" fill="#eb6834"><title>validation 8: 50 (30.9%)</title></path>
+<text x="409.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">8</text>
+<path d="M456.0,330.0 V196.8 Q456.0,192.8 460.0,192.8 H469.0 Q473.0,192.8 473.0,196.8 V330.0 Z" fill="#eb6834"><title>validation 9: 38 (23.5%)</title></path>
+<text x="455.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">9</text>
+<path d="M502.0,330.0 V265.4 Q502.0,261.4 506.0,261.4 H515.0 Q519.0,261.4 519.0,265.4 V330.0 Z" fill="#eb6834"><title>validation 10: 19 (11.7%)</title></path>
+<text x="501.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">10</text>
+<path d="M548.0,330.0 V315.9 Q548.0,311.9 552.0,311.9 H561.0 Q565.0,311.9 565.0,315.9 V330.0 Z" fill="#eb6834"><title>validation 11: 5 (3.1%)</title></path>
+<text x="547.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">11</text>
+<path d="M594.0,330.0 V323.2 Q594.0,319.2 598.0,319.2 H607.0 Q611.0,319.2 611.0,323.2 V330.0 Z" fill="#eb6834"><title>validation 12: 3 (1.9%)</title></path>
+<text x="593.0" y="348" font-size="12" fill="#0b0b0b" text-anchor="middle">12</text>
+<line x1="64" x2="616" y1="330" y2="330" stroke="#8a8984" stroke-width="1"/>
+<text x="64" y="364" font-size="11" fill="#8a8984">x: records per normalized title; y: share of the split's groups. Title proxy is not an article/author ID.</text>
+</svg>

@@ -17,6 +17,10 @@ export type ReviewOutcome = 'OVERTURN' | 'RESOLVED' | 'UPHOLD'
 export const LABEL_IDS = ['hate', 'profanity', 'sexual', 'spam', 'violence'] as const
 export type LabelId = (typeof LABEL_IDS)[number]
 export type ScoresPpm = Record<LabelId, number>
+export const BEEP_SCORE_IDS = ['hate', 'offensive'] as const
+export type BeepScoreId = (typeof BEEP_SCORE_IDS)[number]
+export type BeepScoresPpm = Record<BeepScoreId, number>
+export type AnyScoresPpm = ScoresPpm | BeepScoresPpm
 
 export interface EvidenceSpan {
   start: number
@@ -40,6 +44,13 @@ export interface InferenceOutput {
   inferred_at: string
 }
 
+export interface BeepInferenceOutput extends Omit<InferenceOutput, 'taxonomy_id' | 'taxonomy_version' | 'scores_ppm' | 'evidence'> {
+  taxonomy_id: 'verimod-ko-beep-hate'
+  taxonomy_version: string
+  scores_ppm: BeepScoresPpm
+  evidence: []
+}
+
 export interface PolicyEvaluation {
   policy_manifest_hash: Hex32
   action: Action
@@ -48,7 +59,7 @@ export interface PolicyEvaluation {
 }
 
 export interface DecisionPayload {
-  inference: InferenceOutput
+  inference: InferenceOutput | BeepInferenceOutput
   policy: PolicyEvaluation
 }
 

@@ -1,0 +1,16 @@
+# TEMPLATE ONLY — not read by any code. Training has not started.
+training_status: not_started
+
+seed: null                    # the split seed in w2_dataset.json is for splitting only
+batch_size: null
+learning_rate: null
+epochs: null
+
+thresholds: null              # UNRESOLVED; synthetic demo thresholds are not operating values
+calibration: unresolved
+
+policy_selection:             # D25 (WORKING ASSUMPTION), chosen on validation, never on TEST
+  objective: "minimize HAR subject to FRR <= X and HRR_TOTAL <= B"
+  tie_break: ["higher RP", "lower HRR_TOTAL"]
+  X: null                     # UNRESOLVED
+  B: null                     # UNRESOLVED

@@ -1,0 +1,25 @@
+# Python environment and build output
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+
+# Data: deny by default. Raw/processed datasets, download caches and temporary
+# preprocessing outputs (data/raw, data/processed, data/cache, data/downloads, ...)
+# must never be committed. Only the README and small synthetic fixtures are allowed.
+data/*
+!data/README.md
+!data/fixtures/
+
+# Artifacts: deny by default. Checkpoints, weights, optimizer states and caches
+# (artifacts/checkpoints, artifacts/models, artifacts/cache, ...) stay local.
+# Only the README, small manifests and evaluation summaries are allowed.
+artifacts/*
+!artifacts/README.md
+!artifacts/manifests/
+!artifacts/reports/

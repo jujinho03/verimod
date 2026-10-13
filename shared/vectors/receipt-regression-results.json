@@ -2,9 +2,9 @@
   "profile": "verimod-canonical-profile-v1",
   "hash": "verimod:receipt:v1",
   "cases": [
-    {"id":"normal-valid","input":"docs/examples/01-valid.json#/receipt_body","expected_hash":"0x2dcaff4155a88bd14317e9b9969784b5d0ab5cbfc34cd2c21a00ab462e34687f"},
-    {"id":"normal-tampered-body","input":"docs/examples/02-tampered.json#/receipt_body","expected_hash":"0xc59c20285986aaaeab99bcc8c1183e1455eff70b022519abc0c3cac9c8279165"},
-    {"id":"normal-rehashed","input":"docs/examples/03-rehashed.json#/receipt_body","expected_hash":"0xc59c20285986aaaeab99bcc8c1183e1455eff70b022519abc0c3cac9c8279165"},
+    {"id":"normal-valid","input":"docs/examples/01-valid.json#/receipt_body","expected_hash":"0xf6a88d533098cc72001f3611251c91c5d4fb48cbb018d79ef5f1d6b8ba24759b"},
+    {"id":"normal-tampered-body","input":"docs/examples/02-tampered.json#/receipt_body","expected_hash":"0xbdcc8f261a3e0fa41d1fa8827c0aa3a98ef1a253f9756109165df0a05d6a7b20"},
+    {"id":"normal-rehashed","input":"docs/examples/03-rehashed.json#/receipt_body","expected_hash":"0xbdcc8f261a3e0fa41d1fa8827c0aa3a98ef1a253f9756109165df0a05d6a7b20"},
     {"id":"key-top-level","input":{"b":2,"a":1},"expected_canonical":"{\"a\":1,\"b\":2}"},
     {"id":"key-nested","input":{"x":{"z":2,"a":1}},"expected_canonical":"{\"x\":{\"a\":1,\"z\":2}}"},
     {"id":"key-receipt-body","input":"docs/examples/01-valid.json#/receipt_body reversed-keys","expected":"same-bytes"},

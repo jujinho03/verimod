@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { verifyReceipt, type VerifyReport } from '../domain/verify'
+import { verifyReceipt, type VerifierContext, type VerifyReport } from '../domain/verify'
 import { useStore } from '../store/context'
 
 export function useVerify() {
@@ -9,12 +9,12 @@ export function useVerify() {
   const sequence = useRef(0)
 
   const run = useCallback(
-    async (input: unknown) => {
+    async (input: unknown, context?: VerifierContext) => {
       const request = ++sequence.current
       setReport(null)
       setRunning(true)
       try {
-        const next = await verifyReceipt(input, await store.verifierContext())
+        const next = await verifyReceipt(input, context ?? await store.verifierContext())
         if (request === sequence.current) setReport(next)
         return next
       } finally {
