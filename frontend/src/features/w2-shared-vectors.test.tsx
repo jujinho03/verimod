@@ -62,7 +62,7 @@ describe('F UI consumption of T shared regression vectors', () => {
         const body = parsed.value
         const own = store.getState().contents[body.content_commitment]
         if (!own) throw new Error(`Missing synthetic seed text for ${id}`)
-        card = renderToStaticMarkup(<DecisionResult draft={{ ...own, ...body.payload }} stale={false} busy={false} issuing={false} onIssue={() => {}} />)
+        card = renderToStaticMarkup(<DecisionResult draft={{ ...own, ...body.payload } as import('../store/store').DecisionDraft} stale={false} busy={false} issuing={false} onIssue={() => {}} />)
         expect(card).not.toContain(own.salt)
         expect(card).toContain('사유 코드')
         // Consumer rendering must not mutate the producer's canonical bytes.
