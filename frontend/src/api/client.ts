@@ -8,6 +8,7 @@ export interface ApiClientOptions {
   baseUrl?: string
   timeoutMs?: number
   fetcher?: typeof fetch
+  principal?: string
 }
 
 const isObject = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -71,11 +72,13 @@ export class VeriModApiClient {
   private readonly baseUrl: string
   private readonly timeoutMs: number
   private readonly fetcher: typeof fetch
+  private readonly principal: string
 
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? '').replace(/\/$/, '')
     this.timeoutMs = options.timeoutMs ?? 8000
     this.fetcher = options.fetcher ?? fetch
+    this.principal = options.principal?.trim() || 'verimod-browser-user'
   }
 
   /**
@@ -86,7 +89,10 @@ export class VeriModApiClient {
     if (idempotencyKey.trim() === '') throw new ApiClientError('INVALID_RESPONSE', 'Idempotency-Key가 필요합니다')
     return this.request('/api/decisions', decodeDecisionCreated, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey },
+      headers: {
+        'Content-Type': 'application/json', 'Idempotency-Key': idempotencyKey,
+        'x-demo-principal': this.principal, 'x-demo-role': 'DEMO_USER',
+      },
       body: JSON.stringify(request),
     })
   }

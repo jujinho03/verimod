@@ -17,6 +17,25 @@ function json(value: unknown, status = 200) {
 }
 
 describe('VeriModApiClient W3 boundary', () => {
+  it('accepts the W4 BEEP two-score receipt and sends the demo principal boundary', async () => {
+    const w4 = structuredClone(bundle)
+    if (w4.receipt_body.event_kind !== 'DECISION') throw new Error('fixture')
+    w4.receipt_body.payload.inference.taxonomy_id = 'verimod-ko-beep-hate'
+    w4.receipt_body.payload.inference.taxonomy_version = 'w4-r01'
+    w4.receipt_body.payload.inference.scores_ppm = { hate: 125_000, offensive: 625_000 }
+    w4.receipt_body.payload.inference.evidence = []
+    let sent: RequestInit | undefined
+    const client = new VeriModApiClient({ principal: 'browser-owner', fetcher: async (_input, init) => {
+      sent = init
+      return json({ ok: true, request_id: 'req-w4', data: { bundle: w4, private_package: {
+        receipt_id: w4.receipt_body.receipt_id, content_commitment: w4.receipt_body.content_commitment, content_salt: 'ab'.repeat(32),
+      } } }, 201)
+    } })
+    await expect(client.postDecision({ text: '한국어 입력' }, 'idem-w4')).resolves.toMatchObject({ data: { bundle: w4 } })
+    expect((sent?.headers as Record<string, string>)['x-demo-principal']).toBe('browser-owner')
+    expect((sent?.headers as Record<string, string>)['x-demo-role']).toBe('DEMO_USER')
+  })
+
   it('accepts the proposed decision envelope and never requires original_text from the server', async () => {
     let sent: RequestInit | undefined
     const client = new VeriModApiClient({
