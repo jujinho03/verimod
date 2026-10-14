@@ -1,0 +1,411 @@
+{
+  "scope": "AI-09 ONLY",
+  "run_at": "2026-10-14T04:34:23.541150+00:00",
+  "input_source": "AI_AUTHORED_SYNTHETIC",
+  "dataset_accessed": false,
+  "test_accessed": false,
+  "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "success_responses": [
+    {
+      "case": "korean_short",
+      "request": {
+        "text": "오늘은 날씨가 좋아서 친구와 함께 산책했어요.",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "korean_short"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "korean_short",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "9927c26a-fb70-47d8-91bf-2f33c4cc937a",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 3401,
+            "offensive": 10902
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.251Z"
+        }
+      }
+    },
+    {
+      "case": "korean_other",
+      "request": {
+        "text": "서로 다른 의견도 차분히 듣고 존중하면 좋겠습니다.",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "korean_other"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "korean_other",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "e751d468-fb85-482b-af0b-ccbd3fba4241",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 3436,
+            "offensive": 13417
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.311Z"
+        }
+      }
+    },
+    {
+      "case": "codepoints_500",
+      "request": {
+        "text": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   가",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "codepoints_500"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "codepoints_500",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "62db5455-1f13-4fad-8fc0-d90ca6ff5c98",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 10120,
+            "offensive": 80219
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.336Z"
+        }
+      }
+    },
+    {
+      "case": "codepoints_501",
+      "request": {
+        "text": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   가나",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "codepoints_501"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "codepoints_501",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "32c32dd8-b6b6-403d-8357-a686e3a07b31",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 10120,
+            "offensive": 80219
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "TRUNCATED",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.360Z"
+        }
+      }
+    },
+    {
+      "case": "token_truncation_under_500",
+      "request": {
+        "text": "가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 가 ",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "token_truncation_under_500"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "token_truncation_under_500",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "39a63e75-c803-4c14-8936-0b9590303fed",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 31479,
+            "offensive": 102538
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "TRUNCATED",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.573Z"
+        }
+      }
+    },
+    {
+      "case": "astral_codepoints_501",
+      "request": {
+        "text": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+        "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+        "request_id": "astral_codepoints_501"
+      },
+      "response": {
+        "ok": true,
+        "request_id": "astral_codepoints_501",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "809ad736-d041-4083-9b41-c1de92af24b7",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 12663,
+            "offensive": 42703
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "TRUNCATED",
+          "evidence": [],
+          "inferred_at": "2026-10-14T04:35:09.599Z"
+        }
+      }
+    }
+  ],
+  "failure_tests": {
+    "empty": {
+      "http_status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "ai09-synthetic",
+        "error": {
+          "code": "EMPTY_INPUT",
+          "retryable": false
+        }
+      }
+    },
+    "invalid_type": {
+      "http_status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "f40a5cd8-f129-46a4-8c09-d561c4308fa6",
+        "error": {
+          "code": "INVALID_INPUT",
+          "retryable": false
+        }
+      }
+    },
+    "invalid_commitment": {
+      "http_status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "48072825-e21f-40fa-9520-bf590e7df9c4",
+        "error": {
+          "code": "INVALID_INPUT",
+          "retryable": false
+        }
+      }
+    },
+    "malformed_json": {
+      "http_status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "9fb779f4-cf58-4c46-a69a-b1cd256ffd34",
+        "error": {
+          "code": "INVALID_INPUT",
+          "retryable": false
+        }
+      }
+    },
+    "invalid_unicode": {
+      "http_status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "aee9c68a-7bc7-42f3-8e88-43ac89f6a48b",
+        "error": {
+          "code": "INVALID_INPUT",
+          "retryable": false
+        }
+      }
+    },
+    "missing_model": {
+      "http_status": 503,
+      "response": {
+        "ok": false,
+        "request_id": "ai09-synthetic",
+        "error": {
+          "code": "INFERENCE_UNAVAILABLE",
+          "retryable": true
+        }
+      },
+      "startup": {
+        "command": [
+          "C:\\Users\\jinho\\Desktop\\BLOCK AI\\verimod\\ai\\.venv\\Scripts\\python.exe",
+          "-B",
+          "ai/scripts/serve_w4_inference.py",
+          "--port",
+          "52853"
+        ],
+        "startup_ms": 2121.8536000233144,
+        "health": {
+          "ready": false,
+          "run_id": "AI07-BL-KLUE-RB-45126-R01",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "artifact_sha256": null,
+          "device": "cpu",
+          "batch_size": 1,
+          "torch_num_threads": 4,
+          "torch_num_interop_threads": 1
+        }
+      }
+    },
+    "hash_mismatch": {
+      "http_status": 503,
+      "response": {
+        "ok": false,
+        "request_id": "ai09-synthetic",
+        "error": {
+          "code": "INFERENCE_UNAVAILABLE",
+          "retryable": true
+        }
+      }
+    },
+    "actual_forward_timeout": {
+      "http_status": 504,
+      "response": {
+        "ok": false,
+        "request_id": "ai09-synthetic",
+        "error": {
+          "code": "INFERENCE_TIMEOUT",
+          "retryable": true
+        }
+      }
+    },
+    "busy_after_timeout": {
+      "http_status": 503,
+      "response": {
+        "ok": false,
+        "request_id": "ai09-synthetic",
+        "error": {
+          "code": "INFERENCE_UNAVAILABLE",
+          "retryable": true
+        }
+      }
+    }
+  },
+  "startup": {
+    "command": [
+      "C:\\Users\\jinho\\Desktop\\BLOCK AI\\verimod\\ai\\.venv\\Scripts\\python.exe",
+      "-B",
+      "ai/scripts/serve_w4_inference.py",
+      "--port",
+      "61312"
+    ],
+    "startup_ms": 45548.09009982273,
+    "health": {
+      "ready": true,
+      "run_id": "AI07-BL-KLUE-RB-45126-R01",
+      "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+      "artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+      "device": "cpu",
+      "batch_size": 1,
+      "torch_num_threads": 4,
+      "torch_num_interop_threads": 1
+    }
+  },
+  "latency": {
+    "p50_ms": 65.28020009864122,
+    "p95_ms": 72.31695998925716,
+    "samples_ms": [
+      63.321900088340044,
+      61.61939981393516,
+      64.55959985032678,
+      65.29799988493323,
+      65.51670003682375,
+      63.687500078231096,
+      67.3505999147892,
+      61.831300146877766,
+      68.56000004336238,
+      62.99040000885725,
+      66.63170014508069,
+      65.28590014204383,
+      66.74260017462075,
+      64.89309994503856,
+      64.35290002264082,
+      61.39309983700514,
+      66.11969997175038,
+      65.2745000552386,
+      61.61380000412464,
+      64.75010002031922,
+      62.80820001848042,
+      64.45370009168983,
+      63.88529995456338,
+      66.08309992589056,
+      65.87000004947186,
+      71.6955999378115,
+      71.32230000570416,
+      66.02080003358424,
+      75.52950014360249,
+      69.44130011834204,
+      71.94779999554157,
+      70.54389989934862,
+      65.7727001234889,
+      64.11779997870326,
+      75.91140014119446,
+      71.4699998497963,
+      72.61899998411536,
+      68.26349999755621,
+      66.61209999583662,
+      63.383599976077676,
+      63.0218000151217,
+      64.77900012396276,
+      63.09830001555383,
+      59.82079985551536,
+      66.51229993440211,
+      64.93360013701022,
+      61.84280011802912,
+      66.11829996109009,
+      59.799799928441644,
+      65.18459995277226
+    ],
+    "percentile_method": "numpy.percentile linear",
+    "warmup_requests": 5,
+    "prior_functional_forward_requests": 6,
+    "repetitions": 50,
+    "device": "cpu",
+    "gpu_used": false,
+    "batch_size": 1,
+    "concurrency": 1,
+    "torch_num_threads": 4,
+    "torch_num_interop_threads": 1,
+    "transport": "loopback HTTP keep-alive, full request/response; no load test",
+    "input_text": "오늘은 날씨가 좋아서 친구와 함께 산책했어요.",
+    "startup_included": false
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "logical_cpu_count": 8,
+    "versions": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "numpy": "2.5.3",
+      "fastapi": "0.143.0",
+      "uvicorn": "0.54.0",
+      "httpx": "0.28.1",
+      "pydantic": "2.14.1",
+      "starlette": "1.8.0"
+    }
+  },
+  "status": "PASS",
+  "node_consumer_validation": {
+    "status": "PASS",
+    "checked": 6,
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1"
+  }
+}
