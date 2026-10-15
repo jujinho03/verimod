@@ -1,4 +1,8 @@
-import { isHex32, type Hex32 } from '@verimod/protocol/hash'
+import { canonicalBytes } from '@verimod/protocol/canonical'
+import { DOMAINS, domainHash, isHex32, type Hex32 } from '@verimod/protocol/hash'
+
+export const W4_R01_MODEL_HASH: Hex32 = '0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1'
+export const W4_PROVISIONAL_POLICY_HASH: Hex32 = '0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e'
 
 export interface W3InferenceOutput {
   output_version: 'inference/1'
@@ -31,6 +35,9 @@ export interface PolicyEvaluator {
 
 export interface ThresholdPolicyConfig {
   policyManifestHash: Hex32
+  policyManifest: unknown
+  /** The unapproved W4 policy is confined to explicitly enabled local E2E. */
+  localW4E2E: boolean
   hate: { review: number; restrict: number }
   offensive: { review: number; restrict: number }
 }
@@ -93,21 +100,41 @@ function sortedUniqueIds(value: unknown): value is string[] {
   )
 }
 
-export function assertValidInference(value: W3InferenceOutput, commitment: Hex32): void {
+function record(value: unknown): Record<string, unknown> {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) throw new InferenceUnavailableError()
+  return value as Record<string, unknown>
+}
+
+export async function trustedModelHash(manifest: unknown): Promise<Hex32> {
+  const model = record(manifest)
+  if (model.manifest_type !== 'ACTUAL_TRAINED_MODEL' || model.run_id !== 'AI07-BL-KLUE-RB-45126-R01'
+    || model.taxonomy_id !== 'verimod-ko-beep-hate' || model.taxonomy_version !== '1'
+    || model.score_semantics !== 'UNCALIBRATED'
+    || JSON.stringify(model.exposed_score_keys) !== '["hate","offensive"]') throw new InferenceUnavailableError()
+  try {
+    const hash = await domainHash(DOMAINS.model, canonicalBytes(manifest))
+    if (hash !== W4_R01_MODEL_HASH) throw new InferenceUnavailableError()
+    return hash
+  } catch { throw new InferenceUnavailableError() }
+}
+
+export async function assertValidInference(value: W3InferenceOutput, commitment: Hex32, modelManifest: unknown): Promise<void> {
+  const trustedHash = await trustedModelHash(modelManifest)
+  if (typeof value !== 'object' || value === null || typeof value.scores_ppm !== 'object' || value.scores_ppm === null) throw new InferenceUnavailableError()
   const scoreKeys = Object.keys(value.scores_ppm)
   const scores = Object.values(value.scores_ppm)
   if (
     value.output_version !== 'inference/1'
     || !UUID_V4.test(value.inference_id)
     || value.content_commitment !== commitment
-    || !isHex32(value.model_manifest_hash)
+    || value.model_manifest_hash !== trustedHash
     || value.taxonomy_id !== 'verimod-ko-beep-hate'
-    || value.taxonomy_version.length === 0
+    || value.taxonomy_version !== '1'
     || scoreKeys.length !== 2
     || !scoreKeys.includes('hate')
     || !scoreKeys.includes('offensive')
     || scores.some((score) => !Number.isSafeInteger(score) || score < 0 || score > 1_000_000)
-    || !['CALIBRATED', 'UNCALIBRATED'].includes(value.score_semantics)
+    || value.score_semantics !== 'UNCALIBRATED'
     || !['FULL', 'TRUNCATED'].includes(value.input_status)
     || !Array.isArray(value.evidence)
     || Number.isNaN(Date.parse(value.inferred_at))
@@ -119,7 +146,7 @@ export function assertValidInference(value: W3InferenceOutput, commitment: Hex32
 
 export function assertValidPolicy(value: W3PolicyEvaluation): void {
   if (
-    !isHex32(value.policy_manifest_hash)
+    value.policy_manifest_hash !== W4_PROVISIONAL_POLICY_HASH
     || !['ALLOW', 'HUMAN_REVIEW', 'RESTRICT'].includes(value.action)
     || !sortedUniqueIds(value.reason_codes)
     || !sortedUniqueIds(value.triggered_rule_ids)
@@ -133,7 +160,34 @@ function threshold(value: number, name: string): number {
   return value
 }
 
-/** Validation 결과로 주입한 임계값만 사용한다. 소스 안에 운영 임계값 기본값을 두지 않는다. */
+/** W4 provisional policy must match the pinned canonical manifest and exact active rules. */
+async function assertTrustedPolicy(config: ThresholdPolicyConfig): Promise<void> {
+  if (!config.localW4E2E || config.policyManifestHash !== W4_PROVISIONAL_POLICY_HASH) throw new InferenceUnavailableError()
+  const manifest = record(config.policyManifest)
+  try {
+    if (await domainHash(DOMAINS.policy, canonicalBytes(manifest)) !== W4_PROVISIONAL_POLICY_HASH) throw new InferenceUnavailableError()
+  } catch { throw new InferenceUnavailableError() }
+  const thresholds = record(manifest.thresholds_ppm)
+  for (const label of ['hate', 'offensive'] as const) {
+    const expected = record(thresholds[label])
+    if (config[label].review !== expected.review || config[label].restrict !== expected.restrict) throw new InferenceUnavailableError()
+  }
+  if (manifest.policy_status !== 'W4_PROVISIONAL' || manifest.usage !== 'W4_PROVISIONAL_E2E_ONLY'
+    || manifest.team_approved !== false || manifest.model_manifest_hash !== W4_R01_MODEL_HASH
+    || manifest.taxonomy_id !== 'verimod-ko-beep-hate' || manifest.taxonomy_version !== '1'
+    || manifest.score_semantics !== 'UNCALIBRATED'
+    || JSON.stringify(manifest.score_keys) !== '["hate","offensive"]'
+    || manifest.comparison !== 'greater_than_or_equal'
+    || JSON.stringify(manifest.precedence) !== '["TRUNCATED_HUMAN_REVIEW","ANY_RESTRICT","ANY_REVIEW","ALLOW"]'
+    || JSON.stringify(manifest.truncated) !== '{"action":"HUMAN_REVIEW","overrides_high_scores":true,"reason_codes":["INPUT_TRUNCATED"],"triggered_rule_ids":["W4-TRUNCATED"]}'
+    || JSON.stringify(manifest.score_rules) !== JSON.stringify([
+      { label: 'hate', band: 'review', action: 'HUMAN_REVIEW', reason_code: 'SCORE_HATE_REVIEW', rule_id: 'W4-HATE-REVIEW' },
+      { label: 'hate', band: 'restrict', action: 'RESTRICT', reason_code: 'SCORE_HATE_RESTRICT', rule_id: 'W4-HATE-RESTRICT' },
+      { label: 'offensive', band: 'review', action: 'HUMAN_REVIEW', reason_code: 'SCORE_OFFENSIVE_REVIEW', rule_id: 'W4-OFFENSIVE-REVIEW' },
+      { label: 'offensive', band: 'restrict', action: 'RESTRICT', reason_code: 'SCORE_OFFENSIVE_RESTRICT', rule_id: 'W4-OFFENSIVE-RESTRICT' },
+    ]) || JSON.stringify(manifest.allow) !== '{"reason_codes":[],"triggered_rule_ids":[]}') throw new InferenceUnavailableError()
+}
+
 export function createThresholdPolicyEvaluator(config: ThresholdPolicyConfig): PolicyEvaluator {
   if (!isHex32(config.policyManifestHash)) throw new Error('policy manifest hash must be hex32')
   for (const label of ['hate', 'offensive'] as const) {
@@ -143,6 +197,7 @@ export function createThresholdPolicyEvaluator(config: ThresholdPolicyConfig): P
   }
   return {
     async evaluate(inference) {
+      await assertTrustedPolicy(config)
       if (inference.input_status === 'TRUNCATED') return {
         policy_manifest_hash: config.policyManifestHash,
         action: 'HUMAN_REVIEW', reason_codes: ['INPUT_TRUNCATED'], triggered_rule_ids: ['W4-TRUNCATED'],
