@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
+import { readFileSync } from 'node:fs'
 import type { Hex32 } from '@verimod/protocol/hash'
-import { createHttpInferenceAdapter, createThresholdPolicyEvaluator, InferenceUnavailableError } from '../src/inference.js'
+import { createHttpInferenceAdapter, createThresholdPolicyEvaluator, InferenceUnavailableError, W4_PROVISIONAL_POLICY_HASH } from '../src/inference.js'
+
+const policyManifest = JSON.parse(readFileSync(new URL('../config/w4-provisional.policy_manifest.json', import.meta.url), 'utf8'))
+const aVectors = JSON.parse(readFileSync(new URL('./fixtures/w4-a-policy-vectors.json', import.meta.url), 'utf8'))
 
 const commitment = `0x${'1'.repeat(64)}` as Hex32
 const output = {
@@ -38,25 +42,33 @@ describe('INT-01 HTTP inference adapter', () => {
 
 describe('A/F validation-backed policy parity boundary', () => {
   const evaluator = createThresholdPolicyEvaluator({
-    policyManifestHash: `0x${'3'.repeat(64)}`,
-    hate: { review: 300_000, restrict: 700_000 },
-    offensive: { review: 400_000, restrict: 800_000 },
+    policyManifestHash: W4_PROVISIONAL_POLICY_HASH, policyManifest, localW4E2E: true,
+    hate: { review: 24_495, restrict: 216_950 },
+    offensive: { review: 180_483, restrict: 646_501 },
   })
   const cases = [
-    [299_999, 399_999, 'FULL', 'ALLOW'],
-    [300_000, 0, 'FULL', 'HUMAN_REVIEW'],
-    [300_001, 0, 'FULL', 'HUMAN_REVIEW'],
-    [699_999, 0, 'FULL', 'HUMAN_REVIEW'],
-    [700_000, 0, 'FULL', 'RESTRICT'],
-    [700_001, 0, 'FULL', 'RESTRICT'],
-    [0, 399_999, 'FULL', 'ALLOW'],
-    [0, 400_000, 'FULL', 'HUMAN_REVIEW'],
-    [0, 800_000, 'FULL', 'RESTRICT'],
-    [700_000, 800_000, 'FULL', 'RESTRICT'],
+    [24_494, 180_482, 'FULL', 'ALLOW'],
+    [24_495, 0, 'FULL', 'HUMAN_REVIEW'],
+    [24_496, 0, 'FULL', 'HUMAN_REVIEW'],
+    [216_949, 0, 'FULL', 'HUMAN_REVIEW'],
+    [216_950, 0, 'FULL', 'RESTRICT'],
+    [216_951, 0, 'FULL', 'RESTRICT'],
+    [0, 180_482, 'FULL', 'ALLOW'],
+    [0, 180_483, 'FULL', 'HUMAN_REVIEW'],
+    [0, 646_501, 'FULL', 'RESTRICT'],
+    [216_950, 646_501, 'FULL', 'RESTRICT'],
     [1_000_000, 1_000_000, 'TRUNCATED', 'HUMAN_REVIEW'],
   ] as const
 
   it.each(cases)('maps hate=%i offensive=%i input=%s to %s', async (hate, offensive, inputStatus, action) => {
     await expect(evaluator.evaluate({ ...output, scores_ppm: { hate, offensive }, input_status: inputStatus })).resolves.toMatchObject({ action })
+  })
+
+  it('matches all 21 A/Python expected policy vectors exactly', async () => {
+    expect(aVectors.policy_manifest_hash).toBe(W4_PROVISIONAL_POLICY_HASH)
+    expect(aVectors.vectors).toHaveLength(21)
+    for (const vector of aVectors.vectors) {
+      expect(await evaluator.evaluate({ ...output, scores_ppm: vector.scores_ppm, input_status: vector.input_status }), vector.id).toEqual(vector.expected)
+    }
   })
 })
