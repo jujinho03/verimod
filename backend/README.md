@@ -23,19 +23,22 @@ x-demo-role: DEMO_USER | DEMO_REVIEWER | DEMO_OPERATOR
 
 `VERIMOD_DB_PATH` selects the SQLite file. The default is `./data/verimod.sqlite`.
 
-Live issuance activates only when the inference endpoint and all policy values are present:
+The R01 W4 provisional technical E2E path requires an explicit local-only switch, the two pinned A manifest snapshots, a loopback inference endpoint, and all four matching thresholds:
 
 ```text
-VERIMOD_INFERENCE_URL=https://.../infer
+VERIMOD_W4_PROVISIONAL_E2E_ONLY=true
+VERIMOD_INFERENCE_URL=http://127.0.0.1:<port>/infer
 VERIMOD_INFERENCE_TIMEOUT_MS=8000
-VERIMOD_POLICY_MANIFEST_HASH=0x...64-hex
-VERIMOD_HATE_REVIEW_PPM=<validation result>
-VERIMOD_HATE_RESTRICT_PPM=<validation result>
-VERIMOD_OFFENSIVE_REVIEW_PPM=<validation result>
-VERIMOD_OFFENSIVE_RESTRICT_PPM=<validation result>
+VERIMOD_MODEL_MANIFEST_PATH=./config/w4-r01.model_manifest.json
+VERIMOD_POLICY_MANIFEST_PATH=./config/w4-provisional.policy_manifest.json
+VERIMOD_POLICY_MANIFEST_HASH=0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e
+VERIMOD_HATE_REVIEW_PPM=24495
+VERIMOD_HATE_RESTRICT_PPM=216950
+VERIMOD_OFFENSIVE_REVIEW_PPM=180483
+VERIMOD_OFFENSIVE_RESTRICT_PPM=646501
 ```
 
-No policy threshold has a source-code default. The team must supply validation evidence and the matching manifest hash. If either inference or policy is unavailable, the service returns `503`, issues zero receipts, and creates zero anchor candidates.
+The server binds only to `127.0.0.1`. These thresholds are W4 provisional test values, not an approved operational default. The model and policy hashes are pinned to A's R01 and W4 manifest snapshots; each request checks the canonical manifest hashes and the active policy thresholds. Missing or mismatched inputs return `503` before a Receipt is persisted. X/B and team approval remain pending.
 
 The frontend live path uses these build values:
 
