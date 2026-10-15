@@ -244,7 +244,7 @@
       },
       "startup": {
         "command": [
-          "C:\\Users\\jinho\\Desktop\\BLOCK AI\\verimod\\ai\\.venv\\Scripts\\python.exe",
+          "ai/.venv/Scripts/python.exe",
           "-B",
           "ai/scripts/serve_w4_inference.py",
           "--port",
@@ -299,7 +299,7 @@
   },
   "startup": {
     "command": [
-      "C:\\Users\\jinho\\Desktop\\BLOCK AI\\verimod\\ai\\.venv\\Scripts\\python.exe",
+      "ai/.venv/Scripts/python.exe",
       "-B",
       "ai/scripts/serve_w4_inference.py",
       "--port",

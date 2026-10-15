@@ -1,0 +1,26 @@
+{
+  "scope": "AI09 public metadata only; no W3 frozen edits; Git history not rewritten",
+  "artifacts": [
+    {
+      "artifact": "ai/artifacts/reports/w4_ai09/run-20261014-02/api_verification.json",
+      "redacted_fields": [
+        ".failure_tests.missing_model.startup.command[0]",
+        ".startup.command[0]"
+      ],
+      "original_sha256": "1826c1652c51e75dea8f63788cad4e098bce88287b228252842b1856db405ffc",
+      "sanitized_sha256": "a56a6de8e14345a889494d6806372b7f00c6c17a837034cb206fd16fcb855a93",
+      "original_backup": "LOCAL_PRIVATE_GIT_IGNORED",
+      "metrics_changed": false
+    },
+    {
+      "artifact": "ai/artifacts/reports/w4_ai09/run-20261014-02/pytest.xml",
+      "redacted_fields": [
+        "testsuite.hostname"
+      ],
+      "original_sha256": "36e011078b18af831842a0fbbfca648e69e0d62356d761076b97f08ae4c1fe2d",
+      "sanitized_sha256": "b1ff4d256c3c35559639674cb4c5d6cb43279e95721bc085e821fff317d12bc8",
+      "original_backup": "LOCAL_PRIVATE_GIT_IGNORED",
+      "metrics_changed": false
+    }
+  ]
+}

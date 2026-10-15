@@ -1,0 +1,106 @@
+{
+  "status": "PASS",
+  "provenance": {
+    "run_id": "AI07-BL-KLUE-RB-45126-R01",
+    "dataset_revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+    "split": "validation",
+    "split_count": 1255,
+    "split_sha256": "a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a",
+    "predictions_sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+    "prediction_rows": 1255,
+    "prediction_location": "LOCAL_PRIVATE_GIT_IGNORED",
+    "original_text_in_predictions": false,
+    "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+    "tokenizer_id": "klue/roberta-base",
+    "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+    "preprocessing": "verimod-ko-text-v1",
+    "codepoint_head": 500,
+    "tokenizer_truncation_side": "right",
+    "max_length": 128,
+    "padding": "longest_in_batch",
+    "device": "cpu",
+    "dtype": "float32",
+    "batch_size": 1,
+    "torch_threads": 4,
+    "torch_interop_threads": 1,
+    "score_semantics": "UNCALIBRATED",
+    "ppm_rule": "floor(score * 1000000 + 0.5), once per exposed score",
+    "versions": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "numpy": "2.5.3"
+    },
+    "created_at": "2026-10-15T16:55:19.286721+00:00",
+    "elapsed_seconds": 147.92419250000967,
+    "test_accessed": false,
+    "training_executed": false
+  },
+  "metrics": {
+    "classes": [
+      "hate",
+      "offensive",
+      "none"
+    ],
+    "n": 1255,
+    "confusion_matrix": {
+      "hate": {
+        "hate": 177,
+        "offensive": 100,
+        "none": 28
+      },
+      "offensive": {
+        "hate": 37,
+        "offensive": 226,
+        "none": 140
+      },
+      "none": {
+        "hate": 13,
+        "offensive": 105,
+        "none": 429
+      }
+    },
+    "per_class": {
+      "hate": {
+        "precision": 0.7797356828193832,
+        "recall": 0.580327868852459,
+        "f1": 0.6654135338345865,
+        "support": 305,
+        "precision_defined": true,
+        "recall_defined": true,
+        "f1_defined": true
+      },
+      "offensive": {
+        "precision": 0.5243619489559165,
+        "recall": 0.5607940446650124,
+        "f1": 0.5419664268585132,
+        "support": 403,
+        "precision_defined": true,
+        "recall_defined": true,
+        "f1_defined": true
+      },
+      "none": {
+        "precision": 0.7185929648241206,
+        "recall": 0.7842778793418648,
+        "f1": 0.75,
+        "support": 547,
+        "precision_defined": true,
+        "recall_defined": true,
+        "f1_defined": true
+      }
+    },
+    "macro_f1": 0.6524599868976999,
+    "micro_f1": 0.6629482071713148,
+    "accuracy": 0.6629482071713148
+  },
+  "w3_comparison": {
+    "official_macro_f1": 0.6524599868976999,
+    "macro_f1_delta": 0.0,
+    "official_accuracy": 0.6629482071713148,
+    "accuracy_delta": 0.0,
+    "confusion_matrix_equal": true
+  },
+  "input_status_counts": {
+    "FULL": 1255
+  }
+}
