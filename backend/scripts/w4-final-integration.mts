@@ -10,6 +10,7 @@ import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
+import { launchBackend as launchBackendProcess, stopChild, waitForBackendHealth } from './backend-process.js'
 import { canonicalBytes, canonicalize } from '../../shared/protocol/src/canonical.ts'
 import { DOMAINS, domainHash } from '../../shared/protocol/src/hash.ts'
 import { contentCommitment, ISSUER_ID, receiptHash } from '../../shared/protocol/src/receipt.ts'
@@ -119,10 +120,7 @@ if (values['preflight-only'] || Object.values(report.checks).includes('BLOCKED')
     child.on('error', () => log.end()); child.on('exit', () => log.end())
     return child
   }
-  const stop = async (child: ReturnType<typeof spawn>) => {
-    if (!child.pid || child.exitCode !== null || child.signalCode !== null) return
-    const exited = once(child, 'exit'); child.kill(); await exited
-  }
+  const stop = stopChild
   const port = async () => {
     const server = netServer(); server.listen(0, '127.0.0.1'); await once(server, 'listening')
     const selected = (server.address() as { port: number }).port
@@ -168,10 +166,11 @@ if (values['preflight-only'] || Object.values(report.checks).includes('BLOCKED')
       VERIMOD_HATE_REVIEW_PPM: '24495', VERIMOD_HATE_RESTRICT_PPM: '216950',
       VERIMOD_OFFENSIVE_REVIEW_PPM: '180483', VERIMOD_OFFENSIVE_RESTRICT_PPM: '646501',
     }
-    const launchBackend = (name: string) => start(name, process.execPath, ['--import', resolve(froot, 'backend/node_modules/tsx/dist/loader.mjs'), 'src/server.ts'], resolve(froot, 'backend'), backendEnv)
+    const launchBackend = (name: string) => launchBackendProcess(froot, backendEnv,
+      (command, args, cwd, env) => start(name, command, args, cwd, env))
     backend = launchBackend('f-backend')
     const base = `http://127.0.0.1:${backendPort}`
-    await ready(`${base}/api/health`, backend)
+    await waitForBackendHealth(backend, `${base}/api/health`)
     const post = async (path: string, key: string, role: string, body: unknown) => {
       const response = await fetch(`${base}${path}`, { method: 'POST', headers: {
         'Content-Type': 'application/json', 'x-demo-role': role, 'x-demo-principal': role === 'DEMO_USER' ? 'w4-f-synthetic' : 'w4-f-operator', 'Idempotency-Key': key,
@@ -250,7 +249,7 @@ if (values['preflight-only'] || Object.values(report.checks).includes('BLOCKED')
       const row: any = reopened.prepare('SELECT status, merkle_root FROM epochs WHERE epoch_id=?').get(epoch.epoch_id)
       assert.equal(row.status, 'FROZEN'); assert.equal(row.merkle_root, independentRoot)
     } finally { reopened.close() }
-    backend = launchBackend('f-backend-reopened'); await ready(`${base}/api/health`, backend)
+    backend = launchBackend('f-backend-reopened'); await waitForBackendHealth(backend, `${base}/api/health`)
     assert.deepEqual((await post('/api/epochs/freeze', 'actual-freeze', 'DEMO_OPERATOR', {})).body.data, frozen.body.data)
     for (const [index, bundle] of receipts.entries()) {
       assert.deepEqual((await post('/api/decisions', `actual-${index}`, 'DEMO_USER', { text: texts[index] })).body.data, issuedData[index])
