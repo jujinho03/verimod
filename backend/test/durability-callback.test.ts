@@ -1,7 +1,8 @@
-import { execFileSync, spawn } from 'node:child_process'
+import { spawn } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { once } from 'node:events'
 import { createServer } from 'node:http'
-import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve, sep } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -71,9 +72,14 @@ async function rejected(input = JSON.stringify(request), extra: string[] = []) {
 }
 beforeAll(async () => {
   mkdirSync(base, { recursive: true })
-  const git = (path: string) => execFileSync('git', ['-c', `safe.directory=${root.replaceAll('\\', '/')}`, '-C', root, 'show', `${T_SHA}:${path}`], { encoding: 'utf8' })
-  gateSource = git('backend/contracts/scripts/fDurabilityGate.ts'); senderSource = git('backend/contracts/scripts/register-epoch.ts')
-  // Read-only source extraction from the exact T object; no T branch checkout or edits.
+  const pinnedSource = (name: string, digest: string) => {
+    const text = readFileSync(join(root, 'backend/test/fixtures/w4-t-3444750', name + '.txt'), 'utf8').replaceAll('\r\n', '\n')
+    expect(createHash('sha256').update(text).digest('hex')).toBe(digest)
+    return text
+  }
+  gateSource = pinnedSource('fDurabilityGate.ts', '267c6826767d4d37bddcb1c0bad70ba309237e2162938cfff50b2439c67b192d')
+  senderSource = pinnedSource('register-epoch.ts', '500d003ed992645e74450faa231a5ed030102ec283ab3d99123e24c3eb136d11')
+  // Hash-pinned, read-only snapshots extracted from the exact T object, usable in shallow CI.
   const sourcePath = join(base, `T-fDurabilityGate-${T_SHA}.ts`)
   writeFileSync(sourcePath, gateSource)
   gate = await import(/* @vite-ignore */ pathToFileURL(sourcePath).href)
