@@ -8,10 +8,13 @@
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "w4:integration": "tsx scripts/w4-final-integration.mts",
+    "w4:typecheck": "tsc -p tsconfig.w4-tools.json"
   },
   "dependencies": {
     "@verimod/protocol": "file:../shared/protocol",
+    "ethers": "6.17.0",
     "express": "^5.2.1"
   },
   "devDependencies": {
