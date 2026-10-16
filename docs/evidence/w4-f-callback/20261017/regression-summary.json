@@ -1,0 +1,115 @@
+{
+  "schema_version": "w4-f-callback-verification/1",
+  "client_date_kst": "2026-10-17",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "tsx": "4.23.13",
+  "scope": "SYNTHETIC_TEST_ONLY",
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "source_commits": {
+    "f_base": "f157b9aa7506093207e6695cc4b0ff7b83b69088",
+    "a": "9bcbec677d89d10364b327aae7e60955e2e4315d",
+    "t": "34447502f8843f1be585b56fb31c51b41c0f2fc7"
+  },
+  "commands": [
+    {
+      "status": "PASS",
+      "command": "npm run typecheck"
+    },
+    {
+      "status": "PASS",
+      "command": "npm run w4:typecheck"
+    },
+    {
+      "status": "PASS",
+      "command": "npm run build"
+    },
+    {
+      "skipped": 0,
+      "command": "npm test",
+      "new_tests": 53,
+      "preserved_tests": 68,
+      "files": 10,
+      "tests": 121,
+      "status": "PASS"
+    }
+  ],
+  "per_file": [
+    {
+      "passed": 3,
+      "total": 3,
+      "file": "database.test.ts"
+    },
+    {
+      "passed": 9,
+      "total": 9,
+      "file": "decisions.test.ts"
+    },
+    {
+      "passed": 53,
+      "total": 53,
+      "file": "durability-callback.test.ts"
+    },
+    {
+      "passed": 4,
+      "total": 4,
+      "file": "epochs.test.ts"
+    },
+    {
+      "passed": 1,
+      "total": 1,
+      "file": "health.test.ts"
+    },
+    {
+      "passed": 15,
+      "total": 15,
+      "file": "inference.test.ts"
+    },
+    {
+      "passed": 2,
+      "total": 2,
+      "file": "protocol.test.ts"
+    },
+    {
+      "passed": 13,
+      "total": 13,
+      "file": "w4-freeze-handoff.test.ts"
+    },
+    {
+      "passed": 17,
+      "total": 17,
+      "file": "w4-manifest-boundary.test.ts"
+    },
+    {
+      "passed": 4,
+      "total": 4,
+      "file": "windows-launch.test.ts"
+    }
+  ],
+  "source_digest_encoding": "UTF-8 with CRLF normalized to LF",
+  "source_sha256": {
+    "backend/src/durabilityCallback.ts": "c4deadaac6a000b68a0cfd4119f81e2112b2cc43c588ae107498566362d36efe",
+    "backend/src/submissionReturn.ts": "324ddc1cd6ab258064cd03de6a9a122269ff4d2ad5e6e0b2cd15a30919aecb1e",
+    "backend/scripts/f-durability-callback.mts": "2399f05f5ccffb44dfd497f3a20d44fa12d0e7efd31b976b51719450d56ca1ea",
+    "backend/test/durability-callback.test.ts": "532841b27bcb376cc994a356e03040bd6cc8a2202063de8d686d2f7f4f7dc0e6"
+  },
+  "statuses": {
+    "F_CALLBACK_RUNNER_IMPLEMENTED": "PASS",
+    "T_F_PROTOCOL_COMPATIBILITY": "FAIL",
+    "CALLBACK_FAILURE_ZERO_BROADCAST": "PASS",
+    "LOCAL_SQLITE_DURABILITY": "PASS",
+    "WINDOWS_RUNNER": "PASS",
+    "ACTUAL_A_HOST_DB_CONNECTED": "BLOCKED",
+    "POST_SUBMISSION_F_STATE_PATH": "BLOCKED",
+    "ACTUAL_CHAIN_TX_SENT": "NO",
+    "GATE_4": "PARTIAL"
+  },
+  "t_wire_parser": "PASS",
+  "t_full_composition": "FAIL_CAMELCASE_RETURN_RECHECKED_AS_SNAKE_CASE",
+  "demonstrated_T_bridge": "PASS_WITH_STUB_ONLY_NOT_PRODUCTION_T_CHANGE",
+  "actual_signing_operations": 0,
+  "actual_broadcast_calls": 0,
+  "actual_A_database_modified": false,
+  "production_remote_transport_configured": false
+}
