@@ -15,8 +15,6 @@ import { runSyntheticInference } from '../domain/scorer'
 import { validateReceiptBody } from '../domain/schema'
 import type { FinalAction, InferenceOutput, PolicyEvaluation, VerificationBundle } from '../domain/types'
 import type { VerifierContext } from '../domain/verify'
-import { approvedProfile } from '../domain/approvedProfiles'
-import { RpcLedgerReader } from '../domain/rpcLedger'
 import {
   BATCH_WINDOW_MS,
   anchorStatus,
@@ -183,19 +181,6 @@ export class VeriModStore {
   }
 
   async verifierContext(): Promise<VerifierContext> {
-    const query = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search)
-    const profileId = query?.get('profile')
-    const rpcUrl = query?.get('rpc')
-    if (profileId && rpcUrl) {
-      const profile = approvedProfile(profileId)
-      return {
-        trust: profile,
-        manifests: await manifestHashes(),
-        ledger: new RpcLedgerReader(profile, rpcUrl),
-        findBundle: () => null,
-        findPrivateContent: () => null,
-      }
-    }
     return {
       trust: await trustConfig(),
       manifests: await manifestHashes(),
