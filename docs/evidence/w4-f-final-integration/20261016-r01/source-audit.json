@@ -1,0 +1,61 @@
+{
+  "source_commits": {
+    "a": "9bcbec677d89d10364b327aae7e60955e2e4315d",
+    "f": "6e53bc8de9e165a257a7e8f98c1a86a6432b42e2",
+    "t": "fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de"
+  },
+  "source_digest_encoding": "UTF-8 after CRLF-to-LF and trim",
+  "a_prior_independent_evidence": {
+    "path": "docs/evidence/w4-a-final-revalidation.md",
+    "sha256": "d89b823146234298323c1b640b3dba333067f10a2eaf3b438d657e47fb0de60f",
+    "actual_receipts": 2,
+    "fail_closed_cases": 17,
+    "policy_parity": 21,
+    "issuer": "MATCH",
+    "scope": "Prior A execution at F 2c99260; not a new F issuance or freeze"
+  },
+  "t_issuer": {
+    "approved_issuer": "verimod-example-platform",
+    "approved_profile_uses_shared_issuer": true,
+    "rpc_profile_uses_shared_issuer": true,
+    "issuer_mismatch_rejection_retained": true,
+    "old_issuer_occurrences_are_negative_tests_only": true,
+    "old_issuer_negative_test_locations": [
+      "frontend/src/domain/approvedProfiles.test.ts:20",
+      "frontend/src/domain/verify.test.ts:214"
+    ],
+    "issuer_alignment_commit_ancestry": "PASS"
+  },
+  "t_sender": {
+    "path": "backend/contracts/scripts/register-epoch.ts",
+    "sha256": "dcf60bc5ce5baa3d673081737b9c508242f3a982b3233b22d9eef66cdf60cd88",
+    "private_journal_before_broadcast": true,
+    "f_sqlite_callback_present": false,
+    "status": "BLOCKED",
+    "required": "T must await EpochSenderHandoff.persistBeforeBroadcast on authoritative F SQLite before broadcast"
+  },
+  "f_manifest_and_issuer_files_unchanged_from_baseline": true,
+  "f_new_source_digests": {
+    "backend/src/epochs.ts": "af9df13ff3b67dd90d8e0344d4d92332e77fc759618ad1edec483be4981b6d48",
+    "backend/src/senderHandoff.ts": "da43094a359848ed710fbed0fd920620236e749d5bd3e3b1f1c0b3e37deb3509",
+    "backend/scripts/w4-final-integration.mts": "1f033e5746fbb7eebb2b81e16b3c35f5f852b4c0c6be5586d7057572fe411677",
+    "backend/test/w4-freeze-handoff.test.ts": "522361053380b4e45955d70520b96b555da8db97b62f2160740ada702bae1434"
+  },
+  "f_environment": {
+    "selected_weight_present_at_A_source_defined_relative_path": false,
+    "a_python_runtime_present": false,
+    "known_ai09_health_port": 8099,
+    "known_ai09_health_result": "ECONNREFUSED",
+    "actual_receipts_issued": 0,
+    "frozen_handoff_generated": false
+  },
+  "policy": {
+    "status": "W4_PROVISIONAL_E2E_ONLY",
+    "team_approved": false,
+    "X": null,
+    "B": null
+  },
+  "chain_transactions": 0,
+  "signing_operations": 0,
+  "test_data_accessed": false
+}
