@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "w4:integration": "tsx scripts/w4-final-integration.mts",
-    "w4:typecheck": "tsc -p tsconfig.w4-tools.json"
+    "w4:typecheck": "tsc -p tsconfig.w4-tools.json",
+    "w4:windows-smoke": "vitest run test/windows-launch.test.ts"
   },
   "dependencies": {
     "@verimod/protocol": "file:../shared/protocol",
