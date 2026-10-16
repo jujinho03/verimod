@@ -15,25 +15,44 @@ Please execute the F tool on the same host that already holds A's private weight
 
 ## PowerShell commands on A's host
 
-Run from the verified A repository. The following paths are derived from that actual checkout; no F-computer absolute path is assumed.
+Run from the verified A repository. Use the **new full F SHA in F's Windows ESM fix report**. Do not patch or reuse the failed `c14fb914afa1d7c7f25fb5f6fb768e7b2ba7b628` detached worktree. Fetch the fixed commit and create a new detached checkout and unique public/private directories. The paths below are derived from A's actual checkout.
 
 ```powershell
 $aRoot = (Get-Location).Path
 if ((git rev-parse HEAD).Trim() -ne '9bcbec677d89d10364b327aae7e60955e2e4315d') { throw 'Wrong A HEAD' }
 git fetch origin
-$fSha = (git rev-parse origin/f-w4-service-verifier).Trim()
-$fRoot = Join-Path (Split-Path $aRoot -Parent) ('verimod-f-w4-final-' + $fSha.Substring(0,8))
+$fSha = '<NEW_F_FULL_SHA_FROM_F_REPORT>'
+if ($fSha -notmatch '^[0-9a-f]{40}$') { throw 'Supply the exact fixed F SHA' }
+if ($fSha -eq 'c14fb914afa1d7c7f25fb5f6fb768e7b2ba7b628') { throw 'Old failing F revision' }
+if ((git rev-parse "$fSha^{commit}").Trim() -ne $fSha) { throw 'F commit not fetched' }
+$runId = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8)
+$fRoot = Join-Path (Split-Path $aRoot -Parent) ('verimod-f-w4-fixed-' + $fSha.Substring(0,8) + '-' + $runId)
 git worktree add --detach $fRoot $fSha
 npm --prefix (Join-Path $fRoot 'backend') ci --ignore-scripts --no-audit --no-fund
+if ($LASTEXITCODE -ne 0) { throw 'F dependency installation failed' }
+if ((node -p 'process.platform').Trim() -ne 'win32') { throw 'Windows host required for this smoke acceptance' }
+npm --prefix (Join-Path $fRoot 'backend') run w4:windows-smoke
+if ($LASTEXITCODE -ne 0) { throw 'Windows backend smoke must pass before actual R01 execution' }
 $python = Join-Path $aRoot 'ai/.venv/Scripts/python.exe'
 $modelDir = Join-Path $aRoot 'ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model'
 if (-not (Test-Path -LiteralPath $python)) { throw 'Existing A Python environment required' }
 if (-not (Test-Path -LiteralPath (Join-Path $modelDir 'model.safetensors'))) { throw 'Existing private R01 weight required' }
-$runId = (Get-Date -Format 'yyyyMMdd-HHmmss') + '-' + [guid]::NewGuid().ToString('N').Substring(0,8)
 $publicDir = Join-Path $fRoot ('docs/evidence/w4-f-final-integration/' + $runId)
 $privateDir = Join-Path $fRoot ('private-data/w4-f-final-integration/' + $runId)
 node (Join-Path $fRoot 'backend/node_modules/tsx/dist/cli.mjs') (Join-Path $fRoot 'backend/scripts/w4-final-integration.mts') --a-root $aRoot --expected-f-sha $fSha --python $python --model-dir $modelDir --public-dir $publicDir --private-dir $privateDir
 ```
+
+The Windows smoke requires an actual Windows host (on other platforms its tests are skipped, which is **BLOCKED**, never WINDOWS_PASS). F verified Node v24.16.0 / tsx 4.23.13. The runner's first backend start and SQLite reopen both call `scripts/backend-process.ts`: the loader argument is `pathToFileURL(...).href`. Smoke tests launch the actual server source using this same function, including a drive path with spaces, safe 503/zero rows without an inference service, same-DB restart, timeout cleanup and entry-point failure cleanup. No model weights or inference fixtures are used for this smoke.
+
+Before actual inference, all source pins, selected weight SHA-256, canonical Model/Policy Manifest hashes, T-approved `verimod-example-platform` issuer, new F SHA and Windows backend smoke must pass. The actual runner still verifies A/F/T and model/policy identity independently; passing smoke alone does not satisfy them.
+
+## Preserve earlier evidence
+
+- A's existing independent actual R01 E2E evidence at A SHA `9bcbec677d89d10364b327aae7e60955e2e4315d`.
+- F's `docs/evidence/w4-f-final-integration/20261016-r01/` preparation evidence.
+- A-host failed run `20261016-150318-a-r01`, including its existing public/private directories and logs. A reported model/tokenizer/Python readiness succeeded, then Windows `--import` drive-path ESM parsing failed before any `/infer`, receipt or freeze. This report comes from A's supplied failure description; F has not independently rerun A's private weights.
+
+Use new directories for every attempt. Preserve the failed checkout and logs; do not overwrite, delete or repair that checkout in place.
 
 The tool sets `VERIMOD_W4_PROVISIONAL_E2E_ONLY=true`, the verified loopback inference URL, both F manifest paths, policy hash, thresholds `24495/216950` and `180483/646501`, and the fresh `VERIMOD_DB_PATH`. The policy remains `team_approved=false`, X/B pending. It validates actual service health/weight identity and observes two HTTP inference calls; replay/409 must add no calls.
 
