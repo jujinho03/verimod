@@ -199,7 +199,7 @@ export class EpochService {
     const frozen = await freezeEpoch(members)
     failUnless(frozen.root === epoch.merkle_root && frozen.members.length === epoch.receipt_count, 'stored epoch does not match its members')
 
-    const hasPublicAnchor = epoch.tx_hash && epoch.chain_id && epoch.contract_address && epoch.block_number && epoch.block_hash
+    const hasPublicAnchor = epoch.status === 'CONFIRMED' && epoch.tx_hash && epoch.chain_id && epoch.contract_address && epoch.block_number && epoch.block_hash
     return {
       receipt_body: JSON.parse(receipt.canonical_body),
       receipt_hash: receipt.receipt_hash,
