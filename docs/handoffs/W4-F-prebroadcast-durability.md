@@ -1,9 +1,9 @@
 # W4 F → T: mandatory F SQLite boundary before broadcast
 
-F basis: `2c99260c0eb6229d34b3f94191c2dab3238c1727` plus the F integration adapter in this branch.
-T audited source: `fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de`, `backend/contracts/scripts/register-epoch.ts`.
+F basis: `f157b9aa7506093207e6695cc4b0ff7b83b69088` plus the F-owned callback runner in this branch.
+T audited source: `34447502f8843f1be585b56fb31c51b41c0f2fc7`, `backend/contracts/scripts/fDurabilityGate.ts` and `register-epoch.ts`.
 
-**BLOCKED until T connects the callback.** The pinned T sender writes its own journal and then calls `broadcastTransaction(journal.rawTransaction)`. Its comment requires F SQLite persistence, but the executable path never calls F. F cannot know the newly signed raw transaction before that sender runs. Running the current `npm run epoch:register` command would bypass the required F persistence boundary.
+**BLOCKED pending the T ACK composition fix and approved DB-host wiring.** T now invokes the pre-broadcast gate. F now provides a local CLI using the real adapter and SQLite. However, T's request function returns camelCase while its broadcast gate validates snake_case, so the pinned composition rejects even a valid durable F ACK. The read-only pinned-T integration test reproduces this with zero broadcast-stub calls. See [F callback execution contract](W4-F-durable-callback-runner.md) for the concrete T fix request, private DB approval/binding, exact T settings, deployment choices and remaining host/post-state blockers. Do not run the actual sender in this task.
 
 ## F adapter and required T sequence
 
@@ -17,7 +17,7 @@ T audited source: `fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de`, `backend/contracts
 6. Compare the acknowledgement hash with the T journal hash. Only after that acknowledgement may T broadcast the **identical bytes**. A callback error, conflicting retry, DB error or missing acknowledgement must prevent broadcast.
 7. After node acceptance, persist `markSubmitted`. After a restart, reconcile the same stored hash/nonce/bytes. Do not allocate a replacement epoch, nonce or transaction merely because a transport call timed out.
 
-This is a prepared F interface. The current T CLI does not call it. There is no new unauthenticated HTTP endpoint for raw signed transactions. T owns wiring the callback and testing its own broadcast stub to prove that missing/failed F acknowledgement results in zero sends.
+The F CLI now calls this adapter. There is no new unauthenticated HTTP endpoint for raw signed transactions. T owns fixing its ACK composition and configuring the approved local/SSH callback. F tests invoke the exact T gate and F CLI with synthetic SQLite/inert transaction bytes, including rejection/timeout/missing/bad ACK and zero-send checks.
 
 ## Trusted confirmation return
 
@@ -31,4 +31,4 @@ Until trusted confirmation, frozen public bundles have `proof=null`, `anchor=nul
 
 The F adapter tests use fixed inert transaction signature bytes, synthetic epochs and fresh temporary SQLite. They perform **zero signing operations and zero RPC/broadcast calls**. Tests cover persistent reopen, same-byte replay, conflicting retry, wrong chain/publisher/recipient/epoch/root/count/version/calldata/value, malformed/unsigned envelopes, disabled SQLite durability, public raw-byte exclusion, concurrent freeze, EMPTY_EPOCH, and unconfirmed bundle withholding.
 
-These tests establish F callback behavior. They do not establish that T's existing sender invokes it. Actual R01 issuance/Freeze and the T callback integration remain separately reported execution gates.
+These tests establish the local F callback and T wire-parser compatibility. They also prove that the pinned T gate composition still fails; the demonstrated wire-shape bridge is a proposed T fix, not a production T change. The user reports an actual A-host frozen epoch, but its private DB is not accessible here, so actual host binding and post-submission propagation remain BLOCKED. No confirmation state is inferred from that report.
