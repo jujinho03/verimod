@@ -92,7 +92,9 @@
     "backend/src/durabilityCallback.ts": "c4deadaac6a000b68a0cfd4119f81e2112b2cc43c588ae107498566362d36efe",
     "backend/src/submissionReturn.ts": "324ddc1cd6ab258064cd03de6a9a122269ff4d2ad5e6e0b2cd15a30919aecb1e",
     "backend/scripts/f-durability-callback.mts": "2399f05f5ccffb44dfd497f3a20d44fa12d0e7efd31b976b51719450d56ca1ea",
-    "backend/test/durability-callback.test.ts": "532841b27bcb376cc994a356e03040bd6cc8a2202063de8d686d2f7f4f7dc0e6"
+    "backend/test/durability-callback.test.ts": "fbc15d2a9cdae648d620a2605e2b05893ec6f7dc7e03505a92be0d23d25b55b3",
+    "backend/test/fixtures/w4-t-3444750/fDurabilityGate.ts.txt": "267c6826767d4d37bddcb1c0bad70ba309237e2162938cfff50b2439c67b192d",
+    "backend/test/fixtures/w4-t-3444750/register-epoch.ts.txt": "500d003ed992645e74450faa231a5ed030102ec283ab3d99123e24c3eb136d11"
   },
   "statuses": {
     "F_CALLBACK_RUNNER_IMPLEMENTED": "PASS",
@@ -111,5 +113,14 @@
   "actual_signing_operations": 0,
   "actual_broadcast_calls": 0,
   "actual_A_database_modified": false,
-  "production_remote_transport_configured": false
+  "production_remote_transport_configured": false,
+  "shallow_checkout_compatible": true,
+  "final_cli_log": "windows-cli-final.jsonl",
+  "final_regression_result": {
+    "files": 10,
+    "passed": 121,
+    "total": 121,
+    "failed": 0,
+    "skipped": 0
+  }
 }
