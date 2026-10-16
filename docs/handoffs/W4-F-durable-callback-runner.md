@@ -6,7 +6,7 @@ Scope: `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`. No permission to sign o
 
 - A: `9bcbec677d89d10364b327aae7e60955e2e4315d`.
 - F starting revision: `f157b9aa7506093207e6695cc4b0ff7b83b69088`; use the **new full F SHA from the final implementation report** for execution.
-- T: `34447502f8843f1be585b56fb31c51b41c0f2fc7`. Its gate module is extracted read-only with `git show` in F integration tests. T files/branches are not modified.
+- T: `34447502f8843f1be585b56fb31c51b41c0f2fc7`. Its gate/sender source is extracted read-only with `git show` into F test fixtures, with SHA-256 checks before executing the actual gate. This works in shallow CI without fetching T during tests. T files/branches are not modified.
 - F entry point: `backend/scripts/f-durability-callback.mts`; Node `24.16.0`, tsx `4.23.13`, installed backend dependencies. Windows `--import` uses a file URL, including spaces and drive paths.
 - Target: chain `84532`, contract `0xd17ba590b23e984e3f3408bcdc3529be9868ec50`, publisher `0xd47675be41ec3476f541c1d8d8a9f622c90182ed`.
 - Reported actual epoch: ID `1`, root `0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82`, count `2`, version `1`, FROZEN, issuer `verimod-example-platform`. These are **identifiers, not evidence that F has opened A's database**.
