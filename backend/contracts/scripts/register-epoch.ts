@@ -1,6 +1,7 @@
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { network } from "hardhat";
+import { broadcastAfterDurableAck, requestDurableSubmissionAck, type FrozenEpoch } from "./fDurabilityGate.js";
 
 type Journal = {
   epochId: string;
@@ -32,6 +33,10 @@ const count = asUint("VERIMOD_EPOCH_COUNT", (1n << 32n) - 1n);
 const protocolVersion = asUint("VERIMOD_PROTOCOL_VERSION", (1n << 16n) - 1n);
 const contractAddress = requireEnv("VERIMOD_ANCHOR_ADDRESS").toLowerCase();
 if (!/^0x[0-9a-f]{40}$/.test(contractAddress)) throw new Error("VERIMOD_ANCHOR_ADDRESS must be an EVM address");
+const APPROVED_CHAIN_ID = "84532";
+const APPROVED_CONTRACT = "0xd17ba590b23e984e3f3408bcdc3529be9868ec50";
+const APPROVED_PUBLISHER = "0xd47675be41ec3476f541c1d8d8a9f622c90182ed";
+if (contractAddress !== APPROVED_CONTRACT) throw new Error("VERIMOD_ANCHOR_ADDRESS is not the approved W4 Base Sepolia contract");
 const journalPath = resolve(process.env.VERIMOD_EPOCH_JOURNAL ?? `.runtime/epoch-${epochId}.json`);
 
 function writeJournal(value: Journal): void {
@@ -47,6 +52,11 @@ function readJournal(): Journal | null {
 const { ethers } = await network.connect();
 const [publisher] = await ethers.getSigners();
 const anchor = await ethers.getContractAt("VeriModAnchor", contractAddress, publisher);
+const networkInfo = await ethers.provider.getNetwork();
+if (networkInfo.chainId !== BigInt(APPROVED_CHAIN_ID)) throw new Error("connected RPC is not Base Sepolia");
+if ((await anchor.publisher()).toLowerCase() !== APPROVED_PUBLISHER || publisher.address.toLowerCase() !== APPROVED_PUBLISHER) {
+  throw new Error("configured signer or contract publisher is not the approved W4 publisher");
+}
 const existing = await anchor.epochs(epochId);
 if (existing.count !== 0n) {
   if (existing.root.toLowerCase() !== root || existing.count !== count || existing.protocolVersion !== protocolVersion) {
@@ -71,7 +81,22 @@ if (!journal) {
   writeJournal(journal);
 }
 
-const tx = await ethers.provider.broadcastTransaction(journal.rawTransaction);
+const expected: FrozenEpoch & { rawTransaction: string; txHash: string; nonce: string } = {
+  epochId: String(epochId), root, count: String(count), protocolVersion: String(protocolVersion),
+  chainId: APPROVED_CHAIN_ID, contractAddress, rawTransaction: journal.rawTransaction, txHash: journal.txHash, nonce: String(journal.nonce),
+};
+const executable = requireEnv("VERIMOD_F_PREBROADCAST_ACK_EXECUTABLE");
+let args: string[];
+try { args = JSON.parse(requireEnv("VERIMOD_F_PREBROADCAST_ACK_ARGS_JSON")) as string[]; }
+catch { throw new Error("VERIMOD_F_PREBROADCAST_ACK_ARGS_JSON must be a JSON string array"); }
+if (!Array.isArray(args) || args.some((arg) => typeof arg !== "string") || args.length === 0) {
+  throw new Error("VERIMOD_F_PREBROADCAST_ACK_ARGS_JSON must be a nonempty JSON string array");
+}
+const tx = await broadcastAfterDurableAck(
+  () => requestDurableSubmissionAck(expected, executable, args),
+  expected,
+  () => ethers.provider.broadcastTransaction(journal!.rawTransaction),
+);
 journal = { ...journal, txHash: tx.hash, state: "SUBMITTED" };
 writeJournal(journal);
 const receipt = await tx.wait();

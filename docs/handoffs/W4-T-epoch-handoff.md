@@ -15,6 +15,12 @@ Recipient: A/F team · Owner after receipt: T (설경민) · Status: **READY FOR
 
 Do not send a W3 historical synthetic root to this contract.
 
+## Mandatory F SQLite pre-broadcast acknowledgement
+
+`backend/contracts/scripts/register-epoch.ts` never broadcasts a newly signed transaction until an explicit local callback runner obtains a successful acknowledgement from F's `EpochSenderHandoff.persistBeforeBroadcast()`. The runner receives the raw transaction only through stdin and returns only the public acknowledgement. It must run on the same approved host as the authoritative file-backed F SQLite database; no HTTP endpoint is used. The sender requires a host-approved `VERIMOD_F_PREBROADCAST_ACK_EXECUTABLE` and nonempty JSON `VERIMOD_F_PREBROADCAST_ACK_ARGS_JSON`. The runner must invoke F's existing adapter against that database, not a copy or synthetic database. Missing or malformed runner configuration stops before broadcast.
+
+The acknowledgement must be `SUBMITTING` and exactly match epoch ID, root, count, protocol version, Base chain ID, approved contract, transaction hash, and nonce in T's durable journal. Any callback failure, timeout, malformed acknowledgement, or mismatch prevents broadcast. A copied/synthetic database is not authoritative evidence; the bridge must run on the approved host against the actual F freeze database.
+
 ## A → F prerequisite
 
 F may issue an anchor candidate only after an actual `/infer` success and the approved policy configuration are available. On inference failure, F must return `503 INFERENCE_UNAVAILABLE`; it must not create a Receipt or an anchor candidate.
