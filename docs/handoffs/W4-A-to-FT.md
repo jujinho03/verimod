@@ -1,5 +1,9 @@
 # W4 A → F/T handoff
 
+최신 인계: [A 최종 독립 재검증](../evidence/w4-a-final-revalidation.md)에서 manifest/issuer
+차단 해소를 확인했다. F/T 기술 인계 READY이며 실제 anchoring/RPC 및 팀 승인은 별도다.
+아래는 이전 실패와 수정 요청을 보존한 기록이다.
+
 Status: **BLOCKED for public integration**, with verified A validation, provisional policy,
 parity and actual local issuance evidence. No actual chain transaction was sent by A.
 

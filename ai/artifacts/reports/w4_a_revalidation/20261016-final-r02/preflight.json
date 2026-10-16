@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "a_base_commit": "b8c44dff37ce20dfdae6c74fb96e6062d8b72553",
+  "f_commit": "2c99260c0eb6229d34b3f94191c2dab3238c1727",
+  "t_commit": "fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de",
+  "a_harness_source_sha256": {
+    "ai/scripts/verify_w4_af_e2e.mts": "2f56bba6e1e4cb47d86df479cc556e6fd3d08b3d4aa31701641a7f8a55d8f0bf",
+    "ai/scripts/w4_policy_parity.mts": "d6c2d5c40026fa00aaaf0d1da4b54355abfa91442b20f507d302d0c221888e4f",
+    "ai/scripts/prepare_w4_revalidation.py": "dbf7a85c4df8b094f27d3966a71724189462550d8d1cfb9fd607151e85ea2d6b",
+    "ai/scripts/check_w4_a_release.py": "85ee5f58d122ca4f80640aabf64f1e66f2d8d1bd95a35ccd717bac636d858342",
+    "ai/scripts/serve_w4_inference.py": "e0f77054055f119677153c45b49a6e19ad0d9515823aee0d581ba46ae132152d",
+    "ai/src/verimod_ai/inference/service.py": "c7a724345e8083aebf574f77504445e7c706bed4b9d97075d789d0ee7682818a",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7"
+  },
+  "weight_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+  "frozen_file_sha256": {
+    "ai/requirements-w3.lock.txt": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+    "ai/configs/w3_baseline.json": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+    "ai/configs/w2_dataset.json": "41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27",
+    "ai/experiments/registry.jsonl": "d8cb72885815cf8052c3931321231a8eaf0313d65b536ddb24a2fb537b943d49",
+    "ai/fixtures/w3_real_model_i1_fixture.json": "8ec5b9c897a9d00057538994d698e9f3d3b8e21c8ff88b661ff797783a45b2b9",
+    "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2"
+  },
+  "old_evidence_unchanged": 33,
+  "python_reference_vectors_recomputed": 21,
+  "policy_bytes_preserved": true,
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "policy_usage": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "test_accessed": false,
+  "elapsed_seconds": 2.2238006999978097
+}

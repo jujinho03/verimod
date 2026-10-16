@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "test_count": 51,
+  "passed": 51,
+  "failed": 0,
+  "elapsed_seconds_from_report": 2.161396728515625,
+  "files": [
+    {
+      "file": "database.test.ts",
+      "status": "passed",
+      "tests": 3
+    },
+    {
+      "file": "decisions.test.ts",
+      "status": "passed",
+      "tests": 9
+    },
+    {
+      "file": "epochs.test.ts",
+      "status": "passed",
+      "tests": 4
+    },
+    {
+      "file": "health.test.ts",
+      "status": "passed",
+      "tests": 1
+    },
+    {
+      "file": "inference.test.ts",
+      "status": "passed",
+      "tests": 15
+    },
+    {
+      "file": "protocol.test.ts",
+      "status": "passed",
+      "tests": 2
+    },
+    {
+      "file": "w4-manifest-boundary.test.ts",
+      "status": "passed",
+      "tests": 17
+    }
+  ],
+  "scope": "F backend unit/integration regression; mocked inference is not counted as actual R01 E2E",
+  "raw_report_sha256": "698b90fc2c606eddfb2bbc39b7caa2496725f63b9a5880df126a74fe233a04d1"
+}

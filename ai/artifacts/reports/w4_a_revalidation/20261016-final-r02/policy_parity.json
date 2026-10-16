@@ -1,0 +1,500 @@
+{
+  "status": "PASS",
+  "vector_count": 21,
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "elapsed_ms": 39.73230000000001,
+  "results": [
+    {
+      "id": "zero_allow",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "hate_review_-1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "hate_review_+0",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_review_+1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_-1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_+0",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_+1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "offensive_review_-1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "offensive_review_+0",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_review_+1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_-1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_+0",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_+1",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "both_review",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "both_restrict",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_offensive_review",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_review_offensive_restrict",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "max_overlap",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "truncated_zero",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    },
+    {
+      "id": "truncated_max",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    },
+    {
+      "id": "truncated_restrict_boundary",
+      "status": "PASS",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      "actual": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "a_independent_e2e": "PASS",
+  "f_t_handoff": "READY",
+  "ai09": "PASS",
+  "ai21": "EXISTING_PASS_PRESERVED",
+  "ai21_private_predictions_sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+  "old_evidence_files_unchanged": 33,
+  "f_t_worktrees_clean": true,
+  "python": "3.12.14",
+  "node": "v24.10.0",
+  "packages": {
+    "torch": "2.14.1+cpu",
+    "transformers": "4.57.6",
+    "fastapi": "0.143.0",
+    "uvicorn": "0.54.0"
+  },
+  "inference": {
+    "device": "CPU",
+    "precision": "float32",
+    "batch_size": 1,
+    "torch_threads": 4,
+    "torch_interop_threads": 1
+  },
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "X": null,
+  "B": null,
+  "attempts": [
+    {
+      "id": "r01",
+      "status": "ENVIRONMENT_INTERRUPTED",
+      "reason": "Sandbox Python startup stalled; F temporary module files inaccessible. Logs preserved. Not an E2E PASS."
+    },
+    {
+      "id": "r02",
+      "status": "PASS",
+      "reason": "Same harness under approved host execution; new SQLite and logs."
+    }
+  ],
+  "remaining_gates": [
+    "Actual Base Sepolia epoch anchoring",
+    "External browser RPC verification",
+    "Team X/B and operational policy approval"
+  ],
+  "public_chain_valid_claim": false,
+  "base_transactions_sent": 0,
+  "test_accessed": false,
+  "validation_inference_repeated": false,
+  "training_performed": false
+}

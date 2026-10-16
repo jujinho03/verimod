@@ -1,0 +1,8 @@
+{
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "domain": "verimod:policy:v1",
+  "mechanism": "T canonicalBytes(manifest) + domainHash(DOMAINS.policy, canonicalBytes)",
+  "manifest_file_sha256": "aba4d3358f1519e8e02985c66d155f293776ac0e0e7c8036a2eb3f6e6b836840",
+  "canonical_bytes_sha256": "aa76f1b35f7097c2ef031089b4813d4771e4cd80da77f085cb5528d46dc02714",
+  "canonical_length": 1944
+}

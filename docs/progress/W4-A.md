@@ -1,5 +1,8 @@
 # W4 A — validation, policy parity and actual A/F handoff
 
+최신 독립 재검증: [F/T 수정 반영 결과](../evidence/w4-a-final-revalidation.md).
+정상 2건, Fail Closed 17건, parity 21건 PASS 및 issuer MATCH. 아래는 보존된 이전 실행 기록이다.
+
 Date: 2026-10-16 KST. Work branch: `a-w4-ai09-actual-inference`.
 **Overall PARTIAL.** The actual success path passes; two required manifest rejection
 cases fail in unchanged F code, and F/T issuer identities differ. No GATE/public-chain
