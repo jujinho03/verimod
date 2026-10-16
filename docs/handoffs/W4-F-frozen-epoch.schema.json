@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "W4 actual frozen epoch handoff schema; not an executed handoff",
+  "title": "SAMPLE — W4 frozen epoch handoff schema; not an executed handoff",
+  "$comment": "SAMPLE schema only. No actual epoch, root or member values are supplied by this file.",
   "type": "object",
   "required": ["schema_version", "source_commits", "epoch_id", "merkle_root", "receipt_count", "protocol_version", "status", "member_receipt_hashes", "member_order", "issuer_id", "model_manifest_hash", "policy_manifest_hash", "policy_status", "team_approved", "actual_model_evidence", "checks", "transmission_authorized", "required_before_transmission"],
   "properties": {
