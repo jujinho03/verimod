@@ -21,6 +21,8 @@ The publisher key is a dedicated Base Sepolia EOA. The sender runs server-side w
 
 `frontend/src/domain/approvedProfiles.ts` contains the only selectable profiles: `BASE_SEPOLIA_DEMO` (the deployment above) and `LOCAL_HARDHAT_FALLBACK`. Local 31337 is explicitly not public-chain evidence. A bundle's locator is lookup evidence only; it cannot change the profile's chain, contract, publisher, issuer, or supported protocol version.
 
+W4's team-approved authoritative issuer is `verimod-example-platform`. Both selectable profiles reference the protocol's `ISSUER_ID`; its issuer commitment is `0xf33ae051ff115acdd407db30a10b64b680621b2a2967871a48bcc30b9aa16fd5`. This aligns the verifier with F's receipt issuer without changing the Base Sepolia deployment boundary.
+
 ## Actual epoch status
 
 **PENDING F freeze handoff.** No W3 synthetic root was sent to this W4 contract. Once F supplies its atomically frozen `epochId`, root, count, and protocol version, run `npm run epoch:register` in `backend/contracts`. The sender writes raw signed transaction/hash/nonce before broadcast, rejects existing mismatched roots as `ROOT_CONFLICT`, then verifies receipt success, destination, `EpochRegistered`, and `epochs(epochId)` before recording `CONFIRMED`.

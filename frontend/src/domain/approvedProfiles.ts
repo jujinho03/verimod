@@ -1,3 +1,4 @@
+import { ISSUER_ID } from './receipt'
 import type { TrustConfig } from './verify'
 
 /** These are the only profiles a browser build may select. RPC URLs are callers' transport choices. */
@@ -15,7 +16,7 @@ export const APPROVED_PROFILES: Readonly<Record<ApprovedProfileId, ApprovedProfi
     // W4 deployment; this is deliberately not the W3 synthetic-smoke address.
     contract_address: '0xd17ba590b23e984e3f3408bcdc3529be9868ec50',
     publisher: '0xd47675be41ec3476f541c1d8d8a9f622c90182ed',
-    issuer_id: 'verimod-demo-issuer',
+    issuer_id: ISSUER_ID,
     protocol_version: 1,
     // Kept conservative until the team separately adopts a safe/finalized policy.
     min_confirmations: 12,
@@ -26,7 +27,7 @@ export const APPROVED_PROFILES: Readonly<Record<ApprovedProfileId, ApprovedProfi
     chain_id: '31337',
     contract_address: '0x0000000000000000000000000000000000000451',
     publisher: '0x000000000000000000000000000000000000a451',
-    issuer_id: 'verimod-demo-issuer',
+    issuer_id: ISSUER_ID,
     protocol_version: 1,
     min_confirmations: 1,
     public_chain: false,

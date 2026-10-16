@@ -1,4 +1,5 @@
 import type { Hex32 } from './hash'
+import { ISSUER_ID } from './receipt'
 import {
   RpcUnavailableError,
   UntrustedLedgerError,
@@ -17,7 +18,7 @@ const EPOCH_REGISTERED_TOPIC = '0x71ec63fe81bedeb984bf4a9033c8cb5d207929603415af
 export interface ApprovedTrustProfile extends TrustConfig {
   profile_id: 'BASE_SEPOLIA_DEMO'
   chain_id: '84532'
-  issuer_id: 'verimod-demo-issuer'
+  issuer_id: typeof ISSUER_ID
   rpc_urls: readonly string[]
   deployment_block: number
   min_confirmations: number
@@ -37,7 +38,7 @@ export function baseSepoliaProfileFromEnv(env: Env): ApprovedTrustProfile | null
     !Number.isSafeInteger(confirmations) || confirmations < 1) return null
   return {
     profile_id: 'BASE_SEPOLIA_DEMO', chain_id: '84532', contract_address: contract,
-    publisher, issuer_id: 'verimod-demo-issuer', protocol_version: 1,
+    publisher, issuer_id: ISSUER_ID, protocol_version: 1,
     rpc_urls: rpcUrls, deployment_block: deploymentBlock, min_confirmations: confirmations,
   }
 }

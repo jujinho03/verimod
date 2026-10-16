@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import { ISSUER_ID } from './receipt'
 import { baseSepoliaProfileFromEnv, createPublicRpcLedger, type ApprovedTrustProfile } from './rpcLedger'
 import { UntrustedLedgerError } from './verify'
 
@@ -11,7 +12,7 @@ const w = (value: bigint) => value.toString(16).padStart(64, '0')
 
 const profile: ApprovedTrustProfile = {
   profile_id: 'BASE_SEPOLIA_DEMO', chain_id: '84532', contract_address: contract,
-  publisher, issuer_id: 'verimod-demo-issuer', protocol_version: 1,
+  publisher, issuer_id: ISSUER_ID, protocol_version: 1,
   rpc_urls: ['https://rpc.example'], deployment_block: 100, min_confirmations: 2,
 }
 

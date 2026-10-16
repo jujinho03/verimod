@@ -209,6 +209,13 @@ describe('verifyReceipt', () => {
     expect((await verifyReceipt(copy, f.ctx)).code).toBe('UNTRUSTED_ANCHOR')
   })
 
+  it('승인되지 않은 issuer는 해시를 다시 계산해도 UNTRUSTED_ANCHOR', async () => {
+    const copy = clone(f.decision)
+    copy.receipt_body.issuer_id = 'verimod-demo-issuer'
+    copy.receipt_hash = await receiptHash(copy.receipt_body)
+    expect((await verifyReceipt(copy, f.ctx)).code).toBe('UNTRUSTED_ANCHOR')
+  })
+
   it('확인 횟수가 모자라거나 아직 블록에 없으면 VALID 대신 PENDING_ANCHOR', async () => {
     f.chain.block = 1005
     const confirming = await verifyReceipt(f.decision, f.ctx)
