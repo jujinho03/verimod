@@ -11,7 +11,10 @@ type Journal = {
   nonce: number;
   rawTransaction: string;
   txHash: string;
-  state: "SUBMITTING" | "SUBMITTED" | "CONFIRMED" | "FAILED";
+  // F owns the authoritative confirmation transition.  This sender records
+  // only durable submission progress and must never present a mined receipt
+  // as F's verified, 12-confirmation state.
+  state: "SUBMITTING" | "SUBMITTED" | "FAILED";
 };
 
 const requireEnv = (name: string): string => {
@@ -62,7 +65,7 @@ if (existing.count !== 0n) {
   if (existing.root.toLowerCase() !== root || existing.count !== count || existing.protocolVersion !== protocolVersion) {
     throw new Error("ROOT_CONFLICT: epoch is already registered with different root/count/version; no transaction sent");
   }
-  console.log(`CONFIRMED existing epoch=${epochId} (same root/count/version); no resend`);
+  console.log(`SUBMITTED existing epoch=${epochId} (same root/count/version); no resend; F trusted confirmation remains required`);
   process.exit(0);
 }
 
@@ -109,6 +112,4 @@ const stored = await anchor.epochs(epochId);
 if (!event || event.args.epochId !== epochId || event.args.root.toLowerCase() !== root || event.args.count !== count || event.args.protocolVersion !== protocolVersion || stored.root.toLowerCase() !== root || stored.count !== count || stored.protocolVersion !== protocolVersion) {
   throw new Error("Post-submit event/getter mismatch; do not create a replacement epoch");
 }
-journal = { ...journal, state: "CONFIRMED" };
-writeJournal(journal);
-console.log(`CONFIRMED epoch=${epochId} tx=${tx.hash} block=${receipt.blockNumber} root=${root} count=${count} version=${protocolVersion}`);
+console.log(`SUBMITTED epoch=${epochId} tx=${tx.hash} block=${receipt.blockNumber} root=${root} count=${count} version=${protocolVersion}; awaiting F trusted confirmation after 12 confirmations`);

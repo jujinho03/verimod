@@ -43,9 +43,13 @@ F runs `POST /api/epochs/freeze` with its operator identity and idempotency key.
 
 The supplied root/count/version must be the F SQLite frozen values. T will reject an empty/invalid value and will never substitute a synthetic root.
 
-## T → F return receipt
+## T submission boundary and F confirmation
 
-T will use the identical four epoch values with `npm run epoch:register` in `backend/contracts`. The sender persists raw signed transaction/hash/nonce before broadcast and only returns success after all checks below pass.
+T will use the identical four epoch values with `npm run epoch:register` in `backend/contracts`. The sender persists the raw signed transaction/hash/nonce before broadcast and, after receipt/event/getter identity checks, records only `SUBMITTED` in its own durable journal. A successful mined receipt is not F's authoritative `CONFIRMED` state.
+
+`CONFIRMED` may be produced only by F's separate trusted post-confirmation process after it has independently checked the transaction receipt, trusted destination, `EpochRegistered` event, epoch getter values, canonical block hash, and at least 12 Base Sepolia confirmations. Until that F update is complete, public bundle proof/anchor fields remain null and the browser must not report `VALID`.
+
+The following is the proposed F-owned confirmation material, not output emitted by the T sender:
 
 ```json
 {
@@ -60,7 +64,7 @@ T will use the identical four epoch values with `npm run epoch:register` in `bac
 }
 ```
 
-F must store this anchor material and mark its epoch `CONFIRMED`; only then may it export public bundle proof + anchor. The browser verifier must use the approved Base profile and public RPC to reproduce `VALID`. A fresh unanchored receipt remains `PENDING`.
+F must store and independently verify this anchor material before marking its epoch `CONFIRMED`; only then may it export public bundle proof + anchor. The browser verifier must use the approved Base profile and public RPC to reproduce `VALID`. A fresh unanchored receipt remains `PENDING`.
 
 ## Stop conditions
 
