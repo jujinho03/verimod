@@ -1,80 +1,41 @@
-# VeriMod AI 작업 공간
+# VeriMod AI 작업 공간 — 한국어 현황
 
-**담당:** 주진호 / A / AI & Data Science
+담당: A / 주진호 · 데이터·모델·추론·평가. 최신 정리일: 2026-10-17.
 
-**상태: W2 data evidence + W3 AI-07 첫 공식 baseline 완료** — AI-04/AI-15 split 및 leakage 점검(PR #16), AI-20 EDA, AI-02 A-side taxonomy.
-W3 CPU 실행 spec과 dependency lock은 [baseline evidence](../docs/evidence/w3-a-baseline-spec.md)에 기록했습니다.
-공식 `AI07-BL-KLUE-RB-45126-R01`의 3-epoch 학습과 full VALIDATION 평가는 [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md)에 기록했습니다. TEST는 미열람 상태이며 inference 서비스는 아직 없습니다.
-R01은 dirty tree에서 실행됐습니다. 실행 source 12개 hash의 일치와 `pyproject.toml` historical hash 누락의 승인된 limitation은 [source provenance](../docs/evidence/w3-a-r01-source-provenance.md)에 기록했습니다. source snapshot commit은 실행 이후의 기록이며 execution-time commit이 아닙니다.
-Training runner의 tiny **SMOKE_ONLY** 학습·평가 경로 검증은 [smoke evidence](../docs/evidence/w3-a-runner-smoke.md)에 별도로 기록합니다.
+**main의 AI 실행 코드는 W3 통합 기준입니다.** W4 실제 FastAPI/Validation/E2E 구현은 A의 고정 [3a8993b 소스](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912/ai)에 있습니다. 이번 문서 반영으로 W4 실행 코드가 main에 병합된 것은 아닙니다.
 
-> CURRENT != TARGET · DRAFT != IMPLEMENTED · ADOPTED != TRAINED
+## 현재 확인한 성과
 
-W3 A packaging은 registry·actual manifest·synthetic real-model fixture까지 완료했습니다.
-[최종 evidence](../docs/evidence/w3-a-final.md)와 [재현·handoff](../docs/evidence/w3-a-reproducibility-handoff.md)를 참조하세요.
-Shared Receipt schema 정렬은 남아 있어 `W3_A_COMPLETE_WITH_INTEGRATION_BLOCKER`입니다.
-다른 PC 검증은 미실행이며, 최종 publication 상태는 commit/push 검증 기록을 따릅니다.
+| 항목 | 실행·근거 |
+| --- | --- |
+| W2 데이터·전처리 | BEEP! split/leakage·EDA, verimod-ko-text-v1. TRAIN/VALIDATION 범위 |
+| W3 AI-07 | R01 3-epoch CPU baseline·공식 VALIDATION·선정 checkpoint |
+| W3 AI-08/16 | 실제 Model Manifest·원본 출력 fixture·재현 인계 |
+| W4 AI-09 | 실제 selected R01 Python /infer와 I1·실패 계약 검증 PASS |
+| W4 AI-21 | VALIDATION 1,255건, Macro-F1 0.6524599868976999, Accuracy 0.6629482071713148. W3와 동일 |
+| W4 정책·AI-10 | 25개 후보, parity 21/21, 실제 정상 2건/실패 17건 PASS |
+| 후속 발급·Freeze | 실제 Receipt 2건, Epoch 1/count 2/version 1. 온체인은 아직 미실행 |
 
-## 목적
+[W4 한국어 실행 해설](../docs/evidence/w4-a-actual-frozen-epoch.md) · [팀 현황](../docs/progress/W4.md) · [공개 JSON](../docs/handoffs/w4-frozen-epoch-public/20261017-r01/README.md).
 
-이 작업 공간은 VeriMod의 AI 영역을 담당합니다.
+## 모델과 책임 경계
 
-- dataset 수집 및 전처리
-- native label을 향후 VeriMod taxonomy로 매핑
-- 모델 학습, inference, 평가
-- calibration
-- model manifest 생성
+- 선정 run: `AI07-BL-KLUE-RB-45126-R01`, 모델: `klue/roberta-base`.
+- Native 학습 target: hate/offensive/none. 외부 score key: hate/offensive.
+- none은 ALLOW와 동의어가 아닙니다. AI는 정책/action을 생성하지 않습니다.
+- 실제 점수는 UNCALIBRATED이며 정책은 Node 계층의 별도 책임입니다.
+- 전처리 HEAD 500 Unicode codepoints, tokenizer right truncation/max_length 128, native softmax/PPM 반올림 한 번.
+- 실제 정책 후보는 W4_PROVISIONAL_E2E_ONLY/team_approved=false. X/B·운영 승인·LOCK은 없습니다.
+- 가중치·원문·전체 predictions·private DB는 로컬 비공개입니다. clone만으로 실제 모델 서비스가 구성되지 않습니다.
+- TEST는 SEALED입니다. 이번 문서 작업에서는 데이터/모델을 열거나 재학습하지 않았습니다.
 
-AI 계층은 모델 점수만 산출합니다. 정책(`ALLOW / HUMAN_REVIEW / RESTRICT`), receipt, hashing,
-Merkle batching, anchoring은 다른 영역이 담당합니다([I1 계약 초안](../docs/04-interface-contract-draft.md) 참조).
-블록체인 anchor는 모델이 실제로 실행되었거나 그 점수가 정확했다는 것을 증명하지 않습니다.
+## W3 재현 원본 보존
 
-## 현황
+[Baseline 사양](../docs/evidence/w3-a-baseline-spec.md), [공식 run](../docs/evidence/w3-a-ai07-baseline-run.md), [source provenance](../docs/evidence/w3-a-r01-source-provenance.md), [최종 증거](../docs/evidence/w3-a-final.md), [재현 인계](../docs/evidence/w3-a-reproducibility-handoff.md)를 보존합니다.
 
-| 영역 | 현재 상태 | 위치 |
-|---|---|---|
-| Dataset 조사 (AI-01/AI-02) | W1 complete — 조사 evidence | [docs/research/ai-01-02-dataset-taxonomy.md](../docs/research/ai-01-02-dataset-taxonomy.md) |
-| Primary 확보 / split / leakage (AI-04/AI-15) | W2 evidence; AI-15 PARTIAL (Secondary overlap 미수행) | [configs/w2_dataset.json](configs/w2_dataset.json), [scripts/prepare_w2_dataset.py](scripts/prepare_w2_dataset.py), [docs/research/w2-*](../docs/research/w2-primary-dataset-decision.md) |
-| EDA (AI-20) | W2 evidence — TRAIN + VALIDATION만 대상 | [scripts/eda_w2.py](scripts/eda_w2.py), [artifacts/reports/w2_eda/](artifacts/reports/w2_eda/), [docs/research/w2-eda.md](../docs/research/w2-eda.md) |
-| Supported taxonomy (AI-02) | A-side 결정, PROPOSED FOR GATE-2 | [src/verimod_ai/data/taxonomy.py](src/verimod_ai/data/taxonomy.py), [docs/research/w2-taxonomy-decision.md](../docs/research/w2-taxonomy-decision.md) |
-| Dataset 코드 (package) | taxonomy 상수와 BEEP! label 매핑만 존재 | `src/verimod_ai/data/` |
-| Preprocessing v1 (AI-05) | `verimod-ko-text-v1`, synthetic test로 검증 | [src/verimod_ai/data/preprocessing.py](src/verimod_ai/data/preprocessing.py), [docs/research/w2-preprocessing.md](../docs/research/w2-preprocessing.md) |
-| 모델 학습 | 공식 R01 3-epoch baseline 완료; best VALIDATION Macro-F1 checkpoint 보존 | `src/verimod_ai/training/`, [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md) |
-| Inference | CONTRACT DRAFT ONLY | `src/verimod_ai/inference/` |
-| Evaluation skeleton (AI-06) | 기존 skeleton + 실제 3-class VALIDATION metrics/OVR; policy/threshold/bootstrap 평가는 미실행 | [src/verimod_ai/evaluation/](src/verimod_ai/evaluation/), [run evidence](../docs/evidence/w3-a-ai07-baseline-run.md) |
-| Notebooks | NOT STARTED | `notebooks/` |
+R01은 당시 dirty tree에서 실행됐으며 실행 source 12개 hash와 pyproject historical hash 누락의 승인된 한계를 구별합니다. 이후 source snapshot commit을 execution-time commit으로 바꾸지 않습니다. W3 frozen config/lock/Registry/Manifest/fixture도 변경하지 않습니다.
 
-## 결정된 항목과 미해결 항목
-
-| 항목 | 상태 |
-|---|---|
-| Primary dataset | BEEP! Korean HateSpeech, revision 고정 — [AI-04 결정](../docs/research/w2-primary-dataset-decision.md) |
-| Native 학습 target | `hate / offensive / none` single-label |
-| Internal TEST | 1,255행, SHA-256 기록, W5까지 sealed — [split evidence](../docs/research/w2-split-leakage.md) |
-| Secondary dataset | NOT ADOPTED |
-| Supported taxonomy | A-side: score key `hate`, `offensive`; reference `none` (ALLOW 아님). PROPOSED FOR GATE-2; I1 consumer 정렬 대기 |
-| Threshold / calibration | UNRESOLVED |
-| TEST 방법론 | UNRESOLVED (Row-25) |
-| 최종 모델 | UNRESOLVED (D01 방향만 존재) |
-
-`frontend/`의 synthetic demo label `hate / profanity / sexual / spam / violence`는 목표 taxonomy가 아닙니다.
-
-## 디렉터리 구성
-
-```text
-ai/
-├── configs/        # w2_dataset.json (pinned, used) + *.example.yaml templates
-├── scripts/        # standalone stdlib scripts (AI-04/AI-15 preparation, AI-20 EDA)
-├── src/verimod_ai/ # package: data / inference / evaluation / training boundaries
-├── tests/          # scaffold, AI-04/AI-15, AI-20 EDA and AI-02 taxonomy tests (synthetic fixtures)
-├── notebooks/      # exploration only (policy in notebooks/README.md)
-├── data/           # local datasets — never committed (policy in data/README.md)
-└── artifacts/      # local checkpoints — never committed (policy in artifacts/README.md)
-```
-
-## 설치
-
-W3 검증 환경은 Windows x64 / Python 3.12.14 / CPU입니다. `ai/`에서 실행합니다.
+W3 검증 환경은 Windows x64/Python 3.12.14/CPU입니다. 다음은 W3 환경 설치 안내이며 W4 서비스 의존성과 혼합하지 않습니다. `ai/`에서 실행합니다.
 
 ```sh
 python -m venv .venv
@@ -85,5 +46,12 @@ python -m pip install pytest==9.1.1
 pytest
 ```
 
-전체 재현 순서와 TRAIN/VALIDATION tokenizer 분석 명령은 baseline evidence를 참조하세요.
-CUDA 환경은 이번 CPU lock으로 검증하지 않았습니다.
+CUDA/다른 PC 재현과 새 회귀 실행은 이 문서 갱신에서 수행하지 않았습니다. main의 기존 코드와 W4 A 브랜치 검사를 구별하세요.
+
+## 데이터·분석 자료
+
+- [Primary 결정](../docs/research/w2-primary-dataset-decision.md), [split/leakage](../docs/research/w2-split-leakage.md)
+- [EDA](../docs/research/w2-eda.md), [taxonomy](../docs/research/w2-taxonomy-decision.md), [전처리](../docs/research/w2-preprocessing.md)
+- [실제 정책 후보와 과거 비교 원본](https://github.com/jujinho03/verimod/blob/3a8993bfaf36642d2a67d0a147da9086008bd912/docs/evidence/w4-a-validation-policy.md)
+
+Secondary·calibration·정책 LOCK·W5 이후 작업을 완료한 것으로 표시하지 않습니다. Blockchain은 실제 모델 실행이나 AI 정확성을 증명하지 않습니다.

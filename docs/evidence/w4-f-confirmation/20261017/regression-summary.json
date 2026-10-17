@@ -1,0 +1,122 @@
+{
+  "schema_version": "w4-trusted-confirmation-verification/1",
+  "client_date_kst": "2026-10-17",
+  "scope": "SYNTHETIC_RPC_STUB_ONLY",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "tsx": "4.23.13",
+  "f_base": "4605ec0553a27b0b1a57856856b903e608ff5845",
+  "t_reference": "ecc4edc9ea89e739845a362c956b66b6f9613cf9",
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "commands": [
+    {
+      "command": "npm run typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run w4:typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS"
+    },
+    {
+      "files": 11,
+      "status": "PASS",
+      "total": 192,
+      "new_tests": 71,
+      "passed": 192,
+      "existing_tests": 121,
+      "command": "npm test",
+      "skipped": 0
+    }
+  ],
+  "existing_bundle_assertion_tightened": true,
+  "per_file": [
+    {
+      "file": "database.test.ts",
+      "passed": 3,
+      "total": 3
+    },
+    {
+      "file": "decisions.test.ts",
+      "passed": 9,
+      "total": 9
+    },
+    {
+      "file": "durability-callback.test.ts",
+      "passed": 53,
+      "total": 53
+    },
+    {
+      "file": "epochs.test.ts",
+      "passed": 4,
+      "total": 4
+    },
+    {
+      "file": "health.test.ts",
+      "passed": 1,
+      "total": 1
+    },
+    {
+      "file": "inference.test.ts",
+      "passed": 15,
+      "total": 15
+    },
+    {
+      "file": "protocol.test.ts",
+      "passed": 2,
+      "total": 2
+    },
+    {
+      "file": "trusted-confirmation.test.ts",
+      "passed": 71,
+      "total": 71
+    },
+    {
+      "file": "w4-freeze-handoff.test.ts",
+      "passed": 13,
+      "total": 13
+    },
+    {
+      "file": "w4-manifest-boundary.test.ts",
+      "passed": 17,
+      "total": 17
+    },
+    {
+      "file": "windows-launch.test.ts",
+      "passed": 4,
+      "total": 4
+    }
+  ],
+  "source_digest_encoding": "UTF-8 with CRLF normalized to LF",
+  "source_sha256": {
+    "backend/src/trustedConfirmation.ts": "c2f84cd51ef5d5ce8df83bdbce1ba5d8564bcbceb745d710375cce0b00ff8f41",
+    "backend/src/confirmationEvidence.ts": "71b2c556a8669816397ab58007424f8312e9ba245517355b5ca4e37e6980b587",
+    "backend/src/epochs.ts": "9582dd6d4956300889134af6d19bba8d830f0cc42ea877cf8fd2ac63ba132363",
+    "backend/src/senderHandoff.ts": "4a4b1c6c7e013f712c6fa572c3448c0564e7c90b6c6b52ec7fa27af28aceb0b1",
+    "backend/src/durabilityCallback.ts": "bc98146b2dfaefedf7847eb2eca9be7b656b522cc6e09a9eec4a46cf7b7706a4",
+    "backend/scripts/f-durability-callback.mts": "d7ad27996224f87b7327463020fa34dd72d2454d87e4d010a30b04a4c4799c99",
+    "backend/test/trusted-confirmation.test.ts": "4454d766a0f4747ea15d3d38acfb0e4031288399a83e390c21de1a9e78f47ed2",
+    "backend/test/epochs.test.ts": "cccf29849e3f2d8325c7884946b255eb07f19527f60c78becbf65392b5df128c"
+  },
+  "statuses": {
+    "TRUSTED_CONFIRMATION_VERIFIER": "PASS",
+    "MIN_12_CONFIRMATIONS": "PASS",
+    "RECEIPT_EVENT_GETTER_MATCH": "PASS",
+    "REORG_FAIL_CLOSED": "PASS",
+    "F_STATE_PERSISTENCE": "PASS",
+    "PUBLIC_BUNDLE_RELEASE_GATE": "PASS",
+    "REAL_A_DB_CONFIRMED": "NO",
+    "ACTUAL_CHAIN_TX_SENT": "NO",
+    "GATE_4": "PARTIAL"
+  },
+  "real_rpc_verification": "BLOCKED_NOT_CONFIGURED_OR_APPROVED",
+  "browser_ui_qa": "BLOCKED_LOOPBACK_CONNECTION_TIMEOUT",
+  "public_bundle_http_api": "PASS",
+  "actual_signing_operations": 0,
+  "actual_chain_requests": 0,
+  "authoritative_db_modified": false
+}
