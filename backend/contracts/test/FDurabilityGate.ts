@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { assertDurableSubmissionAck, broadcastAfterDurableAck, requestDurableSubmissionAck, type FrozenEpoch } from "../scripts/fDurabilityGate.js";
+import { assertDurableSubmissionAck, broadcastAfterDurableAck, durableAckWireShape, requestDurableSubmissionAck, type FrozenEpoch } from "../scripts/fDurabilityGate.js";
 
 const frozen: FrozenEpoch & { txHash: string; nonce: string } = {
   epochId: "1", root: `0x${"a".repeat(64)}`, count: "2", protocolVersion: "1",
@@ -16,6 +16,17 @@ describe("F SQLite pre-broadcast gate", function () {
   it("permits broadcast only after an exact durable F acknowledgement", async function () {
     let broadcasts = 0;
     await broadcastAfterDurableAck(async () => acknowledgement(), frozen, async () => { broadcasts += 1; return "sent"; });
+    expect(broadcasts).to.equal(1);
+  });
+
+  it("round-trips T's internal acknowledgement through the snake_case gate schema", async function () {
+    const internal = {
+      epochId: frozen.epochId, root: frozen.root, count: frozen.count, protocolVersion: frozen.protocolVersion,
+      chainId: frozen.chainId, contractAddress: frozen.contractAddress, status: 'SUBMITTING' as const,
+      txHash: frozen.txHash, nonce: frozen.nonce,
+    };
+    let broadcasts = 0;
+    await broadcastAfterDurableAck(async () => durableAckWireShape(internal), frozen, async () => { broadcasts += 1; });
     expect(broadcasts).to.equal(1);
   });
 

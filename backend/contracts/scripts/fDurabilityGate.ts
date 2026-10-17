@@ -15,6 +15,21 @@ export type DurableSubmissionAck = FrozenEpoch & {
   nonce: string
 }
 
+/** Converts T's internal camelCase acknowledgement back to F's verified wire shape. */
+export function durableAckWireShape(ack: DurableSubmissionAck): Record<string, string> {
+  return {
+    epoch_id: ack.epochId,
+    merkle_root: ack.root,
+    receipt_count: ack.count,
+    protocol_version: ack.protocolVersion,
+    chain_id: ack.chainId,
+    contract_address: ack.contractAddress,
+    status: ack.status,
+    tx_hash: ack.txHash,
+    nonce: ack.nonce,
+  }
+}
+
 export function assertDurableSubmissionAck(expected: FrozenEpoch & { txHash: string; nonce: string }, actual: unknown): asserts actual is DurableSubmissionAck {
   if (!actual || typeof actual !== 'object') throw new Error('F durability callback returned no acknowledgement')
   const ack = actual as Record<string, unknown>

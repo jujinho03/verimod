@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { network } from "hardhat";
-import { broadcastAfterDurableAck, requestDurableSubmissionAck, type FrozenEpoch } from "./fDurabilityGate.js";
+import { broadcastAfterDurableAck, durableAckWireShape, requestDurableSubmissionAck, type FrozenEpoch } from "./fDurabilityGate.js";
 
 type Journal = {
   epochId: string;
@@ -93,7 +93,10 @@ if (!Array.isArray(args) || args.some((arg) => typeof arg !== "string") || args.
   throw new Error("VERIMOD_F_PREBROADCAST_ACK_ARGS_JSON must be a nonempty JSON string array");
 }
 const tx = await broadcastAfterDurableAck(
-  () => requestDurableSubmissionAck(expected, executable, args),
+  async () => {
+    const ack = await requestDurableSubmissionAck(expected, executable, args);
+    return durableAckWireShape(ack);
+  },
   expected,
   () => ethers.provider.broadcastTransaction(journal!.rawTransaction),
 );
