@@ -1,0 +1,22 @@
+{
+  "t_sha": "ecc4edc9ea89e739845a362c956b66b6f9613cf9",
+  "access": "READ_ONLY_GIT_OBJECTS",
+  "sources_sha256": {
+    "fDurabilityGate": "96e0f9655654097776f7dd70384c413904c08f59c936159a71c0496be0517ae8",
+    "registerEpoch": "e8c465732a114442cc0f1e2845862569057dafedcc8990d0f6a12dab454d119b",
+    "contract": "51fe14e156e6e132ac9c0fa4d95fe1c1c38ad596aa51cd94fa4eabb8d726be5d"
+  },
+  "checks": {
+    "ack_wire_shape_function": true,
+    "sender_uses_wire_shape": true,
+    "approved_chain": true,
+    "approved_contract": true,
+    "approved_publisher": true,
+    "indexed_epoch_event": true,
+    "sender_waits_default": true,
+    "F_confirmed_callback_present": false
+  },
+  "actual_sender_executed": false,
+  "chain_requests": 0,
+  "signing_operations": 0
+}
