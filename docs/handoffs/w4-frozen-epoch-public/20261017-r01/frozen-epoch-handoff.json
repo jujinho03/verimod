@@ -1,0 +1,44 @@
+{
+  "schema_version": "w4-frozen-epoch-handoff/1",
+  "source_commits": {
+    "a": "9bcbec677d89d10364b327aae7e60955e2e4315d",
+    "f": "f157b9aa7506093207e6695cc4b0ff7b83b69088",
+    "t": "fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de"
+  },
+  "epoch_id": "1",
+  "merkle_root": "0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82",
+  "receipt_count": 2,
+  "protocol_version": 1,
+  "status": "FROZEN",
+  "member_receipt_hashes": [
+    "0x86dba91c25268e16fce29afdced85cf2be32ff7a892b8e39e8f53a03d5f60f7f",
+    "0x96684f068edaaec7b2ae8abafdaae40c90c118f2d7bede9e4b0dec2278eed3b6"
+  ],
+  "member_order": "receipt_id ASCII ascending; leaf_index 0..count-1",
+  "issuer_id": "verimod-example-platform",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "actual_model_evidence": {
+    "a_commit": "9bcbec677d89d10364b327aae7e60955e2e4315d",
+    "weight_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+    "verified_python_health": true,
+    "observed_http_forward_calls": 2,
+    "fixture_adapter": false
+  },
+  "checks": {
+    "canonical_receipt_hashes": "PASS",
+    "independent_merkle_root": "PASS",
+    "freeze_replay": "PASS",
+    "empty_epoch_409": "PASS",
+    "sqlite_reopen": "PASS",
+    "public_private_boundary": "PASS"
+  },
+  "transmission_authorized": false,
+  "required_before_transmission": [
+    "Team authorization for this provisional-policy epoch",
+    "T sender awaits F EpochSenderHandoff acknowledgement before broadcast",
+    "Approved chain/contract/publisher and on-chain epoch collision checks"
+  ]
+}
