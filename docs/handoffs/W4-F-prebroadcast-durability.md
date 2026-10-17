@@ -1,5 +1,7 @@
 # W4 F → T: mandatory F SQLite boundary before broadcast
 
+Current confirmation contract: [W4-F-trusted-confirmation.md](W4-F-trusted-confirmation.md). T ecc4edc contains the ACK normalization fix; the T 3444750 defect below is retained as historical context. Actual host wiring and confirmation still require approved execution.
+
 F basis: `f157b9aa7506093207e6695cc4b0ff7b83b69088` plus the F-owned callback runner in this branch.
 T audited source: `34447502f8843f1be585b56fb31c51b41c0f2fc7`, `backend/contracts/scripts/fDurabilityGate.ts` and `register-epoch.ts`.
 

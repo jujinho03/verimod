@@ -1,5 +1,7 @@
 # W4 F durable callback runner — A/T execution request
 
+Update: the restricted confirmed verifier and current T ecc4edc source assessment are specified in [W4-F-trusted-confirmation.md](W4-F-trusted-confirmation.md). Its confirmation contract supersedes the historical blocked-confirmation bullets below; earlier T 3444750 results remain historical evidence.
+
 Scope: `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`. No permission to sign or broadcast is granted by this document or by an ACK. All actual-host connections remain **BLOCKED** until explicitly provisioned. No private A database path is known on F's host.
 
 ## Source pins and current result
