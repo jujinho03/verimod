@@ -58,6 +58,9 @@ export interface CallbackApproval {
   policy_status: 'W4_PROVISIONAL_E2E_ONLY'
   team_approved: false
   allow_submitted_return?: boolean
+  allow_confirmed_return?: boolean
+  confirmation_approval_id?: string
+  minimum_confirmations?: number
   rpc_url?: string
 }
 

@@ -1,7 +1,7 @@
 import type { DatabaseSync } from 'node:sqlite'
 import { Interface, Transaction } from 'ethers'
 import type { Hex32 } from '@verimod/protocol/hash'
-import { EpochService, EpochStateError } from './epochs.js'
+import { EpochService, EpochStateError, type EpochView } from './epochs.js'
 
 const registerEpoch = new Interface(['function registerEpoch(uint64 epochId, bytes32 root, uint32 count, uint16 protocolVersion)'])
 const ADDRESS = /^0x[0-9a-f]{40}$/
@@ -24,6 +24,23 @@ export interface DurableSubmissionAck {
   contract_address: string
 }
 
+/** Pure validation shared by pre-broadcast persistence and trusted confirmation. No state change. */
+export function verifyEpochTransaction(epoch: EpochView, rawTransaction: string, target: SenderTarget): Transaction {
+  if (target.chainId !== '84532' || !ADDRESS.test(target.contractAddress) || !ADDRESS.test(target.publisher)) throw new EpochStateError('approved sender target is required')
+  let tx: Transaction
+  try { tx = Transaction.from(rawTransaction) } catch { throw new EpochStateError('invalid signed epoch transaction') }
+  if (!tx.isSigned() || !tx.hash || !tx.from || tx.chainId !== BigInt(target.chainId)
+    || tx.to?.toLowerCase() !== target.contractAddress || tx.from.toLowerCase() !== target.publisher
+    || tx.value !== 0n || tx.serialized !== rawTransaction) throw new EpochStateError('signed transaction does not match the approved target')
+  let args: ReturnType<Interface['decodeFunctionData']>
+  try { args = registerEpoch.decodeFunctionData('registerEpoch', tx.data) }
+  catch { throw new EpochStateError('signed transaction is not registerEpoch') }
+  if (args[0] !== BigInt(epoch.epoch_id) || String(args[1]).toLowerCase() !== epoch.merkle_root
+    || args[2] !== BigInt(epoch.receipt_count) || args[3] !== BigInt(epoch.protocol_version)
+    || registerEpoch.encodeFunctionData('registerEpoch', args).toLowerCase() !== tx.data.toLowerCase()) throw new EpochStateError('signed transaction does not match the frozen epoch')
+  return tx
+}
+
 /** T must await this callback on the authoritative F DB before broadcasting the exact bytes.
  * This adapter only decodes, verifies and persists; it has no signer or RPC client.
  */
@@ -40,20 +57,7 @@ export class EpochSenderHandoff {
   persistBeforeBroadcast(input: { epochId: string; rawTransaction: string }): DurableSubmissionAck {
     const epoch = this.epochs.get(input.epochId)
     if (!['FROZEN', 'SUBMITTING'].includes(epoch.status)) throw new EpochStateError('epoch is not ready for preparation')
-    let tx: Transaction
-    try { tx = Transaction.from(input.rawTransaction) }
-    catch { throw new EpochStateError('invalid signed epoch transaction') }
-    if (!tx.isSigned() || !tx.hash || !tx.from || tx.chainId !== BigInt(this.target.chainId)
-      || tx.to?.toLowerCase() !== this.target.contractAddress || tx.from.toLowerCase() !== this.target.publisher
-      || tx.value !== 0n) throw new EpochStateError('signed transaction does not match the approved target')
-    let args: ReturnType<Interface['decodeFunctionData']>
-    try { args = registerEpoch.decodeFunctionData('registerEpoch', tx.data) }
-    catch { throw new EpochStateError('signed transaction is not registerEpoch') }
-    if (args[0] !== BigInt(epoch.epoch_id) || String(args[1]).toLowerCase() !== epoch.merkle_root
-      || args[2] !== BigInt(epoch.receipt_count) || args[3] !== BigInt(epoch.protocol_version)
-      || registerEpoch.encodeFunctionData('registerEpoch', args).toLowerCase() !== tx.data.toLowerCase()) {
-      throw new EpochStateError('signed transaction does not match the frozen epoch')
-    }
+    const tx = verifyEpochTransaction(epoch, input.rawTransaction, this.target)
     const main = (this.database.prepare('PRAGMA database_list').all() as { name: string; file: string }[]).find(row => row.name === 'main')
     const synchronous = this.database.prepare('PRAGMA synchronous').get() as { synchronous: number }
     const journal = this.database.prepare('PRAGMA journal_mode').get() as { journal_mode: string }
