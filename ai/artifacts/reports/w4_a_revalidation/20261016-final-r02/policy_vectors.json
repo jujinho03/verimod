@@ -1,0 +1,377 @@
+{
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "vectors": [
+    {
+      "id": "zero_allow",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "hate_review_-1",
+      "scores_ppm": {
+        "hate": 24494,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "hate_review_+0",
+      "scores_ppm": {
+        "hate": 24495,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_review_+1",
+      "scores_ppm": {
+        "hate": 24496,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_-1",
+      "scores_ppm": {
+        "hate": 216949,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_+0",
+      "scores_ppm": {
+        "hate": 216950,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_+1",
+      "scores_ppm": {
+        "hate": 216951,
+        "offensive": 0
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "offensive_review_-1",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 180482
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      }
+    },
+    {
+      "id": "offensive_review_+0",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 180483
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_review_+1",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 180484
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_-1",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 646500
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_+0",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 646501
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "offensive_restrict_+1",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 646502
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "both_review",
+      "scores_ppm": {
+        "hate": 24495,
+        "offensive": 180483
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      }
+    },
+    {
+      "id": "both_restrict",
+      "scores_ppm": {
+        "hate": 216950,
+        "offensive": 646501
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_restrict_offensive_review",
+      "scores_ppm": {
+        "hate": 216950,
+        "offensive": 180483
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "hate_review_offensive_restrict",
+      "scores_ppm": {
+        "hate": 24495,
+        "offensive": 646501
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "max_overlap",
+      "scores_ppm": {
+        "hate": 1000000,
+        "offensive": 1000000
+      },
+      "input_status": "FULL",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "RESTRICT",
+        "reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "triggered_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      }
+    },
+    {
+      "id": "truncated_zero",
+      "scores_ppm": {
+        "hate": 0,
+        "offensive": 0
+      },
+      "input_status": "TRUNCATED",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    },
+    {
+      "id": "truncated_max",
+      "scores_ppm": {
+        "hate": 1000000,
+        "offensive": 1000000
+      },
+      "input_status": "TRUNCATED",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    },
+    {
+      "id": "truncated_restrict_boundary",
+      "scores_ppm": {
+        "hate": 216950,
+        "offensive": 646501
+      },
+      "input_status": "TRUNCATED",
+      "expected": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    }
+  ]
+}

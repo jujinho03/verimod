@@ -1,0 +1,12 @@
+{
+  "a_ai09_commit": "dd1031ae042d384da8600d26310a671f398f68c4",
+  "f_commit": "a58230e897111eee8c981c4d734294201651b952",
+  "t_commit": "3054b112e9be09501c8f21c66a861212e7975db2",
+  "t_source_sha256": {
+    "shared/protocol/src/canonical.ts": "d3d1a3bd4dedcdffa92af2705fcbd1bd52deea4e7eea89787cfc590aab6df95c",
+    "shared/protocol/src/hash.ts": "7cccbfc864ffc79a5896e332fda1a9ee91a07d9690b7f4207673f20a9fcf676d",
+    "frontend/src/domain/approvedProfiles.ts": "56585b4e8ab73d376e0acb1d503719b673604c58815aa427039a371f66e7e907"
+  },
+  "f_t_canonical_hash_sources_identical": true,
+  "test_accessed": false
+}

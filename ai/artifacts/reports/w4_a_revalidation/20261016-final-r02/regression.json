@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "pytest_exit_code": 0,
+  "testcase_count": 152,
+  "tests_including_subtests": 179,
+  "failures": 0,
+  "errors": 0,
+  "counts_by_class": {
+    "tests.test_bootstrap.BootstrapTests": 5,
+    "tests.test_eda_w2.EdaTests": 4,
+    "tests.test_model_metrics.ModelMetricTests": 6,
+    "tests.test_policy_metrics.PolicyMetricTests": 9,
+    "tests.test_preprocessing.PreprocessingTests": 10,
+    "tests.test_selection.SelectionTests": 6,
+    "tests.test_taxonomy.TaxonomyTests": 4,
+    "tests.test_w2_dataset_integrity.DatasetIntegrityTests": 11,
+    "tests.test_w3_baseline_config.BaselineConfigTests": 7,
+    "tests.test_w3_baseline_config.TokenAnalysisBoundaryTests": 3,
+    "tests.test_w3_handoff.W3HandoffTests": 11,
+    "tests.test_w3_training_runner.RunnerTests": 15,
+    "tests.test_w4_inference": 46,
+    "tests.test_w4_policy": 11,
+    "tests.test_workspace.WorkspaceTests": 4
+  },
+  "elapsed_seconds": 33.06457760000194,
+  "test_accessed": false,
+  "w3_frozen_preserved": true,
+  "preserved_file_sha256": {
+    "ai/requirements-w3.lock.txt": "8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde",
+    "ai/configs/w3_baseline.json": "466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f",
+    "ai/configs/w2_dataset.json": "41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27",
+    "ai/experiments/registry.jsonl": "d8cb72885815cf8052c3931321231a8eaf0313d65b536ddb24a2fb537b943d49",
+    "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+    "ai/fixtures/w3_real_model_i1_fixture.json": "8ec5b9c897a9d00057538994d698e9f3d3b8e21c8ff88b661ff797783a45b2b9"
+  },
+  "raw_log_location": "LOCAL_PRIVATE_GIT_IGNORED",
+  "public_hostnames_or_absolute_paths": false
+}

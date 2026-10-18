@@ -1,0 +1,199 @@
+{
+  "run_id": "AI07-BL-KLUE-RB-45126-R01",
+  "source_snapshot_commit": "f6b39d3b7c5637b68e18c2b1b59ee91890c059f0",
+  "metadata_validation": "PASS",
+  "a_python_i1": "PASS",
+  "model_artifact": "SHA256_MATCH",
+  "execution_source_files_restorable": [
+    "ai/scripts/train_w3_baseline.py",
+    "ai/src/verimod_ai/training/runner.py",
+    "ai/src/verimod_ai/training/dataset.py",
+    "ai/src/verimod_ai/training/reproducibility.py",
+    "ai/src/verimod_ai/training/metrics.py",
+    "ai/src/verimod_ai/data/taxonomy.py",
+    "ai/src/verimod_ai/data/label_mapping.py",
+    "ai/src/verimod_ai/data/preprocessing.py",
+    "ai/src/verimod_ai/evaluation/metrics.py",
+    "ai/configs/w3_baseline.json",
+    "ai/configs/w2_dataset.json",
+    "ai/requirements-w3.lock.txt"
+  ],
+  "status": "VERIFIED_LOCAL_PACKAGE",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "manifest_file_sha256": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+  "shared_protocol": {
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+    "mechanism": "domainHash(DOMAINS.model, canonicalBytes(manifest))",
+    "modules": [
+      "shared/protocol/src/canonical.ts",
+      "shared/protocol/src/hash.ts"
+    ],
+    "protocol_version": "verimod/1",
+    "domain": "verimod:model:v1",
+    "reference_call": "shared/protocol/src/manifests.ts:manifestHashes",
+    "shared_label_ids": [
+      "hate",
+      "profanity",
+      "sexual",
+      "spam",
+      "violence"
+    ],
+    "shared_receipt_schema_probes": [
+      {
+        "fixture_id": "W3-R01-SYN-01",
+        "validation": {
+          "ok": true,
+          "value": {
+            "protocol_version": "verimod/1",
+            "receipt_id": "45126001-0000-4000-8000-000000000001",
+            "issuer_id": "synthetic-schema-probe",
+            "issuer_seq": 1,
+            "event_kind": "DECISION",
+            "recorded_at": "2026-10-07T00:57:49.362Z",
+            "content_commitment": "0x03f9168e6cba3ae62f25d2e83760238d43594d8728ac42f3ec6eb02779aff4c0",
+            "subject_receipt_hash": null,
+            "previous_receipt_hash": null,
+            "payload": {
+              "inference": {
+                "output_version": "inference/1",
+                "inference_id": "45126001-0000-4000-8000-000000000001",
+                "content_commitment": "0x03f9168e6cba3ae62f25d2e83760238d43594d8728ac42f3ec6eb02779aff4c0",
+                "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+                "taxonomy_id": "verimod-ko-beep-hate",
+                "taxonomy_version": "1",
+                "scores_ppm": {
+                  "hate": 3770,
+                  "offensive": 14497
+                },
+                "score_semantics": "UNCALIBRATED",
+                "input_status": "FULL",
+                "evidence": [],
+                "inferred_at": "2026-10-07T00:57:49.362Z"
+              },
+              "policy": {
+                "policy_manifest_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "action": "HUMAN_REVIEW",
+                "reason_codes": [
+                  "SCHEMA_PROBE_ONLY"
+                ],
+                "triggered_rule_ids": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "fixture_id": "W3-R01-SYN-02",
+        "validation": {
+          "ok": true,
+          "value": {
+            "protocol_version": "verimod/1",
+            "receipt_id": "45126002-0000-4000-8000-000000000002",
+            "issuer_id": "synthetic-schema-probe",
+            "issuer_seq": 1,
+            "event_kind": "DECISION",
+            "recorded_at": "2026-10-07T00:57:49.362Z",
+            "content_commitment": "0xe0fa5a69aef8183b4bc48c74e7a7db8084b0694de48da55730fcb48a385bb6b7",
+            "subject_receipt_hash": null,
+            "previous_receipt_hash": null,
+            "payload": {
+              "inference": {
+                "output_version": "inference/1",
+                "inference_id": "45126002-0000-4000-8000-000000000002",
+                "content_commitment": "0xe0fa5a69aef8183b4bc48c74e7a7db8084b0694de48da55730fcb48a385bb6b7",
+                "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+                "taxonomy_id": "verimod-ko-beep-hate",
+                "taxonomy_version": "1",
+                "scores_ppm": {
+                  "hate": 341067,
+                  "offensive": 627244
+                },
+                "score_semantics": "UNCALIBRATED",
+                "input_status": "FULL",
+                "evidence": [],
+                "inferred_at": "2026-10-07T00:57:49.362Z"
+              },
+              "policy": {
+                "policy_manifest_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "action": "HUMAN_REVIEW",
+                "reason_codes": [
+                  "SCHEMA_PROBE_ONLY"
+                ],
+                "triggered_rule_ids": []
+              }
+            }
+          }
+        }
+      },
+      {
+        "fixture_id": "W3-R01-SYN-03",
+        "validation": {
+          "ok": true,
+          "value": {
+            "protocol_version": "verimod/1",
+            "receipt_id": "45126003-0000-4000-8000-000000000003",
+            "issuer_id": "synthetic-schema-probe",
+            "issuer_seq": 1,
+            "event_kind": "DECISION",
+            "recorded_at": "2026-10-07T00:57:49.362Z",
+            "content_commitment": "0xcbdb9b6886096f2f56d307e6fa983569e332aa6f2c517d37a98067a8173b4fe3",
+            "subject_receipt_hash": null,
+            "previous_receipt_hash": null,
+            "payload": {
+              "inference": {
+                "output_version": "inference/1",
+                "inference_id": "45126003-0000-4000-8000-000000000003",
+                "content_commitment": "0xcbdb9b6886096f2f56d307e6fa983569e332aa6f2c517d37a98067a8173b4fe3",
+                "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+                "taxonomy_id": "verimod-ko-beep-hate",
+                "taxonomy_version": "1",
+                "scores_ppm": {
+                  "hate": 495749,
+                  "offensive": 435979
+                },
+                "score_semantics": "UNCALIBRATED",
+                "input_status": "FULL",
+                "evidence": [],
+                "inferred_at": "2026-10-07T00:57:49.362Z"
+              },
+              "policy": {
+                "policy_manifest_hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+                "action": "HUMAN_REVIEW",
+                "reason_codes": [
+                  "SCHEMA_PROBE_ONLY"
+                ],
+                "triggered_rule_ids": []
+              }
+            }
+          }
+        }
+      }
+    ],
+    "receipts_issued": 0,
+    "f_consumer_ref": "1401e03931f76ed8405454081adb9478339bae67",
+    "f_consumer_path": "backend/src/inference.ts",
+    "f_consumer_checks": [
+      {
+        "fixture_id": "W3-R01-SYN-01",
+        "status": "PASS"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-02",
+        "status": "PASS"
+      },
+      {
+        "fixture_id": "W3-R01-SYN-03",
+        "status": "PASS"
+      }
+    ]
+  },
+  "handoff_status": "I1_HANDOFF_READY",
+  "integration_blocker": null,
+  "authoritative_receipt_issuance_executed": false,
+  "anchor_state": "PENDING_ANCHOR",
+  "cross_machine_verification": "NOT_EXECUTED",
+  "test_accessed": false,
+  "secondary_accessed": false,
+  "training_executed": false,
+  "model_inference_executed": false
+}

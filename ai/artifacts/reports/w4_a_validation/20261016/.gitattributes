@@ -1,0 +1,3 @@
+# Preserve the exact policy manifest bytes used for hashing across checkouts.
+policy_manifest.json -text
+policy_manifest.canonical.json -text

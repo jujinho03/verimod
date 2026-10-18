@@ -1,0 +1,296 @@
+{
+  "scope": "W4_PROVISIONAL_E2E_ONLY",
+  "f_commit": "a58230e897111eee8c981c4d734294201651b952",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "team_approved": false,
+  "external_chain_calls": 0,
+  "test_accessed": false,
+  "success_tests": [
+    {
+      "receipt_id": "e7ecc029-e2a5-477a-8de4-cc6049dad00c",
+      "receipt_hash": "0x421d6ecb9a66a7386f2a1d038187d17915560f907b2c55a9896bd5c490928832",
+      "input_status": "FULL",
+      "action": "ALLOW",
+      "issuer_id": "verimod-example-platform",
+      "scores_ppm": {
+        "hate": 3364,
+        "offensive": 12979
+      },
+      "policy": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "ALLOW",
+        "reason_codes": [],
+        "triggered_rule_ids": []
+      },
+      "receipt_hash_valid": true,
+      "commitment_valid": true,
+      "private_public_boundary": "PASS",
+      "idempotent_replay": "PASS",
+      "changed_request_409": "PASS"
+    },
+    {
+      "receipt_id": "2707f7ea-2b72-4bc4-aa2d-1353bf3fa932",
+      "receipt_hash": "0x6557a824f691ab5e2916376aac2312d4ecd4233e9f0b403caaf291e8a298a89b",
+      "input_status": "TRUNCATED",
+      "action": "HUMAN_REVIEW",
+      "issuer_id": "verimod-example-platform",
+      "scores_ppm": {
+        "hate": 31479,
+        "offensive": 102538
+      },
+      "policy": {
+        "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+        "action": "HUMAN_REVIEW",
+        "reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "triggered_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      "receipt_hash_valid": true,
+      "commitment_valid": true,
+      "private_public_boundary": "PASS",
+      "idempotent_replay": "PASS",
+      "changed_request_409": "PASS"
+    }
+  ],
+  "failure_tests": [
+    {
+      "case": "policy_not_configured",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    },
+    {
+      "case": "invalid_model_output",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    },
+    {
+      "case": "malformed_model_manifest",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    },
+    {
+      "case": "wrong_commitment",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    },
+    {
+      "case": "unapproved_model_manifest",
+      "status": "FAIL",
+      "http_status": 201,
+      "error_code": null,
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 1,
+        "anchor_candidates": 1,
+        "content_store": 1,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 1,
+        "anchor_candidates": 1,
+        "content_store": 1,
+        "epochs": 0
+      },
+      "emitted_policy_action": "HUMAN_REVIEW",
+      "emitted_model_manifest_hash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+      "emitted_policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e"
+    },
+    {
+      "case": "unapproved_policy_manifest",
+      "status": "FAIL",
+      "http_status": 201,
+      "error_code": null,
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 1,
+        "anchor_candidates": 1,
+        "content_store": 1,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 1,
+        "anchor_candidates": 1,
+        "content_store": 1,
+        "epochs": 0
+      },
+      "emitted_policy_action": "HUMAN_REVIEW",
+      "emitted_model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+      "emitted_policy_manifest_hash": "0x2222222222222222222222222222222222222222222222222222222222222222"
+    },
+    {
+      "case": "ai_service_stopped",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    },
+    {
+      "case": "python_timeout",
+      "status": "PASS",
+      "http_status": 503,
+      "error_code": "INFERENCE_UNAVAILABLE",
+      "before": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "after": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "delta": {
+        "decisions": 0,
+        "anchor_candidates": 0,
+        "content_store": 0,
+        "epochs": 0
+      },
+      "emitted_policy_action": null,
+      "emitted_model_manifest_hash": null,
+      "emitted_policy_manifest_hash": null
+    }
+  ],
+  "fault_method": "Real Python HTTP responses are mutated only in explicitly named fault proxies; never success evidence.",
+  "success_counts": {
+    "decisions": 2,
+    "anchor_candidates": 2,
+    "content_store": 2,
+    "epochs": 0
+  },
+  "issuer_compatibility": {
+    "status": "MISMATCH",
+    "receipt_issuer_id": "verimod-example-platform",
+    "approved_profile_issuer_id": "verimod-demo-issuer",
+    "profile": "BASE_SEPOLIA_DEMO",
+    "t_commit": "3054b112e9be09501c8f21c66a861212e7975db2"
+  },
+  "sqlite_reopen_persistence": "PASS",
+  "happy_path": "PASS",
+  "fail_closed": "FAIL",
+  "status": "FAIL",
+  "elapsed_seconds": 34.2377925
+}
