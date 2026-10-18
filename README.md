@@ -1,75 +1,80 @@
 # VeriMod
 
-**사용자가 직접 검증하는 AI 모더레이션 프로토콜 · HTTP 451 · BLOCK AI 2026**
+**사용자가 직접 검증하는 AI 모더레이션 프로토콜 · Decide. Prove. Appeal.**
 
-콘텐츠 판정의 공개 영수증(Decision Receipt), 해시, Merkle 포함 증명과 외부 앵커를 대조하여 기록의 무결성을 확인하고 이의제기 이력을 추적합니다.
+팀 HTTP 451 · BLOCK AI 2026 (Web3 시대의 블록체인 AI 융합 해커톤, 트랙 1)
 
 [![CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Amain)
 
-## 3회차 멘토링: 먼저 읽을 자료
+## 한눈에 보기
 
-**갱신일: 2026-10-18 · W4 GATE-4: PARTIAL(부분 완료).**
+**문제.** 플랫폼이 AI로 게시물을 제한할 때, 이용자는 판정 이유를 받더라도 그 기록이 나중에 바뀌었는지 플랫폼 밖에서 확인할 방법이 없습니다.
 
-실제 R01 모델 → Python API → Node 정책/발급 → SQLite 저장 → Receipt 2건의 Epoch Freeze까지 실행했습니다. 2026-10-18에는 T 노트북 → 사설망 → A Windows OpenSSH → F 전용 계정의 고정 status 경로로 실제 왕복을 확인했고, 원격 명령·PTY·포워딩·SFTP·다른 계정은 모두 차단됐습니다. 실제 Epoch 1의 Base Sepolia 송신, F의 온체인 확인, 외부 브라우저 검증은 별도 송신 승인(APPROVAL_5) 전이라 아직 하지 않았습니다.
+**해결.** VeriMod는 AI 판정마다 **판정 영수증(Decision Receipt)** 을 발급하고, 영수증 묶음의 지문(Merkle root)을 **공개 블록체인(Base Sepolia)** 에 고정합니다. 이용자는 받은 영수증을 공개 기준점과 직접 대조해, 판정 기록이 발급 후 바뀌지 않았는지 스스로 확인하고 이의제기할 수 있습니다.
 
-- [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·확인받을 질문
-- [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과와 남은 조건
-- [실제 Frozen Epoch JSON 4개](docs/handoffs/w4-frozen-epoch-public/20261017-r01/README.md): 원본 SHA-256 포함
-- [최소 운영 절차·승인 구분](docs/handoffs/W4-AFT-operations.md)
-- [전체 문서 안내](docs/README.md)
-
-## main과 작업 브랜치의 범위
-
-**2026-10-18에 A/F/T의 W4 브랜치를 main에 병합했습니다.** 아래 고정 소스가 main에 들어 있으며, W3 통합 계약과 맞추는 수정 1개를 더해 전체 회귀(frontend 200, browser 1, backend 197, contracts 18)를 통과했습니다. 구현 완료와 실제 호스트 연결 완료, 실제 체인 송신은 계속 구별합니다.
-
-| 영역 | 병합한 소스 | 범위 |
-| --- | --- | --- |
-| W3 공동 통합 (기존 main) | `1401e03931f76ed8405454081adb9478339bae67` | 실제 모델 출력 fixture, backend 발급, 공유 규격·계약 |
-| A: AI·평가·연동 | [`3a8993b`](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912) | 실제 추론, VALIDATION 평가, 정책 비교/parity, A/F E2E |
-| F: 서비스·검증 | [`c1f750e`](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9) | HTTP adapter, Manifest 검증, SQLite Freeze·durable ACK·confirmation |
-| T: 프로토콜·체인 | [`7534907`](https://github.com/jujinho03/verimod/tree/7534907fa3ad66cc6ed29cfbee2efd8c2c75369e) | Issuer·승인 프로필, F ACK 후 송신, SUBMITTED/CONFIRMED 분리 |
-
-## 실제로 확인한 결과
-
-| 항목 | 결과와 한계 |
+| VeriMod가 확인해 주는 것 | VeriMod가 주장하지 않는 것 |
 | --- | --- |
-| AI-09 실제 추론 | PASS. 선정 R01 가중치·고정 tokenizer로 실제 forward. UNCALIBRATED 점수 |
-| AI-21 VALIDATION | PASS. 1,255건, Macro-F1 **0.6524599868976999**, Accuracy **0.6629482071713148**, W3와 동일 |
-| 실제 A/F E2E | FULL/TRUNCATED 정상 2건, Fail Closed **17/17**, 정책 parity **21/21** PASS |
-| 실제 발급·Freeze | Receipt 2건, Epoch 1, version 1, 독립 Merkle·SQLite 재개방 PASS |
-| 최신 F 원본 DB status | PASS. FROZEN/tx_hash=null, DB bytes·identity·멤버 보존 |
-| 실제 T → A SSH status 왕복 | PASS (2026-10-18). 공개키 인증·고정 status만 허용, 셸/PTY/포워딩/SFTP/다른 계정 차단, DB 불변 |
-| F confirmation 회귀 | F 보고 **192/192 PASS**. 합성 DB/RPC stub이며 실제 체인 검증 아님 |
-| 실제 Epoch 송신·외부 브라우저 VALID | 미완료. GATE-4 전체 PASS로 계산하지 않음 |
+| 받은 영수증이 블록체인에 고정된 기록과 일치하는지 | AI 판정이 객관적으로 옳은지 |
+| 영수증의 해시·포함 증명이 변조됐는지 | 실제로 그 모델이 실행됐는지 |
+| 어떤 모델·정책 버전으로 판정했는지 (hash로 결합) | 발급자가 처음부터 진실하게 기록했는지 |
 
-실제 Frozen Epoch root:
+블록체인에는 최소 정보(epoch 번호, Merkle root, 건수, 버전)만 올립니다. 게시물 원문, salt, 개인정보는 올리지 않습니다.
 
-```text
-0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82
-```
-
-[실행 근거와 수치 해설](docs/evidence/w4-a-actual-frozen-epoch.md) · [F 검사 범위](docs/evidence/w4-f-confirmation/20261017/README.md)
-
-## 동작 경로와 현재 경계
+## 동작 흐름과 현재 위치
 
 ```mermaid
 flowchart LR
-  Text[합성 한국어 입력] --> Model[실제 R01 Python 추론]
-  Model --> Policy[Node 시험용 정책]
-  Policy --> Receipt[영수증 발급과 SQLite]
-  Receipt --> Freeze[실제 Epoch 1 Freeze 완료]
-  Freeze --> Gate[사설 채널 status 왕복 PASS]
-  Gate --> Sender[prepare ACK와 T signer: 송신 승인 대기]
-  Sender --> Chain[실제 Epoch 송신 미실행]
-  Chain --> Confirm[F 독립 confirmation 미실행]
-  Confirm --> Browser[외부 브라우저 검증 미완료]
+  A[한국어 게시물] --> B[AI 판정<br/>KLUE RoBERTa]
+  B --> C[정책 적용<br/>허용/검토/제한]
+  C --> D[판정 영수증 발급<br/>SQLite 저장]
+  D --> E[영수증 묶음 고정<br/>Merkle Epoch]
+  E --> F[블록체인 등록<br/>Base Sepolia]
+  F --> G[이용자 브라우저에서<br/>독립 검증]
+  classDef done fill:#d8f3dc,stroke:#2d6a4f,color:#1b4332
+  classDef todo fill:#fff3cd,stroke:#b08900,color:#5c4400
+  class A,B,C,D,E done
+  class F,G todo
 ```
 
-Native label은 `hate / offensive / none`, 외부 score key는 `hate / offensive`입니다. `none`은 ALLOW와 동의어가 아니며 정책은 Node가 결정합니다. 정책은 **W4_PROVISIONAL_E2E_ONLY, team_approved=false**이고 운영 승인/LOCK은 없습니다. TEST는 계속 SEALED입니다.
+초록색은 실제 모델과 실제 데이터로 실행을 마친 단계, 노란색은 남은 단계입니다.
 
-## main의 기존 데모 실행
+## 현재 진행 상황 (2026-10-18)
 
-main의 기본 브라우저 데모는 합성 점수·모의 원장 경로입니다. 이를 실제 R01/공개 체인 실행으로 소개하지 않습니다. W4 실제 경로 코드도 main에 있지만, 모델 가중치와 private DB는 저장소에 없어 clone만으로 A 호스트의 실제 환경이 구성되지 않습니다.
+| 단계 | 상태 | 설명 |
+| --- | --- | --- |
+| AI 모델 학습·평가 | 완료 | BEEP! 한국어 혐오표현 데이터, VALIDATION Macro-F1 0.6525 |
+| 실제 추론 API | 완료 | 학습한 모델로 실제 추론하는 FastAPI 서비스 |
+| 판정 영수증 발급 | 완료 | 실제 추론 결과로 영수증 2건 발급, 실패 시 발급하지 않음(17개 실패 시나리오 통과) |
+| 영수증 묶음 고정 | 완료 | Epoch 1에 영수증 2건을 고정, 독립 재계산으로 root 일치 확인 |
+| 스마트 컨트랙트 | 배포 완료 | [Base Sepolia 컨트랙트](https://sepolia.basescan.org/address/0xd17bA590b23E984e3F3408bcdC3529BE9868EC50) |
+| 두 노트북 간 보안 연결 | 완료 | 송신 노트북 → 원본 DB 호스트 사설 SSH, 허용된 조회만 가능함을 실제 확인 |
+| 블록체인에 Epoch 등록 | 예정 | 팀의 송신 승인 후 실행 |
+| 이용자 브라우저 독립 검증 | 예정 | 등록된 기록으로 정상/변조 사례 확인 |
+
+전체 단계 판정(W4 GATE-4)은 **부분 완료(PARTIAL)** 입니다. 정책 기준값은 시험용(provisional)이며 팀 확정 전입니다. 시험 데이터(TEST)는 정책 확정 전까지 봉인해 두었습니다.
+
+## 멘토님께: 먼저 읽을 자료
+
+1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지
+2. [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과, 실제 SSH 연결 시험 결과
+3. [현재 상태 요약](docs/03-current-status.md): 항목별 상태표
+4. [실제 고정된 영수증 공개 자료](docs/handoffs/w4-frozen-epoch-public/20261017-r01/README.md): 영수증 2건과 root, SHA-256
+5. [전체 문서 안내](docs/README.md)
+
+## 구성과 담당
+
+| 경로 | 담당·책임 |
+| --- | --- |
+| [ai/](ai/README.md) | A / 주진호 (팀장): 데이터·모델 학습·추론 API·평가·정책 후보 |
+| [backend/](backend/README.md) | F / 노유신: API·SQLite·영수증 발급·Epoch 고정·확인 절차 |
+| [backend/contracts/](backend/contracts/README.md) | T / 설경민: 스마트 컨트랙트·배포·블록체인 송신 |
+| [frontend/](frontend/) | 서비스 화면과 브라우저 검증기 |
+| [shared/protocol/](shared/protocol/) | 영수증 직렬화·hash·Merkle 공통 규칙 |
+| [docs/](docs/README.md) | 결정 기록·주차별 진행·증빙·멘토링 자료 |
+
+## 직접 실행해 보기
+
+브라우저 데모는 합성 점수와 모의 원장으로 동작합니다. 실제 모델 가중치와 원본 DB는 저장소에 없으므로, clone만으로 실제 W4 환경이 구성되지는 않습니다.
 
 ```sh
 git clone https://github.com/jujinho03/verimod.git
@@ -78,25 +83,46 @@ npm ci
 npm run dev
 ```
 
-터미널의 localhost 주소를 엽니다. [기존 데모 안내](docs/08-submission-guide.md)와 [실제 W4 연결](docs/handoffs/W4-AFT-operations.md)을 구별합니다.
+터미널에 나온 localhost 주소를 엽니다. 전체 회귀 검사는 저장소 루트에서 `node scripts/check-all.mjs`입니다. [데모 안내](docs/08-submission-guide.md)를 참고하세요.
 
-## 구성과 담당
+## 검증 세부 결과
 
-| 경로 | 담당·책임 |
+| 항목 | 결과와 한계 |
 | --- | --- |
-| [ai/](ai/README.md) | A / 주진호: 데이터·모델·추론·평가·정책 후보 근거 |
-| [backend/](backend/README.md) | F / 노유신: API·정책·SQLite·발급·검증 |
-| [backend/contracts/](backend/contracts/README.md) | T / 설경민: 프로토콜·계약·배포·송신 |
-| [frontend/](frontend/) | F 서비스 UI, T 승인 프로필/RPC 검증 경계 |
-| [shared/protocol/](shared/protocol/) | canonical bytes·hash·Receipt·Merkle 공유 규칙 |
-| [docs/](docs/README.md) | 공동 결정·주차별 기록·증빙·멘토링 |
+| AI-09 실제 추론 | PASS. 선정 R01 가중치·고정 tokenizer로 실제 forward. 점수는 확률 보정 전(UNCALIBRATED) |
+| AI-21 VALIDATION | PASS. 1,255건, Macro-F1 **0.6524599868976999**, Accuracy **0.6629482071713148** |
+| 실제 A/F E2E | FULL/TRUNCATED 정상 2건, Fail Closed **17/17**, Python/Node 정책 parity **21/21** |
+| 실제 발급·Freeze | Receipt 2건, Epoch 1, version 1, 독립 Merkle·SQLite 재개방 PASS |
+| 원본 DB 상태 | FROZEN, tx_hash=null. 시험 전후 DB 내용 불변 |
+| 실제 T → A SSH status 왕복 | PASS. 공개키 인증·고정 조회만 허용, 셸/PTY/포워딩/SFTP/다른 계정 차단 |
+| F confirmation 회귀 | **192/192 PASS**. 합성 DB/RPC stub 기반이며 실제 체인 검증은 아님 |
+| main 통합 회귀 | frontend 200, browser 1, backend 197, contracts 18, 각 build PASS (CI 통과) |
+| 실제 Epoch 송신·브라우저 VALID | 미실행. 송신 승인 후 진행 |
 
-main 전체 회귀 명령은 `node scripts/check-all.mjs`이며 Python 검사는 [AI 안내](ai/README.md)를 따릅니다. 2026-10-18 병합 후에는 CI와 같은 JS 회귀를 다시 실행했습니다. 과거 모델 학습/평가는 재실행하지 않았습니다.
+실제 고정된 Epoch 1 root:
+
+```text
+0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82
+```
+
+AI는 `hate / offensive / none` 3개 클래스를 예측하고, 외부에는 `hate / offensive` 점수만 냅니다. `none`이 곧 허용(ALLOW)을 뜻하지 않으며, 허용/검토/제한은 별도 정책이 결정합니다.
+
+[실행 근거와 수치 해설](docs/evidence/w4-a-actual-frozen-epoch.md) · [F 검사 범위](docs/evidence/w4-f-confirmation/20261017/README.md) · [운영 절차와 승인 구분](docs/handoffs/W4-AFT-operations.md)
+
+## 통합한 소스
+
+2026-10-18에 세 담당의 W4 작업을 main에 병합했습니다. 아래 고정 커밋은 실제 실행 증거가 가리키는 기준입니다.
+
+| 영역 | 고정 커밋 | 범위 |
+| --- | --- | --- |
+| W3 공동 통합 | `1401e03931f76ed8405454081adb9478339bae67` | 실제 모델 출력 fixture, backend 발급, 공유 규격 |
+| A: AI·평가·연동 | [`3a8993b`](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912) | 실제 추론, VALIDATION 평가, 정책 비교/parity, A/F E2E |
+| F: 서비스·검증 | [`c1f750e`](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9) | HTTP adapter, Manifest 검증, SQLite Freeze·durable ACK·confirmation |
+| T: 프로토콜·체인 | [`7534907`](https://github.com/jujinho03/verimod/tree/7534907fa3ad66cc6ed29cfbee2efd8c2c75369e) | Issuer·승인 프로필, F ACK 후 송신, SUBMITTED/CONFIRMED 분리 |
 
 ## 신뢰와 공개 범위
 
-- 원문·salt·private package·서명키·DB 경로는 공개 Bundle에 넣지 않습니다.
-- 실제 두 Bundle의 proof/anchor는 null입니다. F 확인 전 공개 체인 VALID를 주장하지 않습니다.
-- 해시/Merkle/앵커는 AI 정확성·공정성·실제 모델 실행·전체 기록의 완전성을 증명하지 않습니다.
-- W3 원본과 과거 실패 증거는 보존하고 한국어 해설에서 연결합니다.
-- W5 이후 작업, TEST 개봉, 재학습, 정책 LOCK은 이번 범위가 아닙니다.
+- 원문·salt·private package·서명키·DB 경로는 공개하지 않습니다.
+- 실제 두 영수증의 proof/anchor는 블록체인 확인 전이라 null입니다. 확인 전에는 공개 체인 VALID를 주장하지 않습니다.
+- 해시·Merkle·앵커는 AI의 정확성·공정성, 실제 모델 실행, 전체 기록의 완전성을 증명하지 않습니다.
+- 과거 실패 증거와 W3 원본은 지우지 않고 보존합니다.
