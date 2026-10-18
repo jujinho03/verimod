@@ -1,5 +1,19 @@
 # VeriMod 협업 규칙
 
+## 브랜치
+
+| 브랜치 | 용도 |
+| --- | --- |
+| `main` | 공동 기준 브랜치. 멘토·심사용 최신 상태 |
+| `jujinho` | A / 주진호 작업 |
+| `seolkyeongmin` | T / 설경민 작업 |
+| `nohyusin` | F / 노유신 작업 |
+
+- 각자 자기 브랜치에서 작업하고, main에는 리뷰 후 병합한다.
+- 작업 전에 `git pull origin main`으로 자기 브랜치를 main에 맞춘다.
+- `a-w4-ai09-actual-inference`는 3회차 멘토링 자료가 링크한 브랜치라 멘토링이 끝날 때까지만 유지한다.
+- 2026-10-18 이전의 옛 작업 브랜치는 정리했다. main에 없던 커밋은 `archive/...` 태그로 보관한다.
+
 ## 리뷰
 
 - protocol bytes, I1~I4 schema, Merkle 규칙, TrustProfile, ABI 변경은 담당자 외 1명 이상이 검토한다.
