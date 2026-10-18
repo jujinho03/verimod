@@ -29,7 +29,7 @@ describe('VeriModApiClient W3 boundary', () => {
       sent = init
       return json({ ok: true, request_id: 'req-w4', data: { bundle: w4, private_package: {
         receipt_id: w4.receipt_body.receipt_id, content_commitment: w4.receipt_body.content_commitment, content_salt: 'ab'.repeat(32),
-      } } }, 201)
+      }, state: 'PENDING_ANCHOR' } }, 201)
     } })
     await expect(client.postDecision({ text: '한국어 입력' }, 'idem-w4')).resolves.toMatchObject({ data: { bundle: w4 } })
     expect((sent?.headers as Record<string, string>)['x-demo-principal']).toBe('browser-owner')

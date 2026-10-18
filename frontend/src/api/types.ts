@@ -25,6 +25,8 @@ export interface PrivateReceiptMaterial {
 export interface DecisionCreated {
   bundle: VerificationBundle
   private_package: PrivateReceiptMaterial
+  /** 실제 발급 응답에는 필수이며, 과거 합성 fixture에는 없을 수 있다. */
+  state?: 'PENDING_ANCHOR'
 }
 
 export type ApiErrorKind = 'TIMEOUT' | 'NETWORK' | 'HTTP' | 'INVALID_RESPONSE'

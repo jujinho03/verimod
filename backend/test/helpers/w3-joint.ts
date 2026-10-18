@@ -10,11 +10,12 @@ import { leafHash, verifyInclusion } from '@verimod/protocol/merkle'
 import type { ReceiptBody } from '@verimod/protocol/types'
 import { createApp } from '../../src/app.js'
 import { openDatabase } from '../../src/database.js'
-import type { InferenceAdapter, PolicyEvaluator, W3InferenceOutput } from '../../src/inference.js'
+import { createThresholdPolicyEvaluator, W4_PROVISIONAL_POLICY_HASH, type InferenceAdapter, type PolicyEvaluator, type W3InferenceOutput } from '../../src/inference.js'
 
 const read = (path: string) => JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8'))
 const fixture = read('ai/fixtures/w3_real_model_i1_fixture.json')
 const manifest = read('ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json')
+const policyManifest = read('backend/config/w4-provisional.policy_manifest.json')
 const headers = {'x-demo-principal':'w3-joint-synthetic-user', 'x-demo-role':'DEMO_USER'}
 
 /** Actual saved scores only. Rebind the commitment to F's fresh private salt.
@@ -32,18 +33,17 @@ export async function exerciseW3Issuance() {
   const fixedTime = '2026-10-07T00:00:00.000Z'
   const modelHash = await domainHash(DOMAINS.model, canonicalBytes(manifest))
   assert.equal(modelHash, fixture.model_manifest_hash)
-  const policyManifest = {manifest_version:'policy-manifest/1', policy_id:'w3-joint-checkpoint-only',
-    scope:'TEST_DEPENDENCY_ONLY', action:'HUMAN_REVIEW', threshold_selection:false}
-  const policyHash = await domainHash(DOMAINS.policy, canonicalBytes(policyManifest))
-  const policy: PolicyEvaluator = {async evaluate() {return {policy_manifest_hash:policyHash,
-    action:'HUMAN_REVIEW',reason_codes:['W3_JOINT_TEST_ONLY'],triggered_rule_ids:[]}}}
-  const app = createApp({database,inference:actualFixtureAdapter,policy,now:()=>new Date(fixedTime),actualModelManifest:manifest})
+  // W4 F는 승인된 provisional 정책 hash만 발급에 허용하므로 F 회귀 테스트와 같은 평가기를 쓴다.
+  const policy: PolicyEvaluator = createThresholdPolicyEvaluator({
+    policyManifestHash: W4_PROVISIONAL_POLICY_HASH, policyManifest, localW4E2E: true,
+    hate: { review: 24495, restrict: 216950 },
+    offensive: { review: 180483, restrict: 646501 },
+  })
+  // W4 F는 실제 Model Manifest를 modelManifest 옵션으로 받아 발급 시 hash binding을 검사한다.
+  // 공개 /api/manifests의 actual_model 노출은 W4에서 제거됐으므로, binding은 아래 receipt의 model_manifest_hash로 확인한다.
+  const app = createApp({database,inference:actualFixtureAdapter,policy,now:()=>new Date(fixedTime),modelManifest:manifest})
   const results: {fixture_id:string; receipt_id:string; issuer_seq:number; receipt_hash:Hex32; receipt_body:ReceiptBody; i1:string; issuance:string; public_privacy:string; status:string}[] = []
   try {
-    const publicManifest = await request(app).get('/api/manifests')
-    assert.equal(publicManifest.status,200)
-    assert.equal(publicManifest.body.data.actual_model.hash,modelHash)
-    assert.deepEqual(publicManifest.body.data.actual_model.manifest,manifest)
     for (const row of fixture.results) {
       const response = await request(app).post('/api/decisions').set({...headers,'Idempotency-Key':row.fixture_id}).send({text:row.synthetic_text})
       assert.equal(response.status,201)
@@ -96,7 +96,7 @@ export async function exerciseW3Issuance() {
       issuer_seq_min:frozen.issuer_seq_min,issuer_seq_max:frozen.issuer_seq_max,leaves,
       canonical_hash_deterministic:true,merkle_order_deterministic:true,public_manifest_hash_verified:true,
       idempotent_replay:'PASS',raw_text_exported:false,salts_exported:false,
-      policy_scope:'FIXED HUMAN_REVIEW TEST DEPENDENCY; NO THRESHOLD/POLICY LOCK',
+      policy_scope:'W4_PROVISIONAL_E2E_ONLY THRESHOLDS; team_approved=false; NO POLICY LOCK',
       receipt_state:'PENDING_ANCHOR',test_accessed:false,secondary_accessed:false,model_inference_executed:false}
   } finally {database.close()}
 }

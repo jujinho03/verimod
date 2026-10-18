@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createElement } from 'react'
 import { validateReceiptBody } from './schema'
-import { ACTUAL_NATIVE_CLASSES, ACTUAL_SCORE_KEYS } from './types'
+import { BEEP_SCORE_IDS } from './types'
 import { ScoreBars } from '../features/ScoreBars'
 
 const read = (path: string) => JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8'))
@@ -16,9 +16,8 @@ const actual = (index = 0) => ({ ...structuredClone(legacy),
 })
 
 describe('W3 actual vs historical synthetic taxonomy boundary', () => {
-  it('keeps native three-class and exposed harmful keys distinct', () => {
-    expect(ACTUAL_NATIVE_CLASSES).toEqual(['hate', 'offensive', 'none'])
-    expect(ACTUAL_SCORE_KEYS).toEqual(['hate', 'offensive'])
+  it('exposes only the harmful BEEP score keys, never the native none class', () => {
+    expect(BEEP_SCORE_IDS).toEqual(['hate', 'offensive'])
   })
   it.each([0, 1, 2])('accepts actual selected-model fixture %i', (i) => {
     expect(validateReceiptBody(actual(i)).ok).toBe(true)
@@ -33,7 +32,9 @@ describe('W3 actual vs historical synthetic taxonomy boundary', () => {
   it('rejects missing harmful score and profile/version confusion', () => {
     const missing = actual(); delete missing.payload.inference.scores_ppm.offensive
     expect(validateReceiptBody(missing).ok).toBe(false)
-    for (const [id, version] of [['verimod-example-ko','0'],['verimod-ko-beep-hate','0'],['unknown','1']]) {
+    // BEEP taxonomy_version='1' 고정은 F 발급 경로(backend/src/inference.ts)가 강제한다.
+    // 공유 검증기는 W4 T 구현 기준으로 BEEP 버전을 고정하지 않으므로 여기서는 검사하지 않는다.
+    for (const [id, version] of [['verimod-example-ko','0'],['unknown','1']]) {
       const body = actual(); Object.assign(body.payload.inference, {taxonomy_id:id, taxonomy_version:version})
       expect(validateReceiptBody(body).ok).toBe(false)
     }
@@ -48,7 +49,7 @@ describe('W3 actual vs historical synthetic taxonomy boundary', () => {
   })
   it('does not apply synthetic thresholds to actual score display', () => {
     const html = renderToStaticMarkup(createElement(ScoreBars, {scores:{hate:3770,offensive:14497}}))
-    expect(html).toContain('정책 기준 미동결')
+    expect(html).toContain('실제 모델 score와 정책 조치는 별도 계층입니다')
     expect(html).not.toContain('score-row__tick')
     expect(html).not.toContain('보정하지 않은 합성 점수')
   })
