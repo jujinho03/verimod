@@ -8,7 +8,7 @@
 - F Manifest 기준: `2c99260c0eb6229d34b3f94191c2dab3238c1727`.
 - 이번 게시 코드·사전 점검·최종 회귀 기준 F: [`6e53bc8de9e165a257a7e8f98c1a86a6432b42e2`](https://github.com/jujinho03/verimod/commit/6e53bc8de9e165a257a7e8f98c1a86a6432b42e2). 이후 이 결과 디렉터리를 추가하는 증거 커밋은 실행 코드 변경을 포함하지 않는다.
 - T: `fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de`. issuer 정렬 `60600d50174749f24f54b87b5f9d4a7b79775304`의 조상 관계를 확인했다. T/main/A 브랜치를 변경하거나 병합하지 않았다.
-- 게시 브랜치: [f-w4-service-verifier](https://github.com/jujinho03/verimod/tree/f-w4-service-verifier). 터미널 credential helper가 실행되지 않아 로그인된 GitHub 웹 업로드로 반영한 뒤 fetch와 diff로 로컬 검증 코드와의 내용 일치를 확인했다.
+- 게시 브랜치: `f-w4-service-verifier` (2026-10-18 main 병합 후 브랜치 정리; 마지막 커밋 [`c1f750e`](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9)). 터미널 credential helper가 실행되지 않아 로그인된 GitHub 웹 업로드로 반영한 뒤 fetch와 diff로 로컬 검증 코드와의 내용 일치를 확인했다.
 
 ## 실제 환경과 최종 상태
 
