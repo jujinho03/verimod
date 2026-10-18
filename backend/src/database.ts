@@ -37,13 +37,18 @@ CREATE TABLE IF NOT EXISTS epochs (
   epoch_id TEXT PRIMARY KEY,
   merkle_root TEXT NOT NULL,
   receipt_count INTEGER NOT NULL CHECK (receipt_count > 0),
+  protocol_version INTEGER NOT NULL DEFAULT 1 CHECK (protocol_version >= 1 AND protocol_version <= 65535),
   status TEXT NOT NULL CHECK (status IN ('FROZEN', 'SUBMITTING', 'SUBMITTED', 'CONFIRMED', 'FAILED')),
   signed_tx TEXT,
   tx_hash TEXT,
   nonce TEXT,
+  chain_id TEXT,
+  contract_address TEXT,
   block_number TEXT,
   block_hash TEXT,
-  fail_reason TEXT
+  fail_reason TEXT,
+  created_at TEXT NOT NULL DEFAULT '',
+  updated_at TEXT NOT NULL DEFAULT ''
 );
 
 CREATE TABLE IF NOT EXISTS epoch_members (
@@ -84,12 +89,24 @@ CREATE TABLE IF NOT EXISTS idempotency_records (
   PRIMARY KEY (principal, operation, idempotency_key)
 );
 
-PRAGMA user_version = 1;
 `
+
+const EPOCH_V2_COLUMNS = [
+  ['protocol_version', "INTEGER NOT NULL DEFAULT 1 CHECK (protocol_version >= 1 AND protocol_version <= 65535)"],
+  ['chain_id', 'TEXT'],
+  ['contract_address', 'TEXT'],
+  ['created_at', "TEXT NOT NULL DEFAULT ''"],
+  ['updated_at', "TEXT NOT NULL DEFAULT ''"],
+] as const
 
 export function openDatabase(path = ':memory:'): DatabaseSync {
   const database = new DatabaseSync(path)
   database.exec(MIGRATION_001)
+  const epochColumns = new Set((database.prepare('PRAGMA table_info(epochs)').all() as { name: string }[]).map((column) => column.name))
+  for (const [name, definition] of EPOCH_V2_COLUMNS) {
+    if (!epochColumns.has(name)) database.exec(`ALTER TABLE epochs ADD COLUMN ${name} ${definition}`)
+  }
+  database.exec('PRAGMA user_version = 2')
   // A process that died before the issuance transaction committed created no
   // receipt. Its key is safe to claim again after restart.
   database.prepare("DELETE FROM idempotency_records WHERE status = 'IN_PROGRESS'").run()

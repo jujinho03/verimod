@@ -4,9 +4,8 @@ import { parseUniqueJson } from './json.js'
 import { APPEAL_REASONS, REVIEW_REASONS, TAXONOMY } from './manifests.js'
 import { MERKLE_SPEC } from './merkle.js'
 import {
+  BEEP_SCORE_IDS,
   LABEL_IDS,
-  ACTUAL_TAXONOMY,
-  ACTUAL_SCORE_KEYS,
   PROTOCOL_VERSION,
   type AnchorLocator,
   type InclusionProof,
@@ -108,25 +107,23 @@ function inference(value: unknown, path: string, contentCommitment: Hex32) {
     fail(`${path}.content_commitment: 상위 content_commitment와 같아야 합니다`)
   }
   hex32(record.model_manifest_hash, `${path}.model_manifest_hash`)
-  const taxonomy = string(record.taxonomy_id, `${path}.taxonomy_id`)
-  const actual = taxonomy === ACTUAL_TAXONOMY.id
-  if (!actual && taxonomy !== TAXONOMY.id) fail(`${path}.taxonomy_id: 지원하지 않는 라벨 체계입니다`)
-  if (string(record.taxonomy_version, `${path}.taxonomy_version`) !== (actual ? ACTUAL_TAXONOMY.version : TAXONOMY.version)) {
-    fail(`${path}.taxonomy_version: 지원하지 않는 라벨 체계 버전입니다`)
-  }
-  // none is a native reference class, never an exposed score or policy action.
-  const labels: readonly string[] = actual ? ACTUAL_SCORE_KEYS : LABEL_IDS
-  const scores = object(record.scores_ppm, `${path}.scores_ppm`, labels)
-  for (const label of labels) integer(scores[label], `${path}.scores_ppm.${label}`, 0, 1_000_000)
+  const taxonomyId = string(record.taxonomy_id, `${path}.taxonomy_id`)
+  const taxonomyVersion = string(record.taxonomy_version, `${path}.taxonomy_version`)
+  const scoreIds = taxonomyId === TAXONOMY.id ? LABEL_IDS : taxonomyId === 'verimod-ko-beep-hate' ? BEEP_SCORE_IDS : null
+  if (!scoreIds) fail(`${path}.taxonomy_id: 지원하지 않는 라벨 체계입니다`)
+  if (taxonomyId === TAXONOMY.id && taxonomyVersion !== TAXONOMY.version) fail(`${path}.taxonomy_version: 지원하지 않는 라벨 체계 버전입니다`)
+  const scores = object(record.scores_ppm, `${path}.scores_ppm`, scoreIds)
+  for (const label of scoreIds) integer(scores[label], `${path}.scores_ppm.${label}`, 0, 1_000_000)
   literal(record.score_semantics, `${path}.score_semantics`, ['CALIBRATED', 'UNCALIBRATED'])
   literal(record.input_status, `${path}.input_status`, ['FULL', 'TRUNCATED'])
   if (!Array.isArray(record.evidence)) fail(`${path}.evidence: 배열이어야 합니다`)
+  if (taxonomyId === 'verimod-ko-beep-hate' && record.evidence.length !== 0) fail(`${path}.evidence: BEEP W4 profile은 빈 배열이어야 합니다`)
   record.evidence.forEach((span, i) => {
     const p = `${path}.evidence[${i}]`
     const s = object(span, p, ['end', 'label_id', 'method_id', 'method_version', 'start'])
     const start = integer(s.start, `${p}.start`, 0, Number.MAX_SAFE_INTEGER)
     integer(s.end, `${p}.end`, start + 1, Number.MAX_SAFE_INTEGER)
-    literal(s.label_id, `${p}.label_id`, labels)
+    literal(s.label_id, `${p}.label_id`, scoreIds)
     string(s.method_id, `${p}.method_id`)
     string(s.method_version, `${p}.method_version`)
   })

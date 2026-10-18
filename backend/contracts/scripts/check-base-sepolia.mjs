@@ -22,6 +22,24 @@ async function rpc(url, method, params = []) {
   return BigInt(body.result);
 }
 
+async function rawRpc(url, method, params = []) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error("RPC HTTP failure");
+  const body = await response.json();
+  if (body?.jsonrpc !== "2.0" || body?.id !== 1 || body.error || !body.result) throw new Error("Invalid RPC response");
+  return body.result;
+}
+
+function blockSummary(block) {
+  if (!block || typeof block.number !== "string" || typeof block.hash !== "string") return "unsupported";
+  return `height=${BigInt(block.number)} hash=${block.hash}`;
+}
+
 let address;
 if (process.env.VERIMOD_DEPLOYER_PRIVATE_KEY) {
   try {
@@ -49,7 +67,11 @@ for (const [name, url] of endpoints) {
     const walletInfo = address
       ? ` wallet=${address} balance=${formatEther(await rpc(url, "eth_getBalance", [address, "latest"]))} ETH`
       : " wallet=not configured (read-only check)";
+    const safe = await rawRpc(url, "eth_getBlockByNumber", ["safe", false]);
+    const finalized = await rawRpc(url, "eth_getBlockByNumber", ["finalized", false]);
     console.log(`${name}: remote chainId=${chainId} block=${block}${walletInfo}`);
+    console.log(`${name}: safe ${blockSummary(safe)}`);
+    console.log(`${name}: finalized ${blockSummary(finalized)}`);
   } catch {
     // Provider errors can contain credential-bearing URLs; do not echo them.
     console.error(`${name}: RPC validation failed (transport, timeout or invalid response).`);

@@ -2,8 +2,6 @@ import { randomUUID } from 'node:crypto'
 import type { DatabaseSync } from 'node:sqlite'
 import express, { type Request, type Response } from 'express'
 import { manifestHashes, MODEL_MANIFEST, POLICY_MANIFEST, REVIEW_POLICY_MANIFEST } from '@verimod/protocol/manifests'
-import { canonicalBytes } from '@verimod/protocol/canonical'
-import { DOMAINS, domainHash } from '@verimod/protocol/hash'
 import { openDatabase } from './database.js'
 import {
   type InferenceAdapter,
@@ -12,14 +10,19 @@ import {
   unavailablePolicyEvaluator,
 } from './inference.js'
 import { IdempotencyConflictError, IdempotencyInProgressError, IssuanceService } from './issuance.js'
+import {
+  EmptyEpochError,
+  EpochNotFoundError,
+  EpochService,
+  EpochStateError,
+  FreezeIdempotencyConflictError,
+} from './epochs.js'
 
 export interface AppOptions {
   database?: DatabaseSync
   inference?: InferenceAdapter
   policy?: PolicyEvaluator
   now?: () => Date
-  /** Approved manifest supplied by integration wiring; no live model is implied. */
-  actualModelManifest?: Record<string, unknown>
 }
 
 type DemoRole = 'DEMO_OPERATOR' | 'DEMO_REVIEWER' | 'DEMO_USER'
@@ -61,6 +64,7 @@ export function createApp(options: AppOptions = {}) {
     options.policy ?? unavailablePolicyEvaluator,
     options.now,
   )
+  const epochs = new EpochService(database, options.now)
   const app = express()
   app.use((_req, res, next) => {
     res.locals.requestId = randomUUID()
@@ -101,16 +105,14 @@ export function createApp(options: AppOptions = {}) {
     })
   })
 
-  app.get('/api/receipts/:id/bundle', (req, res) => {
-    const row = database.prepare('SELECT canonical_body, receipt_hash FROM receipts WHERE receipt_id = ?').get(req.params.id) as
-      | { canonical_body: string; receipt_hash: string }
-      | undefined
-    if (!row) return void sendError(res, 404, 'NOT_FOUND')
-    res.json({
-      ok: true,
-      request_id: res.locals.requestId as string,
-      data: { receipt_body: JSON.parse(row.canonical_body), receipt_hash: row.receipt_hash, proof: null, anchor: null },
-    })
+  app.get('/api/receipts/:id/bundle', async (req, res) => {
+    try {
+      const bundle = await epochs.bundle(req.params.id)
+      if (!bundle) return void sendError(res, 404, 'NOT_FOUND')
+      res.json({ ok: true, request_id: res.locals.requestId as string, data: bundle })
+    } catch {
+      sendError(res, 500, 'INTERNAL_ERROR')
+    }
   })
 
   app.get('/api/manifests', async (_req, res) => {
@@ -122,13 +124,8 @@ export function createApp(options: AppOptions = {}) {
         model: { manifest: MODEL_MANIFEST, hash: hashes.model, scope: 'LEGACY_SYNTHETIC_DEMO' },
         policy: { manifest: POLICY_MANIFEST, hash: hashes.policy, scope: 'LEGACY_SYNTHETIC_DEMO' },
         review: { manifest: REVIEW_POLICY_MANIFEST, hash: hashes.review, scope: 'LEGACY_SYNTHETIC_DEMO' },
-        ...(options.actualModelManifest ? { actual_model: {
-          manifest: options.actualModelManifest,
-          hash: await domainHash(DOMAINS.model, canonicalBytes(options.actualModelManifest)),
-          scope: 'ACTUAL_TRAINED_MODEL',
-        } } : {}),
         target_taxonomy: {
-          status: 'W3_SCHEMA_ALIGNED',
+          status: 'AWAITING_W3_FREEZE',
           taxonomy_id: 'verimod-ko-beep-hate',
           native_classes: ['hate', 'offensive', 'none'],
           score_keys: ['hate', 'offensive'],
@@ -145,15 +142,33 @@ export function createApp(options: AppOptions = {}) {
     if (!principal(req, res, 'DEMO_REVIEWER') || !idempotencyKey(req, res)) return
     sendError(res, 501, 'NOT_IMPLEMENTED')
   })
-  app.post('/api/epochs/freeze', (req, res) => {
-    if (!principal(req, res, 'DEMO_OPERATOR')) return
-    sendError(res, 501, 'NOT_IMPLEMENTED')
+  app.post('/api/epochs/freeze', async (req, res) => {
+    const operator = principal(req, res, 'DEMO_OPERATOR')
+    if (!operator) return
+    const key = idempotencyKey(req, res)
+    if (!key) return
+    if (req.body !== undefined && (typeof req.body !== 'object' || req.body === null || Array.isArray(req.body) || Object.keys(req.body).length !== 0)) {
+      return void sendError(res, 400, 'INVALID_INPUT')
+    }
+    try {
+      const frozen = await epochs.freeze({ principal: operator, idempotencyKey: key })
+      res.status(201).json({ ok: true, request_id: res.locals.requestId as string, data: frozen })
+    } catch (error) {
+      if (error instanceof EmptyEpochError) return void sendError(res, 409, 'EMPTY_EPOCH')
+      if (error instanceof FreezeIdempotencyConflictError) return void sendError(res, 409, 'IDEMPOTENCY_CONFLICT')
+      if (error instanceof EpochStateError) return void sendError(res, 409, 'EPOCH_STATE_CONFLICT')
+      return void sendError(res, 500, 'INTERNAL_ERROR')
+    }
   })
   app.get('/api/epochs/:id', (req, res) => {
-    if (!/^[1-9]\d*$/.test(req.params.id)) return void sendError(res, 400, 'INVALID_INPUT')
-    const row = database.prepare('SELECT * FROM epochs WHERE epoch_id = ?').get(req.params.id)
-    if (!row) return void sendError(res, 404, 'NOT_FOUND')
-    res.json({ ok: true, request_id: res.locals.requestId as string, data: row })
+    try {
+      const { signed_tx: _privateSignedTransaction, ...publicEpoch } = epochs.get(req.params.id)
+      res.json({ ok: true, request_id: res.locals.requestId as string, data: publicEpoch })
+    } catch (error) {
+      if (error instanceof EpochNotFoundError) return void sendError(res, 404, 'NOT_FOUND')
+      if (error instanceof EpochStateError) return void sendError(res, 400, 'INVALID_INPUT')
+      return void sendError(res, 500, 'INTERNAL_ERROR')
+    }
   })
 
   app.use((error: unknown, _req: Request, res: Response, _next: express.NextFunction) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import type { TrustConfig } from '../domain/verify'
 import { MAX_JSON_BYTES } from '../domain/json'
+import { baseSepoliaProfileFromEnv, createPublicRpcLedger } from '../domain/rpcLedger'
 import { REQUIRED_CONFIRMATIONS } from '../domain/verify'
 import { PageHero } from '../features/PageHero'
 import { TamperPanel } from '../features/TamperPanel'
@@ -14,6 +15,9 @@ import { ArrowLink } from '../ui/bits'
 import { formatDateTime, receiptTitle, shortHash } from '../ui/format'
 
 type Source = 'mine' | 'paste' | 'file'
+type VerifierMode = 'LOCAL_HARDHAT_FALLBACK' | 'BASE_SEPOLIA_DEMO'
+
+const BASE_PROFILE = baseSepoliaProfileFromEnv(import.meta.env)
 
 export function VerifyPage() {
   const store = useStore()
@@ -27,6 +31,9 @@ export function VerifyPage() {
   const [json, setJson] = useState(() => (initial ? JSON.stringify(store.bundle(initial), null, 2) : ''))
   const [notice, setNotice] = useState<string | null>(null)
   const [trust, setTrust] = useState<TrustConfig | null>(null)
+  const [verifierMode, setVerifierMode] = useState<VerifierMode>(() =>
+    params.get('profile') === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? 'BASE_SEPOLIA_DEMO' : 'LOCAL_HARDHAT_FALLBACK',
+  )
   const [tamperId, setTamperId] = useState(
     receipts.find((r) => r.body.receipt_id === 'a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63')?.body.receipt_id ?? receipts[0]?.body.receipt_id ?? '',
   )
@@ -46,6 +53,11 @@ export function VerifyPage() {
 
   const run = async () => {
     setNotice(null)
+    if (verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE) {
+      const context = await store.verifierContext()
+      await verify.run(json, { ...context, trust: BASE_PROFILE, ledger: createPublicRpcLedger(BASE_PROFILE) })
+      return
+    }
     await verify.run(json)
   }
 
@@ -148,30 +160,43 @@ export function VerifyPage() {
             <div className="trust-card" id="rpc">
               <h2 className="title-s">신뢰 설정</h2>
               <p className="muted small">영수증에 적힌 앵커 위치는 믿지 않고, 검증기가 미리 정한 아래 값과만 비교합니다.</p>
+              <div className="field">
+                <label className="field__label" htmlFor="verify-profile">승인 프로필</label>
+                <select id="verify-profile" className="select" value={verifierMode} onChange={(event) => {
+                  setVerifierMode(event.target.value as VerifierMode)
+                  verify.clear()
+                }}>
+                  {BASE_PROFILE && <option value="BASE_SEPOLIA_DEMO">BASE_SEPOLIA_DEMO · 공개 RPC</option>}
+                  <option value="LOCAL_HARDHAT_FALLBACK">LOCAL_HARDHAT_FALLBACK · 합성 로컬</option>
+                </select>
+              </div>
+              {!BASE_PROFILE && <p className="inline-warn">승인된 Base Sepolia 주소·publisher·RPC·확정 기준이 아직 build에 주입되지 않아 공개 RPC 모드를 활성화하지 않았습니다.</p>}
               <dl className="kv">
                 <dt>체인</dt>
                 <dd>
-                  {SIM_CHAIN.chain_id} <span className="faint">{SIM_CHAIN.name} · 실제 네트워크 아님</span>
+                  {verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE
+                    ? <>{BASE_PROFILE.chain_id} <span className="faint">Base Sepolia · 실제 공개 RPC</span></>
+                    : <>{SIM_CHAIN.chain_id} <span className="faint">{SIM_CHAIN.name} · 공개 체인 증거 아님</span></>}
                 </dd>
                 <dt>컨트랙트</dt>
                 <dd>
-                  <code className="hash">{SIM_CHAIN.contract_address}</code>
+                  <code className="hash">{verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? BASE_PROFILE.contract_address : SIM_CHAIN.contract_address}</code>
                 </dd>
                 <dt>등록 주체</dt>
                 <dd>
-                  <code className="hash">{SIM_CHAIN.publisher}</code>
+                  <code className="hash">{verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? BASE_PROFILE.publisher : SIM_CHAIN.publisher}</code>
                 </dd>
                 <dt>발급자</dt>
                 <dd>
-                  {trust?.issuer_id ?? '계산 중'} <code className="hash faint">{trust ? shortHash(trust.issuer_commitment) : ''}</code>
+                  {trust?.issuer_id ?? '계산 중'} <code className="hash faint">{trust?.issuer_commitment ? shortHash(trust.issuer_commitment) : ''}</code>
                 </dd>
                 <dt>확정 기준</dt>
-                <dd>블록 확인 {REQUIRED_CONFIRMATIONS}회 · protocol 1</dd>
+                <dd>블록 확인 {verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? BASE_PROFILE.min_confirmations : REQUIRED_CONFIRMATIONS}회 · protocol 1</dd>
               </dl>
-              <label className="check-line">
+              {verifierMode === 'LOCAL_HARDHAT_FALLBACK' && <label className="check-line">
                 <input type="checkbox" checked={state.rpc_down} onChange={(event) => store.setRpcDown(event.target.checked)} />
                 <span>RPC 장애 가정 · 원장 조회가 실패하면 변조가 아니라 RPC_UNAVAILABLE로 나옵니다</span>
-              </label>
+              </label>}
             </div>
           </div>
 

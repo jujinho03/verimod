@@ -69,6 +69,7 @@ export function trustConfig(): Promise<TrustConfig> {
     issuer_commitment: commitment,
     publisher: SIM_CHAIN.publisher,
     protocol_version: PROTOCOL_VERSION_NUMBER,
+    min_confirmations: REQUIRED_CONFIRMATIONS,
   }))
   return trust
 }

@@ -11,7 +11,11 @@ describe('API-01 SQLite migration', () => {
     try {
       const rows = database.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all() as { name: string }[]
       expect(rows.map((row) => row.name)).toEqual([...TABLES])
-      expect(database.prepare('PRAGMA user_version').get()).toEqual({ user_version: 1 })
+      expect(database.prepare('PRAGMA user_version').get()).toEqual({ user_version: 2 })
+      const epochColumns = database.prepare('PRAGMA table_info(epochs)').all() as { name: string }[]
+      expect(epochColumns.map((column) => column.name)).toEqual(expect.arrayContaining([
+        'protocol_version', 'chain_id', 'contract_address', 'created_at', 'updated_at',
+      ]))
     } finally {
       database.close()
     }

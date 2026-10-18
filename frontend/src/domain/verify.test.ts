@@ -183,8 +183,7 @@ describe('verifyReceipt', () => {
   it('사본의 점수를 바꾸면 HASH_MISMATCH', async () => {
     const copy = clone(f.decision)
     if (copy.receipt_body.event_kind !== 'DECISION') throw new Error('fixture')
-    if (copy.receipt_body.payload.inference.taxonomy_id !== 'verimod-example-ko') throw new Error('legacy fixture')
-    copy.receipt_body.payload.inference.scores_ppm.violence = 120_000
+    ;(copy.receipt_body.payload.inference.scores_ppm as Record<string, number>).violence = 120_000
     const report = await verifyReceipt(copy, f.ctx)
     expect(report.code).toBe('HASH_MISMATCH')
     expect(report.recomputedHash).not.toBe(report.claimedHash)
@@ -207,6 +206,13 @@ describe('verifyReceipt', () => {
   it('신뢰 설정에 없는 컨트랙트는 UNTRUSTED_ANCHOR', async () => {
     const copy = clone(f.decision)
     copy.anchor!.contract_address = `0x${'9'.repeat(40)}`
+    expect((await verifyReceipt(copy, f.ctx)).code).toBe('UNTRUSTED_ANCHOR')
+  })
+
+  it('승인되지 않은 issuer는 해시를 다시 계산해도 UNTRUSTED_ANCHOR', async () => {
+    const copy = clone(f.decision)
+    copy.receipt_body.issuer_id = 'verimod-demo-issuer'
+    copy.receipt_hash = await receiptHash(copy.receipt_body)
     expect((await verifyReceipt(copy, f.ctx)).code).toBe('UNTRUSTED_ANCHOR')
   })
 
