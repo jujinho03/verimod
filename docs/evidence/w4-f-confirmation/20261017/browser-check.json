@@ -1,0 +1,9 @@
+{
+  "scope": "SYNTHETIC_ONLY",
+  "public_bundle_http_api": "PASS",
+  "browser_ui": "BLOCKED",
+  "reason": "LOOPBACK_CONNECTION_TIMEOUT",
+  "browser_confirmed_state_observed": false,
+  "authoritative_database_accessed": false,
+  "chain_transactions": 0
+}

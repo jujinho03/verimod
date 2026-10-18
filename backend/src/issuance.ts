@@ -60,6 +60,7 @@ export class IssuanceService {
     private readonly inference: InferenceAdapter,
     private readonly policy: PolicyEvaluator,
     private readonly now: () => Date = () => new Date(),
+    private readonly modelManifest?: unknown,
   ) {}
 
   async issue(input: { principal: string; idempotencyKey: string; text: string }): Promise<{ status: number; data: DecisionCreated }> {
@@ -115,7 +116,7 @@ export class IssuanceService {
     const salt = randomHex32()
     const commitment = await contentCommitment(salt, text)
     const inference = await this.inference.infer({ text, contentCommitment: commitment })
-    assertValidInference(inference, commitment)
+    await assertValidInference(inference, commitment, this.modelManifest)
     const policy = await this.policy.evaluate(inference)
     assertValidPolicy(policy)
     const recordedAt = this.now().toISOString()

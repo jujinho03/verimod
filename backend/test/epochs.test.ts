@@ -62,7 +62,7 @@ describe('API-07 epoch freeze and sender handoff', () => {
     expect(() => epochs.markFailed('1', 'ROOT_CONFLICT')).toThrow(EpochStateError)
   })
 
-  it('exports proof and public anchor only after confirmed anchor data exists', async () => {
+  it('withholds proof and anchor when internal CONFIRMED has no trusted RPC evidence', async () => {
     insertReceipts(database)
     const epochs = new EpochService(database)
     await epochs.freeze({ principal: 'operator-1', idempotencyKey: 'freeze-1' })
@@ -77,8 +77,8 @@ describe('API-07 epoch freeze and sender handoff', () => {
     epochs.markSubmitted('1')
     epochs.markConfirmed({ epochId: '1', blockNumber: '123456', blockHash: `0x${'c'.repeat(64)}` })
     const anchored = await epochs.bundle('00000000-0000-4000-8000-000000000001')
-    expect(anchored?.proof).toMatchObject({ merkle_spec: 'ct-sha256-receipt-v1', tree_size: 3 })
-    expect(anchored?.anchor).toMatchObject({ chain_id: '84532', epoch_id: '1', block_number: '123456' })
+    expect(anchored?.proof).toBeNull()
+    expect(anchored?.anchor).toBeNull()
     expect(JSON.stringify(anchored)).not.toContain('private-0')
     expect(JSON.stringify(anchored)).not.toContain('content_salt')
   })

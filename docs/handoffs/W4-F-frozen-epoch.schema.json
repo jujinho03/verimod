@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SAMPLE — W4 frozen epoch handoff schema; not an executed handoff",
+  "$comment": "SAMPLE schema only. No actual epoch, root or member values are supplied by this file.",
+  "type": "object",
+  "required": ["schema_version", "source_commits", "epoch_id", "merkle_root", "receipt_count", "protocol_version", "status", "member_receipt_hashes", "member_order", "issuer_id", "model_manifest_hash", "policy_manifest_hash", "policy_status", "team_approved", "actual_model_evidence", "checks", "transmission_authorized", "required_before_transmission"],
+  "properties": {
+    "schema_version": { "const": "w4-frozen-epoch-handoff/1" },
+    "source_commits": {
+      "type": "object", "required": ["a", "f", "t"], "additionalProperties": false,
+      "properties": {
+        "a": { "const": "9bcbec677d89d10364b327aae7e60955e2e4315d" },
+        "f": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "t": { "const": "fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de" }
+      }
+    },
+    "epoch_id": { "type": "string", "pattern": "^[1-9][0-9]*$", "description": "Also verify numeric value <= uint64 max." },
+    "merkle_root": { "$ref": "#/$defs/hex32", "not": { "pattern": "^0x0{64}$" } },
+    "receipt_count": { "type": "integer", "minimum": 1, "maximum": 4294967295 },
+    "protocol_version": { "const": 1 },
+    "status": { "const": "FROZEN" },
+    "member_receipt_hashes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/hex32" }, "description": "Length must equal receipt_count; preserve canonical frozen leaf order." },
+    "member_order": { "const": "receipt_id ASCII ascending; leaf_index 0..count-1" },
+    "issuer_id": { "const": "verimod-example-platform" },
+    "model_manifest_hash": { "const": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1" },
+    "policy_manifest_hash": { "const": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e" },
+    "policy_status": { "const": "W4_PROVISIONAL_E2E_ONLY" },
+    "team_approved": { "const": false },
+    "actual_model_evidence": {
+      "type": "object", "required": ["a_commit", "weight_sha256", "verified_python_health", "observed_http_forward_calls", "fixture_adapter"], "additionalProperties": false,
+      "properties": {
+        "a_commit": { "const": "9bcbec677d89d10364b327aae7e60955e2e4315d" },
+        "weight_sha256": { "const": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f" },
+        "verified_python_health": { "const": true }, "observed_http_forward_calls": { "const": 2 }, "fixture_adapter": { "const": false }
+      }
+    },
+    "checks": {
+      "type": "object", "required": ["canonical_receipt_hashes", "independent_merkle_root", "freeze_replay", "empty_epoch_409", "sqlite_reopen", "public_private_boundary"], "additionalProperties": false,
+      "properties": {
+        "canonical_receipt_hashes": { "const": "PASS" }, "independent_merkle_root": { "const": "PASS" }, "freeze_replay": { "const": "PASS" },
+        "empty_epoch_409": { "const": "PASS" }, "sqlite_reopen": { "const": "PASS" }, "public_private_boundary": { "const": "PASS" }
+      }
+    },
+    "transmission_authorized": { "const": false },
+    "required_before_transmission": { "type": "array", "minItems": 3, "items": { "type": "string", "minLength": 1 } }
+  },
+  "$defs": { "hex32": { "type": "string", "pattern": "^0x[0-9a-f]{64}$" } },
+  "additionalProperties": false
+}

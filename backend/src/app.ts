@@ -22,6 +22,7 @@ export interface AppOptions {
   database?: DatabaseSync
   inference?: InferenceAdapter
   policy?: PolicyEvaluator
+  modelManifest?: unknown
   now?: () => Date
 }
 
@@ -63,6 +64,7 @@ export function createApp(options: AppOptions = {}) {
     options.inference ?? unavailableInferenceAdapter,
     options.policy ?? unavailablePolicyEvaluator,
     options.now,
+    options.modelManifest,
   )
   const epochs = new EpochService(database, options.now)
   const app = express()

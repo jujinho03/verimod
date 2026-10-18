@@ -1,14 +1,17 @@
 import type { DatabaseSync } from 'node:sqlite'
+import { readFileSync } from 'node:fs'
 import request from 'supertest'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { Hex32 } from '@verimod/protocol/hash'
 import { freezeEpoch } from '@verimod/protocol/epoch'
 import { createApp } from '../src/app.js'
 import { openDatabase } from '../src/database.js'
-import type { InferenceAdapter, PolicyEvaluator } from '../src/inference.js'
+import { createThresholdPolicyEvaluator, W4_R01_MODEL_HASH, W4_PROVISIONAL_POLICY_HASH, type InferenceAdapter } from '../src/inference.js'
 
-const MODEL_HASH = `0x${'1'.repeat(64)}` as Hex32
-const POLICY_HASH = `0x${'2'.repeat(64)}` as Hex32
+const MODEL_HASH = W4_R01_MODEL_HASH
+const POLICY_HASH = W4_PROVISIONAL_POLICY_HASH
+const modelManifest = JSON.parse(readFileSync(new URL('../config/w4-r01.model_manifest.json', import.meta.url), 'utf8'))
+const policyManifest = JSON.parse(readFileSync(new URL('../config/w4-provisional.policy_manifest.json', import.meta.url), 'utf8'))
 const headers = { 'x-demo-principal': 'demo-user-1', 'x-demo-role': 'DEMO_USER', 'Idempotency-Key': 'decision-key-1' }
 
 function dependencies(delay = 0) {
@@ -20,7 +23,7 @@ function dependencies(delay = 0) {
         content_commitment: contentCommitment,
         model_manifest_hash: MODEL_HASH,
         taxonomy_id: 'verimod-ko-beep-hate',
-        taxonomy_version: 'w3-fixture-1',
+        taxonomy_version: '1',
         scores_ppm: { hate: 125_000, offensive: 625_000 },
         score_semantics: 'UNCALIBRATED',
         input_status: 'FULL',
@@ -31,16 +34,12 @@ function dependencies(delay = 0) {
   const inference: InferenceAdapter = {
     infer: vi.fn(infer),
   }
-  const evaluate: PolicyEvaluator['evaluate'] = async () => ({
-    policy_manifest_hash: POLICY_HASH,
-    action: 'HUMAN_REVIEW',
-    reason_codes: ['W3_DETERMINISTIC_FIXTURE'],
-    triggered_rule_ids: ['W3-FIXTURE-REVIEW'],
+  const policy = createThresholdPolicyEvaluator({
+    policyManifestHash: POLICY_HASH, policyManifest, localW4E2E: true,
+    hate: { review: 24495, restrict: 216950 },
+    offensive: { review: 180483, restrict: 646501 },
   })
-  const policy: PolicyEvaluator = {
-    evaluate: vi.fn(evaluate),
-  }
-  return { inference, policy }
+  return { inference, policy, modelManifest }
 }
 
 describe('API-02/API-09 authoritative decision issuance', () => {
@@ -184,7 +183,7 @@ describe('API-09 safe failure', () => {
       content_commitment: contentCommitment,
       model_manifest_hash: MODEL_HASH,
       taxonomy_id: 'verimod-ko-beep-hate',
-      taxonomy_version: 'w3-fixture-1',
+      taxonomy_version: '1',
       scores_ppm: { hate: -1, offensive: 625_000 },
       score_semantics: 'UNCALIBRATED',
       input_status: 'FULL',

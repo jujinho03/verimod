@@ -1,0 +1,52 @@
+{
+  "schema_version": "w4-f-final-integration/1",
+  "scope": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "source_commits": {
+    "a": "9bcbec677d89d10364b327aae7e60955e2e4315d",
+    "f": "6e53bc8de9e165a257a7e8f98c1a86a6432b42e2",
+    "t": "fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de"
+  },
+  "created_at": "2026-10-16T05:38:06.428Z",
+  "issuer_id": "verimod-example-platform",
+  "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+  "policy_manifest_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "source_digest_encoding": "UTF-8 after CRLF-to-LF and trim",
+  "chain_transactions": 0,
+  "signing_operations": 0,
+  "test_data_accessed": false,
+  "checks": {
+    "f_revision": "PASS",
+    "f_tracked_clean": "PASS",
+    "f_tool_committed": "PASS",
+    "model_manifest": "PASS",
+    "policy_manifest": "PASS",
+    "t_issuer_source_binding": "PASS",
+    "a_revision": "BLOCKED",
+    "python_runtime_present": "BLOCKED",
+    "selected_weight_sha256": "BLOCKED"
+  },
+  "blockers": [
+    "T: pinned sender journals then broadcasts without awaiting the F SQLite durability callback. Adopt EpochSenderHandoff before any transmission.",
+    "A: provide the verified A checkout on the host that already holds private R01 weights, Python environment and offline tokenizer cache.",
+    "Actual issuance/freeze not started: required preflight checks did not all pass."
+  ],
+  "actual_receipt_count": 0,
+  "statuses": {
+    "ACTUAL_R01_ISSUANCE": "BLOCKED",
+    "EPOCH_FREEZE": "BLOCKED",
+    "F_T_HANDOFF": "BLOCKED",
+    "PRE_BROADCAST_DURABILITY": "BLOCKED",
+    "PUBLIC_CHAIN": "NOT_EXECUTED"
+  },
+  "t_source_digests": {
+    "approved_profiles": "7aef17aef39560d1f07b0fa4d96830afed57e48c1ca2f0452405926a83b80bdf",
+    "rpc_ledger": "5cd834e27735d201e6fa5cf0fb58e053041ac556558d09f04f2284b8db1a411d",
+    "verifier": "39a402c5d29c2c3ad7597448f5ea82a691c3e53e342690ac3be105eca4fcf53b"
+  },
+  "t_sender_audit": {
+    "source_sha256": "dcf60bc5ce5baa3d673081737b9c508242f3a982b3233b22d9eef66cdf60cd88",
+    "journal_before_broadcast": true,
+    "f_sqlite_callback_present": false
+  }
+}

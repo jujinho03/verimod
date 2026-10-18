@@ -2,6 +2,7 @@ import type { DatabaseSync } from 'node:sqlite'
 import { freezeEpoch } from '@verimod/protocol/epoch'
 import { isHex32, type Hex32 } from '@verimod/protocol/hash'
 import type { AnchorLocator, InclusionProof } from '@verimod/protocol/types'
+import { hasTrustedConfirmation } from './confirmationEvidence.js'
 
 const UINT64_MAX = 18_446_744_073_709_551_615n
 const ADDRESS = /^0x[0-9a-f]{40}$/
@@ -166,14 +167,14 @@ export class EpochService {
     return this.transition(epochId, ['SUBMITTING', 'SUBMITTED'], 'SUBMITTED', {})
   }
 
-  markConfirmed(input: { epochId: string; blockNumber: string; blockHash: Hex32 }): EpochView {
+  markConfirmed(input: { epochId: string; blockNumber: string; blockHash: Hex32 }, persistEvidence?: (before: EpochView, after: EpochView) => void): EpochView {
     failUnless(DECIMAL.test(input.blockNumber), 'block number must be decimal')
     failUnless(isHex32(input.blockHash), 'block hash must be hex32')
     return this.transition(input.epochId, ['SUBMITTED', 'CONFIRMED'], 'CONFIRMED', {
       block_number: input.blockNumber,
       block_hash: input.blockHash,
       fail_reason: null,
-    })
+    }, persistEvidence)
   }
 
   markFailed(epochId: string, reason: 'ROOT_CONFLICT' | 'REVERTED' | 'MAX_RETRY'): EpochView {
@@ -199,7 +200,7 @@ export class EpochService {
     const frozen = await freezeEpoch(members)
     failUnless(frozen.root === epoch.merkle_root && frozen.members.length === epoch.receipt_count, 'stored epoch does not match its members')
 
-    const hasPublicAnchor = epoch.tx_hash && epoch.chain_id && epoch.contract_address && epoch.block_number && epoch.block_hash
+    const hasPublicAnchor = hasTrustedConfirmation(this.database, epoch) && epoch.tx_hash && epoch.chain_id && epoch.contract_address && epoch.block_number && epoch.block_hash
     return {
       receipt_body: JSON.parse(receipt.canonical_body),
       receipt_hash: receipt.receipt_hash,
@@ -215,7 +216,7 @@ export class EpochService {
     }
   }
 
-  private transition(epochId: string, allowed: EpochStatus[], target: EpochStatus, fields: Record<string, string | null>): EpochView {
+  private transition(epochId: string, allowed: EpochStatus[], target: EpochStatus, fields: Record<string, string | null>, persistEvidence?: (before: EpochView, after: EpochView) => void): EpochView {
     this.database.exec('BEGIN IMMEDIATE')
     try {
       const current = this.get(epochId)
@@ -234,6 +235,7 @@ export class EpochService {
         )
       }
       const result = this.get(epochId)
+      persistEvidence?.(current, result)
       this.database.exec('COMMIT')
       return result
     } catch (error) {

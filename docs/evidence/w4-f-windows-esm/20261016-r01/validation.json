@@ -1,0 +1,58 @@
+{
+  "schema_version": "w4-f-windows-esm/1",
+  "validated_at": "2026-10-16T06:31:49.313644Z",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "tsx": "4.23.13",
+  "base_f_sha": "c14fb914afa1d7c7f25fb5f6fb768e7b2ba7b628",
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false,
+  "commands": [
+    {
+      "files": 1,
+      "command": "npm run w4:windows-smoke",
+      "tests": 4,
+      "status": "PASS"
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run w4:typecheck",
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "status": "PASS"
+    },
+    {
+      "status": "PASS",
+      "tests": 68,
+      "command": "npm test",
+      "files": 9,
+      "new_tests": 4,
+      "preserved_tests": 64
+    }
+  ],
+  "source_sha256": {
+    "backend/scripts/backend-process.ts": "57a308d5433cb675d29520af0e699413f65e24e1d023c86c03384f92c26d8e48",
+    "backend/scripts/w4-final-integration.mts": "775729eb5a05caa6f6927ea2d8c9a5a9a8e0cd822b8c861665b3a4460e2e3592",
+    "backend/test/windows-launch.test.ts": "4787887ded8d0c18b4d11dd24a96a8bc7ce633ea724f0650332b01825dbc34a1"
+  },
+  "statuses": {
+    "WINDOWS_ESM_LAUNCH_FIX": "PASS",
+    "FIRST_BACKEND_START": "PASS",
+    "BACKEND_RESTART": "PASS",
+    "SAFE_503_WITHOUT_MODEL": "PASS",
+    "BACKEND_REGRESSION": "PASS",
+    "TYPECHECK_BUILD": "PASS",
+    "READY_FOR_A_HOST_RERUN": "YES",
+    "ACTUAL_R01_ISSUANCE": "NOT_RERUN_ON_F_HOST",
+    "EPOCH_FREEZE": "PENDING_A_HOST",
+    "T_SENDER_DURABILITY": "BLOCKED",
+    "PUBLIC_CHAIN_TX_SENT": "NO"
+  },
+  "source_digest_encoding": "UTF-8 source with CRLF normalized to LF",
+  "published_implementation_sha": "b1083c05816e03165c1192acec4b05ac1de06ffe"
+}
