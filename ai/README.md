@@ -1,8 +1,8 @@
 # VeriMod AI 작업 공간 — 한국어 현황
 
-담당: A / 주진호 · 데이터·모델·추론·평가. 최신 정리일: 2026-10-17.
+담당: A / 주진호 · 데이터·모델·추론·평가. 최신 정리일: 2026-10-18.
 
-**main의 AI 실행 코드는 W3 통합 기준입니다.** W4 실제 FastAPI/Validation/E2E 구현은 A의 고정 [3a8993b 소스](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912/ai)에 있습니다. 이번 문서 반영으로 W4 실행 코드가 main에 병합된 것은 아닙니다.
+**2026-10-18부터 W4 실제 FastAPI 추론·Validation·E2E 코드가 main에 들어 있습니다.** 실제 실행 증거의 기준 커밋은 A의 고정 [3a8993b 소스](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912/ai)입니다. 모델 가중치와 데이터는 저장소에 없습니다.
 
 ## 현재 확인한 성과
 
