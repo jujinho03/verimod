@@ -1,4 +1,4 @@
-# Merkle Spec v1
+# Merkle 규격 v1
 
 상태: **PROTOCOL FREEZE CANDIDATE** (전체 FRZ-01 전). 소유: PROTOCOL. W2 Node 회귀와 epoch 저장 검증을 통과했다.
 

@@ -1,4 +1,4 @@
-# CHAIN-01 — Base Sepolia W1 Funding Evidence
+# CHAIN-01 — Base Sepolia W1 자금 준비 증거
 
 ## Metadata
 

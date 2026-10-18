@@ -35,7 +35,7 @@ Seed `45126`; 목표 train/validation/test 비율 `0.70/0.15/0.15`. 알고리즘
 
 자동화된 seal 전 assertion은 모두 통과했습니다: stable record ID overlap **0**, exact comment overlap **0**, normalized comment overlap **0**, normalized title proxy overlap **0**, atomic near/group cluster overlap **0**. 위에서 설명한 대상 텍스트 기준 near-duplicate 한계는 여전히 적용됩니다.
 
-## TEST seal
+## TEST 봉인
 
 - 로컬 전용 경로: `../verimod-local-data/w2/beep-splits/test.jsonl`.
 - 형식: UTF-8, LF, JSONL, field와 행 순서 고정. Field는 모델 입력, native label, W5에 필요한 stable metadata이며, 이 artifact는 Git 밖에 있습니다.

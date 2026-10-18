@@ -1,27 +1,33 @@
 # W4 A/F/T 최소 운영 인계와 다섯 승인
 
-2026-10-17 기준. 구현 추가보다 실제 호스트의 관리자 접근·인증·운영 승인이 남아 있습니다.
+2026-10-17 작성, 2026-10-18 갱신. 승인 1~4 범위의 호스트 구성과 실제 status 왕복은 끝났고,
+실제 송신(승인 5)만 남아 있습니다.
 F는 `c1f750ea3752037d749324f1535df051ce6b37f9`, T는 `7534907fa3ad66cc6ed29cfbee2efd8c2c75369e`에 고정합니다.
 이 문서는 승인이나 실제 실행 결과를 대신하지 않습니다.
 
-## 두 호스트와 현재 차단
+## 두 호스트와 현재 상태
 
 - 원본 authoritative SQLite는 A Windows 노트북에 유지합니다.
 - 승인 Publisher signer/개인키는 별도 T 노트북에 유지합니다. DB·키를 서로 이동하지 않습니다.
-- 실제 Epoch 1/count 2/version 1은 FROZEN, tx_hash=null입니다. 최신 F status는 PASS입니다.
-- A 계정은 관리자 그룹 소속이나 현재 Codex 토큰은 비상승입니다. UAC 보안 데스크톱은 사람이 처리해야 합니다.
-- sshd/사설 VPN/전용 Callback 계정은 미구성입니다. 확인된 승인 원격관리 대안은 없고 RDP도 비활성입니다.
-- A RPC endpoint는 아직 승인·설정하지 않았습니다. EIP-1898도 미검증입니다.
+- 실제 Epoch 1/count 2/version 1은 FROZEN, tx_hash=null입니다.
+- 관리자 작업은 운영자가 UAC를 직접 승인해 실행했습니다. 실행 정책은 바꾸지 않았습니다.
+- 2026-10-18: T → A 사설망 SSH로 고정 status 왕복 PASS. 원격 명령(exit 126)·PTY·원격 포워딩·SFTP·다른 계정 차단,
+  시험 전후 원본 DB identity·bytes·Epoch·member·행 수 동일. 시험 후 sshd·F 계정·신규 방화벽 규칙을 다시 비활성화했습니다.
+- A RPC는 운영자 보호 파일에 저장된 endpoint로 읽기 검증(chain/contract/publisher, EIP-1898 canonical `eth_call`)을 마쳤습니다.
+  F callback 설정에는 아직 RPC를 넣지 않았고 `submitted`/`confirmed` 허용 플래그도 꺼져 있습니다.
 
 ## 승인 단위
 
 | 승인 | 범위 | 권한·현재 상태 |
 | --- | --- | --- |
-| APPROVAL_1 | DB 전용 최소 ACL, 원래 DACL 백업/복구 | 기존 owner/FullControl로 가능할 것으로 판단, 미적용 |
-| APPROVAL_2 | 비관리자 F 계정, 최소 권한, Windows OpenSSH·공개키·강제 명령 | 관리자/UAC 필요, 미실행 |
-| APPROVAL_3 | Tailscale 사설망, T→A TCP 22 한정 방화벽 | 관리자 설치·계정/장치 인증 필요, 미실행 |
-| APPROVAL_4 | A 내부 일관성 DB backup, RPC·confirmation evidence 구조 | endpoint/스키마 변경 범위 승인 필요, 미실행 |
-| APPROVAL_5 | 실제 Epoch 1 prepare·T 서명·송신 | 별도 승인 전 절대 실행하지 않음 |
+| APPROVAL_1 | DB 전용 최소 ACL, 원래 DACL 백업/복구 | 적용·사후 검증 완료 (정확히 7개 객체, DB identity 보존) |
+| APPROVAL_2 | 비관리자 F 계정, 최소 권한, Windows OpenSSH·공개키·강제 명령 | 구성 완료, 실제 status 왕복 PASS, 현재 비활성 |
+| APPROVAL_3 | Tailscale 사설망, T→A TCP 22 한정 방화벽 | 적용 완료 (사설망 grant 1개 + Windows T 허용/비T 차단 규칙), 현재 규칙 비활성 |
+| APPROVAL_4 | A 내부 일관성 DB backup, RPC·confirmation evidence 구조 | backup·RPC 읽기 검증 완료; confirmation evidence 구조는 미생성 |
+| APPROVAL_5 | 실제 Epoch 1 prepare·T 서명·송신 | **미승인.** 별도 승인 전 절대 실행하지 않음 |
+
+status JSON은 송신 전 durable ACK(prepare)가 아닙니다. 현재 status wrapper는 prepare를 제공하지 않으므로,
+승인 5에는 제한된 prepare 경로의 계약 검증이 함께 필요합니다.
 
 ## ACL과 복구
 

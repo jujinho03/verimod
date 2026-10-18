@@ -1,4 +1,4 @@
-# Merkle Spec v1
+# Merkle 규격 v1
 
 상태: **W2 동결 후보**. 이 문서는 `docs/spec/merkle-spec.md`의 배포 경로 호환 사본이며 W2 제출물의 기준 경로다.
 

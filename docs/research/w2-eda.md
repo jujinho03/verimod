@@ -1,4 +1,4 @@
-# AI-20 — BEEP! Primary EDA (TRAIN + VALIDATION)
+# AI-20 — BEEP! Primary 탐색적 분석 (EDA, TRAIN + VALIDATION)
 
 상태: **W2 A-owner EDA evidence, 2026-10-01**. 집계 통계만 다룹니다. 모델 학습, inference, TEST 평가, 최종 threshold는 없습니다. Taxonomy 결론은 [AI-02 결정](w2-taxonomy-decision.md)에 있습니다.
 

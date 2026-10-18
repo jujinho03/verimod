@@ -8,9 +8,9 @@
 
 ## 3회차 멘토링: 먼저 읽을 자료
 
-**갱신일: 2026-10-17 · W4 GATE-4: PARTIAL(부분 완료).**
+**갱신일: 2026-10-18 · W4 GATE-4: PARTIAL(부분 완료).**
 
-실제 R01 모델 → Python API → Node 정책/발급 → SQLite 저장 → Receipt 2건의 Epoch Freeze까지 실행했습니다. 실제 Epoch 1의 Base Sepolia 송신, F의 온체인 확인, 외부 브라우저 검증은 아직 완료하지 않았습니다. 현재 차단사항은 A 호스트 관리자 UAC 접근과 A/T 사설 Callback 채널·승인 RPC 구성입니다.
+실제 R01 모델 → Python API → Node 정책/발급 → SQLite 저장 → Receipt 2건의 Epoch Freeze까지 실행했습니다. 2026-10-18에는 T 노트북 → 사설망 → A Windows OpenSSH → F 전용 계정의 고정 status 경로로 실제 왕복을 확인했고, 원격 명령·PTY·포워딩·SFTP·다른 계정은 모두 차단됐습니다. 실제 Epoch 1의 Base Sepolia 송신, F의 온체인 확인, 외부 브라우저 검증은 별도 송신 승인(APPROVAL_5) 전이라 아직 하지 않았습니다.
 
 - [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·확인받을 질문
 - [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과와 남은 조건
@@ -20,11 +20,11 @@
 
 ## main과 작업 브랜치의 범위
 
-**이번 main 갱신은 한국어 문서와 공개 증빙 반영입니다. W4 실행 코드를 통째로 병합한 릴리스가 아닙니다.** main 실행 코드는 W3 통합 기준이며, W4 구현은 아래 고정 소스에서 확인합니다. 구현 완료와 실제 호스트 연결 완료를 구별합니다.
+**2026-10-18에 A/F/T의 W4 브랜치를 main에 병합했습니다.** 아래 고정 소스가 main에 들어 있으며, W3 통합 계약과 맞추는 수정 1개를 더해 전체 회귀(frontend 200, browser 1, backend 197, contracts 18)를 통과했습니다. 구현 완료와 실제 호스트 연결 완료, 실제 체인 송신은 계속 구별합니다.
 
-| 영역 | 확인한 소스 | 범위 |
+| 영역 | 병합한 소스 | 범위 |
 | --- | --- | --- |
-| main 실행 코드 | `1401e03931f76ed8405454081adb9478339bae67` | W3 공동 통합: 실제 모델 출력 fixture, backend 발급, 공유 규격·계약 |
+| W3 공동 통합 (기존 main) | `1401e03931f76ed8405454081adb9478339bae67` | 실제 모델 출력 fixture, backend 발급, 공유 규격·계약 |
 | A: AI·평가·연동 | [`3a8993b`](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912) | 실제 추론, VALIDATION 평가, 정책 비교/parity, A/F E2E |
 | F: 서비스·검증 | [`c1f750e`](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9) | HTTP adapter, Manifest 검증, SQLite Freeze·durable ACK·confirmation |
 | T: 프로토콜·체인 | [`7534907`](https://github.com/jujinho03/verimod/tree/7534907fa3ad66cc6ed29cfbee2efd8c2c75369e) | Issuer·승인 프로필, F ACK 후 송신, SUBMITTED/CONFIRMED 분리 |
@@ -38,6 +38,7 @@
 | 실제 A/F E2E | FULL/TRUNCATED 정상 2건, Fail Closed **17/17**, 정책 parity **21/21** PASS |
 | 실제 발급·Freeze | Receipt 2건, Epoch 1, version 1, 독립 Merkle·SQLite 재개방 PASS |
 | 최신 F 원본 DB status | PASS. FROZEN/tx_hash=null, DB bytes·identity·멤버 보존 |
+| 실제 T → A SSH status 왕복 | PASS (2026-10-18). 공개키 인증·고정 status만 허용, 셸/PTY/포워딩/SFTP/다른 계정 차단, DB 불변 |
 | F confirmation 회귀 | F 보고 **192/192 PASS**. 합성 DB/RPC stub이며 실제 체인 검증 아님 |
 | 실제 Epoch 송신·외부 브라우저 VALID | 미완료. GATE-4 전체 PASS로 계산하지 않음 |
 
@@ -57,8 +58,8 @@ flowchart LR
   Model --> Policy[Node 시험용 정책]
   Policy --> Receipt[영수증 발급과 SQLite]
   Receipt --> Freeze[실제 Epoch 1 Freeze 완료]
-  Freeze --> Gate[사설 채널과 durable ACK 준비 중]
-  Gate --> Sender[T 노트북 signer 실행 대기]
+  Freeze --> Gate[사설 채널 status 왕복 PASS]
+  Gate --> Sender[prepare ACK와 T signer: 송신 승인 대기]
   Sender --> Chain[실제 Epoch 송신 미실행]
   Chain --> Confirm[F 독립 confirmation 미실행]
   Confirm --> Browser[외부 브라우저 검증 미완료]
@@ -68,7 +69,7 @@ Native label은 `hate / offensive / none`, 외부 score key는 `hate / offensive
 
 ## main의 기존 데모 실행
 
-main의 기존 브라우저 데모는 합성 점수·모의 원장 경로입니다. 이를 실제 R01/공개 체인 실행으로 소개하지 않습니다. 모델 가중치와 private DB는 저장소에 없어 clone만으로 A 호스트의 실제 환경이 구성되지 않습니다.
+main의 기본 브라우저 데모는 합성 점수·모의 원장 경로입니다. 이를 실제 R01/공개 체인 실행으로 소개하지 않습니다. W4 실제 경로 코드도 main에 있지만, 모델 가중치와 private DB는 저장소에 없어 clone만으로 A 호스트의 실제 환경이 구성되지 않습니다.
 
 ```sh
 git clone https://github.com/jujinho03/verimod.git
@@ -90,7 +91,7 @@ npm run dev
 | [shared/protocol/](shared/protocol/) | canonical bytes·hash·Receipt·Merkle 공유 규칙 |
 | [docs/](docs/README.md) | 공동 결정·주차별 기록·증빙·멘토링 |
 
-main 전체 회귀 명령은 `node scripts/check-all.mjs`이며 Python 검사는 [AI 안내](ai/README.md)를 따릅니다. 이번 문서 갱신은 링크·소스 범위·JSON 해시·개인정보 노출을 검사하며 과거 모델/DB 검증을 재실행한 것으로 기록하지 않습니다.
+main 전체 회귀 명령은 `node scripts/check-all.mjs`이며 Python 검사는 [AI 안내](ai/README.md)를 따릅니다. 2026-10-18 병합 후에는 CI와 같은 JS 회귀를 다시 실행했습니다. 과거 모델 학습/평가는 재실행하지 않았습니다.
 
 ## 신뢰와 공개 범위
 

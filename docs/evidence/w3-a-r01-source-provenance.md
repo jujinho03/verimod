@@ -1,24 +1,24 @@
-# R01 Source Provenance
+# R01 소스 출처
 
-## Run
+## 실행
 
 `AI07-BL-KLUE-RB-45126-R01`
 
-## Execution Base
+## 실행 기준
 
-- Branch: `main`.
+- 브랜치: `main`.
 - execution_base_head: `09d72598dcd1d6744d4c80b99af0721d4c1efedc`.
 - execution_worktree_state: `DIRTY`.
 - source_commit_at_execution: **null**.
-- source_snapshot_commit: **null in this pre-commit document**; the post-commit record stores the new SHA without self-reference.
+- source_snapshot_commit: **이 커밋 전 문서에서는 null**; 커밋 후 기록에 자기 참조 없이 새 SHA를 저장합니다.
 
-R01 was executed from an uncommitted working tree based on HEAD 09d72598dcd1d6744d4c80b99af0721d4c1efedc.
+R01은 HEAD 09d72598dcd1d6744d4c80b99af0721d4c1efedc를 기준으로 한, 커밋되지 않은 작업 트리에서 실행했습니다.
 
-The snapshot commit is created after R01 and must never be called its execution-time commit.
+snapshot commit은 R01 이후에 만들어지며, 절대 실행 시점 commit이라고 부르면 안 됩니다.
 
-## Exact Execution Source
+## 정확한 실행 소스
 
-| File | R01 recorded SHA-256 | Current SHA-256 | Match |
+| 파일 | R01 기록 SHA-256 | 현재 SHA-256 | 일치 |
 |---|---|---|---|
 | `ai/scripts/train_w3_baseline.py` | `afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab` | `afdd8289c1684cd96a5ee0dc2c64df84cbaa4a43983d2aa10c8bff1738097bab` | YES |
 | `ai/src/verimod_ai/training/runner.py` | `a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26` | `a48a78d8ab235e20c179f62181df47655604a3a16629dd2794a78e8206e9ae26` | YES |
@@ -32,84 +32,84 @@ The snapshot commit is created after R01 and must never be called its execution-
 | `ai/configs/w3_baseline.json` | `466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f` | `466254e11c8f9d7597aeb877fc1925d0e561dd9c120213377abcd4e52ec9587f` | YES |
 | `ai/configs/w2_dataset.json` | `41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27` | `41b110959e83f734b5ba5f0e9f7754528286882d517fa1df1cb09e99dd20aa27` | YES |
 | `ai/requirements-w3.lock.txt` | `8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde` | `8b61fa68c369af1d447f3d7458fccffb2cebf361b382198c2e35bc91ad12bdde` | YES |
-| `ai/pyproject.toml` | NOT RECORDED | `474bab5cb469a3b86166ebeeedd4add7cc5f38d6d6a1de0650a0efd1d6bf2c97` | NOT RECORDED; accepted limitation |
+| `ai/pyproject.toml` | NOT RECORDED | `474bab5cb469a3b86166ebeeedd4add7cc5f38d6d6a1de0650a0efd1d6bf2c97` | NOT RECORDED; 승인된 한계 |
 
-## Current Snapshot Verification
+## 현재 snapshot 검증
 
-- Decision recorded at UTC: `2026-10-07T00:43:17.678964+00:00`.
-- Historical hashes matched: **12/12**; mismatches: **0**.
-- No training/config/hyperparameter/source change; only provenance metadata and README state updated in this step.
-- Existing unrelated `output/` is excluded and untouched.
+- 판정 기록 시각(UTC): `2026-10-07T00:43:17.678964+00:00`.
+- 과거 hash 일치: **12/12**; 불일치: **0**.
+- 학습/config/hyperparameter/소스 변경 없음. 이 단계에서는 출처 metadata와 README 상태만 갱신했습니다.
+- 관련 없는 기존 `output/`은 제외했고 건드리지 않았습니다.
 
-## Documented Provenance Limitation
+## 문서화된 출처 한계
 
-- ai/pyproject.toml historical SHA-256 was not recorded at R01 execution time.
-- The current pyproject SHA MUST NOT be represented as the historical execution SHA.
-- Effective runtime dependency provenance is separately preserved by the execution-time requirements lock hash and recorded runtime package/environment evidence.
-- No evidence of source divergence was found among the 12 execution-critical files whose historical hashes were recorded.
-- R01 is NOT being rerun.
+- ai/pyproject.toml의 과거 SHA-256은 R01 실행 시점에 기록되지 않았습니다.
+- 현재 pyproject SHA를 과거 실행 SHA로 표시하면 안 됩니다(MUST NOT).
+- 실제 런타임 의존성 출처는 실행 시점 requirements lock hash와 기록된 런타임 패키지/환경 증거로 따로 보존합니다.
+- 과거 hash가 기록된 실행 핵심 파일 12개에서는 소스가 달라진 증거가 없었습니다.
+- R01을 다시 실행하지 **않습니다**.
 
-Command Center superseded `BLOCKED_MISSING_EXECUTION_REFERENCE` with **PASS_WITH_DOCUMENTED_LIMITATION**. The missing historical byte hash cannot be recovered. It is retained as `DOCUMENTED_PROVENANCE_LIMITATION`, not backfilled using the current hash. This decision does not invalidate, alter, or rerun approved R01 results.
+Command Center는 `BLOCKED_MISSING_EXECUTION_REFERENCE`를 **PASS_WITH_DOCUMENTED_LIMITATION**으로 대체했습니다. 없는 과거 byte hash는 복구할 수 없습니다. 이 항목은 현재 hash로 채우지 않고 `DOCUMENTED_PROVENANCE_LIMITATION`으로 남깁니다. 이 판정은 승인된 R01 결과를 무효화하거나 바꾸거나 재실행하지 않습니다.
 
-## Artifact Link
+## 산출물 연결
 
-- Selected weights: `ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/model.safetensors`; ignored local artifact.
-- Selected model SHA-256: `a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f`.
+- 선정 가중치: `ai/artifacts/checkpoints/beep-klue-roberta-base-w3-seed45126-cpu/selected_model/model.safetensors`; Git에서 제외된 로컬 산출물.
+- 선정 모델 SHA-256: `a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f`.
 - Best step: **1101**; epoch **3**.
 - Macro-F1: **0.6524599868976999**; Micro-F1/Accuracy: **0.6629482071713148**.
-- Metrics / latency / epoch log / execution hashes / integrity: `ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/`.
-- Predictions: `ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/validation_predictions.jsonl`; **1,255** records established by prior audit; excluded from Git.
-- No metric recomputation or prediction inference in this source snapshot step.
+- 지표 / latency / epoch log / 실행 hash / 무결성: `ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/`.
+- 예측: `ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/validation_predictions.jsonl`; 이전 감사에서 **1,255**건으로 확정; Git에서 제외.
+- 이 source snapshot 단계에서는 지표 재계산이나 예측 추론을 하지 않았습니다.
 
-## Environment Provenance
+## 환경 출처
 
 - Python **3.12.14**; PyTorch **2.14.1+cpu**; Transformers **4.57.6**; CPU **Intel Core i5-1035G4**.
-- `ai/artifacts/reports/w3_baseline/environment.json` preserves the runtime package inventory.
-- `ai/requirements-w3.lock.txt` has an execution-time SHA-256 and current exact match.
+- `ai/artifacts/reports/w3_baseline/environment.json`에 런타임 패키지 목록을 보존합니다.
+- `ai/requirements-w3.lock.txt`는 실행 시점 SHA-256이 있으며 현재와 정확히 일치합니다.
 
-## Git Byte Preservation
+## Git byte 보존
 
-- Actual `core.autocrlf=true` may normalize CRLF to LF in stored Git blobs.
-- `source_snapshot.json` records execution SHA-256, original line endings, expected normalized-blob SHA-256, and a per-file restoration rule for all 12 recorded files.
-- Before commit, staged/HEAD blob bytes are checked against the normalized-byte hash. After commit, restore each file to its recorded LF/CRLF bytes and verify its original execution hash in memory.
-- Working source bytes and historical hashes are not rewritten. Git object IDs, normalized-byte SHA-256 and execution raw-byte SHA-256 remain distinct.
+- 실제 설정 `core.autocrlf=true`는 저장되는 Git blob에서 CRLF를 LF로 정규화할 수 있습니다.
+- `source_snapshot.json`은 기록된 파일 12개 모두에 대해 실행 SHA-256, 원래 줄바꿈, 정규화 blob의 기대 SHA-256, 파일별 복원 규칙을 기록합니다.
+- 커밋 전에는 staged/HEAD blob bytes를 정규화 byte hash와 대조합니다. 커밋 후에는 각 파일을 기록된 LF/CRLF bytes로 복원해 메모리에서 원래 실행 hash를 검증합니다.
+- 작업 소스 bytes와 과거 hash는 다시 쓰지 않습니다. Git object ID, 정규화 byte SHA-256, 실행 raw-byte SHA-256은 서로 구별됩니다.
 
-## Commit Scope and Privacy
+## 커밋 범위와 개인정보
 
-- Includes approved W3 source/config/lock/tests, README updates, small metadata and human-readable evidence.
-- Original execution reports remain unchanged. The previous audit and its blocked decision are explicitly retained as historical observations in `source_provenance_audit.json`.
-- Actual personal path and credential patterns were absent from the previous 44-file audit; current candidates and staged contents are checked again before commit.
-- Public GitHub owner identifiers and synthetic fixtures are not raw dataset exports or secret credentials.
-- Excludes `output/`, `.venv/`, raw data, TEST artifacts, weights/checkpoints, predictions, local training logs and credentials.
-- Excludes duplicate original runner result reports and intermediate `progress.json`; local files are retained.
+- 승인된 W3 source/config/lock/test, README 갱신, 작은 metadata, 사람이 읽는 증거를 포함합니다.
+- 원래 실행 보고서는 바뀌지 않습니다. 이전 감사와 그때의 blocked 판정은 `source_provenance_audit.json`에 과거 관측으로 명시 보존합니다.
+- 이전 44개 파일 감사에서 실제 개인 경로와 자격증명 패턴은 없었습니다. 현재 후보와 staged 내용도 커밋 전에 다시 검사합니다.
+- 공개 GitHub 소유자 식별자와 합성 fixture는 원시 데이터셋 export나 비밀 자격증명이 아닙니다.
+- `output/`, `.venv/`, 원시 데이터, TEST 산출물, 가중치/checkpoint, 예측, 로컬 학습 로그, 자격증명은 제외합니다.
+- 중복된 원래 runner 결과 보고서와 중간 `progress.json`은 제외하며, 로컬 파일은 보존합니다.
 
-## Tests
+## 테스트
 
-- New safe AI test report: `ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/source_snapshot_tests.json`.
+- 새 안전 AI 테스트 보고서: `ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/source_snapshot_tests.json`.
 - **84 passed, 16 subtests passed; failures 0**.
-- Actual dataset filesystem access is blocked by the test harness; attempts **0**.
-- Tests use temporary synthetic fixtures/config/toy arrays. No trained model inference or training rerun occurred.
+- 테스트 harness가 실제 데이터셋 파일시스템 접근을 막으며, 시도는 **0**회입니다.
+- 테스트는 임시 합성 fixture/config/toy 배열을 씁니다. 학습된 모델 추론이나 학습 재실행은 없었습니다.
 
-## Post-Commit Provenance Rule
+## 커밋 후 출처 규칙
 
-1. `execution_base_head` identifies the base Git HEAD at execution.
-2. Execution source hashes identify the recorded raw bytes used for R01.
-3. `source_snapshot_commit` identifies the later verified source snapshot.
+1. `execution_base_head`는 실행 시점의 기준 Git HEAD를 가리킵니다.
+2. 실행 소스 hash는 R01에 쓰인 기록된 raw bytes를 가리킵니다.
+3. `source_snapshot_commit`은 이후 검증된 source snapshot을 가리킵니다.
 
-The new commit SHA is recorded after commit in `ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/source_snapshot_post_commit.json` (ignored local record), and can be incorporated into the next AI-21 registry. No self-SHA insertion, amend loop, or execution-time commit claim is used.
+새 commit SHA는 커밋 후 `ai/artifacts/results/AI07-BL-KLUE-RB-45126-R01/source_snapshot_post_commit.json`(Git에서 제외된 로컬 기록)에 기록하며, 다음 AI-21 등록부에 반영할 수 있습니다. 자기 SHA 삽입, amend 반복, 실행 시점 commit 주장은 쓰지 않습니다.
 
-## Boundary
+## 경계
 
 - TEST NOT ACCESSED; SECONDARY NOT ACCESSED.
-- R01 NOT RERUN; NO MODEL INFERENCE; NO MODEL/CONFIG/HYPERPARAMETER/METRIC CHANGE.
-- No threshold/policy/calibration/new-model work.
-- AI-21, AI-08 and AI-16 are not marked complete.
-- This source snapshot commit is authorized; push is not authorized.
+- R01 NOT RERUN; 모델 추론 없음; 모델/config/hyperparameter/지표 변경 없음.
+- threshold/정책/calibration/새 모델 작업 없음.
+- AI-21, AI-08, AI-16은 이 단계에서 완료로 표시하지 않습니다.
+- 이 source snapshot 커밋은 승인됐고, push는 승인되지 않았습니다.
 
-## Status
+## 상태
 
 **PASS_WITH_DOCUMENTED_LIMITATION**
 
-`SOURCE_PROVENANCE_VERIFIED_WITH_LIMITATION` — 12 recorded execution-critical hashes match; pyproject historical byte hash remains NOT_RECORDED.
+`SOURCE_PROVENANCE_VERIFIED_WITH_LIMITATION` — 기록된 실행 핵심 hash 12개가 일치하며, pyproject 과거 byte hash는 NOT_RECORDED로 남습니다.
 
-Next single stage after source snapshot commit: Baseline Packaging & Handoff (AI-21 Experiment Registry + AI-08 Actual Model Manifest + AI-16 Reproducibility / Real-model Fixture).
+source snapshot 커밋 다음 단일 단계: Baseline 패키징 및 인계(AI-21 실험 등록부 + AI-08 실제 Model Manifest + AI-16 재현성 / 실제 모델 fixture).

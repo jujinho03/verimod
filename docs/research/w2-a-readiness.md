@@ -1,4 +1,4 @@
-# W2 A-side Gate-2 Readiness
+# W2 A 측 Gate-2 준비 상태
 
 상태: **A-owner readiness/evidence packet, 2026-10-01.** 감사 기준: main `edbf446d834aa75078493337b617a379c1757509` (PR #20 merge).
 
@@ -30,7 +30,7 @@
   - 제목 proxy group 원자성; split 간 record, exact, normalized, 제목, near-cluster overlap 0
   - Near duplicate: 3-gram Jaccard ≥ 0.90 heuristic, 부분 점검 — 짧은 텍스트 857건 건너뜀
 
-## Readiness matrix
+## 준비 상태 표
 
 | # | 항목 | A-owner 상태 | Evidence | 남은 dependency | Gate 관점 의미 |
 |---:|---|---|---|---|---|

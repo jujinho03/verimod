@@ -1,4 +1,4 @@
-# I4 Anchor ABI — W3 minimal implementation
+# I4 Anchor ABI — W3 최소 구현
 
 상태: **IMPLEMENTED MINIMAL ABI; semantic freeze/GATE-2는 별도 PENDING.** `backend/contracts/contracts/VeriModAnchor.sol`과 이 ABI의 diff는 0이다. 이 구현은 I1 taxonomy/API consumer semantics의 freeze 또는 actual deployment를 뜻하지 않는다.
 

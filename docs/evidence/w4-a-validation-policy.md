@@ -1,14 +1,14 @@
-# W4 A — Validation policy candidates
+# W4 A — Validation 정책 후보
 
-Status: PROVISIONAL. X/B unapproved; no adopted policy, no LOCK.
+상태: PROVISIONAL. X/B 미승인, 채택된 정책 없음, LOCK 없음.
 
-Population: 1,255 internal VALIDATION rows; native none (547) is an operational NORMAL proxy, not a platform determination. Native hate/offensive (708) are the HARMFUL proxy. All rows are eligible and FULL; there are zero actual TRUNCATED validation rows. TRUNCATED behavior is covered by fixed parity vectors and actual synthetic E2E, not inferred from this dataset.
+모집단: 내부 VALIDATION 1,255행입니다. native none(547)은 운영상 NORMAL proxy이며 플랫폼 판정이 아닙니다. native hate/offensive(708)는 HARMFUL proxy입니다. 모든 행이 대상이고 FULL이며, 실제 TRUNCATED validation 행은 0건입니다. TRUNCATED 동작은 고정 parity 벡터와 실제 합성 E2E로 검사했고, 이 데이터셋에서 추론하지 않았습니다.
 
-The table uses actual selected R01 scores, with per-label nearest-rank FULL score quantiles 25/50/75/90. A candidate H50-75_O50-75 uses the hate median/upper-quartile and offensive median/upper-quartile as review/restrict thresholds. No legacy five-label values are reused.
+아래 표는 실제 선정 R01 점수를 사용하며, 라벨별 FULL 점수의 nearest-rank 분위수 25/50/75/90을 씁니다. 예를 들어 후보 H50-75_O50-75는 hate의 중앙값/상위 사분위수와 offensive의 중앙값/상위 사분위수를 각각 review/restrict 기준으로 씁니다. 과거 5개 라벨 값은 재사용하지 않습니다.
 
-Formal selection remains FRR <= X AND HRR_TOTAL <= B, then minimum HAR, maximum RP, minimum HRR_TOTAL. No formal feasible-set selection ran without X/B. The predeclared median/upper-quartile candidate is only a technical branch-coverage choice, not an operating recommendation.
+정식 선택 규칙은 FRR <= X AND HRR_TOTAL <= B를 만족하는 후보 중 HAR 최소, 그다음 RP 최대, HRR_TOTAL 최소입니다. X/B가 없으므로 정식 실행 가능 집합 선택은 실행하지 않았습니다. 미리 정한 중앙값/상위 사분위수 후보는 분기 검사를 위한 기술적 선택일 뿐 운영 권고가 아닙니다.
 
-| Candidate | hate review/restrict | offensive review/restrict | ALLOW / REVIEW / RESTRICT | FRR | RP | HAR | HRR_TOTAL |
+| 후보 | hate review/restrict | offensive review/restrict | ALLOW / REVIEW / RESTRICT | FRR | RP | HAR | HRR_TOTAL |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | H25-50_O25-50 | 4613 / 24495 | 28833 / 180483 | 247 / 214 / 794 | 176/547 (32.18%) | 618/794 (77.83%) | 22/708 (3.11%) | 214/1255 (17.05%) |
 | H25-50_O25-75 | 4613 / 24495 | 28833 / 646501 | 247 / 339 / 669 | 119/547 (21.76%) | 550/669 (82.21%) | 22/708 (3.11%) | 339/1255 (27.01%) |
@@ -36,14 +36,14 @@ Formal selection remains FRR <= X AND HRR_TOTAL <= B, then minimum HAR, maximum 
 | H75-90_O50-90 | 216950 / 887209 | 180483 / 828254 | 466 / 537 / 252 | 32/547 (5.85%) | 220/252 (87.30%) | 93/708 (13.14%) | 537/1255 (42.79%) |
 | H75-90_O75-90 | 216950 / 887209 | 646501 / 828254 | 659 / 344 / 252 | 32/547 (5.85%) | 220/252 (87.30%) | 203/708 (28.67%) | 344/1255 (27.41%) |
 
-## Interpretation
+## 해석
 
-Lower review thresholds reduce harmful ALLOW by increasing review work. Lower restrict thresholds move cases into RESTRICT, usually increasing false restriction of the none proxy. Increasing thresholds is not guaranteed to optimize all metrics together. RP is undefined if no case is restricted; it is never silently converted to zero.
+review 기준을 낮추면 검토 업무가 늘어나는 대신 유해 사례의 ALLOW가 줄어듭니다. restrict 기준을 낮추면 사례가 RESTRICT로 옮겨가며, 대개 none proxy의 잘못된 제한이 늘어납니다. 기준을 올린다고 모든 지표가 함께 좋아지는 것은 아닙니다. 제한된 사례가 없으면 RP는 정의되지 않으며, 이를 0으로 몰래 바꾸지 않습니다.
 
-Technical candidate H50-75_O50-75 has FRR 91/547 = 16.64%, RP 505/596 = 84.73%, HAR 90/708 = 12.71%, HRR_TOTAL 198/1255 = 15.78%. These measured false restrictions are a substantive trade-off. Team review must supply X/B and approve or reject the candidate before operational use.
+기술 후보 H50-75_O50-75는 FRR 91/547 = 16.64%, RP 505/596 = 84.73%, HAR 90/708 = 12.71%, HRR_TOTAL 198/1255 = 15.78%입니다. 측정된 잘못된 제한은 실질적인 trade-off입니다. 운영에 쓰기 전에 팀 검토에서 X/B를 정하고 이 후보를 승인 또는 기각해야 합니다.
 
-All 25 candidates are descriptive validation comparisons. No TEST claim, confidence interval claim, calibration claim, production fitness claim or model reselection is made.
+25개 후보는 모두 validation 기술 비교입니다. TEST 성능, 신뢰구간, calibration, 운영 적합성, 모델 재선정에 관한 주장은 하지 않습니다.
 
-Complete machine-readable numerators, denominators and FULL/TRUNCATED counts: [policy_candidates.json](../../ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json).
+기계 판독용 분자·분모와 FULL/TRUNCATED 건수 전체: [policy_candidates.json](../../ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json).
 
-Private prediction SHA-256: `74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400`. The full row file is Git-ignored and is not attached.
+비공개 예측 파일 SHA-256: `74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400`. 전체 행 파일은 Git에서 제외되며 첨부하지 않습니다.

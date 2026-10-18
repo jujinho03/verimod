@@ -1,4 +1,4 @@
-# W3 AI-07 Training Runner Smoke Evidence
+# W3 AI-07 학습 Runner Smoke 증거
 
 ## Source
 
@@ -33,13 +33,13 @@ $env:PYTHONHASHSEED = '45126'
 - Python 3.12.14 / Windows 11 x64.
 - Intel Core i5-1035G4, physical 4 / logical 8, RAM 약 15.77 GiB.
 - Device: CPU; NVIDIA/CUDA 없음. torch `2.14.1+cpu`, transformers `4.57.6`, mixed precision none.
-- Intra-op threads 4, inter-op threads 1; single CPU process.
+- Intra-op thread 4, inter-op thread 1; 단일 CPU 프로세스.
 - 설치된 Trainer/TrainingArguments signature와 `Trainer._get_dataloader`, `set_initial_training_values` 소스를 실제 확인했다. API는 `processing_class`, `eval_strategy`, `optim=adamw_torch`를 사용한다.
 - Trainer의 installed source가 `data_seed`를 Accelerate dataloader config에 전달하고, worker init에 `seed_worker`를 사용하는 것도 확인했다.
 
 Seed 45126은 Python random, NumPy, torch CPU, Transformers set_seed, Trainer seed/data_seed에 적용한다. `PYTHONHASHSEED=45126`은 프로세스 시작 전에 설정했다. CUDA seed는 CUDA available일 때만 적용하며 현재 CUDA 실행은 없다. Frozen `full_determinism=False`를 유지했고 deterministic algorithms를 강제로 켜지 않았다. Hardware/driver/library 변경 시 bitwise 동일 결과를 보장하지 않는다.
 
-## Dataset Boundary
+## 데이터셋 경계
 
 - Primary only: BEEP revision `f8d05dce2b22007bb149e5139c0060c68ad8f94b`, split seed 45126.
 - `load_split`은 기존 internal JSONL을 읽고 approved hash/행 수/클래스 수/schema를 검증한다. BEEP raw 원본을 재가공하거나 읽지 않는다.
@@ -83,7 +83,7 @@ Artifacts: `ai/artifacts/smoke/w3_runner/20261006T143104675080Z/`.
 - Smoke metric 숫자는 ignored `results/validation_metrics.json` 및 ignored 실행 로그에만 남겼다. Git 추적 가능한 engineering summary에는 성능 metric 숫자를 포함하지 않았다.
 - Summary: [`smoke_summary.json`](../../ai/artifacts/reports/w3_runner_smoke/smoke_summary.json).
 
-## Metrics / Score Contract
+## 지표 / 점수 계약
 
 [`training/metrics.py`](../../ai/src/verimod_ai/training/metrics.py)는 integer labels/logits를 기존 [`evaluation/metrics.py`](../../ai/src/verimod_ai/evaluation/metrics.py)의 native single-label `model_report`에 연결한다. Macro-F1은 zero-support class도 포함하며 기존 zero-division 정의를 유지한다. Accuracy는 이 3-class single-label 전체 평가에서 Micro-F1과 같다.
 
@@ -113,7 +113,7 @@ Raw logits와 normalized softmax model scores는 구분하며 **UNCALIBRATED**�
 
 Train wall time에는 smoke의 매-update evaluation/checkpoint 및 best reload overhead가 포함된다. Callback의 optimizer update duration은 accumulation 4 micro-batches의 forward/backward/optimizer/scheduler 구간을 측정하며 step-end 이후 evaluation/save를 제외한다. Memory는 100ms RSS polling과 Windows peak_wset을 함께 사용한 process resident-memory peak다. System 전체 peak나 장시간 full-training peak를 측정한 값은 아니다. Torch 등 library import는 phase timing 시작 전에 수행되므로 model load time에 포함하지 않는다.
 
-## Full Training Estimate
+## 전체 학습 예상
 
 **ESTIMATE — 실측 full-training 시간이 아니다.**
 
@@ -130,7 +130,7 @@ Train wall time에는 smoke의 매-update evaluation/checkpoint 및 best reload 
 
 2개 update만으로 extrapolate한 값이며 statistical confidence interval은 없다. Dynamic padding의 subset shape, CPU thermal throttling/전원/다른 process 부하, process startup을 충분히 대표하지 않는다. 정식 checkpoint는 optimizer state도 저장하므로 model-only smoke로 측정하지 않은 추가 I/O가 있다. Scheduling 판단으로 사용하며 완료 시간이나 full-memory 안전을 보장하지 않는다.
 
-## Tests / Git
+## 테스트 / Git
 
 최종 결과: **82 passed, 16 subtests passed in 17.11s**.
 
@@ -144,9 +144,9 @@ Train wall time에는 smoke의 매-update evaluation/checkpoint 및 best reload 
 - `git status`, `git diff`, `git diff --stat`, `git diff --check`, staged paths 및 ignored smoke artifact를 확인한다. Config/lock/analyzer의 기존 approved hashes는 유지한다.
 - BEEP raw text / TEST artifact / model weight / checkpoint / HF token / secret staged 0건. source/config의 local absolute path 0건. commit/push 없음.
 
-## Important Boundary
+## 중요 경계
 
-**SMOKE METRICS ARE NOT MODEL PERFORMANCE RESULTS.**
+**SMOKE 지표는 모델 성능 결과가 아닙니다(SMOKE METRICS ARE NOT MODEL PERFORMANCE RESULTS).**
 
 전체 TRAIN fine-tuning, 전체 3 epochs, 정식 validation 성능 발표, TEST 접근, 모델 비교, second model, official Experiment Registry run, final Model Manifest, final F handoff fixture는 실행/생성하지 않았다. Shared protocol, backend, frontend 변경 없음. Canonical/hash/Merkle 구현 없음; source/artifact SHA-256은 파일 provenance만 기록한다.
 

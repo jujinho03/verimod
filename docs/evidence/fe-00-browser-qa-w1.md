@@ -1,4 +1,4 @@
-# FE-00 — W1 Browser / Routing Evidence
+# FE-00 — W1 브라우저 / 라우팅 증거
 
 ## Metadata
 - 담당: 노유신 / F
@@ -13,7 +13,7 @@
 - 실행: `npm run dev -- --host 127.0.0.1 --port 5179 --strictPort`
 - 사전 점검: origin URL 확인; working tree clean; fetch한 main이 예상 SHA와 일치. origin/main에서 새 브랜치를 만들었습니다. 과거 no_usin 브랜치는 merge하거나 cherry-pick하지 않았습니다.
 
-## Build / Test
+## 빌드 / 테스트
 명령은 frontend에서 workspace 로컬 npm cache로 실행했습니다. 모든 종료 코드는 0이었습니다.
 
 | 명령 | 결과 | 주요 출력 |
@@ -25,7 +25,7 @@
 
 이는 frontend 실행 결과이며, 보안 인증이나 API/DB/AI/chain 통합 evidence가 아닙니다.
 
-## Route Matrix
+## 라우트 매트릭스
 Route는 frontend/src/main.tsx에서 다시 읽었습니다. 실제 브라우저의 DOM/접근성 관찰로 페이지 내용과 공통 Layout/navigation을 확인했습니다. Navigation link는 Enter로 활성화했습니다. Wildcard는 직접 열었습니다. 세션 동안 console warning/error 로그를 확인했고 비어 있었습니다. 앱 fatal error나 error overlay는 관찰되지 않았습니다. 이는 범위를 정한 smoke check이며 브라우저 전체 계측이 아닙니다.
 
 | Route | 렌더링 | Fatal Error | 관찰한 UI | 결과 | 비고 |
@@ -43,7 +43,7 @@ Route는 frontend/src/main.tsx에서 다시 읽었습니다. 실제 브라우저
 
 Keyboard 활성화 후 브라우저 캡처가 쓸모없는 scroll 위치에 남는 경우가 있었습니다. Ctrl+Home으로 캡처 viewport를 복원했습니다. Screenshot을 확인해 사용할 수 없던 초기 badge 캡처를 교체했으며, 이것이 모든 브라우저의 scroll 동작에 대한 일반적 주장은 아닙니다.
 
-## Status / Badge Matrix
+## 상태 / 배지 매트릭스
 frontend/src/ui/bits.tsx의 기존 component를 확인했으며, 새 component는 만들지 않았습니다.
 
 | Component/상태 | 관찰 위치 | 실제 렌더링 결과 | 경계 |
@@ -65,14 +65,14 @@ frontend/src/ui/bits.tsx의 기존 component를 확인했으며, 새 component�
 
 Seed 영수증 안의 날짜는 fixture timestamp이며 screenshot 날짜가 아닙니다. 예전 screenshot을 재사용하지 않았습니다. 시각 콘텐츠를 합성하거나 보정하지 않았습니다.
 
-## Security / Privacy Check
+## 보안 / 개인정보 점검
 - 비밀정보 노출: NO
 - 개인정보 노출: NO
 - 실제 비공개 영수증 데이터: NO
 - 이번 W1 closure 중 생성한 screenshot: YES
 - 원본 salt 값, 비공개 package, 인증 token, 계정 UI, 실제 사용자 텍스트는 screenshot 세 장 어디에도 없습니다. 공개 synthetic demo field만 나옵니다.
 
-## Scope Boundary
+## 범위 경계
 - 정적 frontend skeleton과 브라우저 렌더링 evidence만 해당합니다.
 - API 구현 완료 evidence가 아닙니다.
 - SQLite 통합 evidence가 아닙니다.
@@ -83,7 +83,7 @@ Seed 영수증 안의 날짜는 fixture timestamp이며 screenshot 날짜가 아
 - 기존 FE-00a/b/c와 화면 요구사항을 보존했으며, 새 scaffold는 필요하지 않았습니다.
 - docs/progress/W1.md와 docs/03-current-status.md는 수정하지 않았습니다. 팀 전체 tracker 연결은 팀장의 후속 작업으로 남습니다.
 
-## Final Result
+## 최종 결과
 FE-00 W1 BROWSER / ROUTING EVIDENCE = PASS
 
 범위: 위에서 관찰한 route와 상태, 브라우저 세션 하나 기준. 정확한 browser engine 버전은 미확인으로 남습니다. PR/CI 승인과 팀 전체 W1 closure는 이 로컬 렌더링 결과와 별개입니다.

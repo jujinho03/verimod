@@ -17,11 +17,11 @@ Rekor는 서명된 소프트웨어 metadata를 위한 Sigstore의 transparency l
 
 Entry는 Merkle tree에 누적됩니다. Rekor는 주기적으로 tree와 timestamp에 서명합니다. 검증자는 entry의 inclusion proof를 받아, 신뢰하는 log key material로 서명된 tree head(checkpoint / signed tree head)를 확인할 수 있습니다.[^sigstore-security][^rekor-cli]
 
-### Inclusion / consistency
+### 포함 / 일관성 증명
 
 Inclusion proof는 특정 entry가 commit된 tree에 존재함을 입증합니다. Consistency 점검은 tree 상태들을 비교해 append-only 동작을 확인합니다. 즉 이전 entry가 바뀌거나 삭제되지 않고 남아 있어야 합니다. Rekor는 이를 entry 내용의 자동 의미 검증이 아니라 auditor의 책임으로 문서화합니다.[^rekor-overview]
 
-### Witness / monitoring
+### Witness / 모니터링
 
 Rekor 문서는 monitoring을 요구합니다. Auditor는 consistency를, identity 소유자는 자신의 identity를 monitoring할 수 있습니다. Sigstore는 제삼자 monitoring이 없으면 Rekor/Fulcio의 오작동이 탐지되지 않을 수 있다고도 밝힙니다.[^rekor-overview][^sigstore-security]
 
@@ -67,7 +67,7 @@ Inclusion, consistency, operator 서명, 외부 공개 commitment를 독립적�
 
 서명된 artifact의 진실성이나 품질을 증명하지 않고, 모든 신뢰 가정을 없애지 않으며, Ethereum이 어디서나 최선의 witness라는 뜻도 아닙니다. 이 prototype이 Sigstore 표준이 되는 것도 아닙니다.
 
-## 3. TEE / Inference Attestation
+## 3. TEE / 추론 증명(Attestation)
 
 A 담당 노트는 [tee-inference-attestation-w1.md](tee-inference-attestation-w1.md)입니다.[^tee-note]
 

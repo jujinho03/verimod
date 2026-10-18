@@ -1,5 +1,8 @@
 # 최신 구현 상태와 기획서 정정 목록
 
+> **역사 사본입니다.** W4 갱신 전 `docs/03-current-status.md` 원문이며, 아래 "CURRENT"는 작성 당시 표시입니다.
+> 2026-10-18에 `docs/history/` 위치에 맞춰 상대 링크만 고쳤습니다. 최신 상태는 [현재 상태](../03-current-status.md)를 봅니다.
+
 STATUS: CURRENT
 
 확인일: 2026-09-14.
@@ -8,9 +11,9 @@ STATUS: CURRENT
 
 2026-09-14 당시 제출 기준 origin/main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이다. 해당 main의 [GitHub Actions](https://github.com/jujinho03/verimod/actions/runs/34805612537) `VeriMod P0 checks`는 completed / success였다. 이 main은 PR [#2](https://github.com/jujinho03/verimod/pull/2) `chore: improve VeriMod submission quality and reproducibility`의 병합 결과다.
 
-아래에 남은 `6971363`, `908f64e` 기준 서술은 P0·quality pass 작업 시작 시점의 역사 기록으로 구분해 읽는다. 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](07-validation-2026-09-13.md)을 따른다.
+아래에 남은 `6971363`, `908f64e` 기준 서술은 P0·quality pass 작업 시작 시점의 역사 기록으로 구분해 읽는다. 작업 브랜치의 실제 runtime 검사와 CI 근거는 [07](../07-validation-2026-09-13.md)을 따른다.
 
-확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](04-interface-contract-draft.md)을 따른다.
+확인 사실과 실행 범위를 기록한다. 기술 채택은 [결정 기록](../02-decision-register.md), 전체 맥락은 [README](../README.md), 다음 설계는 [계약 초안](../04-interface-contract-draft.md)을 따른다.
 
 ## 2026-09-30 운영 일정 조정(override)
 
@@ -18,15 +21,15 @@ STATUS: CURRENT
 
 - CNU-Mate account = **NOT YET ISSUED**. OPS-01의 3인 login 확인과 OPS-02의 authenticated assignment/deadline 검증은 W1에 수행할 수 없다.
 - OPS-01 / OPS-02 = **DEFERRED TO W2 — EXTERNAL PREREQUISITE UNAVAILABLE**. 공식 계정·접근이 확보된 뒤 수행하며 W1 closure blocker로 계산하지 않는다. 완료나 실패로 판정하지 않는다.
-- Actual mentor/mentee activity = **DEFERRED TO W2 — EXTERNAL PREREQUISITE UNAVAILABLE**. W1 DOC-04는 [멘토 사전자료](mentor-prep-w1.md) 준비까지만 평가한다. 실제 미팅·배정·멘토 결정·포털 과제명/마감은 만들어 기록하지 않는다.
+- Actual mentor/mentee activity = **DEFERRED TO W2 — EXTERNAL PREREQUISITE UNAVAILABLE**. W1 DOC-04는 [멘토 사전자료](../mentor-prep-w1.md) 준비까지만 평가한다. 실제 미팅·배정·멘토 결정·포털 과제명/마감은 만들어 기록하지 않는다.
 - CHAIN-01 = **T-OWNED — NOT A-OWNER BLOCKER**. T 설경민이 chain wallet/faucet·RPC·deployment/anchor를 담당하며 A 주진호가 대신 실행하거나 PASS 처리하지 않는다. T의 실제 완료 여부는 별도 team-W1 audit 대상이다.
-- A 소유 dataset/label/model·평가/I1/기획·결정·멘토 준비·발표와 T/F 구현 책임을 구분한다. [A-owner W1 closure 및 team handoff](progress/W1.md#a-owner-w1-closure)를 따른다. A-owner 완료는 team W1 전체 완료가 아니다.
+- A 소유 dataset/label/model·평가/I1/기획·결정·멘토 준비·발표와 T/F 구현 책임을 구분한다. [A-owner W1 closure 및 team handoff](../progress/W1.md#a-담당-w1-마감)를 따른다. A-owner 완료는 team W1 전체 완료가 아니다.
 
 ## P0 작업 시작 기준 (2026-09-13 역사 기록)
 
 - 원격 main/dev가 모두 `908f64e`임을 `git ls-remote`로 확인했다. 깨끗한 로컬 main `3e86a32`를 `git pull --ff-only origin main`으로 동기화했다.
 - 문서 변경은 `docs/current-context-and-interface-draft` 브랜치에서 진행한다. 제품 기준 커밋과 문서 변경 커밋을 구분한다. 최종 업로드·병합 상태는 Git/PR에서 확인한다.
-- [최신 기획서](references/project-proposal-2026-09-12.pptx)는 사용자가 제공한 `VeriMod______.pptx` 14장 원본 사본이다. 앞선 분석에서 본문·발표자 노트를 읽었다. 슬라이드나 노트를 수정한 판본이 아니다.
+- [최신 기획서](../references/project-proposal-2026-09-12.pptx)는 사용자가 제공한 `VeriMod______.pptx` 14장 원본 사본이다. 앞선 분석에서 본문·발표자 노트를 읽었다. 슬라이드나 노트를 수정한 판본이 아니다.
 - 2026-09-12 인수인계 문서, AGENTS·MASTER·01·02·README·CLAUDE·00 및 domain/store/pages/backend/contracts 소스를 대조했다.
 - 2026-09-11 PDF들은 과거 사본으로 보존한다. 최신 공식 행사 공지, 규제·경쟁 서비스, 별도 배포 환경은 이번에 재검증하지 않았다.
 
@@ -40,7 +43,7 @@ STATUS: CURRENT
 | 시험 구현 | schema·합성 라벨/threshold·RESOLVED·제한 직렬화·Merkle·TrustConfig·시뮬레이션 원장 | 제품 코드 908f64e |
 | 미정 | 실제 모델·데이터·평가, 정식 schema/manifest·수치/Unicode 규칙, ABI·RPC vendor·min confirmations·gas 등 운영 세부값·키, DB·권한·보존 | 02 기록, 04 초안 |
 
-[결정 기록](02-decision-register.md) D12는 **TARGET Base Sepolia / chainId 84532** 방향을 ADOPTED로 기록한다. 실제 배포 완료가 아니며 위 운영 세부값은 미확정이다.
+[결정 기록](../02-decision-register.md) D12는 **TARGET Base Sepolia / chainId 84532** 방향을 ADOPTED로 기록한다. 실제 배포 완료가 아니며 위 운영 세부값은 미확정이다.
 
 ## 실제 코드와 미연결 목표
 
@@ -63,7 +66,7 @@ STATUS: CURRENT
 
 ## 제안 명세와 시험 코드의 차이
 
-아래는 2026-09-13 P0 수정 후 남은 경계다. 최초 정적 관찰과 이후 보강을 구분하며 상세 근거는 [protocol audit](05-protocol-audit.md)에 있다.
+아래는 2026-09-13 P0 수정 후 남은 경계다. 최초 정적 관찰과 이후 보강을 구분하며 상세 근거는 [protocol audit](../05-protocol-audit.md)에 있다.
 
 1. P0에서 raw JSON 중복 키·escaped 중복 키·1 MiB/64단계 입력 제한을 추가했다. 이미 JSON.parse된 객체에서 원래 중복 키를 복원할 수는 없다.
 2. scorer는 evidence를 정렬하지만 schema는 배열 정렬·완전 중복 금지를 검사하지 않는다. 원문 범위·전처리 매핑의 검증 책임도 필요하다.
@@ -91,14 +94,14 @@ STATUS: CURRENT
 
 ## 다음 단계와 실행 증거
 
-[04 계약 초안](04-interface-contract-draft.md)은 출력·오류, 상태·권한·중복, body/bundle, bytes/proof, ABI·신뢰 범위의 구체적 검토안이다. C01~C08 전체 계약은 DRAFT이며, [결정 기록](02-decision-register.md)의 D01~D17 개별 ADOPTED 제약과 구분한다. D18~D28은 WORKING ASSUMPTION이다. [04의 AI-03](04-interface-contract-draft.md)도 개별 제약 승인과 전체 schema/API/ABI 승인·구현 완료를 구분한다.
+[04 계약 초안](../04-interface-contract-draft.md)은 출력·오류, 상태·권한·중복, body/bundle, bytes/proof, ABI·신뢰 범위의 구체적 검토안이다. C01~C08 전체 계약은 DRAFT이며, [결정 기록](../02-decision-register.md)의 D01~D17 개별 ADOPTED 제약과 구분한다. D18~D28은 WORKING ASSUMPTION이다. [04의 AI-03](../04-interface-contract-draft.md)도 개별 제약 승인과 전체 schema/API/ABI 승인·구현 완료를 구분한다.
 
-앞선 문서 인수인계에 이어 이번 사용자 요청의 P0 제품 보강을 적용했다. 정상 hash 바이트·body·ABI를 바꾸지 않고 validation·저장 복구·경합·simulation disclosure·CI를 보강했다. 실제 테스트/lint/build/브라우저 결과는 [검증 기록](07-validation-2026-09-13.md)을 따른다. 모델 평가와 testnet은 실행하지 않았다.
+앞선 문서 인수인계에 이어 이번 사용자 요청의 P0 제품 보강을 적용했다. 정상 hash 바이트·body·ABI를 바꾸지 않고 validation·저장 복구·경합·simulation disclosure·CI를 보강했다. 실제 테스트/lint/build/브라우저 결과는 [검증 기록](../07-validation-2026-09-13.md)을 따른다. 모델 평가와 testnet은 실행하지 않았다.
 
 수정 전 frontend 테스트는 7파일 54건이었다. P0에서 부정 입력·경합·복구·독립 Node crypto Merkle reference·기존 seed 해시 검사를 추가했다. 파일 존재와 실행 성공을 구분하며, 00 문서의 과거 팀원 보고를 이번 결과로 재사용하지 않는다.
 
 ## 2026-10-01 Team W1 최종 closure
 
-Team W1 repository-evidence closure was completed on 2026-10-01 as a **late, retrospective W1 closure**. [Final W1 evidence and per-ticket boundaries](progress/W1.md#team-w1-final-closure--2026-10-01) record A / 주진호 W1 owner COMPLETE, T / 설경민 W1 evidence COMPLETE, and F / 노유신 W1 owner COMPLETE. **TEAM W1 STATUS: CLOSED.**
+Team W1 repository-evidence closure was completed on 2026-10-01 as a **late, retrospective W1 closure**. [Final W1 evidence and per-ticket boundaries](../progress/W1.md#팀-w1-최종-마감--2026-10-01) record A / 주진호 W1 owner COMPLETE, T / 설경민 W1 evidence COMPLETE, and F / 노유신 W1 owner COMPLETE. **TEAM W1 STATUS: CLOSED.**
 
-This closure preserves the historical sections above. It does not roll back or supersede [W2 work already present on main](progress/W2.md), and does not claim product completion, production readiness, FRZ-01, deployment, epoch anchoring, model training, or security remediation. The W1 deferral of OPS-01 / OPS-02 / actual mentor activity records the historical external-prerequisite treatment, not current account or assignment availability. Row-25 TEST methodology and Row-32 historical synchronization provenance remain unresolved in the latest evidence.
+This closure preserves the historical sections above. It does not roll back or supersede [W2 work already present on main](../progress/W2.md), and does not claim product completion, production readiness, FRZ-01, deployment, epoch anchoring, model training, or security remediation. The W1 deferral of OPS-01 / OPS-02 / actual mentor activity records the historical external-prerequisite treatment, not current account or assignment availability. Row-25 TEST methodology and Row-32 historical synchronization provenance remain unresolved in the latest evidence.

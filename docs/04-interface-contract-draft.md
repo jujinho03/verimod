@@ -2,12 +2,12 @@
 
 STATUS: DRAFT
 
-2026-10-07 W3 integration update: actual `verimod-ko-beep-hate/1` native classes are
-`hate/offensive/none`; exposed scores are exactly `hate/offensive`. The shared validator
-separates this profile from historical `verimod-example-ko/0`. W3 local issuance, demo
-request/principal boundary and joint checkpoint evidence supersede the corresponding
-historical unresolved statements below: [W3 team integration](evidence/w3-team-integration.md).
-Production authentication, policy thresholds and public-chain runtime remain outside this update.
+2026-10-07 W3 통합 갱신: 실제 `verimod-ko-beep-hate/1`의 native class는
+`hate/offensive/none`이고, 노출 점수는 정확히 `hate/offensive`입니다. 공유 검증기는
+이 profile을 과거 `verimod-example-ko/0`과 분리합니다. W3 로컬 발급, 데모
+request/principal 경계, 공동 checkpoint 증거가 아래의 해당 과거 미해결 서술을 대체합니다:
+[W3 팀 통합](evidence/w3-team-integration.md).
+운영 인증, 정책 threshold, 공개 체인 런타임은 이 갱신 범위 밖입니다.
 
 제품 baseline 908f64e의 protocol 초안이다. 후속 P0 hardening은 정상 receipt bytes·seed hash·Merkle root를 변경하지 않았다. 현재 구현/검증 시점은 [03](03-current-status.md)과 [07](07-validation-2026-09-13.md)을 따른다.
 
@@ -54,7 +54,7 @@ AI-02 후보는 K-MHaS / BEEP! / UnSmile이며 Primary dataset과 final supporte
 - **D03 / ADOPTED:** reason_codes = MUST, triggered_rule_ids = MUST. evidence span / attribution = SHOULD이며 attribution을 causal explanation으로 표현하지 않는다. 이는 아래 evidence 필드의 exact schema requiredness를 새로 확정하거나 기존 필드를 제거하는 결정이 아니다.
 - **D07 / ADOPTED:** scores_ppm의 각 score는 integer 0..1,000,000이다. probability-like float p를 사용하는 경우 Python inference boundary에서 floor(p*1,000,000 + 0.5)를 단 한 번 적용한다. downstream policy는 전달된 integer를 사용하며 재반올림하지 않는다. 미보정 score는 UNCALIBRATED이며 calibration 근거 없이 probability라고 부르지 않는다. 반드시 5개 score를 요구한다는 뜻은 아니다.
 
-#### 3. Working assumption
+#### 3. 작업 가정
 
 **D24 / WORKING ASSUMPTION:** inference unavailable 시 503 INFERENCE_UNAVAILABLE, DECISION 미발급, fake ALLOW 금지 방향이다. ADOPTED가 아니며 구현된 HTTP API를 뜻하지 않는다. 아래 기존 오류·transport 후보의 나머지 세부사항은 PROPOSED로 유지한다.
 

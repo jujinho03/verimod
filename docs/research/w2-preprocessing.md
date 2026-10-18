@@ -1,4 +1,4 @@
-# AI-05 — Deterministic preprocessing v1
+# AI-05 — 결정적 전처리 v1
 
 상태: **W2 A-owner evidence, 2026-10-01.** 이 문서는 tokenizer 이전 단계의 모델 입력 텍스트 표현을 정의합니다. Tokenizer나 모델 선택이 아니며 성능에 대한 주장도 하지 않습니다.
 

@@ -83,7 +83,7 @@ timeout, 결측 라벨, NaN, 범위 밖 점수, 입력 오류는 성공한 Infer
 
 evidence는 원문 기준 Unicode code point의 반열린 구간 [start,end), label_id, method_id, method_version만 포함한다. JS UTF-16 index 및 tokenizer index에서의 매핑은 adapter 책임이다. 직접 substring, 욕설 원문, 생성 rationale은 receipt에 넣지 않는다. 추출법이 없으면 span을 지어내지 않는다. span도 민감 메타데이터이므로 receipt 접근을 제한한다.
 
-## 4. I2 — Decision Receipt schema
+## 4. I2 — Decision Receipt 스키마
 
 공통 ReceiptBody 필드 제안:
 
@@ -124,7 +124,7 @@ content_commitment 제안은 SHA256(ASCII `verimod:content:v1` + 0x00 + salt32 +
 
 appeal text도 독립 salt와 `verimod:appeal:v1` 도메인으로 commitment를 만든다. salt를 모르는 공개 관찰자의 짧은 원문 사전 대입을 어렵게 하지만 접근 권한자가 받은 정보까지 숨기지는 못한다. salt 유실 시 content 연결 재검증이 불가능해도 receipt inclusion 검증은 가능하다.
 
-## 5. I3 — Canonicalization / hash / Merkle
+## 5. I3 — Canonicalization / hash / Merkle 규칙
 
 제안: RFC 8785 JCS 계열 결정적 직렬화로 ReceiptBody의 canonical UTF-8 bytes를 만든다. 현재 `canonical.ts`는 안전 정수 등 제한된 값만 처리하며 RFC 8785 전체 호환을 주장하지 않는다. 정식 JCS 라이브러리 채택 또는 제한 프로파일 명세화를 C04에서 결정한다. Unicode 문자열을 hash 과정에서 임의 정규화하지 않는다. Node 백엔드와 브라우저의 공통 벡터를 우선 비교하며, Python도 직렬화/hash에 참여할 때 Python 비교를 추가한다. [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785)
 
@@ -147,7 +147,7 @@ Proof 필드: merkle_spec=`ct-sha256-receipt-v1`, leaf_index(0-based), tree_size
 
 batch 동결 후 root와 receipt 목록을 변경하지 않는다. 새 receipt는 다음 epoch로 보낸다. receipt_count는 발급자의 포함 목록 길이이며 전체 moderation event 수를 증명하지 않는다. contract는 목록 자체를 보지 못하므로 count의 진실성도 독립 검증하지 못한다.
 
-## 6. I4 — Smart contract epoch commitment
+## 6. I4 — 스마트 컨트랙트 epoch commitment
 
 MVP 제안: 플랫폼 하나당 단순한 non-upgradeable contract 하나. 배포 시 허용 publisher와 issuer_commitment를 고정하고, 사용자 wallet 없이 읽기 검증한다. 체인은 EVM testnet 후보를 유지한다.
 

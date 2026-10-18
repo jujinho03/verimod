@@ -40,7 +40,7 @@ CURRENT는 실제 구현/검증 사실, NEXT/TARGET은 앞으로 수행할 작�
 | D16 | 2026-09-23 | ADOPTED | DEMO_USER / DEMO_REVIEWER / DEMO_OPERATOR로 PoC authorization boundary만 표현한다. production identity proof라고 주장하지 않는다. | demo 권한과 실제 신원 증명 구분 | 기존 미정 권한 논의를 PoC 범위에서 한정 | 인증/API 구현 완료 아님 |
 | D17 | 2026-09-23 | ADOPTED | 구버전 확장은 FINAL의 SHOULD / WON'T / BACKLOG 분류를 따른다. W1에서 새로운 확장 feature를 추가하지 않는다. | W1 범위 유지 | 기존 확장 backlog를 새 MUST로 승격하지 않음 | 새 feature·ticket 없음 |
 
-### D18~D28 — WORKING ASSUMPTION
+### D18~D28 — 작업 가정(WORKING ASSUMPTION)
 
 각 행은 2026-09-23 사용자가 승인한 **W1~W2 잠정 planning 기준**이다. FRZ-01에서 수정 또는 채택하기 전까지 ADOPTED로 표시하지 않는다.
 

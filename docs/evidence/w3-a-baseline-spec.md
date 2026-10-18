@@ -1,4 +1,4 @@
-# W3 AI-07 Baseline Execution Spec
+# W3 AI-07 Baseline 실행 명세
 
 ## Repository
 
@@ -70,7 +70,7 @@ TEST의 1,255행 및 seal `ba9b87bde42e5eba8b3c5ca5f2423553a2f913400fd202d30b9e4
 
 Intel display adapter의 AdapterRAM 값은 NVIDIA VRAM으로 해석하지 않는다. NVIDIA CUDA GPU가 확인되지 않았으므로 CPU wheel을 선택했다. OS/CPU/RAM/display inventory는 PowerShell CIM으로 실제 조회했으며 설치 전후 torch 확인은 [`environment.json`](../../ai/artifacts/reports/w3_baseline/environment.json)에 남겼다.
 
-## Token Length Evidence
+## Token 길이 증거
 
 실행 script: [`analyze_w3_token_lengths.py`](../../ai/scripts/analyze_w3_token_lengths.py).
 
@@ -93,7 +93,7 @@ Percentile은 nearest rank, `sorted(lengths)[ceil(q*N)-1]`다. Truncation 조건
 
 원문·record ID·token ID 배열을 report에 저장하지 않았다. [`token_length_summary.json`](../../ai/artifacts/reports/w3_baseline/token_length_summary.json)은 aggregate와 split 해시만 포함한다.
 
-## Training Spec
+## 학습 명세
 
 실행 spec: [`w3_baseline.json`](../../ai/configs/w3_baseline.json).
 
@@ -213,7 +213,7 @@ git diff --cached --name-only
 
 임시 compatibility/guard 검증 script는 repository 밖의 현재 작업 visualization `tmp/`에 두고 `ai/.venv/Scripts/python.exe -B -u`로 실행했다. 지속 보관하는 결과는 위 4개 JSON이다. 실패한 최초 analyzer 실행은 Windows relative `..` path 해석 차이로 allowlist path guard가 파일을 읽기 전에 거부했다. `os.path.abspath`로 경로를 정규화한 뒤 동일 검사와 실제 해시 검증으로 성공했으며 dataset provenance는 달라지지 않았다.
 
-## Scope Boundary
+## 범위 경계
 
 - Primary only, actual 3-class only. Secondary training 결합 없음; legacy synthetic five-label runtime 복원 없음.
 - TEST 미열람, 모델 학습 미실행, validation model inference 미실행. Tokenization은 model inference가 아니다.

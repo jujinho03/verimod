@@ -1,6 +1,6 @@
 # 3회차 멘토링 사전자료 — VeriMod / HTTP 451
 
-작성일: 2026-10-17. 멘토링 일정·참석·답변·승인을 아직 기록하지 않습니다.
+작성일: 2026-10-17, 갱신: 2026-10-18. 멘토링 일정·참석·답변·승인을 아직 기록하지 않습니다.
 3회차 멘토링과 W3 주차는 다른 구분입니다. 이 자료는 W4까지의 진행을 설명합니다.
 
 ## 1분 요약
@@ -10,9 +10,11 @@ VeriMod는 AI 판정의 사후 무결성과 이의제기 이력을 사용자가 
 SQLite에 저장하는 경로를 실행했습니다. 실제 Receipt 두 건을 Epoch 1로 고정했고 독립
 Merkle 계산과 재개방도 일치했습니다.
 
-아직 이 실제 Epoch를 Base Sepolia에 송신하지 않았습니다. A에는 원본 DB, T의 별도
-노트북에는 승인 signer가 있어 인증 사설 Callback 채널이 필요합니다. 현재 A 운영자가
-외부에 있어 Windows UAC를 직접 승인할 수 없는 것이 운영 차단입니다. GATE-4는 PARTIAL입니다.
+A에는 원본 DB, T의 별도 노트북에는 승인 signer가 있어 인증 사설 채널이 필요합니다.
+2026-10-18에 T 노트북에서 사설망과 A의 Windows OpenSSH를 거쳐 F 전용 계정의 고정 status를
+실제로 받아왔고, 원격 명령·PTY·포워딩·SFTP·다른 계정은 모두 차단됐으며 원본 DB는 바뀌지
+않았습니다. 이 실제 Epoch를 Base Sepolia에 송신하는 일은 별도 송신 승인(APPROVAL_5) 전이라
+하지 않았습니다. 2026-10-18에 A/F/T W4 코드를 main에 병합했습니다. GATE-4는 PARTIAL입니다.
 
 ## 멘토님이 확인할 자료
 
@@ -32,13 +34,14 @@ Merkle 계산과 재개방도 일치했습니다.
 | 실제 연동 | 정상 2건 + Fail Closed 17건, 실패에서 503·신규 DB 행 0 |
 | 실제 고정 | Receipt 2건, Epoch 1/count 2/version 1, 독립 Merkle·재개방 일치 |
 | 신뢰된 confirmation | F 구현·192개 로컬 검사. 실제 RPC·실제 A DB CONFIRMED는 아직 아님 |
+| 두 호스트 연결 | 실제 T → A SSH status 왕복 PASS, 금지 동작 5종 차단, DB 불변 (2026-10-18) |
 
 ## 시연 가능한 것과 불가능한 것
 
 지금 공개 JSON과 원본 SHA-256, canonical Receipt hash, leaf 순서와 root를 보여줄 수 있습니다.
 기존 실제 모델/실패 테스트 증거를 설명할 수 있으며, 새 실행으로 표시하지 않습니다.
-main의 브라우저 데모는 기존 합성 경로로 명시합니다. W4 코드/실행 자료는 고정 A/F/T
-브랜치를 연결했습니다.
+main의 기본 브라우저 데모는 기존 합성 경로로 명시합니다. W4 코드는 2026-10-18부터 main에서
+바로 볼 수 있습니다. 실제 SSH status 왕복은 기록된 결과([W4 현황](progress/W4.md))로 설명합니다.
 
 이번 멘토링에서 실제 체인 `VALID`, 새 epoch tx, F `CONFIRMED` 또는 정책 LOCK을
 완료한 것처럼 시연하지 않습니다. 원문·salt·private DB·승인 config·키는 공개하지 않습니다.
@@ -60,9 +63,9 @@ main의 브라우저 데모는 기존 합성 경로로 명시합니다. W4 코�
 
 ## 최소 마무리 순서
 
-관리자 UAC 접근 → ACL/비공개 백업 → 전용 계정·OpenSSH·사설 VPN → T 장치만 접근
-→ status 왕복 → 승인 RPC EIP-1898 → 별도 Epoch 승인 → T 서명/F ACK/송신
-→ A submitted/confirmed → 외부 브라우저 검증 → 팀 GATE 판정입니다.
+~~관리자 UAC 접근 → ACL/비공개 백업 → 전용 계정·OpenSSH·사설 VPN → T 장치만 접근
+→ status 왕복~~ (2026-10-18 완료) → 별도 Epoch 승인(APPROVAL_5) → 제한된 prepare 경로
+→ T 서명/F ACK/송신 → A submitted/confirmed → 외부 브라우저 검증 → 팀 GATE 판정입니다.
 
 멘토 답변을 받은 뒤 원문 요약·근거·담당·기한·결정 상태를 추가합니다. 아직 답변이나
 진행 일정을 임의로 채우지 않습니다. W5 이후 과제·정책 LOCK은 이번 자료의 실행 범위가 아닙니다.

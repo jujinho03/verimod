@@ -1,4 +1,4 @@
-# AI-06 — Evaluation skeleton
+# AI-06 — 평가 골격
 
 상태: **W2 A-owner evidence, 2026-10-01.** 지표 구현과 선택 로직이며, synthetic fixture로만 확인했습니다. 모델은 없고, 예측도 하지 않았으며, threshold를 고르지 않았고, 실제 데이터로 계산한 것도 없습니다. Standard library만 사용하며 새 dependency는 없습니다.
 
@@ -14,7 +14,7 @@
 
 Evaluation 코드 안에서 이들 중 어느 것도 다른 것으로부터 유도하지 않습니다. `none`을 ALLOW로 취급하는 일은 없습니다.
 
-## Model metrics (`metrics.py`)
+## 모델 지표 (`metrics.py`)
 
 - Confusion matrix `matrix[true][predicted]`와 class별 precision, recall, F1, support.
 - Macro-F1은 support가 영인 class를 포함해 **선언된 모든 class**의 class별 F1 평균입니다.
@@ -22,7 +22,7 @@ Evaluation 코드 안에서 이들 중 어느 것도 다른 것으로부터 유�
 - 영으로 나누기 규칙: 분모가 영이면 **0.0**을 반환하고 `*_defined = False`로 표시합니다. 결정적이며 warning이 없습니다.
 - 입력 검증: 길이가 같아야 하고, 예시가 최소 하나 있어야 하며, class가 고유해야 하고, 선언된 class 밖의 label이 없어야 합니다.
 
-## Policy metrics (`policy_metrics.py`)
+## 정책 지표 (`policy_metrics.py`)
 
 입력: 주어진 `(native_label, action, eligible)` case. 모집단: eligible case만.
 
@@ -48,7 +48,7 @@ Evaluation 코드 안에서 이들 중 어느 것도 다른 것으로부터 유�
 - 후보는 `split == "validation"`이어야 하며, 다른 split은 거부합니다. 이 API로는 TEST 기반 선택이 불가능합니다.
 - 실제 sweep은 실행하지 않았습니다. 테스트는 synthetic 경계값 0.10 / 0.20을 쓰며, 이는 제안값이 아닙니다.
 
-## Bootstrap CI (`bootstrap.py`)
+## Bootstrap 신뢰구간 (`bootstrap.py`)
 
 Repository에는 resample 횟수, seed, 구간 방식이 정해져 있지 않으므로 `n_resamples`, `seed`, `confidence_level`은 **필수이며 기본값이 없습니다**. 방식은 percentile 구간입니다.
 

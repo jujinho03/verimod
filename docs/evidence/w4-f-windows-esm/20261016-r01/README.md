@@ -1,45 +1,45 @@
-# W4 F Windows ESM launch fix — 2026-10-16
+# W4 F Windows ESM 실행 수정 — 2026-10-16
 
-Scope: F runner, shared process launcher, regression tests and A handoff documentation. Policy remains `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`; X/B approval pending. No inference/manifest/issuer/canonical hash/Merkle/sender implementation was changed.
+범위: F runner, 공유 프로세스 launcher, 회귀 테스트, A 인계 문서. 정책은 계속 `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`이며 X/B 승인은 대기 중입니다. 추론/manifest/issuer/canonical hash/Merkle/sender 구현은 바꾸지 않았습니다.
 
-## Observed on Windows
+## Windows에서 관측한 내용
 
-Host runtime: `win32`, Node `v24.16.0`, tsx `4.23.13`. Base F revision: `c14fb914afa1d7c7f25fb5f6fb768e7b2ba7b628`. A pin: `9bcbec677d89d10364b327aae7e60955e2e4315d`. T pin: `fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de`.
+호스트 런타임: `win32`, Node `v24.16.0`, tsx `4.23.13`. 기준 F revision: `c14fb914afa1d7c7f25fb5f6fb768e7b2ba7b628`. A pin: `9bcbec677d89d10364b327aae7e60955e2e4315d`. T pin: `fbcb3e9e99ae8dda2f9c70a32f35ec2c039b73de`.
 
-The original Windows absolute loader path reproduces `ERR_UNSUPPORTED_ESM_URL_SCHEME` with exit 1. The shared launcher now converts that path with `pathToFileURL(...).href`. Actual installed tsx loads the TypeScript server successfully with `--import`; no CLI fallback is needed on this runtime.
+기존처럼 Windows 절대 경로를 loader로 넘기면 `ERR_UNSUPPORTED_ESM_URL_SCHEME`과 exit 1이 재현됩니다. 공유 launcher는 이제 그 경로를 `pathToFileURL(...).href`로 변환합니다. 실제 설치된 tsx는 `--import`로 TypeScript 서버를 정상 로드하므로, 이 런타임에서는 CLI 대체 경로가 필요 없습니다.
 
-`windows-smoke.jsonl` contains timestamped observations from the separate smoke command. The tests copy the actual server source and installed tsx into an owned drive path containing spaces; remaining installed dependencies resolve from the real backend ancestor. This needs no Windows junction privilege. No model or inference fixture is used. Each test removes only its own temporary directory.
+`windows-smoke.jsonl`에는 별도 smoke 명령의 시각별 관측이 들어 있습니다. 테스트는 실제 서버 소스와 설치된 tsx를 공백이 포함된 소유 드라이브 경로로 복사하고, 나머지 설치 의존성은 실제 backend 상위 디렉터리에서 해석합니다. Windows junction 권한이 필요 없습니다. 모델이나 추론 fixture는 쓰지 않습니다. 각 테스트는 자기 임시 디렉터리만 삭제합니다.
 
-| Check | Result |
+| 검사 | 결과 |
 |---|---|
-| Original ESM error reproduction | Reproduced |
-| First child start / HTTP health | PASS / 200 |
-| No-model decision request | 503; zero receipt/content/epoch/member/idempotency rows |
-| Anchor candidates | 0 (there are no receipts) |
-| Stop / port release | PASS |
-| Same SQLite reopen / backend restart | PASS / health 200 / decision 503 / zero rows |
-| Drive path and spaces / encoded file URL | PASS |
-| Readiness timeout cleanup | PASS; child exited and listening port rebound |
-| Entry-point failure cleanup | PASS; child exited and port rebound |
+| 기존 ESM 오류 재현 | 재현됨 |
+| 첫 child 시작 / HTTP health | PASS / 200 |
+| 모델 없는 판정 요청 | 503; receipt/content/epoch/member/idempotency 행 0 |
+| Anchor 후보 | 0 (receipt가 없음) |
+| 종료 / 포트 해제 | PASS |
+| 같은 SQLite 재개방 / backend 재시작 | PASS / health 200 / decision 503 / 행 0 |
+| 드라이브 경로·공백 / 인코딩된 file URL | PASS |
+| 준비 timeout 정리 | PASS; child 종료, listening 포트 재바인딩 |
+| 진입점 실패 정리 | PASS; child 종료, 포트 재바인딩 |
 
-Both actual-runner calls (first start and `f-backend-reopened`) call the same `launchBackend` in `backend/scripts/backend-process.ts`. The smoke imports that same function. Backend readiness failure stops its child; the runner's final cleanup also stops all owned children. Shutdown has a bounded graceful wait and force-kill fallback.
+실제 runner의 두 호출(첫 시작과 `f-backend-reopened`)은 모두 `backend/scripts/backend-process.ts`의 같은 `launchBackend`를 부릅니다. smoke도 같은 함수를 import합니다. backend 준비가 실패하면 child를 멈추고, runner의 마지막 정리도 소유한 child를 모두 멈춥니다. 종료는 제한 시간 안의 정상 대기 후 강제 종료로 넘어갑니다.
 
-## Validation
+## 검증
 
-- `npm run w4:windows-smoke`: **4/4 PASS**, 1 test file. The start/restart test observes both phases separately.
+- `npm run w4:windows-smoke`: **4/4 PASS**, 테스트 파일 1개. 시작/재시작 테스트는 두 단계를 따로 관측합니다.
 - `npm run typecheck`: PASS.
 - `npm run w4:typecheck`: PASS.
 - `npm run build`: PASS.
-- `npm test`: **68/68 PASS**, 9 files: all existing 64 plus the 4 Windows process tests. Existing manifest rejection and policy parity tests remain present.
-- `validation.json` records commands, counts and tested source SHA-256 values. The Windows logs contain no model, private text/salt, signed transaction or private DB path.
-- `f-revision-preflight.json` records the committed fix's `--expected-f-sha` and committed-tool checks. Its other A-environment checks remain BLOCKED because this F host has no actual R01 environment. Exit 2 is expected for that preflight.
+- `npm test`: **68/68 PASS**, 9개 파일: 기존 64개 + Windows 프로세스 테스트 4개. 기존 manifest 거부와 정책 parity 테스트도 그대로 있습니다.
+- `validation.json`에 명령, 건수, 시험한 소스 SHA-256을 기록했습니다. Windows 로그에는 모델, 비공개 원문/salt, 서명된 트랜잭션, 비공개 DB 경로가 없습니다.
+- `f-revision-preflight.json`에는 커밋된 수정의 `--expected-f-sha`와 커밋 도구 검사를 기록했습니다. 나머지 A 환경 검사는 이 F 호스트에 실제 R01 환경이 없어 BLOCKED입니다. 이 preflight에서 exit 2는 예상된 결과입니다.
 
-## A rerun and remaining work
+## A 재실행과 남은 작업
 
-`READY_FOR_A_HOST_RERUN=YES` means the Windows launch blocker is resolved for the verified runtime. It does not certify A's actual R01 rerun. Follow `docs/handoffs/W4-F-actual-host-run-request.md`, supply the exact newly published full F SHA, fetch it, create a **new detached worktree** and unique run directories, and rerun Windows smoke there first. A must validate its pinned weights, offline tokenizer, manifests, issuer and A/F/T revisions before inference.
+`READY_FOR_A_HOST_RERUN=YES`는 검증한 런타임에서 Windows 실행 차단이 해소됐다는 뜻입니다. A의 실제 R01 재실행을 보증하지는 않습니다. `docs/handoffs/W4-F-actual-host-run-request.md`에 따라 새로 공개된 F 전체 SHA를 정확히 지정해 fetch하고, **새 detached worktree**와 고유 실행 디렉터리를 만든 뒤 먼저 그곳에서 Windows smoke를 다시 실행합니다. A는 추론 전에 고정 가중치, 오프라인 tokenizer, manifest, issuer, A/F/T revision을 검증해야 합니다.
 
-Preserve A's independent E2E evidence, F's `20261016-r01` integration preparation, and A's failed `20261016-150318-a-r01` run. A's failure description is user-supplied; F did not inspect or rerun A's private model artifacts.
+A의 독립 E2E 증거, F의 `20261016-r01` 통합 준비, A의 실패한 `20261016-150318-a-r01` 실행을 보존합니다. A의 실패 설명은 사용자가 제공한 것이며, F는 A의 비공개 모델 산출물을 확인하거나 재실행하지 않았습니다.
 
-Required actual success remains: FULL/TRUNCATED R01 receipts (2), freeze in the same F SQLite, exact root/count/members, independent Merkle recomputation, freeze replay, EMPTY_EPOCH, SQLite reopen, and `frozen-epoch-handoff.json`.
+실제 성공으로 인정하려면 다음이 모두 필요합니다. FULL/TRUNCATED R01 receipt 2건, 같은 F SQLite에서의 freeze, 정확한 root/count/member, 독립 Merkle 재계산, freeze replay, EMPTY_EPOCH, SQLite 재개방, `frozen-epoch-handoff.json`.
 
-`ACTUAL_R01_ISSUANCE=NOT_RERUN_ON_F_HOST`; `EPOCH_FREEZE=PENDING_A_HOST`; `T_SENDER_DURABILITY=BLOCKED`; `PUBLIC_CHAIN_TX_SENT=NO`. No model retraining, TEST dataset access, policy LOCK, W3 frozen changes, chain signing/broadcast, actual epoch sending, branch merges or W5 work occurred.
+`ACTUAL_R01_ISSUANCE=NOT_RERUN_ON_F_HOST`; `EPOCH_FREEZE=PENDING_A_HOST`; `T_SENDER_DURABILITY=BLOCKED`; `PUBLIC_CHAIN_TX_SENT=NO`. 모델 재학습, TEST 데이터셋 접근, 정책 LOCK, W3 frozen 자료 변경, 체인 서명/송신, 실제 epoch 송신, 브랜치 병합, W5 작업은 하지 않았습니다.

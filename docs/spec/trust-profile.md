@@ -1,4 +1,4 @@
-# TrustProfile — W3 freeze candidate
+# TrustProfile — W3 freeze 후보
 
 상태: **W3 FREEZE CANDIDATE — Entry Closure evidence 전에는 FRZ-01 PASS가 아님.** 소유: PROTOCOL. `TrustProfile`은 검증기의 신뢰 루트이며, receipt bundle·API·RPC endpoint가 제공한 locator는 신뢰 루트가 아니다.
 
@@ -14,7 +14,7 @@ type TrustProfile = {
 }
 ```
 
-## W3 field semantics
+## W3 필드 의미
 
 - `profile_id`: build에 승인·내장된 profile 식별자다. bundle/API가 새 profile을 공급할 수 없다.
 - `chain_id`: verifier가 raw RPC `eth_chainId`와 수치로 비교하는 chain direction이다. Base Sepolia target은 `84532`다.
@@ -26,7 +26,7 @@ type TrustProfile = {
 
 deployment 전에는 `contract_address`, actual `publisher`, deployment tx/block, explorer evidence, Base `min_confirmations`를 placeholder나 추정값으로 확정하지 않는다.
 
-### W3 Base Sepolia observed deployment evidence
+### W3 Base Sepolia 배포 관측 증거
 
 W3 smoke deployment은 아래 값으로 관측·재조회되었다. 이는 profile registry의 activation이나 FRZ-01 PASS가 아니라, deployment-dependent fields를 연결할 때 사용할 testnet evidence다.
 

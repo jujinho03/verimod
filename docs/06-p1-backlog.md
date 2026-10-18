@@ -71,7 +71,7 @@ K-MHaS, KoELECTRA, KLUE-RoBERTa, KR-BERT는 MASTER의 검토 후보다. 이번 �
 
 완료조건: 실행 가능한 baseline·재현 로그, label 계약, 오류 분석, 모델/threshold 채택 근거, timeout/truncation/모델 실패 동작, synthetic/real mode 명확한 분리.
 
-## 4. Model manifest
+## 4. 모델 manifest
 
 제안 필드: model_id, model_version, base_model, weights artifact hash/revision, tokenizer revision, label taxonomy, preprocessing, max_length, inference parameters, code version, created_at. model name 하나의 hash로 대체하지 않는다. 외부 API면 확인 가능한 model/version/request metadata만 기록하고 불투명한 weights·추론 실행 증거를 만들어 쓰지 않는다.
 
