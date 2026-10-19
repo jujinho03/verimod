@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { ISSUER_ID } from './receipt'
-import { baseSepoliaProfileFromEnv, createPublicRpcLedger, type ApprovedTrustProfile } from './rpcLedger'
+import { baseSepoliaProfileFromEnv, createPublicRpcLedger, LOG_RANGE_BLOCKS, type ApprovedTrustProfile } from './rpcLedger'
 import { UntrustedLedgerError } from './verify'
 
 const contract = `0x${'a'.repeat(40)}`
@@ -47,6 +47,36 @@ describe('FE-02 approved Base Sepolia RPC reader', () => {
       issuer_seq_min: null, issuer_seq_max: null, anchored_block: 120,
     })
     await expect(reader.blockNumber()).resolves.toBe(122)
+  })
+
+  const chunkedFetcher = (head: number, logBlocks: number[], ranges: Array<[number, number]>) => (async (_url: string | URL | Request, init?: RequestInit) => {
+    const request = JSON.parse(String(init?.body)) as { id: number; method: string; params: Array<Record<string, string>> }
+    let result: unknown
+    if (request.method === 'eth_chainId') result = '0x14a34'
+    else if (request.method === 'eth_call' && request.params[0].data === '0x8c72c54e') result = `0x${'0'.repeat(24)}${publisher.slice(2)}`
+    else if (request.method === 'eth_call') result = `${root}${w(3n)}${w(1n)}`
+    else if (request.method === 'eth_blockNumber') result = `0x${head.toString(16)}`
+    else if (request.method === 'eth_getLogs') {
+      const from = Number(request.params[0].fromBlock), to = Number(request.params[0].toBlock)
+      ranges.push([from, to])
+      result = logBlocks.filter((b) => b >= from && b <= to).map((b) => ({ data: `${root}${w(3n)}${w(1n)}`, blockNumber: `0x${b.toString(16)}`, blockHash, transactionHash: txHash }))
+    } else if (request.method === 'eth_getTransactionReceipt') result = { status: '0x1', to: contract, blockNumber: `0x${(logBlocks[0]).toString(16)}`, blockHash }
+    else throw new Error(`unexpected ${request.method}`)
+    return new Response(JSON.stringify({ jsonrpc: '2.0', id: request.id, result }))
+  }) as unknown as typeof fetch
+
+  it('scans deployment..head in bounded log windows and finds the single event', async () => {
+    const ranges: Array<[number, number]> = []
+    const wide = { ...profile, deployment_block: 0 }
+    const reader = createPublicRpcLedger(wide, chunkedFetcher(25_000, [21_000], ranges))
+    await expect(reader.getEpoch(contract, '1')).resolves.toMatchObject({ anchored_block: 21_000, root })
+    expect(ranges).toEqual([[0, 9_999], [10_000, 19_999], [20_000, 25_000]])
+    expect(ranges.every(([from, to]) => to - from + 1 <= LOG_RANGE_BLOCKS)).toBe(true)
+  })
+
+  it('rejects an epoch event duplicated across different windows', async () => {
+    const reader = createPublicRpcLedger({ ...profile, deployment_block: 0 }, chunkedFetcher(25_000, [5_000, 21_000], []))
+    await expect(reader.getEpoch(contract, '1')).rejects.toThrow('epoch event is missing or ambiguous')
   })
 
   it('treats a responsive wrong-chain RPC as untrusted rather than unavailable', async () => {
