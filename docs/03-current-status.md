@@ -42,6 +42,7 @@
 | TEST | SEALED (접근 없음) |
 | 운영 연결 | 사용 후 닫음: sshd·F 전용 계정·신규 방화벽 규칙 비활성, 강제 명령은 status 전용으로 복귀 |
 | 알려진 표시 한계 | 검증 화면의 보조 manifest 확인이 실패로 표시(공개 목록에 W4 실제 manifest 없음), 상단 "PROTOTYPE MODE" 배너 |
+| 3회차 멘토링 | 2026-10-20 피드백 수신. 권고는 팀 결정과 구분해 [결과 문서](mentoring/session-03-20261020-lee-jaewon.md)에 기록(2026-10-21). X/B·threshold·LOCK은 PENDING_TEAM_DECISION |
 
 [운영 절차와 승인 구분](handoffs/W4-AFT-operations.md)을 참고합니다.
 

@@ -87,6 +87,18 @@ X, B, final supported taxonomy, exact Base min_confirmations, epoch size, epoch 
 
 이번 변경은 documentation/evidence only다. production code·schema/API/ABI·DB·model·dataset·TEST는 변경/실행하지 않는다. 제품 테스트 미실행 — documentation-only task. 이 기록은 2026-09-23 Command Center 승인 내용을 반영한 W1 decision evidence이며, 구현 완료를 의미하지 않는다. Git 전달 상태는 저장소 이력과 해당 PR을 기준으로 확인한다.
 
+## 3회차 멘토링 권고와 결정 상태 — 2026-10-21
+
+출처: 이재원 멘토 서면 피드백(2026-10-20 수신). 상세 분석과 전체 ID(M3-01~M3-14)는 [3회차 멘토링 결과](mentoring/session-03-20261020-lee-jaewon.md)에 있다. **멘토 권고는 팀 결정이 아니다.** 아래 PENDING 항목은 팀(사용자) 승인 전까지 ADOPTED로 바꾸지 않으며, 승인 시 승인자·날짜·근거를 이 표에 추가한다.
+
+| ID | 항목 | 상태 | 경계 |
+| --- | --- | --- | --- |
+| M3-11 | B안 유지: Core E2E 우선, 실제 이의신청 백엔드는 Post-MVP, 데모는 Synthetic Lifecycle | TEAM_ADOPTED | 2회차 멘토링 이후 팀 결정. 2026-10-21 사용자 지시로 유지 확인. Synthetic Lifecycle은 실제 운영 기능이 아니다 |
+| M3-02 | FRR 상한 X, HUMAN_REVIEW 예산 B | PENDING_TEAM_DECISION | D25의 선택 규칙과 "미해결 값"은 그대로다. 멘토의 FRR 우선 권고가 X/B 값을 정하지 않는다 |
+| M3-03 | 새 threshold·집계 규칙(현재 `ANY_RESTRICT` 대 멘토 예시의 AND 조건)·새 Policy Manifest·정책 LOCK | PENDING_TEAM_DECISION | 현재 `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`, Manifest hash 유지. TEST SEALED |
+| M3-06 | 검증 화면 문구 `L2 Confirmed (Base Sepolia)` | PENDING_TEAM_DECISION | UI 문구·검증 상태 체계는 바꾸지 않았다 |
+| M3-13 | 본선 8분 Web UI 시연 시나리오 | PENDING_TEAM_DECISION | 실제 FastAPI 라이브 추론 연결과 Anchor 대기 처리 방식 미정 |
+
 ## 이전 설계·결정 기록 (2026-09-11~19)
 
 아래는 기존 시점의 기록이다. '이번', '미정', '승인 근거 없음', 'PROPOSED' 등의 표현은 당시 범위이며, 위 2026-09-23 결정과 겹치는 내용은 위 기록이 우선한다. C01~C09의 남은 세부사항은 일괄 승인되지 않았다.

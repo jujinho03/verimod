@@ -54,7 +54,7 @@ flowchart LR
 
 ## 멘토님께: 먼저 읽을 자료
 
-1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지
+1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지. 피드백은 2026-10-20에 받았고 [결과 문서](docs/mentoring/session-03-20261020-lee-jaewon.md)에 멘토 권고와 팀 결정을 나눠 정리했습니다
 2. [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과, 실제 등록·확정·브라우저 검증
 3. [실제 등록 공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md): tx, 블록, proof/anchor 포함 영수증 2건, 브라우저 검증 화면
 4. [현재 상태 요약](docs/03-current-status.md): 항목별 상태표

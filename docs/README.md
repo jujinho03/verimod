@@ -5,7 +5,7 @@
 | 순서·목적 | 자료 |
 | --- | --- |
 | 프로젝트·최신 상태 | [저장소 README](../README.md), [현재 상태](03-current-status.md) |
-| 3회차 멘토링 | [사전자료와 질문](mentor-prep-session3.md) |
+| 3회차 멘토링 | [**결과: 권고·팀 결정·W5 후속 항목 (2026-10-20 수신)**](mentoring/session-03-20261020-lee-jaewon.md), [사전자료와 질문](mentor-prep-session3.md), [회차별 멘토링 기록](mentoring/README.md) |
 | W4 담당별 성과·남은 조건 | [W4 통합 현황](progress/W4.md) |
 | 실제 모델·발급·Freeze 근거 | [A 실행 한국어 해설](evidence/w4-a-actual-frozen-epoch.md) |
 | 공개 파일 직접 확인 | [실제 등록 증거·영수증·브라우저 검증](handoffs/w4-anchored-epoch-public/20261020-r01/README.md), [송신 전 Frozen Epoch JSON](handoffs/w4-frozen-epoch-public/20261017-r01/README.md) |
