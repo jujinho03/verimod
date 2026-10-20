@@ -5,7 +5,8 @@ A(AI)·F(서비스)·T(체인) 사이에 무엇을 넘기고 어떤 조건을 �
 | 문서 | 방향 | 내용 |
 | --- | --- | --- |
 | [W4-AFT-operations.md](W4-AFT-operations.md) | 팀 전체 | 두 노트북 운영 구조, 승인 1~5단계와 현재 상태, 복구 원칙 |
-| [w4-frozen-epoch-public/](w4-frozen-epoch-public/20261017-r01/README.md) | 공개 | **실제 고정된 Epoch 1과 영수증 2건의 공개 JSON**과 SHA-256 |
+| [w4-anchored-epoch-public/](w4-anchored-epoch-public/20261020-r01/README.md) | 공개 | **실제 Base Sepolia에 등록된 Epoch 1**: tx, proof/anchor 포함 영수증 2건, 브라우저 검증 화면 |
+| [w4-frozen-epoch-public/](w4-frozen-epoch-public/20261017-r01/README.md) | 공개 | 송신 전 동결 시점의 Epoch 1과 영수증 2건(proof/anchor null)과 SHA-256 |
 | [W4-T-epoch-handoff.md](W4-T-epoch-handoff.md) | T | 블록체인 송신 전후 규칙 (송신 전 F 확인, 같은 bytes만 송신) |
 | [W4-F-durable-callback-runner.md](W4-F-durable-callback-runner.md) | F → T | 송신 전 원본 DB에 먼저 기록하는 callback 연결 안내 |
 | [W4-F-trusted-confirmation.md](W4-F-trusted-confirmation.md) | F | 블록체인 등록을 12회 확인 후 CONFIRMED로 인정하는 계약 |

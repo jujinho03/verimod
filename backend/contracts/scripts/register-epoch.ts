@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { Wallet } from "ethers";
 import { network } from "hardhat";
 import { broadcastAfterDurableAck, durableAckWireShape, requestDurableSubmissionAck, type FrozenEpoch } from "./fDurabilityGate.js";
 
@@ -53,7 +54,11 @@ function readJournal(): Journal | null {
 }
 
 const { ethers } = await network.connect();
-const [publisher] = await ethers.getSigners();
+// The Hardhat HTTP signer deliberately cannot produce a raw signed
+// transaction. This flow needs that exact raw transaction before it asks F
+// for the durable pre-broadcast acknowledgement, so use the locally
+// configured publisher key without exposing it or sending a transaction.
+const publisher = new Wallet(requireEnv("VERIMOD_DEPLOYER_PRIVATE_KEY"), ethers.provider);
 const anchor = await ethers.getContractAt("VeriModAnchor", contractAddress, publisher);
 const networkInfo = await ethers.provider.getNetwork();
 if (networkInfo.chainId !== BigInt(APPROVED_CHAIN_ID)) throw new Error("connected RPC is not Base Sepolia");

@@ -9,12 +9,13 @@ F는 `c1f750ea3752037d749324f1535df051ce6b37f9`, T는 `7534907fa3ad66cc6ed29cfbe
 
 - 원본 authoritative SQLite는 A Windows 노트북에 유지합니다.
 - 승인 Publisher signer/개인키는 별도 T 노트북에 유지합니다. DB·키를 서로 이동하지 않습니다.
-- 실제 Epoch 1/count 2/version 1은 FROZEN, tx_hash=null입니다.
+- 실제 Epoch 1/count 2/version 1은 2026-10-20 Base Sepolia에 등록됐고(tx `0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286`, 블록 48358039) 원본 DB는 CONFIRMED입니다.
 - 관리자 작업은 운영자가 UAC를 직접 승인해 실행했습니다. 실행 정책은 바꾸지 않았습니다.
 - 2026-10-18: T → A 사설망 SSH로 고정 status 왕복 PASS. 원격 명령(exit 126)·PTY·원격 포워딩·SFTP·다른 계정 차단,
   시험 전후 원본 DB identity·bytes·Epoch·member·행 수 동일. 시험 후 sshd·F 계정·신규 방화벽 규칙을 다시 비활성화했습니다.
 - A RPC는 운영자 보호 파일에 저장된 endpoint로 읽기 검증(chain/contract/publisher, EIP-1898 canonical `eth_call`)을 마쳤습니다.
-  F callback 설정에는 아직 RPC를 넣지 않았고 `submitted`/`confirmed` 허용 플래그도 꺼져 있습니다.
+  보호 설정은 그대로 두고, 2026-10-20 단계별 승인 후 운영자 전용 비공개 설정으로 `submitted`/`confirmed`를 실행했습니다.
+- 2026-10-20: prepare 전용 SSH 강제 명령과 2시간 승인 창으로 T 서명 tx를 원본 DB에 SUBMITTING으로 먼저 기록한 뒤 송신했습니다. 사용 후 연결을 다시 닫았습니다.
 
 ## 승인 단위
 
@@ -24,7 +25,9 @@ F는 `c1f750ea3752037d749324f1535df051ce6b37f9`, T는 `7534907fa3ad66cc6ed29cfbe
 | APPROVAL_2 | 비관리자 F 계정, 최소 권한, Windows OpenSSH·공개키·강제 명령 | 구성 완료, 실제 status 왕복 PASS, 현재 비활성 |
 | APPROVAL_3 | Tailscale 사설망, T→A TCP 22 한정 방화벽 | 적용 완료 (사설망 grant 1개 + Windows T 허용/비T 차단 규칙), 현재 규칙 비활성 |
 | APPROVAL_4 | A 내부 일관성 DB backup, RPC·confirmation evidence 구조 | backup·RPC 읽기 검증 완료; confirmation evidence 구조는 미생성 |
-| APPROVAL_5 | 실제 Epoch 1 prepare·T 서명·송신 | **미승인.** 별도 승인 전 절대 실행하지 않음 |
+| APPROVAL_5 | 실제 Epoch 1 prepare·T 서명·송신 | **승인·실행 완료 (2026-10-20, W4-A5-20261020)**. tx 1건 |
+| POST_SUBMISSION / CONFIRMATION | F submitted·confirmed | 승인·실행 완료 (W4-PS-20261020, W4-CF-20261020). 확인 339회 |
+| PUBLIC_RELEASE | proof/anchor 포함 공개 bundle | 승인·공개 (W4-PR-20261020) |
 
 status JSON은 송신 전 durable ACK(prepare)가 아닙니다. 현재 status wrapper는 prepare를 제공하지 않으므로,
 승인 5에는 제한된 prepare 경로의 계약 검증이 함께 필요합니다.
@@ -88,7 +91,7 @@ authoritative로 지정하거나 T에 보내지 않습니다. prepare 직전 FRO
 
 F latest는 confirmation 성공의 쓰기 트랜잭션 안에서 epoch_confirmation_evidence를
 생성하고 상태와 evidence를 함께 저장합니다. 기존 schema v2에 대한 정적 호환은 확인됐지만
-실제 원본 DB의 이 쓰기는 미실행입니다. 테이블을 지금 미리 생성하거나 migration 함수로
+2026-10-20 실제 원본 DB에서 confirmed 실행 시 이 테이블이 한 트랜잭션으로 생성·기록됐습니다. 테이블을 미리 생성하거나 migration 함수로
 원본을 열지 않습니다. 실제 확인 실행 전 flags는 비활성으로 유지합니다.
 
 복구는 atomic rollback/동일 tx 재조정이 우선입니다. 송신 뒤 FROZEN backup으로
@@ -104,5 +107,5 @@ block-number로 fallback하지 않습니다. 비밀 토큰은 Git/채팅에 기�
 ## 종료 조건
 
 같은 실제 root의 tx/event/getter, 원본 F confirmed/evidence, 공개 Bundle release와 외부
-브라우저 VALID·조작 실패 증거가 있어야 팀 GATE 판정을 합니다. 현재 GATE-4는 PARTIAL,
+브라우저 VALID·조작 실패 증거가 있어야 팀 GATE 판정을 합니다. 2026-10-20 모두 확보해 GATE-4는 PASS(기술 조건 14/14)입니다.
 정책 provisional/team_approved=false, TEST SEALED입니다. W5 이후 작업·재학습·LOCK은 없습니다.

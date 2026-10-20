@@ -1,6 +1,8 @@
 # 3회차 멘토링 사전자료 — VeriMod / HTTP 451
 
-작성일: 2026-10-17, 갱신: 2026-10-18. 멘토링 일정·참석·답변·승인을 아직 기록하지 않습니다.
+작성일: 2026-10-17, 갱신: 2026-10-20. 멘토링 일정·참석·답변·승인을 아직 기록하지 않습니다.
+
+> **2026-10-20 갱신:** 실제 Epoch 1을 Base Sepolia에 등록했고([tx](https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286)), 원본 DB를 12회 이상 확인 후 CONFIRMED로 확정했으며, 실제 브라우저에서 정상 VALID와 변조 탐지를 확인했습니다. W4 GATE-4는 PASS(기술 조건 14/14)입니다. [공개 증거](handoffs/w4-anchored-epoch-public/20261020-r01/README.md). 아래 본문은 10/17~18 작성 당시 기록입니다.
 3회차 멘토링과 W3 주차는 다른 구분입니다. 이 자료는 W4까지의 진행을 설명합니다.
 
 ## 1분 요약
@@ -33,8 +35,9 @@ A에는 원본 DB, T의 별도 노트북에는 승인 signer가 있어 인증 �
 | 언어 간 계약 | Python/Node parity 21/21. Manifest/threshold/action/reason/rule 일치 |
 | 실제 연동 | 정상 2건 + Fail Closed 17건, 실패에서 503·신규 DB 행 0 |
 | 실제 고정 | Receipt 2건, Epoch 1/count 2/version 1, 독립 Merkle·재개방 일치 |
-| 신뢰된 confirmation | F 구현·192개 로컬 검사. 실제 RPC·실제 A DB CONFIRMED는 아직 아님 |
-| 두 호스트 연결 | 실제 T → A SSH status 왕복 PASS, 금지 동작 5종 차단, DB 불변 (2026-10-18) |
+| 신뢰된 confirmation | F 구현·192개 로컬 검사 + **실제 원본 DB CONFIRMED (2026-10-20, 확인 339회)** |
+| 두 호스트 연결 | 실제 T → A SSH status 왕복 PASS(10-18), prepare 채널로 실제 송신 전 DB 기록(10-20) |
+| 공개 체인·브라우저 | **실제 등록 tx 1건, 브라우저 실제 검증 7/7 (2026-10-20)** |
 
 ## 시연 가능한 것과 불가능한 것
 

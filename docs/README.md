@@ -8,7 +8,7 @@
 | 3회차 멘토링 | [사전자료와 질문](mentor-prep-session3.md) |
 | W4 담당별 성과·남은 조건 | [W4 통합 현황](progress/W4.md) |
 | 실제 모델·발급·Freeze 근거 | [A 실행 한국어 해설](evidence/w4-a-actual-frozen-epoch.md) |
-| 공개 파일 직접 확인 | [Frozen Epoch JSON 4개·SHA-256](handoffs/w4-frozen-epoch-public/20261017-r01/README.md) |
+| 공개 파일 직접 확인 | [실제 등록 증거·영수증·브라우저 검증](handoffs/w4-anchored-epoch-public/20261020-r01/README.md), [송신 전 Frozen Epoch JSON](handoffs/w4-frozen-epoch-public/20261017-r01/README.md) |
 | 실제 연결과 승인 | [최소 운영](handoffs/W4-AFT-operations.md), [F Callback](handoffs/W4-F-durable-callback-runner.md), [F confirmation](handoffs/W4-F-trusted-confirmation.md), [T 인계](handoffs/W4-T-epoch-handoff.md) |
 | 배포·검사 범위 | [W4 배포 해설](deployments.md), [F 192개 검사](evidence/w4-f-confirmation/20261017/README.md) |
 
@@ -16,7 +16,7 @@
 
 - 2026-10-18부터 main에 A/F/T W4 코드가 병합돼 있습니다. 병합한 고정 SHA는 [현재 상태](03-current-status.md)에 있습니다.
 - 실제 호스트 실행, 정적 검토, 팀 보고, 합성 DB/RPC stub 검사를 구별합니다.
-- GATE-4는 PARTIAL입니다. 실제 T → A status 왕복은 PASS했지만, 실제 Epoch 송신·F confirmation·외부 브라우저 결과는 아직 없습니다.
+- GATE-4는 PASS(기술 조건 14/14, 2026-10-20)입니다. 실제 Epoch 등록·원본 DB CONFIRMED·브라우저 실제 검증 결과는 [공개 증거](handoffs/w4-anchored-epoch-public/20261020-r01/README.md)에 있습니다.
 - TEST SEALED, 정책 provisional/team_approved=false, 원문·DB·키 비공개 조건을 유지합니다.
 - 설명 문서는 한국어로 정리했습니다. 원본 JSON, 명령어, 코드 식별자, commit 메시지, 해시·수치는 검증을 위해 원문 그대로 둡니다. 이후 경과는 각 문서의 "이후 경과" 표시로 덧붙였습니다.
 

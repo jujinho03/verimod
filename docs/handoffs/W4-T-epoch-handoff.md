@@ -37,4 +37,4 @@ T는 별도 개인 노트북의 승인 signer를 유지하고 원본 DB는 A에 
 Epoch의 송신 승인이 필요합니다. [최소 운영 절차](W4-AFT-operations.md)를 따릅니다.
 
 같은 root의 무응답/timeout을 새 nonce·epoch로 덮어쓰지 않고 기존 T/F/chain identity를
-대조합니다. 정책은 provisional/team_approved=false, TEST SEALED, GATE-4 PARTIAL입니다.
+대조합니다. 정책은 provisional/team_approved=false, TEST SEALED입니다. 2026-10-20 실제 등록·F 확정·브라우저 검증을 마쳐 GATE-4는 PASS입니다([공개 증거](w4-anchored-epoch-public/20261020-r01/README.md)).
