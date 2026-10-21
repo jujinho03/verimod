@@ -1,14 +1,15 @@
 # W5 AI-11 — Validation 정책 선정 근거와 승인 대기 결정표
 
 검토 기준일: 2026-10-22 KST · Owner: A / 주진호 · 상태: **PARTIAL**.
-공개 집계 감사·선정 도구·시뮬레이션은 완료했다. X/B·정책 채택·Manifest 확정·실제 LOCK은 **BLOCKED**다.
+공개 집계 감사·선정 도구·시뮬레이션 및 **검증된 Validation 1,255행의 독립 재계산**을 완료했다. X/B·정책 채택·Manifest 확정·실제 LOCK은 **BLOCKED**다.
 
 ## 출처와 이번 작업이 검증한 범위
 
-- 입력은 고정된 [Validation 집계](../../ai/artifacts/reports/w4_a_validation/20261016/validation.json)와 [25후보 집계](../../ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json) 두 개뿐이다.
+- 초기 집계 감사 입력은 고정된 [Validation 집계](../../ai/artifacts/reports/w4_a_validation/20261016/validation.json)와 [25후보 집계](../../ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json) 두 개였다. 이후 사용자가 지정한 정확한 Validation predictions와 split을 해시 검증해 원행 재계산에 사용했다.
 - [새 AI-11 실행 결과](../../ai/artifacts/reports/w5_ai11/20261021T042254Z-81bd721b/selection.json)는 입력 바이트/semantic JSON 해시, 실행 소스 해시, 실행 당시 base SHA `8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab`를 기록한다. 실행 소스는 당시 미커밋 상태였으므로 base SHA를 실행 코드 전체의 commit이라고 주장하지 않는다.
 - 집계 25/25의 분자·분모·비율·action 합계·proxy/action 교차표·FULL/TRUNCATED 구분이 일치한다. 두 입력에 기록된 predictions SHA-256도 `74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400`으로 일치한다.
-- 실제 비공개 predictions의 정확한 위치와 바이트 해시는 확인하지 못했다. **원행 재계산은 BLOCKED**이며, 집계 대조를 새 모델 추론·Validation 원행 재평가로 표시하지 않는다. TEST 경로·원문·모델·운영자료에는 접근하지 않았다.
+- [10/22 원행 재검증](../../ai/artifacts/reports/w5_validation_rows/20261021T231440Z-aa90617c/revalidation.json): predictions SHA-256은 기대값 `74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400`, split은 `a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a`와 각각 일치했다. 1,255행 전체 스키마·순차 local_row·라벨·native argmax·PPM 반올림·FULL 상태·split 대응을 검증했다.
+- Validation FULL 점수에서 nearest-rank 분위수와 25개 threshold 조합을 다시 생성하고, 독립 ANY_RESTRICT 구현으로 지표를 재계산했다. W4의 분자·분모·비율·action/status 건수·threshold·모델 지표와 **차이 0건**이다. 기존 Python 평가기와 조치를 **31,375회** 대조해 불일치 0건이다. 새 모델 추론·학습·Node 실행은 아니며 TEST·보호 운영자료에 접근하지 않았다. 원문은 메모리에서만 사용했고 공개하지 않았다.
 - R01 / `klue/roberta-base` / BEEP! native hate·offensive·none, Validation 1,255건 = none 547 + hate/offensive 708. FULL 1,255, 실제 TRUNCATED 0. 점수는 UNCALIBRATED다.
 
 ## 고정 규칙과 승인 경계
@@ -58,11 +59,14 @@ FRR=none 중 RESTRICT/none, RP=RESTRICT 중 유해 proxy/RESTRICT, HAR=유해 pr
 | 비교안 | 가정 X / B (정확한 비율) | 규칙상 선택되는 후보 | 검토/1,000건 | 주요 영향 |
 |---|---|---|---:|---|
 | 낮은 FRR·HAR 유지 | 32/547 / 542/1255 | H50-90_O50-90 | 431.87 | W4 대비 정상 proxy 제한 59건 감소, HAR 90/708 유지. 검토 198→542건으로 증가 |
+| HAR 유지·중간 검토량 | 53/547 / 354/1255 | H50-75_O50-90 | 282.07 | FRR 9.69%, RP 87.95%, HAR 12.71%. 첫 안보다 검토 188건 적으나 정상 proxy 제한은 21건 많음 |
 | 낮은 FRR·검토 축소 | 32/547 / 344/1255 | H75-90_O75-90 | 274.10 | 같은 FRR이나 유해 proxy ALLOW가 90→203건 증가 |
 | 검토량 증가를 제한한 절충 비교 | 53/547 / 229/1255 | H50-75_O75-90 | 182.47 | FRR 9.69%, HAR 22.32%. 정상 proxy 제한과 유해 proxy 허용 사이의 교환 |
 | W4 시연 기준 비교 | 91/547 / 198/1255 | H50-75_O50-75 | 157.77 | 기존 시험값. FRR 16.64%를 운영상 허용한다는 승인 없음 |
 
-**권장 의사결정 순서:** 먼저 허용 가능한 정상 proxy 제한 상한과 실제 사람 검토 처리량을 정한다. FRR 우선이고 43.19% 검토를 감당할 근거가 있다면 첫 비교안을 우선 검토할 수 있다. 검토 부담만 보고 두 번째 안을 택하면 HAR가 28.67%까지 증가한다. 검토 역량 근거가 없는 현재 상태에서는 어느 안도 운영 정책으로 확정하지 않는다.
+**권장 의사결정 순서:** 먼저 허용 가능한 정상 proxy 제한 상한과 실제 사람 검토 처리량을 정한다. FRR 우선이고 43.19% 검토를 감당할 근거가 있다면 H50-90_O50-90을 우선 검토할 수 있다. 검토 부담만 보고 H75-90_O75-90을 택하면 HAR가 28.67%까지 증가한다. 검토 역량 근거가 없는 현재 상태에서는 어느 안도 운영 정책으로 확정하지 않는다.
+
+추가된 H50-75_O50-90은 검토량 28.21%에서 HAR 12.71%를 유지하는 비교안이다. H75-90_O75-90과 검토량 차이는 10/1255 = 0.80%p지만 FRR은 9.69% 대 5.85%, HAR는 12.71% 대 28.67%다. 실제 허용 비용에 따라 선택이 달라진다. 표 순서가 승인이나 우선순위를 뜻하지 않는다.
 
 1,000건당 처리시간을 t분, 일 입력량을 V건이라 하면 예상 검토시간은 `V × HRR_TOTAL × t / 60` 시간이다. V와 t를 관측하지 않았으므로 인원·비용 숫자는 만들지 않는다. 오제재 비용, 유해 허용 비용, 검토 지연 비용과 검토 중 게시 상태도 팀이 정의해야 한다. HUMAN_REVIEW가 실제 오류를 얼마나 바로잡는지는 평가되지 않았다.
 
@@ -95,4 +99,4 @@ LOCK 준비 체크리스트: Validation provenance·모델 가중치/토크나�
 
 검사 범위는 잘못된 모집단/출처/승인 표기/분자·분모·action 거부, 경계값, 동률, INFEASIBLE, 미정의 RP, 공식 실행 사전 거부, 경로 이탈·증거 덮어쓰기 거부다. 기존 W4 Node parity 결과와 Python 벡터 대조는 포함하지만 새 Node 실행은 아니다. 전체 통합 결과와 최종 변경 SHA는 [W5 실행 기록](../progress/W5.md)에서 연결한다.
 
-AI-11 전체 DoD에는 정확한 Validation 원행 재계산, X/B 승인, 정책 채택·기각 근거와 LOCK 준비 완결이 남아 있다. 이 문서는 승인 대기 상태를 PASS로 바꾸지 않는다.
+AI-11의 Validation 원행 재계산은 PASS다. 최종 DoD에는 X/B 승인, 정책 채택·기각 결정과 최종 Manifest/parity·LOCK 준비 완결이 남아 있다. 이 문서는 승인 대기 상태를 PASS로 바꾸지 않는다.

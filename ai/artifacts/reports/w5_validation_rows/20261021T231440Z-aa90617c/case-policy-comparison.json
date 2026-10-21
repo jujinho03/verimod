@@ -1,0 +1,121 @@
+{
+  "status": "PASS",
+  "usage": "COUNTERFACTUAL_VALIDATION_POLICY_COMPARISON_NOT_ADOPTION",
+  "source_report_sha256": "70c47b0893b7ae21691fe1a10c3ac321af7c3c73c1aa9315b4baf0545b3c8938",
+  "all_input_status": "FULL",
+  "model_rerun": false,
+  "team_approved": false,
+  "comparisons": 40,
+  "cases": [
+    {
+      "case_id": "VFP-01",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "RESTRICT",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "RESTRICT",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-02",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "HUMAN_REVIEW",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "HUMAN_REVIEW",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-03",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "HUMAN_REVIEW",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "HUMAN_REVIEW",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-04",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "HUMAN_REVIEW",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "HUMAN_REVIEW",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-05",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "RESTRICT",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "RESTRICT",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-06",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "RESTRICT",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "RESTRICT",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-07",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "HUMAN_REVIEW",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "HUMAN_REVIEW",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-08",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "HUMAN_REVIEW",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "HUMAN_REVIEW",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-09",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "RESTRICT",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "RESTRICT",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    },
+    {
+      "case_id": "VFP-10",
+      "ground_truth": "none",
+      "baseline_action": "RESTRICT",
+      "comparison_actions": {
+        "H50-90_O50-90": "RESTRICT",
+        "H50-75_O50-90": "RESTRICT",
+        "H75-90_O75-90": "RESTRICT",
+        "H50-75_O75-90": "RESTRICT"
+      }
+    }
+  ]
+}

@@ -49,7 +49,8 @@ def test_recovers_proxy_table_without_equating_native_error_and_policy_error(rep
     assert cross == {"none_proxy": {"RESTRICT": 1, "ALLOW": 1, "HUMAN_REVIEW": 0},
                      "hate_offensive_proxy": {"RESTRICT": 1, "ALLOW": 2, "HUMAN_REVIEW": 3}}
     assert report["row_case_analysis"]["verified_real_cases"] == 0
-    assert report["row_case_analysis"]["status"] == "BLOCKED"
+    assert report["row_case_analysis"]["status"] == "NOT_IMPLEMENTED"
+    assert report["row_case_analysis"]["scope"] == "THIS_AGGREGATE_ONLY_COMMAND"
     assert report["raw_prediction_rows_accessed"] is False
 
 

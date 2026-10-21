@@ -1,0 +1,89 @@
+{
+  "status": "PASS",
+  "source_commit": "1d782f649e243e952d10250fdd0c4ea3dce44e3b",
+  "source_state": "new row-revalidation source uncommitted; hashes identify actual executed bytes",
+  "started_at_utc": "2026-10-21T23:23:13.769559+00:00",
+  "finished_at_utc": "2026-10-21T23:23:20.360814+00:00",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_validation_rows.py",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_w5_validation_analysis.py",
+    "tests/test_w5_preregistration.py",
+    "tests/test_selection.py",
+    "tests/test_policy_metrics.py",
+    "tests/test_model_metrics.py",
+    "tests/test_bootstrap.py",
+    "tests/test_w4_policy.py",
+    "--junitxml=<Git-ignored run>/pytest-private.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 128,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_sha256": {
+    "ai/scripts/analyze_w5_validation.py": "d55f358979b528d31bdd9c9ead3b7f4531cfaa7abc130dd6e21acce8249ee35f",
+    "ai/scripts/revalidate_w5_rows.py": "f3b6af7541d83d58b7ee01a0827fb718390ebf9dd2b36e72cfd49c30c864f6a7",
+    "ai/scripts/select_w5_policy.py": "f59b72ab3821156e1b0ee4189ca66226bdbf850530f724f7ebc76f2e1ff3f7f9",
+    "ai/src/verimod_ai/evaluation/metrics.py": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7",
+    "ai/src/verimod_ai/evaluation/w5_validation_rows.py": "de523fd30b900e44bcffca0e91cb639d3fa4aec875a7e3a47062097cbb97f9ab",
+    "ai/tests/test_bootstrap.py": "3d3710ce0869fc779ec69f62b1a438233d0bab43828513a051e8cc9b5ddb7d3c",
+    "ai/tests/test_model_metrics.py": "940c89d26189031865028dfcba43502331972b56c45bdafe7159ba3374be8a33",
+    "ai/tests/test_policy_metrics.py": "be7ab8072b607c36a7dabde8f39a4ed27f2c2e8c73fee0f5b38b9b3eb3afe40c",
+    "ai/tests/test_selection.py": "06c3d46c5e18416ca91b62f37e3401cf2cc2f4f6efb24b6f0531055b59d4951c",
+    "ai/tests/test_w4_policy.py": "0e37502ac01d76658cae712e8a33337f856bc5830bbd6538bf1150b62aa62ff5",
+    "ai/tests/test_w5_policy_selection.py": "85e0d4b4131aba1b511609bd1f7421b8d352a6acf85c3e4ba97d445bcc3ddca4",
+    "ai/tests/test_w5_preregistration.py": "96a0f499ccfc14ac6c7393b2a4357dcaf54d88583d91c199feae25a62fa78829",
+    "ai/tests/test_w5_validation_analysis.py": "ba0d4c2282b6a5ac1ca97a7ba04b7fb2d6bfa885eff1f743c6a5598d59dd3f96",
+    "ai/tests/test_w5_validation_rows.py": "984d12078cd1683cd559d0671cff36f3e013faad550fda0aa5fe2b10abfb743f"
+  },
+  "row_report_sha256": "70c47b0893b7ae21691fe1a10c3ac321af7c3c73c1aa9315b4baf0545b3c8938",
+  "case_comparison_sha256": "f8ed36c95831c444d09040e8d653c245fc851b9d4e53773ceff84b8a713b199a",
+  "w4_immutable_checks": [
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-0.bundle.json",
+      "expected": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "actual": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-1.bundle.json",
+      "expected": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "actual": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/chain-evidence.json",
+      "expected": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "actual": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/browser-verification.json",
+      "expected": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "actual": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "match": true
+    }
+  ],
+  "public_junit_redacted_fields": [
+    "hostname"
+  ],
+  "actual_test_dataset_accessed": false,
+  "model_inference_executed": false,
+  "policy_approved": false,
+  "lock_executed": false,
+  "reason_for_final_rerun": "Aggregate-only commands now describe their own scope rather than claiming Validation row locations are globally unavailable; row-recalculation source unchanged.",
+  "prior_verification_preserved": "verification.json",
+  "harness_preparation_note": "An initial harness assertion detected an incorrect argument slice before pytest ran; corrected the slice and used a new ignored output directory."
+}

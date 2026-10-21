@@ -32,7 +32,8 @@ def test_saved_evidence_is_audit_only(reports):
     assert report["aggregate_audit"] == "PASS" and report["candidate_count"] == 25
     assert report["X"] is report["B"] is report["adopted_candidate_id"] is None
     assert not report["team_approved"] and not report["test_accessed"] and not report["model_executed"]
-    assert report["row_recomputation"].startswith("BLOCKED")
+    assert report["row_recomputation"] == "NOT_PERFORMED_BY_THIS_AGGREGATE_ONLY_COMMAND"
+    assert report["verification_scope"] == "THIS_AGGREGATE_ONLY_COMMAND"
     assert all(s["usage"] == "SIMULATION_ONLY_NOT_TEAM_APPROVED"
                for s in report["observed_boundary_simulations"])
 

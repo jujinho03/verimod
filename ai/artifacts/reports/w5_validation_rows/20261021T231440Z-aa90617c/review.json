@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "documents_sha256": {
+    "docs/eval/threshold-rationale.md": "946fd97ffdcaf700f793cbd567506f3901a9e31cead4c99cfe73784b48887087",
+    "docs/eval/w5-validation-error-analysis.md": "a3c46f1e643d9ed3cf3fd5f5857a532502428aa10989c68f54d34f37b8fd9e02",
+    "docs/eval/w5-model-card-limitations.md": "47410b3de7e3ffc23f8f97ca2ce2c7eaa2720f8422cf1b4591d4c50bdcf80472",
+    "docs/eval/w5-policy-decision-memo.md": "35da0361d0b7596dd3386c4b89e19bab7c1a8ea507303050bc53d78d4a53bb53",
+    "docs/progress/W5.md": "90616660914ac25abf9ddd54bbd4e5eb43d92a894ea846c5f9f20656ca5a4c92"
+  },
+  "relative_links_checked": 48,
+  "policy_metric_cells_checked": 100,
+  "decision_metric_cells_checked": 20,
+  "real_case_rows_checked": 10,
+  "counterfactual_case_actions": 40,
+  "public_case_schema_forbidden_fields_absent": true,
+  "exact_source_text_title_min_length_for_scan": 12,
+  "exact_source_long_text_titles_and_record_ids_absent": true,
+  "privacy_scan_limit": "No general PII detector or semantic reidentification claim; outputs are fixed derived fields with no original text/identifiers.",
+  "source_hashes_still_match": true
+}

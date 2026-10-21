@@ -163,8 +163,9 @@ def analyze_aggregates(validation: dict, policy: dict) -> dict:
     return {
         "status": "PARTIAL",
         "aggregate_audit": {"status": "PASS", "candidate_count": len(derived), "population": n},
-        "row_case_analysis": {"status": "BLOCKED", "verified_real_cases": 0,
-                              "reason": "Exact approved Validation-row location and provenance unavailable; no row paths searched."},
+        "row_case_analysis": {"status": "NOT_IMPLEMENTED", "verified_real_cases": 0,
+                              "scope": "THIS_AGGREGATE_ONLY_COMMAND",
+                              "reason": "This aggregate-only command does not read private rows; use the separately authorized revalidate_w5_rows.py evidence."},
         "test_accessed": False, "model_inference_executed": False,
         "raw_prediction_rows_accessed": False, "policy_selected": False,
         "source_provenance": provenance,
@@ -218,7 +219,7 @@ def main() -> None:
     report["base_git_sha"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     report["code_state"] = "Script source SHA-256 identifies executed working-tree bytes; base_git_sha is not a claim that new code was committed."
     output = write_report(report, args.run_id)
-    print(json.dumps({"status": report["status"], "aggregate_audit": "PASS", "row_cases": "BLOCKED",
+    print(json.dumps({"status": report["status"], "aggregate_audit": "PASS", "row_cases": report["row_case_analysis"]["status"],
                       "report": output.relative_to(ROOT).as_posix()}, ensure_ascii=False))
 
 
