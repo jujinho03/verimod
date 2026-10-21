@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "documents": [
+    {
+      "path": "docs/eval/threshold-rationale.md",
+      "sha256": "71935769d646fde748880324d85283b108b5f211ce4b26b3c902fc4bd5409372"
+    },
+    {
+      "path": "docs/eval/w5-validation-error-analysis.md",
+      "sha256": "17062875de56d87e32929656f619de03324458b42a2152c34559ea0f73f945af"
+    },
+    {
+      "path": "docs/eval/w5-model-card-limitations.md",
+      "sha256": "7fa118c24c6c847406fe440042f45c19948a1f9a940dfaaabaa30b7575509c24"
+    },
+    {
+      "path": "docs/eval/w5-evaluation-preregistration.md",
+      "sha256": "59f583b91ec14b850a9290a4ca983b15ad3c06e40a70eb13ac757d738f1144a0"
+    },
+    {
+      "path": "docs/eval/w5-gate5-presentation.md",
+      "sha256": "3328dfd1e89377d453f3f320082fa891074528e16356ef33141816b52b3d1293"
+    },
+    {
+      "path": "docs/mentoring/w5-mentoring-traceability.md",
+      "sha256": "d65c6b9306873568dba6887742e0fe0f4f2d5d00355ba2350ac0008b9a232ffe"
+    },
+    {
+      "path": "docs/progress/W5.md",
+      "sha256": "b5ad70a91823cd51fc6d203c941c22b8ead8702edebf25ce22f5cf43c6ee6eec"
+    }
+  ],
+  "relative_file_links_checked": 59,
+  "policy_table_rows_checked": 25,
+  "metric_cells_checked": 100,
+  "scope": "UTF-8, final newline, whitespace, bounded relative links, all 25 candidate metric cells; not rendered PDF or live rehearsal"
+}

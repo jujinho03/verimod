@@ -1,0 +1,90 @@
+{
+  "ticket": "W5-A-INTEGRATION",
+  "status": "PASS",
+  "client_review_date_kst": "2026-10-22",
+  "started_at_host_utc": "2026-10-21T21:43:12.851201+00:00",
+  "finished_at_host_utc": "2026-10-21T21:43:21.261977+00:00",
+  "source_commit": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+  "source_state": "new W5 files not yet committed; exact execution-source hashes below",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_w5_validation_analysis.py",
+    "tests/test_w5_preregistration.py",
+    "tests/test_selection.py",
+    "tests/test_policy_metrics.py",
+    "tests/test_model_metrics.py",
+    "tests/test_bootstrap.py",
+    "tests/test_w4_policy.py",
+    "--junitxml=<new run>/pytest.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 102,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_sha256": {
+    "ai/scripts/select_w5_policy.py": "67d27e37f52e0e347107a5045e60b43318dd7e807f62f670571f5176099d4ad4",
+    "ai/scripts/analyze_w5_validation.py": "f9cfd6dce967766536cc3e46dd1cab2cb5df0d929c9d6132f286e4aedf245350",
+    "ai/scripts/prepare_w5_evaluation.py": "af6b0fd24d3d6431958fdbbc52c55063837dad28d2f7a9e57de8f856d39c10c6",
+    "ai/src/verimod_ai/evaluation/w5_preregistration.py": "0fa945a314436edf7e56aca8bb3462ca679289000f80679d40c35b355eb5095b",
+    "ai/src/verimod_ai/evaluation/selection.py": "b833cf96d346b37c4b19747e9818fa07404fc9bb1c95cdca8d7c15a4a63114c7",
+    "ai/src/verimod_ai/evaluation/policy_metrics.py": "24bdf0b47054447abad4e16e049f8e40755cbb18a68292a2e2e7fe29bbe83035",
+    "ai/src/verimod_ai/evaluation/metrics.py": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13",
+    "ai/src/verimod_ai/evaluation/bootstrap.py": "1f9ab37b7f386a5f707b31b87c6ffa56707aaf777215ecff02009d225544fc89",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7",
+    "ai/tests/test_w5_policy_selection.py": "91e67548c3859afd32fb25ab9d84bf518adc39ff28e41df39a4c6e3570ef495b",
+    "ai/tests/test_w5_validation_analysis.py": "dbab6049a386b04cc9b6bb60516ca15b16110ea4288a372ddce5556b89e0021d",
+    "ai/tests/test_w5_preregistration.py": "96a0f499ccfc14ac6c7393b2a4357dcaf54d88583d91c199feae25a62fa78829",
+    "ai/tests/test_selection.py": "06c3d46c5e18416ca91b62f37e3401cf2cc2f4f6efb24b6f0531055b59d4951c",
+    "ai/tests/test_policy_metrics.py": "be7ab8072b607c36a7dabde8f39a4ed27f2c2e8c73fee0f5b38b9b3eb3afe40c",
+    "ai/tests/test_model_metrics.py": "940c89d26189031865028dfcba43502331972b56c45bdafe7159ba3374be8a33",
+    "ai/tests/test_bootstrap.py": "3d3710ce0869fc779ec69f62b1a438233d0bab43828513a051e8cc9b5ddb7d3c",
+    "ai/tests/test_w4_policy.py": "0e37502ac01d76658cae712e8a33337f856bc5830bbd6538bf1150b62aa62ff5"
+  },
+  "prior_evidence_sha256": {
+    "ai/artifacts/reports/w5_ai11/20261021T042254Z-81bd721b/selection.json": "31f7808f799aa7a5aa41b567c4603e4f7fbdb9dd80e4631346c9e811a579d044",
+    "ai/artifacts/reports/w5_ai13/20261021T042241Z-b4f973ba/analysis.json": "266475632ff9bf7229570fc1788d1084cfa63eee6433cd596efeb93702b89d20",
+    "ai/artifacts/reports/w5_ai12_preparation/20261021T042306Z-b93a05853bc0/preparation.json": "c735767326b7414b761a9ba7df5b2d816b4d0c0326854b98c32eaae89d60addd"
+  },
+  "w4_immutable_checks": [
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-0.bundle.json",
+      "expected": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "actual": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-1.bundle.json",
+      "expected": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "actual": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/chain-evidence.json",
+      "expected": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "actual": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/browser-verification.json",
+      "expected": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "actual": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "match": true
+    }
+  ],
+  "test_dataset_accessed": false,
+  "real_model_executed": false,
+  "real_node_parity_executed": false,
+  "real_chain_or_db_accessed": false,
+  "scope": "Explicit synthetic/public-summary unit tests only; no broad pytest discovery and no model/dataset loading"
+}

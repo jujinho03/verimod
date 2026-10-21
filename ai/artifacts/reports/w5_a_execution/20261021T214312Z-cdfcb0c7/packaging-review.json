@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "reviewed_at_host_utc": "2026-10-21T21:48:00.768430+00:00",
+  "staged_new_files": 25,
+  "all_staged_bytes_equal_worktree": true,
+  "staged_sha256": {
+    "ai/artifacts/reports/w5_a_execution/.gitattributes": "20dbb1cc584e2f4f705115231be0144b111a937943a1a93d53da5d22a8df9a9a",
+    "ai/artifacts/reports/w5_a_execution/20261021T214312Z-cdfcb0c7/document-review.json": "ced88e5a886d61fe85ac5ee6c38d09017a92ad6fcb46d66292cdb789671f936d",
+    "ai/artifacts/reports/w5_a_execution/20261021T214312Z-cdfcb0c7/pytest-output.txt": "af38a20d15c88d0db2bf416e74ed282f72c4ae44d750428d73b8568adc633549",
+    "ai/artifacts/reports/w5_a_execution/20261021T214312Z-cdfcb0c7/pytest.xml": "b2d08e0a37853f8d80b8909ec4175af7d36c3df0e810189cd6fecd96b696bc26",
+    "ai/artifacts/reports/w5_a_execution/20261021T214312Z-cdfcb0c7/verification.json": "445743c7df067127995cf76ac29dfa92cb352904ec08d3465cc7d741e9934f56",
+    "ai/artifacts/reports/w5_ai11/.gitattributes": "1c215500224b3f62dc8564cdacb9fff5134795e2bd5449913cdee58c50a1b723",
+    "ai/artifacts/reports/w5_ai11/20261021T042254Z-81bd721b/selection.json": "31f7808f799aa7a5aa41b567c4603e4f7fbdb9dd80e4631346c9e811a579d044",
+    "ai/artifacts/reports/w5_ai12_preparation/.gitattributes": "1c215500224b3f62dc8564cdacb9fff5134795e2bd5449913cdee58c50a1b723",
+    "ai/artifacts/reports/w5_ai12_preparation/20261021T042306Z-b93a05853bc0/preparation.json": "c735767326b7414b761a9ba7df5b2d816b4d0c0326854b98c32eaae89d60addd",
+    "ai/artifacts/reports/w5_ai13/.gitattributes": "1c215500224b3f62dc8564cdacb9fff5134795e2bd5449913cdee58c50a1b723",
+    "ai/artifacts/reports/w5_ai13/20261021T042241Z-b4f973ba/analysis.json": "266475632ff9bf7229570fc1788d1084cfa63eee6433cd596efeb93702b89d20",
+    "ai/scripts/analyze_w5_validation.py": "f9cfd6dce967766536cc3e46dd1cab2cb5df0d929c9d6132f286e4aedf245350",
+    "ai/scripts/prepare_w5_evaluation.py": "af6b0fd24d3d6431958fdbbc52c55063837dad28d2f7a9e57de8f856d39c10c6",
+    "ai/scripts/select_w5_policy.py": "67d27e37f52e0e347107a5045e60b43318dd7e807f62f670571f5176099d4ad4",
+    "ai/src/verimod_ai/evaluation/w5_preregistration.py": "0fa945a314436edf7e56aca8bb3462ca679289000f80679d40c35b355eb5095b",
+    "ai/tests/test_w5_policy_selection.py": "91e67548c3859afd32fb25ab9d84bf518adc39ff28e41df39a4c6e3570ef495b",
+    "ai/tests/test_w5_preregistration.py": "96a0f499ccfc14ac6c7393b2a4357dcaf54d88583d91c199feae25a62fa78829",
+    "ai/tests/test_w5_validation_analysis.py": "dbab6049a386b04cc9b6bb60516ca15b16110ea4288a372ddce5556b89e0021d",
+    "docs/eval/threshold-rationale.md": "71935769d646fde748880324d85283b108b5f211ce4b26b3c902fc4bd5409372",
+    "docs/eval/w5-evaluation-preregistration.md": "59f583b91ec14b850a9290a4ca983b15ad3c06e40a70eb13ac757d738f1144a0",
+    "docs/eval/w5-gate5-presentation.md": "3328dfd1e89377d453f3f320082fa891074528e16356ef33141816b52b3d1293",
+    "docs/eval/w5-model-card-limitations.md": "7fa118c24c6c847406fe440042f45c19948a1f9a940dfaaabaa30b7575509c24",
+    "docs/eval/w5-validation-error-analysis.md": "17062875de56d87e32929656f619de03324458b42a2152c34559ea0f73f945af",
+    "docs/mentoring/w5-mentoring-traceability.md": "d65c6b9306873568dba6887742e0fe0f4f2d5d00355ba2350ac0008b9a232ffe",
+    "docs/progress/W5.md": "b5ad70a91823cd51fc6d203c941c22b8ead8702edebf25ce22f5cf43c6ee6eec"
+  },
+  "execution_source_hashes_unchanged": true,
+  "prior_evidence_hashes_unchanged": true,
+  "document_hashes_match_review": true,
+  "bounded_secret_pattern_scan": "PASS (not a guarantee of complete secret detection)",
+  "cli_guard_checks": [
+    {
+      "command": [
+        "ai/.venv/Scripts/python.exe",
+        "-B",
+        "ai/scripts/select_w5_policy.py",
+        "--mode",
+        "formal"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "output": "usage: select_w5_policy.py [-h] [--mode {audit,simulate,formal}] [--x X]\n                           [--b B] [--run-id RUN_ID]\nselect_w5_policy.py: error: BLOCKED: this preparation release cannot execute formal selection or approve a policy\n"
+    },
+    {
+      "command": [
+        "ai/.venv/Scripts/python.exe",
+        "-B",
+        "ai/scripts/prepare_w5_evaluation.py",
+        "test-evaluate"
+      ],
+      "expected_exit": 3,
+      "actual_exit": 3,
+      "output": "{\"status\": \"BLOCKED\", \"reason\": \"BLOCKED / TEST SEALED: real evaluation is not implemented in this preparation release\"}\n"
+    }
+  ],
+  "initial_packaging_failure": "git diff --cached --check treated CRLF in byte-preserved new JSON/text evidence as trailing whitespace",
+  "repair": "new W5 evidence .gitattributes uses -text and explicit cr-at-eol whitespace rules; evidence bytes unchanged",
+  "diff_check_exit": 0,
+  "test_data_path_accessed": false,
+  "actual_lock_created": false,
+  "remote_mutation_performed": false
+}

@@ -1,0 +1,1390 @@
+{
+  "status": "PARTIAL",
+  "aggregate_audit": {
+    "status": "PASS",
+    "candidate_count": 25,
+    "population": 1255
+  },
+  "row_case_analysis": {
+    "status": "BLOCKED",
+    "verified_real_cases": 0,
+    "reason": "Exact approved Validation-row location and provenance unavailable; no row paths searched."
+  },
+  "test_accessed": false,
+  "model_inference_executed": false,
+  "raw_prediction_rows_accessed": false,
+  "policy_selected": false,
+  "source_provenance": {
+    "run_id": "AI07-BL-KLUE-RB-45126-R01",
+    "dataset_revision": "f8d05dce2b22007bb149e5139c0060c68ad8f94b",
+    "split": "validation",
+    "split_count": 1255,
+    "split_sha256": "a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a",
+    "predictions_sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+    "prediction_rows": 1255,
+    "prediction_location": "LOCAL_PRIVATE_GIT_IGNORED",
+    "original_text_in_predictions": false,
+    "model_artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+    "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+    "tokenizer_id": "klue/roberta-base",
+    "tokenizer_revision": "02f94ba5e3fcb7e2a58a390b8639b0fac974a8da",
+    "preprocessing": "verimod-ko-text-v1",
+    "codepoint_head": 500,
+    "tokenizer_truncation_side": "right",
+    "max_length": 128,
+    "padding": "longest_in_batch",
+    "device": "cpu",
+    "dtype": "float32",
+    "batch_size": 1,
+    "torch_threads": 4,
+    "torch_interop_threads": 1,
+    "score_semantics": "UNCALIBRATED",
+    "ppm_rule": "floor(score * 1000000 + 0.5), once per exposed score",
+    "versions": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "numpy": "2.5.3"
+    },
+    "created_at": "2026-10-15T16:55:19.286721+00:00",
+    "elapsed_seconds": 147.92419250000967,
+    "test_accessed": false,
+    "training_executed": false
+  },
+  "provenance_verification_scope": "Public reports agree on prediction hash and counts; private prediction bytes not verified.",
+  "model": {
+    "confusion_matrix": {
+      "hate": {
+        "hate": 177,
+        "offensive": 100,
+        "none": 28
+      },
+      "offensive": {
+        "hate": 37,
+        "offensive": 226,
+        "none": 140
+      },
+      "none": {
+        "hate": 13,
+        "offensive": 105,
+        "none": 429
+      }
+    },
+    "per_class": {
+      "hate": {
+        "support": 305,
+        "population_share": {
+          "numerator": 305,
+          "denominator": 1255,
+          "value": 0.24302788844621515
+        },
+        "predicted_count": 227,
+        "true_positive": 177,
+        "false_positive": 50,
+        "false_negative": 128,
+        "precision": 0.7797356828193832,
+        "recall": 0.580327868852459,
+        "f1": 0.6654135338345865
+      },
+      "offensive": {
+        "support": 403,
+        "population_share": {
+          "numerator": 403,
+          "denominator": 1255,
+          "value": 0.3211155378486056
+        },
+        "predicted_count": 431,
+        "true_positive": 226,
+        "false_positive": 205,
+        "false_negative": 177,
+        "precision": 0.5243619489559165,
+        "recall": 0.5607940446650124,
+        "f1": 0.5419664268585132
+      },
+      "none": {
+        "support": 547,
+        "population_share": {
+          "numerator": 547,
+          "denominator": 1255,
+          "value": 0.4358565737051793
+        },
+        "predicted_count": 597,
+        "true_positive": 429,
+        "false_positive": 168,
+        "false_negative": 118,
+        "precision": 0.7185929648241206,
+        "recall": 0.7842778793418648,
+        "f1": 0.75
+      }
+    },
+    "accuracy": {
+      "numerator": 832,
+      "denominator": 1255,
+      "value": 0.6629482071713148
+    },
+    "macro_f1": 0.6524599868976999,
+    "classification_error": {
+      "numerator": 423,
+      "denominator": 1255,
+      "value": 0.33705179282868525
+    },
+    "none_predicted_hate_or_offensive": {
+      "numerator": 118,
+      "denominator": 547,
+      "value": 0.21572212065813529
+    },
+    "hate_offensive_predicted_none": {
+      "numerator": 168,
+      "denominator": 708,
+      "value": 0.23728813559322035
+    },
+    "hate_offensive_confusions": {
+      "numerator": 137,
+      "denominator": 708,
+      "value": 0.19350282485875706
+    }
+  },
+  "candidate_proxy_action_counts": [
+    {
+      "candidate_id": "H25-50_O25-50",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 176,
+          "ALLOW": 225,
+          "HUMAN_REVIEW": 146
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 618,
+          "ALLOW": 22,
+          "HUMAN_REVIEW": 68
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 146,
+          "denominator": 214,
+          "value": 0.6822429906542056
+        },
+        "hate_offensive_proxy": {
+          "numerator": 68,
+          "denominator": 214,
+          "value": 0.3177570093457944
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 176,
+          "denominator": 547,
+          "value": 0.3217550274223035
+        },
+        "RP": {
+          "numerator": 618,
+          "denominator": 794,
+          "value": 0.7783375314861462
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 214,
+          "denominator": 1255,
+          "value": 0.17051792828685258
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-50_O25-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 119,
+          "ALLOW": 225,
+          "HUMAN_REVIEW": 203
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 550,
+          "ALLOW": 22,
+          "HUMAN_REVIEW": 136
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 203,
+          "denominator": 339,
+          "value": 0.5988200589970502
+        },
+        "hate_offensive_proxy": {
+          "numerator": 136,
+          "denominator": 339,
+          "value": 0.40117994100294985
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 119,
+          "denominator": 547,
+          "value": 0.21755027422303475
+        },
+        "RP": {
+          "numerator": 550,
+          "denominator": 669,
+          "value": 0.8221225710014948
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 339,
+          "denominator": 1255,
+          "value": 0.2701195219123506
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-50_O50-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 119,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 158
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 550,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 115
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 158,
+          "denominator": 273,
+          "value": 0.5787545787545788
+        },
+        "hate_offensive_proxy": {
+          "numerator": 115,
+          "denominator": 273,
+          "value": 0.42124542124542125
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 119,
+          "denominator": 547,
+          "value": 0.21755027422303475
+        },
+        "RP": {
+          "numerator": 550,
+          "denominator": 669,
+          "value": 0.8221225710014948
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 273,
+          "denominator": 1255,
+          "value": 0.21752988047808766
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-50_O50-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 108,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 169
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 534,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 131
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 169,
+          "denominator": 300,
+          "value": 0.5633333333333334
+        },
+        "hate_offensive_proxy": {
+          "numerator": 131,
+          "denominator": 300,
+          "value": 0.43666666666666665
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 108,
+          "denominator": 547,
+          "value": 0.19744058500914077
+        },
+        "RP": {
+          "numerator": 534,
+          "denominator": 642,
+          "value": 0.8317757009345794
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 300,
+          "denominator": 1255,
+          "value": 0.23904382470119523
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-50_O75-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 108,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 169
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 534,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 131
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 169,
+          "denominator": 300,
+          "value": 0.5633333333333334
+        },
+        "hate_offensive_proxy": {
+          "numerator": 131,
+          "denominator": 300,
+          "value": 0.43666666666666665
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 108,
+          "denominator": 547,
+          "value": 0.19744058500914077
+        },
+        "RP": {
+          "numerator": 534,
+          "denominator": 642,
+          "value": 0.8317757009345794
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 300,
+          "denominator": 1255,
+          "value": 0.23904382470119523
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-75_O25-50",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 174,
+          "ALLOW": 225,
+          "HUMAN_REVIEW": 148
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 615,
+          "ALLOW": 22,
+          "HUMAN_REVIEW": 71
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 148,
+          "denominator": 219,
+          "value": 0.6757990867579908
+        },
+        "hate_offensive_proxy": {
+          "numerator": 71,
+          "denominator": 219,
+          "value": 0.3242009132420091
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 174,
+          "denominator": 547,
+          "value": 0.3180987202925046
+        },
+        "RP": {
+          "numerator": 615,
+          "denominator": 789,
+          "value": 0.779467680608365
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 219,
+          "denominator": 1255,
+          "value": 0.1745019920318725
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-75_O25-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 91,
+          "ALLOW": 225,
+          "HUMAN_REVIEW": 231
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 505,
+          "ALLOW": 22,
+          "HUMAN_REVIEW": 181
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 231,
+          "denominator": 412,
+          "value": 0.5606796116504854
+        },
+        "hate_offensive_proxy": {
+          "numerator": 181,
+          "denominator": 412,
+          "value": 0.4393203883495146
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 412,
+          "denominator": 1255,
+          "value": 0.3282868525896414
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-75_O50-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 91,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 186
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 505,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 160
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 186,
+          "denominator": 346,
+          "value": 0.5375722543352601
+        },
+        "hate_offensive_proxy": {
+          "numerator": 160,
+          "denominator": 346,
+          "value": 0.4624277456647399
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 346,
+          "denominator": 1255,
+          "value": 0.2756972111553785
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-75_O50-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 53,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 224
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 387,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 278
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 224,
+          "denominator": 502,
+          "value": 0.44621513944223107
+        },
+        "hate_offensive_proxy": {
+          "numerator": 278,
+          "denominator": 502,
+          "value": 0.5537848605577689
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 502,
+          "denominator": 1255,
+          "value": 0.4
+        }
+      }
+    },
+    {
+      "candidate_id": "H25-75_O75-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 53,
+          "ALLOW": 270,
+          "HUMAN_REVIEW": 224
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 387,
+          "ALLOW": 43,
+          "HUMAN_REVIEW": 278
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 224,
+          "denominator": 502,
+          "value": 0.44621513944223107
+        },
+        "hate_offensive_proxy": {
+          "numerator": 278,
+          "denominator": 502,
+          "value": 0.5537848605577689
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 502,
+          "denominator": 1255,
+          "value": 0.4
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-75_O25-50",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 174,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 126
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 615,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 69
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 126,
+          "denominator": 195,
+          "value": 0.6461538461538462
+        },
+        "hate_offensive_proxy": {
+          "numerator": 69,
+          "denominator": 195,
+          "value": 0.35384615384615387
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 174,
+          "denominator": 547,
+          "value": 0.3180987202925046
+        },
+        "RP": {
+          "numerator": 615,
+          "denominator": 789,
+          "value": 0.779467680608365
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 195,
+          "denominator": 1255,
+          "value": 0.1553784860557769
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-75_O25-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 91,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 209
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 505,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 179
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 209,
+          "denominator": 388,
+          "value": 0.538659793814433
+        },
+        "hate_offensive_proxy": {
+          "numerator": 179,
+          "denominator": 388,
+          "value": 0.46134020618556704
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 388,
+          "denominator": 1255,
+          "value": 0.30916334661354583
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-75_O50-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 91,
+          "ALLOW": 371,
+          "HUMAN_REVIEW": 85
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 505,
+          "ALLOW": 90,
+          "HUMAN_REVIEW": 113
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 85,
+          "denominator": 198,
+          "value": 0.4292929292929293
+        },
+        "hate_offensive_proxy": {
+          "numerator": 113,
+          "denominator": 198,
+          "value": 0.5707070707070707
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 198,
+          "denominator": 1255,
+          "value": 0.15776892430278885
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-75_O50-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 53,
+          "ALLOW": 371,
+          "HUMAN_REVIEW": 123
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 387,
+          "ALLOW": 90,
+          "HUMAN_REVIEW": 231
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 123,
+          "denominator": 354,
+          "value": 0.3474576271186441
+        },
+        "hate_offensive_proxy": {
+          "numerator": 231,
+          "denominator": 354,
+          "value": 0.652542372881356
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 354,
+          "denominator": 1255,
+          "value": 0.28207171314741036
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-75_O75-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 53,
+          "ALLOW": 428,
+          "HUMAN_REVIEW": 66
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 387,
+          "ALLOW": 158,
+          "HUMAN_REVIEW": 163
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 66,
+          "denominator": 229,
+          "value": 0.28820960698689957
+        },
+        "hate_offensive_proxy": {
+          "numerator": 163,
+          "denominator": 229,
+          "value": 0.7117903930131004
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 158,
+          "denominator": 708,
+          "value": 0.2231638418079096
+        },
+        "HRR_TOTAL": {
+          "numerator": 229,
+          "denominator": 1255,
+          "value": 0.18247011952191236
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-90_O25-50",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 171,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 129
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 583,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 101
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 129,
+          "denominator": 230,
+          "value": 0.5608695652173913
+        },
+        "hate_offensive_proxy": {
+          "numerator": 101,
+          "denominator": 230,
+          "value": 0.4391304347826087
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 171,
+          "denominator": 547,
+          "value": 0.3126142595978062
+        },
+        "RP": {
+          "numerator": 583,
+          "denominator": 754,
+          "value": 0.773209549071618
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 230,
+          "denominator": 1255,
+          "value": 0.18326693227091634
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-90_O25-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 74,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 226
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 366,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 318
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 226,
+          "denominator": 544,
+          "value": 0.41544117647058826
+        },
+        "hate_offensive_proxy": {
+          "numerator": 318,
+          "denominator": 544,
+          "value": 0.5845588235294118
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 544,
+          "denominator": 1255,
+          "value": 0.4334661354581673
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-90_O50-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 74,
+          "ALLOW": 371,
+          "HUMAN_REVIEW": 102
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 366,
+          "ALLOW": 90,
+          "HUMAN_REVIEW": 252
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 102,
+          "denominator": 354,
+          "value": 0.288135593220339
+        },
+        "hate_offensive_proxy": {
+          "numerator": 252,
+          "denominator": 354,
+          "value": 0.711864406779661
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 354,
+          "denominator": 1255,
+          "value": 0.28207171314741036
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-90_O50-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 32,
+          "ALLOW": 371,
+          "HUMAN_REVIEW": 144
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 220,
+          "ALLOW": 90,
+          "HUMAN_REVIEW": 398
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 144,
+          "denominator": 542,
+          "value": 0.2656826568265683
+        },
+        "hate_offensive_proxy": {
+          "numerator": 398,
+          "denominator": 542,
+          "value": 0.7343173431734318
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 542,
+          "denominator": 1255,
+          "value": 0.43187250996015936
+        }
+      }
+    },
+    {
+      "candidate_id": "H50-90_O75-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 32,
+          "ALLOW": 428,
+          "HUMAN_REVIEW": 87
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 220,
+          "ALLOW": 158,
+          "HUMAN_REVIEW": 330
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 87,
+          "denominator": 417,
+          "value": 0.20863309352517986
+        },
+        "hate_offensive_proxy": {
+          "numerator": 330,
+          "denominator": 417,
+          "value": 0.7913669064748201
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 158,
+          "denominator": 708,
+          "value": 0.2231638418079096
+        },
+        "HRR_TOTAL": {
+          "numerator": 417,
+          "denominator": 1255,
+          "value": 0.3322709163346614
+        }
+      }
+    },
+    {
+      "candidate_id": "H75-90_O25-50",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 171,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 129
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 583,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 101
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 129,
+          "denominator": 230,
+          "value": 0.5608695652173913
+        },
+        "hate_offensive_proxy": {
+          "numerator": 101,
+          "denominator": 230,
+          "value": 0.4391304347826087
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 171,
+          "denominator": 547,
+          "value": 0.3126142595978062
+        },
+        "RP": {
+          "numerator": 583,
+          "denominator": 754,
+          "value": 0.773209549071618
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 230,
+          "denominator": 1255,
+          "value": 0.18326693227091634
+        }
+      }
+    },
+    {
+      "candidate_id": "H75-90_O25-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 74,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 226
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 366,
+          "ALLOW": 24,
+          "HUMAN_REVIEW": 318
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 226,
+          "denominator": 544,
+          "value": 0.41544117647058826
+        },
+        "hate_offensive_proxy": {
+          "numerator": 318,
+          "denominator": 544,
+          "value": 0.5845588235294118
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 544,
+          "denominator": 1255,
+          "value": 0.4334661354581673
+        }
+      }
+    },
+    {
+      "candidate_id": "H75-90_O50-75",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 74,
+          "ALLOW": 373,
+          "HUMAN_REVIEW": 100
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 366,
+          "ALLOW": 93,
+          "HUMAN_REVIEW": 249
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 100,
+          "denominator": 349,
+          "value": 0.28653295128939826
+        },
+        "hate_offensive_proxy": {
+          "numerator": 249,
+          "denominator": 349,
+          "value": 0.7134670487106017
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 93,
+          "denominator": 708,
+          "value": 0.13135593220338984
+        },
+        "HRR_TOTAL": {
+          "numerator": 349,
+          "denominator": 1255,
+          "value": 0.27808764940239045
+        }
+      }
+    },
+    {
+      "candidate_id": "H75-90_O50-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 32,
+          "ALLOW": 373,
+          "HUMAN_REVIEW": 142
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 220,
+          "ALLOW": 93,
+          "HUMAN_REVIEW": 395
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 142,
+          "denominator": 537,
+          "value": 0.2644320297951583
+        },
+        "hate_offensive_proxy": {
+          "numerator": 395,
+          "denominator": 537,
+          "value": 0.7355679702048417
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 93,
+          "denominator": 708,
+          "value": 0.13135593220338984
+        },
+        "HRR_TOTAL": {
+          "numerator": 537,
+          "denominator": 1255,
+          "value": 0.42788844621513944
+        }
+      }
+    },
+    {
+      "candidate_id": "H75-90_O75-90",
+      "proxy_action_counts": {
+        "none_proxy": {
+          "RESTRICT": 32,
+          "ALLOW": 456,
+          "HUMAN_REVIEW": 59
+        },
+        "hate_offensive_proxy": {
+          "RESTRICT": 220,
+          "ALLOW": 203,
+          "HUMAN_REVIEW": 285
+        }
+      },
+      "review_composition": {
+        "none_proxy": {
+          "numerator": 59,
+          "denominator": 344,
+          "value": 0.17151162790697674
+        },
+        "hate_offensive_proxy": {
+          "numerator": 285,
+          "denominator": 344,
+          "value": 0.8284883720930233
+        }
+      },
+      "policy_metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 203,
+          "denominator": 708,
+          "value": 0.2867231638418079
+        },
+        "HRR_TOTAL": {
+          "numerator": 344,
+          "denominator": 1255,
+          "value": 0.27410358565737053
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "Native predictions and policy actions are distinct; the aggregates cannot identify their casewise overlap.",
+    "Native none is an operational normal proxy, not definitive platform acceptability.",
+    "UNCALIBRATED scores are not empirical probabilities of harm.",
+    "HUMAN_REVIEW routing does not establish reviewer correctness, turnaround, or appeals success.",
+    "Validation tuning and selection do not establish untouched TEST or deployment performance.",
+    "Domain shift, annotation ambiguity, and subgroup disparities require evidence beyond these aggregates."
+  ],
+  "run_id": "20261021T042241Z-b4f973ba",
+  "created_at_utc": "2026-10-21T04:22:41.364277+00:00",
+  "source_file_sha256": {
+    "ai/artifacts/reports/w4_a_validation/20261016/validation.json": "a3a2d9a68dd06f26520fb74d30f393eeb79bf0f075fe55b3881de6c5b94bd9bb",
+    "ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json": "ca4e79ca850384a434fcb6ffdc5b4f091f0bef9e118610414deae3b00d7f0ff1"
+  },
+  "analysis_script_sha256": "f9cfd6dce967766536cc3e46dd1cab2cb5df0d929c9d6132f286e4aedf245350",
+  "base_git_sha": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+  "code_state": "Script source SHA-256 identifies executed working-tree bytes; base_git_sha is not a claim that new code was committed."
+}
