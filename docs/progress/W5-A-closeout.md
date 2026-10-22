@@ -58,3 +58,24 @@
 ## 5. 마감 검증
 
 마감 커밋에서 A 테스트를 다시 실행한 결과는 [W5.md](W5.md) 최상단에 기록한다.
+
+## 6. 원격 통합 감사 — 2026-10-22 (읽기 전용, merge 없음)
+
+| Owner | 로컬 | 원격 | PR | CI |
+|---|---|---|---|---|
+| main | — | `8d0580a` | — | #235 SUCCESS (`8d0580a`) |
+| T | — | `f8cec268` | **없음** (열린 PR 0개) | #239 SUCCESS (`f8cec268`, push 이벤트) |
+| F | `bfcaf54` (보고) | `8d0580a` | 없음 | 해당 없음. 인증 오류로 push 불가 |
+| A | `f199b35` 이후 | `8d0580a` | 없음 | 해당 없음. push 미승인 |
+
+**T 브랜치 사전 감사 (`origin/main...f8cec268`):**
+- 변경 파일 8개: 문서 5개, frontend 3개. W4 증거·Manifest·contracts·backend 설정 변경은 0개다.
+- `verify.ts` +7줄: `transitionProblem` 안의 lifecycle `issuer_seq` 단조성 검사다. DECISION Core 검증 경로는 바뀌지 않는다(W4 7/7은 DECISION).
+- 테스트: `verify.test.ts` 2건 추가(역순·중복 거부, RPC 장애 시 lifecycle NOT_CHECKED). `hardening.test.ts`는 timeout만 15초로 늘렸다.
+- W5 문서 분리: `docs/progress/W5-T.md`, `W5-T-closeout.md`로 나눴다. 공용 `W5.md`는 건드리지 않았다.
+- TEST-05: 공개 RPC `sepolia.base.org` 읽기 결과 9개 항목이 PASS다. 실제 네트워크 장애 시험은 하지 않았다고 명시했다.
+- 과거 서명 커밋 `54caa97`(register-epoch.ts 로컬 Wallet 서명)은 main의 이력에는 없다. 그러나 파일 내용이 main과 **완전히 같으므로**, merge해도 운영 코드 diff는 0이다.
+- 민감정보: 키, RPC 토큰, 사설 IP, 로컬 경로 없음(패턴 검색).
+- A 브랜치와 겹치는 파일 0개, `git merge-tree` 충돌 없음.
+
+**구분해서 기록할 증거:** F 로컬 구현 ≠ F 원격 CI ≠ T/F 실제 통합 ≠ 브라우저·모바일 QA ≠ A/T/F를 모두 포함한 main CI. 현재 확인된 것은 T 브랜치 CI 하나뿐이다.
