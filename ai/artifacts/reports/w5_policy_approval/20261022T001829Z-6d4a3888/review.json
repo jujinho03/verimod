@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "documents_sha256": {
+    "docs/eval/w5-policy-decision-memo.md": "2a276fc8562faa5d8ccded408fc177c0e430e0c8e9455015291a2fb86255663f",
+    "docs/eval/threshold-rationale.md": "be2bb7dd5c51a2b26a4a6b267b710499d2871a19c94d6c57fea35a9a3511e430",
+    "docs/handoffs/W5-A-policy-activation-readiness.md": "73b8bbc690e181c52808abee3f41d28accfa5d5bf7619a501a168d40e0ce2631",
+    "docs/progress/W5.md": "bb5f4e8f979d7de3bc054da20627bfd2570a1ef24fd98d484b7203856d66da74"
+  },
+  "relative_links_checked": 59,
+  "four_candidate_metric_cells_checked": 16,
+  "action_counts_checked": 12,
+  "illustrative_grid_cells_checked": 24,
+  "full_grid_scenarios": 242,
+  "infeasible_scenarios": 53,
+  "historical_manifest_files_unchanged": 6,
+  "tested_sources_unchanged": true,
+  "read_only_FT_sources_unchanged": true,
+  "manifest_generated": false,
+  "new_policy_hash_computed": false,
+  "policy_approved": false,
+  "lock_executed": false,
+  "test_accessed": false,
+  "protected_operation_directories_read": false,
+  "review_harness_note": "Initial table matcher included unrelated fraction-bearing rows; narrowed to exact row prefixes; source documents unchanged."
+}

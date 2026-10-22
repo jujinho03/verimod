@@ -16,7 +16,7 @@
 
 FRR≤X와 HRR_TOTAL≤B를 모두 만족하는 후보 중 **HAR 최소 → RP 최대 → HRR_TOTAL 최소**를 적용한다. 기존 [선정 함수](../../ai/src/verimod_ai/evaluation/selection.py)를 재사용한다. 완전 동률일 때 기존 코드의 candidate_id 정렬을 재현하되, 동률 전체를 출력해 팀의 채택 결정을 숨기지 않는다.
 
-X/B는 기본값이 없고 현재 승인되지 않았다. 이번 도구의 `formal` 모드는 입력 파일을 읽기 전에 거부한다. `simulate` 결과는 가정한 상한 아래의 비교일 뿐이며, `team_approved=false`, `adopted_candidate_id=null`, `lock_executed=false`를 유지한다. 관측된 21개 (FRR, HRR_TOTAL) 경계쌍을 비교했으며, 전체 X×B 격자를 탐색했다고 주장하지 않는다.
+X/B는 기본값이 없고 현재 승인되지 않았다. 기존 도구의 `formal` 모드는 입력 파일을 읽기 전에 거부한다. `simulate` 결과는 가정한 상한 아래의 비교일 뿐이며, `team_approved=false`, `adopted_candidate_id=null`, `lock_executed=false`를 유지한다. 초기 감사는21개 관측 경계쌍만 비교했다. 후속 [승인 준비 결과](../../ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/preparation.json)는 모든 관측 FRR·HRR 경계와0/1을 교차한 **242개 시나리오**를 추가했다. 원행25후보 재계산이나 사례 분석은 반복하지 않았다.
 
 ANY_RESTRICT와 TRUNCATED→HUMAN_REVIEW를 보존한다. 멘토의 BOTH-high·none-high·0.50~0.85 예시는 미채택 제안이다. 3-class softmax에서 hate와 offensive가 각각 동시에 0.50을 초과할 수 없고 I1은 none 점수를 노출하지 않으므로, 예시를 그대로 새 규칙으로 바꾸지 않는다.
 
@@ -72,6 +72,8 @@ FRR=none 중 RESTRICT/none, RP=RESTRICT 중 유해 proxy/RESTRICT, HAR=유해 pr
 
 현재 풀의 최소 FRR는 **32/547 = 5.850091407678245%**다. X가 이보다 작으면 B와 무관하게 INFEASIBLE다. 승인된 X/B에서 feasible 후보가 없으면 빈 결과를 그대로 남기고, 기준 재협의·검토 범위 확대·자동 제한 보류를 별도 정책 변경안으로 제시한다. 이를 자동 적용하거나 후보 밖 threshold를 임의 튜닝하지 않는다.
 
+추가 feasibility 경계: `32/547≤X<53/547`이면 최소B=344/1255, `53/547≤X<91/547`이면229/1255, `91/547≤X<174/547`이면198/1255, `174/547≤X≤1`이면195/1255다. 따라서 B<195/1255도 전25후보에서 불가능하다. 이 경계는 후보 존재 여부이며 최소 HAR의 선정 결과와 다르다. 소수 표시5.85%를 정확한 X로 승인하면32/547보다 작아 INFEASIBLE이므로, 반올림 표시는 승인값으로 대체하지 않는다. [최종 민감도표·조치 건수·비용·조건부 추천](w5-policy-decision-memo.md)을 승인 자료로 사용한다.
+
 ## 승인 기록과 LOCK 준비
 
 | 항목 | 상태 / 기록 |
@@ -87,6 +89,8 @@ FRR=none 중 RESTRICT/none, RP=RESTRICT 중 유해 proxy/RESTRICT, HAR=유해 pr
 
 LOCK 준비 체크리스트: Validation provenance·모델 가중치/토크나이저·전처리·보정 여부·threshold/ANY_RESTRICT·Manifest hash·평가 코드/환경·그룹 가정·latency 프로토콜·승인 기록을 결합한다. 승인된 최종 정책에 새 Manifest/hash와 parity·실패 회귀 결과를 붙이고, 별도 LOCK 승인 이후에만 LOCK 파일/commit 및 SHA·시각을 생성한다. [AI-12 사전 준비](w5-evaluation-preregistration.md)는 실제 실행을 열지 않는다.
 
+[정책 활성화 준비 점검](../handoffs/W5-A-policy-activation-readiness.md)에서 현재 F evaluator/발급 검증/서버가 W4 identity와 local 전용 상태에 고정됨을 확인했다. 새 threshold와 승인 metadata만 넣으면 거부되므로 F 담당자 지원·A/F 합의가 필요하다. I1 점수 형식은 유지하는 준비안이며, 정책 identity/profile·X/B의 canonical 표현은 합의 전이다. 비정수 number를 거부하는 canonical 규칙 때문에 정확한 정수 분수 객체 또는 합의된 소수 문자열을 제안했다. 새 Manifest 생성 경로·84개 합성 Python 경계·Node parity/fail-closed·역사 hash 분리는 인계안에 준비했으며 실제 새 Manifest/hash는 만들지 않았다.
+
 ## 검증과 재현
 
 저장소 루트에서 `ai/.venv/Scripts/python.exe -B ai/scripts/select_w5_policy.py`를 실행하면 새 UUID 경로에 감사 결과가 생성된다. 원본 데이터 경로 인자는 없다. `--mode simulate --x <0..1> --b <0..1>`은 명시적 가정 비교만 수행한다. `--mode formal`은 종료 코드 2로 거부한다.
@@ -99,4 +103,4 @@ LOCK 준비 체크리스트: Validation provenance·모델 가중치/토크나�
 
 검사 범위는 잘못된 모집단/출처/승인 표기/분자·분모·action 거부, 경계값, 동률, INFEASIBLE, 미정의 RP, 공식 실행 사전 거부, 경로 이탈·증거 덮어쓰기 거부다. 기존 W4 Node parity 결과와 Python 벡터 대조는 포함하지만 새 Node 실행은 아니다. 전체 통합 결과와 최종 변경 SHA는 [W5 실행 기록](../progress/W5.md)에서 연결한다.
 
-AI-11의 Validation 원행 재계산은 PASS다. 최종 DoD에는 X/B 승인, 정책 채택·기각 결정과 최종 Manifest/parity·LOCK 준비 완결이 남아 있다. 이 문서는 승인 대기 상태를 PASS로 바꾸지 않는다.
+AI-11의 Validation 원행 재계산과 승인 전 결정 자료·활성화 사전조건 점검은 PASS다. 최종 DoD에는 X/B·정책 결정, A/F 합의와 F 담당자 지원, 최종 Manifest/parity·fail-closed·LOCK 패키지 완결이 남아 있다. 이 문서는 승인 대기 상태를 PASS로 바꾸지 않는다.

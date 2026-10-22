@@ -1,0 +1,7254 @@
+{
+  "ticket": "AI-11-POLICY-APPROVAL-PREPARATION",
+  "status": "PASS",
+  "scope": "PREPARATION_ONLY_NOT_POLICY_APPROVAL_OR_ACTIVATION",
+  "approved_X": null,
+  "approved_B": null,
+  "team_approved": false,
+  "adopted_candidate_id": null,
+  "policy_applied": false,
+  "manifest_generated": false,
+  "new_policy_manifest_hash": null,
+  "lock_executed": false,
+  "test_accessed": false,
+  "raw_prediction_rows_recomputed": false,
+  "error_cases_reanalyzed": false,
+  "source_row_revalidation_reused": true,
+  "candidate_pool": 25,
+  "four_candidate_comparison": [
+    {
+      "candidate_id": "H50-90_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 542,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 542,
+          "denominator": 1255,
+          "value": 0.43187250996015936
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 542,
+          "ALLOW": 461,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      }
+    },
+    {
+      "candidate_id": "H50-75_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 354,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 354,
+          "denominator": 1255,
+          "value": 0.28207171314741036
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 354
+        },
+        "TRUNCATED": {}
+      }
+    },
+    {
+      "candidate_id": "H50-75_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 586,
+        "HUMAN_REVIEW": 229,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 158,
+          "denominator": 708,
+          "value": 0.2231638418079096
+        },
+        "HRR_TOTAL": {
+          "numerator": 229,
+          "denominator": 1255,
+          "value": 0.18247011952191236
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 586,
+          "HUMAN_REVIEW": 229
+        },
+        "TRUNCATED": {}
+      }
+    },
+    {
+      "candidate_id": "H75-90_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 659,
+        "HUMAN_REVIEW": 344,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 203,
+          "denominator": 708,
+          "value": 0.2867231638418079
+        },
+        "HRR_TOTAL": {
+          "numerator": 344,
+          "denominator": 1255,
+          "value": 0.27410358565737053
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 344,
+          "ALLOW": 659,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      }
+    }
+  ],
+  "X_breakpoints": [
+    {
+      "numerator": 0,
+      "denominator": 1,
+      "value": 0.0,
+      "percent": 0.0
+    },
+    {
+      "numerator": 32,
+      "denominator": 547,
+      "value": 0.05850091407678245,
+      "percent": 5.850091407678245
+    },
+    {
+      "numerator": 53,
+      "denominator": 547,
+      "value": 0.09689213893967093,
+      "percent": 9.689213893967093
+    },
+    {
+      "numerator": 74,
+      "denominator": 547,
+      "value": 0.13528336380255943,
+      "percent": 13.528336380255942
+    },
+    {
+      "numerator": 91,
+      "denominator": 547,
+      "value": 0.1663619744058501,
+      "percent": 16.63619744058501
+    },
+    {
+      "numerator": 108,
+      "denominator": 547,
+      "value": 0.19744058500914077,
+      "percent": 19.74405850091408
+    },
+    {
+      "numerator": 119,
+      "denominator": 547,
+      "value": 0.21755027422303475,
+      "percent": 21.755027422303474
+    },
+    {
+      "numerator": 171,
+      "denominator": 547,
+      "value": 0.3126142595978062,
+      "percent": 31.26142595978062
+    },
+    {
+      "numerator": 174,
+      "denominator": 547,
+      "value": 0.3180987202925046,
+      "percent": 31.809872029250457
+    },
+    {
+      "numerator": 176,
+      "denominator": 547,
+      "value": 0.3217550274223035,
+      "percent": 32.17550274223035
+    },
+    {
+      "numerator": 1,
+      "denominator": 1,
+      "value": 1.0,
+      "percent": 100.0
+    }
+  ],
+  "B_breakpoints": [
+    {
+      "numerator": 0,
+      "denominator": 1,
+      "value": 0.0,
+      "percent": 0.0
+    },
+    {
+      "numerator": 39,
+      "denominator": 251,
+      "value": 0.1553784860557769,
+      "percent": 15.53784860557769
+    },
+    {
+      "numerator": 198,
+      "denominator": 1255,
+      "value": 0.15776892430278885,
+      "percent": 15.776892430278885
+    },
+    {
+      "numerator": 214,
+      "denominator": 1255,
+      "value": 0.17051792828685258,
+      "percent": 17.051792828685258
+    },
+    {
+      "numerator": 219,
+      "denominator": 1255,
+      "value": 0.1745019920318725,
+      "percent": 17.45019920318725
+    },
+    {
+      "numerator": 229,
+      "denominator": 1255,
+      "value": 0.18247011952191236,
+      "percent": 18.247011952191237
+    },
+    {
+      "numerator": 46,
+      "denominator": 251,
+      "value": 0.18326693227091634,
+      "percent": 18.326693227091635
+    },
+    {
+      "numerator": 273,
+      "denominator": 1255,
+      "value": 0.21752988047808766,
+      "percent": 21.752988047808767
+    },
+    {
+      "numerator": 60,
+      "denominator": 251,
+      "value": 0.23904382470119523,
+      "percent": 23.904382470119522
+    },
+    {
+      "numerator": 339,
+      "denominator": 1255,
+      "value": 0.2701195219123506,
+      "percent": 27.01195219123506
+    },
+    {
+      "numerator": 344,
+      "denominator": 1255,
+      "value": 0.27410358565737053,
+      "percent": 27.410358565737052
+    },
+    {
+      "numerator": 346,
+      "denominator": 1255,
+      "value": 0.2756972111553785,
+      "percent": 27.56972111553785
+    },
+    {
+      "numerator": 349,
+      "denominator": 1255,
+      "value": 0.27808764940239045,
+      "percent": 27.808764940239044
+    },
+    {
+      "numerator": 354,
+      "denominator": 1255,
+      "value": 0.28207171314741036,
+      "percent": 28.207171314741036
+    },
+    {
+      "numerator": 388,
+      "denominator": 1255,
+      "value": 0.30916334661354583,
+      "percent": 30.916334661354583
+    },
+    {
+      "numerator": 412,
+      "denominator": 1255,
+      "value": 0.3282868525896414,
+      "percent": 32.82868525896414
+    },
+    {
+      "numerator": 417,
+      "denominator": 1255,
+      "value": 0.3322709163346614,
+      "percent": 33.22709163346614
+    },
+    {
+      "numerator": 2,
+      "denominator": 5,
+      "value": 0.4,
+      "percent": 40.0
+    },
+    {
+      "numerator": 537,
+      "denominator": 1255,
+      "value": 0.42788844621513944,
+      "percent": 42.788844621513945
+    },
+    {
+      "numerator": 542,
+      "denominator": 1255,
+      "value": 0.43187250996015936,
+      "percent": 43.18725099601593
+    },
+    {
+      "numerator": 544,
+      "denominator": 1255,
+      "value": 0.4334661354581673,
+      "percent": 43.34661354581673
+    },
+    {
+      "numerator": 1,
+      "denominator": 1,
+      "value": 1.0,
+      "percent": 100.0
+    }
+  ],
+  "full_breakpoint_grid": [
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-90_O75-90",
+      "fully_tied_candidates": [
+        "H50-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-90_O75-90",
+      "fully_tied_candidates": [
+        "H50-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H75-90_O50-90",
+      "fully_tied_candidates": [
+        "H75-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 6,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H75-90_O50-75",
+      "fully_tied_candidates": [
+        "H75-90_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 6,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H50-90_O25-75",
+      "fully_tied_candidates": [
+        "H50-90_O25-75",
+        "H75-90_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 74,
+        "denominator": 547,
+        "value": 0.13528336380255943,
+        "percent": 13.528336380255942
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H50-90_O25-75",
+      "fully_tied_candidates": [
+        "H50-90_O25-75",
+        "H75-90_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H50-75_O25-75",
+      "fully_tied_candidates": [
+        "H50-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-50_O50-90",
+      "fully_tied_candidates": [
+        "H25-50_O50-90",
+        "H25-50_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-50_O50-90",
+      "fully_tied_candidates": [
+        "H25-50_O50-90",
+        "H25-50_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-50_O50-90",
+      "fully_tied_candidates": [
+        "H25-50_O50-90",
+        "H25-50_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 6,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H50-75_O25-75",
+      "fully_tied_candidates": [
+        "H50-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 15,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 108,
+        "denominator": 547,
+        "value": 0.19744058500914077,
+        "percent": 19.74405850091408
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H25-50_O50-75",
+      "fully_tied_candidates": [
+        "H25-50_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-50_O50-90",
+      "fully_tied_candidates": [
+        "H25-50_O50-90",
+        "H25-50_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 6,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 17,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 20,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 119,
+        "denominator": 547,
+        "value": 0.21755027422303475,
+        "percent": 21.755027422303474
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 20,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O25-50",
+      "fully_tied_candidates": [
+        "H50-90_O25-50",
+        "H75-90_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H50-90_O25-50",
+      "fully_tied_candidates": [
+        "H50-90_O25-50",
+        "H75-90_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H50-90_O25-50",
+      "fully_tied_candidates": [
+        "H50-90_O25-50",
+        "H75-90_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 15,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 19,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 20,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 22,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 171,
+        "denominator": 547,
+        "value": 0.3126142595978062,
+        "percent": 31.26142595978062
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 22,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 6,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 9,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 15,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 17,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 20,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 21,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 22,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 24,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 24,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H25-50_O25-50",
+      "fully_tied_candidates": [
+        "H25-50_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 17,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 19,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 21,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 22,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 23,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 25,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 176,
+        "denominator": 547,
+        "value": 0.3217550274223035,
+        "percent": 32.17550274223035
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 25,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "percent": 0.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 214,
+        "denominator": 1255,
+        "value": 0.17051792828685258,
+        "percent": 17.051792828685258
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H25-50_O25-50",
+      "fully_tied_candidates": [
+        "H25-50_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 219,
+        "denominator": 1255,
+        "value": 0.1745019920318725,
+        "percent": 17.45019920318725
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 46,
+        "denominator": 251,
+        "value": 0.18326693227091634,
+        "percent": 18.326693227091635
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 273,
+        "denominator": 1255,
+        "value": 0.21752988047808766,
+        "percent": 21.752988047808767
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 60,
+        "denominator": 251,
+        "value": 0.23904382470119523,
+        "percent": 23.904382470119522
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 339,
+        "denominator": 1255,
+        "value": 0.2701195219123506,
+        "percent": 27.01195219123506
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 11,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 12,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 346,
+        "denominator": 1255,
+        "value": 0.2756972111553785,
+        "percent": 27.56972111553785
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 13,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 349,
+        "denominator": 1255,
+        "value": 0.27808764940239045,
+        "percent": 27.808764940239044
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 14,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 354,
+        "denominator": 1255,
+        "value": 0.28207171314741036,
+        "percent": 28.207171314741036
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 388,
+        "denominator": 1255,
+        "value": 0.30916334661354583,
+        "percent": 30.916334661354583
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 17,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 412,
+        "denominator": 1255,
+        "value": 0.3282868525896414,
+        "percent": 32.82868525896414
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 18,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 417,
+        "denominator": 1255,
+        "value": 0.3322709163346614,
+        "percent": 33.22709163346614
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 19,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 2,
+        "denominator": 5,
+        "value": 0.4,
+        "percent": 40.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 21,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 537,
+        "denominator": 1255,
+        "value": 0.42788844621513944,
+        "percent": 42.788844621513945
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 22,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 542,
+        "denominator": 1255,
+        "value": 0.43187250996015936,
+        "percent": 43.18725099601593
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 23,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 544,
+        "denominator": 1255,
+        "value": 0.4334661354581673,
+        "percent": 43.34661354581673
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 25,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "percent": 100.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 25,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    }
+  ],
+  "illustrative_grid": [
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 20,
+        "value": 0.15,
+        "percent": 15.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 5,
+        "value": 0.2,
+        "percent": 20.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 25,
+        "value": 0.28,
+        "percent": 28.000000000000004
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 10,
+        "value": 0.3,
+        "percent": 30.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 20,
+        "value": 0.35,
+        "percent": 35.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 1,
+        "denominator": 20,
+        "value": 0.05,
+        "percent": 5.0
+      },
+      "B": {
+        "numerator": 11,
+        "denominator": 25,
+        "value": 0.44,
+        "percent": 44.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 20,
+        "value": 0.15,
+        "percent": 15.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 5,
+        "value": 0.2,
+        "percent": 20.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 25,
+        "value": 0.28,
+        "percent": 28.000000000000004
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 10,
+        "value": 0.3,
+        "percent": 30.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 20,
+        "value": 0.35,
+        "percent": 35.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-90_O75-90",
+      "fully_tied_candidates": [
+        "H50-90_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "B": {
+        "numerator": 11,
+        "denominator": 25,
+        "value": 0.44,
+        "percent": 44.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 20,
+        "value": 0.15,
+        "percent": 15.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 5,
+        "value": 0.2,
+        "percent": 20.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 25,
+        "value": 0.28,
+        "percent": 28.000000000000004
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 10,
+        "value": 0.3,
+        "percent": 30.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 20,
+        "value": 0.35,
+        "percent": 35.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "B": {
+        "numerator": 11,
+        "denominator": 25,
+        "value": 0.44,
+        "percent": 44.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 8,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 20,
+        "value": 0.15,
+        "percent": 15.0
+      },
+      "feasibility": "INFEASIBLE",
+      "feasible_count": 0,
+      "candidate_id": null,
+      "fully_tied_candidates": [],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 5,
+        "value": 0.2,
+        "percent": 20.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 2,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 25,
+        "value": 0.28,
+        "percent": 28.000000000000004
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 5,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 10,
+        "value": 0.3,
+        "percent": 30.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 7,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 7,
+        "denominator": 20,
+        "value": 0.35,
+        "percent": 35.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 10,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    },
+    {
+      "X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "B": {
+        "numerator": 11,
+        "denominator": 25,
+        "value": 0.44,
+        "percent": 44.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 16,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL"
+    }
+  ],
+  "minimum_review_frontier": [
+    {
+      "minimum_X": {
+        "numerator": 32,
+        "denominator": 547,
+        "value": 0.05850091407678245,
+        "percent": 5.850091407678245
+      },
+      "minimum_B": {
+        "numerator": 344,
+        "denominator": 1255,
+        "value": 0.27410358565737053,
+        "percent": 27.410358565737052
+      },
+      "witness_candidates": [
+        "H75-90_O75-90"
+      ]
+    },
+    {
+      "minimum_X": {
+        "numerator": 53,
+        "denominator": 547,
+        "value": 0.09689213893967093,
+        "percent": 9.689213893967093
+      },
+      "minimum_B": {
+        "numerator": 229,
+        "denominator": 1255,
+        "value": 0.18247011952191236,
+        "percent": 18.247011952191237
+      },
+      "witness_candidates": [
+        "H50-75_O75-90"
+      ]
+    },
+    {
+      "minimum_X": {
+        "numerator": 91,
+        "denominator": 547,
+        "value": 0.1663619744058501,
+        "percent": 16.63619744058501
+      },
+      "minimum_B": {
+        "numerator": 198,
+        "denominator": 1255,
+        "value": 0.15776892430278885,
+        "percent": 15.776892430278885
+      },
+      "witness_candidates": [
+        "H50-75_O50-75"
+      ]
+    },
+    {
+      "minimum_X": {
+        "numerator": 174,
+        "denominator": 547,
+        "value": 0.3180987202925046,
+        "percent": 31.809872029250457
+      },
+      "minimum_B": {
+        "numerator": 39,
+        "denominator": 251,
+        "value": 0.1553784860557769,
+        "percent": 15.53784860557769
+      },
+      "witness_candidates": [
+        "H50-75_O25-50"
+      ]
+    }
+  ],
+  "selection_rule": "FRR<=X and HRR_TOTAL<=B; then min HAR, max RP, min HRR_TOTAL; disclose metric ties",
+  "grid_scope": "All observed FRR/HRR breakpoints plus 0/1. Within adjacent half-open bound intervals, the feasible pool and ranking stay fixed. Last endpoint 1 is included.",
+  "synthetic_python_boundary_vectors": {
+    "H50-90_O50-90": [
+      {
+        "id": "zero_allow",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_-1",
+        "scores_ppm": {
+          "hate": 24494,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_+0",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_review_+1",
+        "scores_ppm": {
+          "hate": 24496,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_-1",
+        "scores_ppm": {
+          "hate": 887208,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_+0",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_+1",
+        "scores_ppm": {
+          "hate": 887210,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_review_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180482
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "offensive_review_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_review_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180484
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828253
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828255
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "both_review",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "both_restrict",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_offensive_review",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_review_offensive_restrict",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "max_overlap",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "truncated_zero",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_max",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_restrict_boundary",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 828254
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    ],
+    "H50-75_O50-90": [
+      {
+        "id": "zero_allow",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_-1",
+        "scores_ppm": {
+          "hate": 24494,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_+0",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_review_+1",
+        "scores_ppm": {
+          "hate": 24496,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_-1",
+        "scores_ppm": {
+          "hate": 216949,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_+0",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_+1",
+        "scores_ppm": {
+          "hate": 216951,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_review_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180482
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "offensive_review_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_review_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 180484
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828253
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828255
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "both_review",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "both_restrict",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_offensive_review",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 180483
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_review_offensive_restrict",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "max_overlap",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "truncated_zero",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_max",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_restrict_boundary",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 828254
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    ],
+    "H50-75_O75-90": [
+      {
+        "id": "zero_allow",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_-1",
+        "scores_ppm": {
+          "hate": 24494,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_+0",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_review_+1",
+        "scores_ppm": {
+          "hate": 24496,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_-1",
+        "scores_ppm": {
+          "hate": 216949,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_+0",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_+1",
+        "scores_ppm": {
+          "hate": 216951,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_review_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646500
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "offensive_review_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_review_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646502
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828253
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828255
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "both_review",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "both_restrict",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_offensive_review",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_review_offensive_restrict",
+        "scores_ppm": {
+          "hate": 24495,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "max_overlap",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "truncated_zero",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_max",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_restrict_boundary",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 828254
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    ],
+    "H75-90_O75-90": [
+      {
+        "id": "zero_allow",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_-1",
+        "scores_ppm": {
+          "hate": 216949,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "hate_review_+0",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_review_+1",
+        "scores_ppm": {
+          "hate": 216951,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_-1",
+        "scores_ppm": {
+          "hate": 887208,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW"
+        ]
+      },
+      {
+        "id": "hate_restrict_+0",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_+1",
+        "scores_ppm": {
+          "hate": 887210,
+          "offensive": 0
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_review_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646500
+        },
+        "input_status": "FULL",
+        "expected_action": "ALLOW",
+        "expected_reason_codes": [],
+        "expected_rule_ids": []
+      },
+      {
+        "id": "offensive_review_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_review_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 646502
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_-1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828253
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+0",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "offensive_restrict_+1",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 828255
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "both_review",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "SCORE_HATE_REVIEW",
+          "SCORE_OFFENSIVE_REVIEW"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-REVIEW",
+          "W4-OFFENSIVE-REVIEW"
+        ]
+      },
+      {
+        "id": "both_restrict",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_restrict_offensive_review",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 646501
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT"
+        ]
+      },
+      {
+        "id": "hate_review_offensive_restrict",
+        "scores_ppm": {
+          "hate": 216950,
+          "offensive": 828254
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "max_overlap",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "FULL",
+        "expected_action": "RESTRICT",
+        "expected_reason_codes": [
+          "SCORE_HATE_RESTRICT",
+          "SCORE_OFFENSIVE_RESTRICT"
+        ],
+        "expected_rule_ids": [
+          "W4-HATE-RESTRICT",
+          "W4-OFFENSIVE-RESTRICT"
+        ]
+      },
+      {
+        "id": "truncated_zero",
+        "scores_ppm": {
+          "hate": 0,
+          "offensive": 0
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_max",
+        "scores_ppm": {
+          "hate": 1000000,
+          "offensive": 1000000
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      },
+      {
+        "id": "truncated_restrict_boundary",
+        "scores_ppm": {
+          "hate": 887209,
+          "offensive": 828254
+        },
+        "input_status": "TRUNCATED",
+        "expected_action": "HUMAN_REVIEW",
+        "expected_reason_codes": [
+          "INPUT_TRUNCATED"
+        ],
+        "expected_rule_ids": [
+          "W4-TRUNCATED"
+        ]
+      }
+    ]
+  },
+  "python_boundary_vector_count": 84,
+  "node_parity_executed": false,
+  "F_runtime_execution": false,
+  "readiness_blockers": [
+    "F evaluator hard-pins W4 policy hash and provisional metadata",
+    "Existing W4 Node parity harness uses localW4E2E and W4 hash validation",
+    "Canonical profile accepts integer numbers only; exact rational X/B encoding requires A/F agreement",
+    "Actual reviewer capacity, input rate and per-case review time are unmeasured",
+    "New Manifest approval, F owner change approval and real LOCK/TEST approvals remain separate"
+  ],
+  "source_report_sha256": "70c47b0893b7ae21691fe1a10c3ac321af7c3c73c1aa9315b4baf0545b3c8938",
+  "historical_W4_policy_hash": "0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e",
+  "historical_manifest_file_sha256": {
+    "ai/artifacts/reports/w4_a_validation/20261016/policy_manifest.json": "aba4d3358f1519e8e02985c66d155f293776ac0e0e7c8036a2eb3f6e6b836840",
+    "ai/artifacts/reports/w4_a_validation/20261016/policy_manifest.canonical.json": "aa76f1b35f7097c2ef031089b4813d4771e4cd80da77f085cb5528d46dc02714",
+    "ai/artifacts/reports/w4_a_validation/20261016/policy_hash.json": "e4ca9e5e8a066b4d32498a8d6e25a9e2694aa58a6226278f4e341280523c82f6",
+    "ai/artifacts/reports/w4_a_revalidation/20261016-final-r02/policy_manifest.json": "aba4d3358f1519e8e02985c66d155f293776ac0e0e7c8036a2eb3f6e6b836840",
+    "ai/artifacts/reports/w4_a_revalidation/20261016-final-r02/policy_manifest.canonical.json": "aa76f1b35f7097c2ef031089b4813d4771e4cd80da77f085cb5528d46dc02714",
+    "ai/artifacts/reports/w4_a_revalidation/20261016-final-r02/policy_hash.json": "e4ca9e5e8a066b4d32498a8d6e25a9e2694aa58a6226278f4e341280523c82f6"
+  },
+  "inspected_source_sha256": {
+    "backend/src/inference.ts": "3e9daf398d8f006b294f7527ceccc27278e222ba328a81aa5b2ef732e912d77d",
+    "backend/src/issuance.ts": "e227230218e3cc3dae82938148a50e6783194d13a4ac2e1db8639d6161964d5d",
+    "backend/src/app.ts": "7bd38115aed2415e22b246fca77312cf7c2deb82a9576bc8103e7ddaa04a605c",
+    "backend/test/inference.test.ts": "57e57979f24dc5cb9123ee07abd813d17a5125e7d7808288b6a081617667f34c",
+    "backend/test/w4-manifest-boundary.test.ts": "2139672fe85d75d9056a7e7c1862ae550cd71833ed805fce530183514215580b",
+    "ai/scripts/prepare_w4_policy.py": "a4dae0298c5cae1879dfdecbecf2f95d0f647bcf414ac2e361df2e3c62f08eee",
+    "ai/scripts/w4_policy_parity.mts": "d6c2d5c40026fa00aaaf0d1da4b54355abfa91442b20f507d302d0c221888e4f",
+    "shared/protocol/src/canonical.ts": "c9d858052c6f8d42b66cd87243869e5b9aeb4917c66e3f652fee55453b5b5fb5",
+    "shared/protocol/src/hash.ts": "e0d2b08571a56edc3cc11dc16fbe7ff967b018806f71a713fb1d3a4f20fd3a43",
+    "ai/src/verimod_ai/evaluation/selection.py": "b833cf96d346b37c4b19747e9818fa07404fc9bb1c95cdca8d7c15a4a63114c7",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7"
+  },
+  "execution_script_sha256": "69d7a34331420d3aac8b61f805f60e5bcb89695a0ebb56c85fafcb98af5d4007",
+  "source_commit": "aa85897bac815283e41333fbb12c4542cd42fecb",
+  "created_at_utc": "2026-10-22T00:18:29.332163+00:00"
+}
