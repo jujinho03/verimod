@@ -31,7 +31,7 @@
 
 | ID | 원문 권고의 요약(S1) | 팀 결정 상태 | 실제 반영·근거 | 테스트·실증 수준 | Owner | W5 남은 작업·위험 |
 | --- | --- | --- | --- | --- | --- | --- |
-| M3-01 | FRR 최우선, 자동 제한은 보수적으로 | 사용자 최신 지시로 FRR 우선 분석 수행. 공식 선정 순서는 유지 | S5에서 FRR·RP·HAR·HRR_TOTAL 25후보 비교 가능. 시험용 FRR 91/547 | W4 집계 있음. 보수적 운영 정책이 검증됐다는 뜻은 아님 | A | AI-11. X/B와 정책 미승인. **PARTIAL** |
+| M3-01 | FRR 최우선, 자동 제한은 보수적으로 | 사용자 최신 지시로 FRR 우선 분석 수행. 공식 선정 순서는 유지. 10/22 연구 방향 승인: S1/S2/S3 연구·시연 시나리오 비교 | S5에서 25후보 비교. [S1/S2/S3 승인 패키지](../eval/w5-research-policy-scenarios.md): S1 FRR 32/547, S2·S3 53/547. A는 FRR 우선 원칙에 따라 S1을 추천하고 S2를 대안으로 제시. 원문의 "0.50~0.85 중위 점수대"는 예시 값이다. 점수가 UNCALIBRATED이므로 25후보의 분위수 threshold로 대체 비교했고, BOTH-high RESTRICT는 채택하지 않음 | Validation 비교·테스트 PASS. 보수적 운영 정책이 검증됐다는 뜻은 아님 | A | AI-11. X/B·후보 승인 대기. **PARTIAL** |
 | M3-02 | X/B는 실제 팀이 정할 값 | **PENDING_TEAM_DECISION** | D25와 사용자 지시: FRR≤X·HRR_TOTAL≤B를 통과한 후보 중 HAR 최소, RP 최대, HRR_TOTAL 최소 | 승인 없는 공식 선택·LOCK 불가 | A/팀장 | 결정표·업무량·오류비용 제시 후 별도 승인. **BLOCKED**(최종 결정) |
 | M3-03 | BOTH-high·none-high·0.50~0.85 경계 예시 | 개념 제안이며 **채택된 사양 아님** | 현재 ANY_RESTRICT 유지. native none≠ALLOW, 분위수 이름≠점수 threshold(S1/S5) | 대체 로직 실증이나 승인 없음 | A/F | 변경 시 별도 Manifest/hash·Python/Node parity·fail-closed·A/F 합의. **BLOCKED**(변경 승인) |
 | M3-04 | 미보정 점수를 확률·절대 신뢰도로 쓰지 않음 | D07 반영 | S1/S5에 UNCALIBRATED 명시 | 점수 의미에 대한 문서 확인. calibration 성능 검증은 아님 | A | AI-13 limitations에 유지. **PASS**(표현 경계 확인) |
@@ -66,3 +66,5 @@
 이 문서의 표 작성·출처 연결은 완료했지만, **DOC-09 전체는 PARTIAL**이다. 1·2회차 원문 확인과 미완 구현의 실행 증거가 남아 있다. 기존 W4 PASS나 문서 존재만으로 그 조건을 대체하지 않는다.
 
 10/22 A 후속 연결: [AI-11 정책 결정표](../eval/threshold-rationale.md), [AI-13 Validation 분석](../eval/w5-validation-error-analysis.md), [AI-12 합성 사전 준비](../eval/w5-evaluation-preregistration.md), [W5 실행 기록](../progress/W5.md). 신규 A 회귀102개 성공은 승인·원문·T/F 실증을 대신하지 않는다.
+
+10/22 추가 연결: [S1/S2/S3 연구·시연 정책 승인 패키지](../eval/w5-research-policy-scenarios.md), [A/F 계약 제안](../handoffs/W5-A-F-policy-contract-proposal.md), [LOCK 사전점검표](../eval/w5-lock-preflight-checklist.md). 3회차 피드백 PDF 원문은 10/22 작업 중 다시 대조했다(Q1 FRR 우선·중위 점수대 예시, Q2 L2 Confirmed·RPC_UNAVAILABLE, Q3 변조·장애 테스트, Q4 시연 구성). 1·2회차 원문은 여전히 미확인이다.

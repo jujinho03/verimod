@@ -1,0 +1,84 @@
+{
+  "status": "PASS",
+  "scope": "S1/S2/S3 research/demo scenario comparison + W5 A regression; not policy approval",
+  "source_commit": "8b711d62ebc8b1d612629dff12e393568095fe0b",
+  "source_state": "research scenario sources not yet committed at run time; executed byte hashes below",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_research_scenarios.py",
+    "tests/test_w5_execution_guard.py",
+    "tests/test_w5_preregistration.py",
+    "tests/test_w5_policy_approval.py",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_w5_validation_rows.py",
+    "tests/test_w5_validation_analysis.py",
+    "tests/test_w4_policy.py",
+    "tests/test_policy_metrics.py",
+    "tests/test_selection.py",
+    "--basetemp=<Git-ignored run>/basetemp",
+    "--junitxml=<Git-ignored run>/pytest.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 181,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_counts_by_module": {
+    "PolicyMetricTests": 9,
+    "SelectionTests": 6,
+    "test_w4_policy": 11,
+    "test_w5_execution_guard": 43,
+    "test_w5_policy_approval": 12,
+    "test_w5_policy_selection": 23,
+    "test_w5_preregistration": 24,
+    "test_w5_research_scenarios": 9,
+    "test_w5_validation_analysis": 18,
+    "test_w5_validation_rows": 26
+  },
+  "scenario_generation_command": "ai/.venv/Scripts/python.exe -B ai/scripts/prepare_w5_research_scenarios.py",
+  "scenario_selected": {
+    "S1": "H50-90_O50-90",
+    "S2": "H50-75_O50-90",
+    "S3": "H50-75_O75-90"
+  },
+  "test_evaluate_cli": {
+    "exit_code": 3,
+    "status": "BLOCKED"
+  },
+  "source_sha256": {
+    "ai/scripts/prepare_w5_research_scenarios.py": "9da5619390ec34f82262e9882b3f409fca4c1a202ab625c9232b439c466fa0ba",
+    "ai/tests/test_w5_research_scenarios.py": "03979e8a85cf1b141cb3529734c1210b87956ec417861b1b1b95dbee11e673c1",
+    "ai/scripts/prepare_w5_policy_approval.py": "69d7a34331420d3aac8b61f805f60e5bcb89695a0ebb56c85fafcb98af5d4007",
+    "ai/src/verimod_ai/evaluation/selection.py": "b833cf96d346b37c4b19747e9818fa07404fc9bb1c95cdca8d7c15a4a63114c7",
+    "ai/src/verimod_ai/evaluation/w5_execution_guard.py": "152a4489ee05ed3f7f3a766532b17b98c1dcd47653ecd7d90d3e3e0f661b293b",
+    "ai/artifacts/reports/w5_research_scenarios/20261022T063640Z-841928ca/scenarios.json": "ba49479f9f1a47f31a09119c3e123a9112a24784dc85ac5e60a46ab453ae6d08"
+  },
+  "repair_during_run": "consistency check initially applied only to selected candidates; now validates all 25 rows and total n",
+  "approved_X": null,
+  "approved_B": null,
+  "team_approved": false,
+  "manifest_generated": false,
+  "new_policy_hash_computed": false,
+  "lock_executed": false,
+  "test_data_accessed": false,
+  "T_F_code_changed": false,
+  "pushed": false,
+  "not_aggregated_with": [
+    "102",
+    "128",
+    "61",
+    "166"
+  ],
+  "junit_redacted_fields": [
+    "hostname"
+  ]
+}
