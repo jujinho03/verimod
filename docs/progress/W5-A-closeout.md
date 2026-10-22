@@ -79,3 +79,34 @@
 - A 브랜치와 겹치는 파일 0개, `git merge-tree` 충돌 없음.
 
 **구분해서 기록할 증거:** F 로컬 구현 ≠ F 원격 CI ≠ T/F 실제 통합 ≠ 브라우저·모바일 QA ≠ A/T/F를 모두 포함한 main CI. 현재 확인된 것은 T 브랜치 CI 하나뿐이다.
+
+## 7. 통합 게이트 갱신 — 2026-10-22 18:30 KST 이후 (읽기 전용 확인)
+
+§6의 "T PR 없음 / F push 불가"는 아래와 같이 후속 진행됐다. 이월 결정(D-W5F-20261022-01)은 삭제하지 않는다. F의 W5 진행분은 후속 결과로 덧붙이며, W6에는 10/25까지 끝나지 않은 QA·승인·통합만 남긴다.
+
+| Owner | 원격 SHA | PR | CI (해당 SHA) | 상태 |
+|---|---|---|---|---|
+| main | `8d0580a` | — | #235 | 변경 없음 |
+| T | `f8cec268` | #28 open, clean, Draft 아님, 제목 "Seolkyeongmin" | #239 push, #241 PR SUCCESS | §6 감사 내용과 head가 같다. merge 승인 대기 |
+| F | `4ae0a12b` | #29 **Draft**, clean | #243 push, #244 PR SUCCESS | Manifest·storage 수정 커밋 있음. T 재검증과 브라우저 QA는 미확인 |
+| A | 로컬 `b1d572b` 이후, 원격 `8d0580a` | 없음 | 없음 | fast-forward push 가능, 승인 대기 |
+
+**F 수정 확인 (`4ae0a12b`):**
+- F1 Manifest: 원문 문서가 없으면 `NOT_CHECKED`, 모든 참조 문서의 계산 hash가 일치해야 `PASSED`. 과장 결함은 코드상 해소됐다.
+- F2 legacy storage: 기존 비공개 키를 내용 표시 없이 감지하고, 소유자가 명시적으로 백업·정리하게 했다. 자동 삭제는 하지 않는다.
+- F 자체 재검증: frontend 246/246, backend 203/203, build·lint·typecheck PASS. **브라우저 회귀는 BLOCKED**(Windows sandbox). browser/mobile PASS를 주장하지 않는다.
+- T/F 통합: T와 F가 `verify.ts`·`verify.test.ts`를 함께 수정했지만 `git merge-tree` 충돌은 없다. 다만 실제 통합 회귀는 T merge 이후 F가 main을 merge한 뒤에 다시 실행해야 한다. 앞서 보고된 T/F 통합 245 PASS·desktop/mobile 24 PASS는 `bfcaf54` 기준이며 `4ae0a12b` 기준이 아니다.
+
+**GATE-5 증거 — 분리 기록:**
+
+| 근거 | 현재 |
+|---|---|
+| T 원격 CI | SUCCESS (`f8cec268`, #239/#241) |
+| F 원격 CI | SUCCESS (`4ae0a12b`, #243/#244) |
+| T/F 통합 단위 테스트 | 보고 245 PASS (`bfcaf54` 기준). 새 F SHA 기준 통합 결과 없음 |
+| 브라우저·모바일 QA | 보고 desktop/mobile 24 PASS (`bfcaf54` 기준), LIVE RPC 6 SKIP. 새 SHA 기준 BLOCKED |
+| LIVE 브라우저 | 6 SKIP → 실제 공개 RPC 브라우저 PASS가 아님 |
+| Backend 임시 통합 환경 | BLOCKED (보고) |
+| A Python 테스트 | 181 passed (로컬, 원격 CI 미경유) |
+| TEST | SEALED |
+| A/T/F 포함 main CI | 없음 (main merge 0건) |
