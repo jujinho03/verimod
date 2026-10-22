@@ -1,0 +1,138 @@
+{
+  "at": "2026-10-22T07:52:08.755Z",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "source_git_base": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+  "branch": "nohyusin",
+  "reports": {
+    "frontend": {
+      "total": 240,
+      "passed": 240,
+      "failed": 0,
+      "skipped": 0,
+      "files": 23,
+      "raw_report_sha256": "f44785846b87999aa7f4ad4f78db383ad2fcac0c9a3ec64f91b12707ded4f4d2"
+    },
+    "backend": {
+      "total": 203,
+      "passed": 203,
+      "failed": 0,
+      "skipped": 0,
+      "files": 12,
+      "raw_report_sha256": "2eb1f6cdb808e6b43ff74db1f11412d62dc602182193890bd26a568c23669e73"
+    }
+  },
+  "commands": [
+    {
+      "cwd": "frontend",
+      "command": "npm test",
+      "exit_code": 0,
+      "private_log_sha256": "d92100d3d0eb9d4731e8f047db64f152c3586dd5f7bf48c066fc15340d649164"
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm run build",
+      "exit_code": 0,
+      "private_log_sha256": "461f3e9d5b374aed1f3df51fea77adc86e670850efcc075012aa063c34be4165"
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "private_log_sha256": "53101e83a1652c2c94c07738aa7291531c62183164a9ce8b0de16443f455bc54"
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm run w5:typecheck",
+      "exit_code": 0,
+      "private_log_sha256": "279df4ca6e25058644e8048b074fe92a70238c6e6ab318e8b1c517bd4a28af87"
+    },
+    {
+      "cwd": "backend",
+      "command": "npm test",
+      "exit_code": 0,
+      "private_log_sha256": "4be5dfb2c374be9b0add77e6c637877b96317d4210b0c224995b14939ed92799"
+    },
+    {
+      "cwd": "backend",
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "private_log_sha256": "075f8e42618d8154c9159769c36ba7f05b67472ddf79df3ba9ac64d6e3cae30a"
+    },
+    {
+      "cwd": "backend",
+      "command": "npm run w4:typecheck",
+      "exit_code": 0,
+      "private_log_sha256": "c71f0997d287789f5d597f7e432208d41b32b6bdab1def5c51b03b77fb5855c4"
+    },
+    {
+      "cwd": "backend",
+      "command": "npm run build",
+      "exit_code": 0,
+      "private_log_sha256": "e14590cd21c090243fc1544447c4655e98f574ed588d9323d2bcafd3a7cc18dc"
+    },
+    {
+      "cwd": "frontend",
+      "command": "npm run w5:rpc-smoke",
+      "exit_code": 0,
+      "private_log_sha256": "5d6f5655b31791ffbdb9d0f886de732a1b8271fe29ece6d9701c0fd1a09b575e"
+    },
+    {
+      "cwd": "frontend",
+      "command": "npx playwright test --list",
+      "exit_code": 0,
+      "private_log_sha256": "304a2c03344bd22a6473d45d8ea68094233c1c808ab5ff25af9f0cfd7e148fbe"
+    }
+  ],
+  "source_hash_encoding": "UTF-8 source with CRLF normalized to LF",
+  "source_sha256": {
+    "backend/test/decisions.test.ts": "27e93bf7848c13687c2c412be6ca382b5042654f420059c1c93109d95d9193cb",
+    "frontend/e2e/w5.spec.ts": "eb6d30a996c4d682d6f480f214bc3d00252936292cf43e5854eb7ed96e449c72",
+    "frontend/package.json": "fc096396cde0a610eb3abbddef25eaf766018d8c965cfe21e61250c0a8cada94",
+    "frontend/playwright.w5.config.ts": "2123ff792007b23a2fd7224eb5ad895ef3bebaf1415aa192302cac96ca026dd7",
+    "frontend/scripts/w5-readonly-smoke.mts": "d5ff39ff44f99f56e35a0ab4e8ed14693d19872c1d96b9245243b528e3dd983a",
+    "frontend/src/domain/manifestCheck.ts": "b26f52043dbc43ef3e148feb8a96946bfb0482564762ea3e0ffde0c978c57cc2",
+    "frontend/src/domain/privatePackage.ts": "33dae8b6f0e7353eac75a3bb4cc1f75f4783a9fb02a05333e73f2c360ee40697",
+    "frontend/src/domain/rpcLedger.test.ts": "2dc45ccf9fc610367ee8a61a4d786ef8aa929e017d21f6a089334c2502869076",
+    "frontend/src/domain/rpcLedger.ts": "0adc84450283b5e3c821aff014c7a7c801d33682126ad405853b69e68c374d85",
+    "frontend/src/domain/syntheticLifecycle.ts": "a1ce4b279cfa07ce52a4847bafb83f006fa67dc906717a1ae702ea996cda16f6",
+    "frontend/src/domain/verify.ts": "3578147ed584f4d5f90a34429d03c2957456715bb467469683b0985b20f32b7a",
+    "frontend/src/domain/w5-private-package.test.ts": "af8ede6331defdcd844d7e37e2075dc7492f3ff4a6d80ba1a2894e0839c7cdec",
+    "frontend/src/domain/w5-status.test.ts": "0324449ba0428c90fcbb573ab6ae8c6f1bf631c520b0c0d6529303ab43b9dee3",
+    "frontend/src/features/PrivatePackageInput.tsx": "65777e258e7d0d8652bb65a2a7f74bfe5276c7dedfbf1b577a651806a401de25",
+    "frontend/src/features/ReceiptParts.tsx": "d0111ebf62e662727b27c9f445e7e119c75b087d8dbb194b7c4b3217ab75d07f",
+    "frontend/src/features/SyntheticLifecycleDemo.tsx": "edb5b803ec76757cce34f6bcf5c5f3068ea9d3d0475db78551c5126ae1c2ef6e",
+    "frontend/src/features/VerificationModeNotice.tsx": "1c72fef18107a7c2f16efdde4c4ab97efe19feffd1883fc60140dd40c9cf6710",
+    "frontend/src/features/w5-ui.test.tsx": "21eb54b55fa9e67bec03b22361cabe8a1f5134ae70ba5f8cf4b7c2c6eff4bb48",
+    "frontend/src/pages/CheckPage.tsx": "15fb64cf6fa7cdc7859ade1eff7b4cda9de59d6bf8aecc6d629f9996723f3be2",
+    "frontend/src/pages/ReceiptDetailPage.tsx": "dd2f586fd40cfa09ad31bada9dba6a312336ae5f20882d45571ff6e16db61a2c",
+    "frontend/src/pages/VerifyPage.tsx": "5e6ee7a166fc718e73daa22df21174d5c3ff01cc1ee15cc750266e165819a42b",
+    "frontend/src/site/Layout.tsx": "d2aa5122f76fcddab8acb035f0e48228e5fc551723570ff63a466e5b16c19941",
+    "frontend/tsconfig.w5-tools.json": "b8cc728065f5c8b6c35a4907f4fe3a9d715a8ed295d12d70bcecf3402c5494d9",
+    "frontend/playwright.config.ts": "49feb9bb4c8f74011856a4cedec41b2b84d3722ac1c80249da94eb404a2d6ca6"
+  },
+  "public_rpc": {
+    "status": "PASS",
+    "cases": 7,
+    "read_only_calls": 142,
+    "report_sha256": "6bece99a62d77a60ab936aa016ed82307edf7b91e652c4cb4a6b09b56ed19901",
+    "test_only_observed_snapshot_reused": true
+  },
+  "browser_qa": "BLOCKED",
+  "ssr_is_not_browser_qa": true,
+  "github_ci": "NOT_RUN_FOR_NEW_COMMIT",
+  "lint": {
+    "errors": 0,
+    "preexisting_warnings": 2
+  },
+  "historical_w4_public_files_unchanged": true,
+  "shared_protocol_and_backend_production_sources_unchanged": true,
+  "gate_5": "PARTIAL",
+  "t_review": "PENDING",
+  "actual_w4_content": "NOT_CHECKED",
+  "actual_authoritative_db_opened": false,
+  "actual_chain_tx_sent": false,
+  "test_dataset_accessed": false,
+  "policy_status": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false
+}

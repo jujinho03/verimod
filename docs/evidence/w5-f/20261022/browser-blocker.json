@@ -1,0 +1,29 @@
+{
+  "at": "2026-10-22T07:52:08.744Z",
+  "platform": "win32",
+  "status": "BLOCKED",
+  "planned_cases": 30,
+  "attempted_launches": 30,
+  "test_bodies_executed": 0,
+  "passing_browser_cases": 0,
+  "error": "browserType.launch: Target page, context or browser has been closed",
+  "crashpad_error": "TransactNamedPipe: pipe ended (0x6D)",
+  "all_contexts_share_launch_error": true,
+  "app_browser_attempt": {
+    "url": "http://127.0.0.1:4186/verify",
+    "error": "net::ERR_CONNECTION_TIMED_OUT"
+  },
+  "raw_logs_private": true,
+  "raw_browser_log_sha256": "e15013891d7c3dd7832cf1ca9de8aa180b982c302ef712ea1742aab6f7da0406",
+  "runner_stopped_after_30_identical_launch_failures": true,
+  "temporary_dev_server_stopped": true,
+  "desktop": {
+    "width": 1440,
+    "height": 1000
+  },
+  "mobile": {
+    "width": 390,
+    "height": 844
+  },
+  "screenshots_produced": 0
+}

@@ -1,0 +1,820 @@
+{
+  "run": "W5_NEW_NODE_RPC_READ_ONLY",
+  "at": "2026-10-22T07:43:43.433Z",
+  "platform": "win32",
+  "node": "v24.16.0",
+  "browser_qa": "BLOCKED_SEPARATE_ENVIRONMENT",
+  "profile": {
+    "profile_id": "BASE_SEPOLIA_DEMO",
+    "chain_id": "84532",
+    "contract_address": "0xd17ba590b23e984e3f3408bcdc3529be9868ec50",
+    "publisher": "0xd47675be41ec3476f541c1d8d8a9f622c90182ed",
+    "issuer_id": "verimod-example-platform",
+    "protocol_version": 1,
+    "min_confirmations": 12,
+    "public_chain": true,
+    "deployment_block": 48012271,
+    "rpc_urls": [
+      "https://base-sepolia-rpc.publicnode.com",
+      "https://sepolia.base.org"
+    ]
+  },
+  "head": 48665772,
+  "observed_epoch": {
+    "epoch_id": "1",
+    "root": "0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82",
+    "receipt_count": 2,
+    "protocol_version": 1,
+    "publisher": "0xd47675be41ec3476f541c1d8d8a9f622c90182ed",
+    "issuer_seq_min": null,
+    "issuer_seq_max": null,
+    "anchored_block": 48358039
+  },
+  "public_bundle_sha256": {
+    "receipt-0.bundle.json": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+    "receipt-1.bundle.json": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0"
+  },
+  "historical_files_unchanged": true,
+  "results": [
+    {
+      "name": "CASE1a receipt-0",
+      "expected": "VALID",
+      "actual": "VALID",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": 307734
+    },
+    {
+      "name": "CASE1b receipt-1",
+      "expected": "VALID",
+      "actual": "VALID",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": 307734
+    },
+    {
+      "name": "CASE2 body mutation",
+      "expected": "HASH_MISMATCH",
+      "actual": "HASH_MISMATCH",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": null
+    },
+    {
+      "name": "CASE3 proof mutation",
+      "expected": "INVALID_PROOF",
+      "actual": "INVALID_PROOF",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": null
+    },
+    {
+      "name": "CASE4 contract_address",
+      "expected": "UNTRUSTED_ANCHOR",
+      "actual": "UNTRUSTED_ANCHOR",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": null
+    },
+    {
+      "name": "CASE4 chain_id",
+      "expected": "UNTRUSTED_ANCHOR",
+      "actual": "UNTRUSTED_ANCHOR",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": null
+    },
+    {
+      "name": "CASE5 not anchored",
+      "expected": "PENDING_ANCHOR",
+      "actual": "PENDING_ANCHOR",
+      "status": "PASS",
+      "manifest": "NOT_CHECKED",
+      "content": "NOT_CHECKED",
+      "confirmations": null
+    }
+  ],
+  "calls": [
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_call",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_call",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_blockNumber",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getLogs",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_getTransactionReceipt",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_chainId",
+      "success": true
+    },
+    {
+      "host": "base-sepolia-rpc.publicnode.com",
+      "method": "eth_blockNumber",
+      "success": true
+    }
+  ],
+  "authoritative_db_opened": false,
+  "private_material_accessed": false,
+  "chain_tx_sent": false,
+  "policy": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false
+}

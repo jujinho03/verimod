@@ -154,6 +154,41 @@ describe('API-02/API-09 authoritative decision issuance', () => {
       score_keys: ['hate', 'offensive'],
     })
   })
+
+  it.each(['DEMO_REVIEWER', 'DEMO_OPERATOR', 'UNKNOWN'])('W5 SEC-03 rejects decision issuance by %s', async (role) => {
+    const app = createApp({ database, ...dependencies() })
+    const response = await request(app).post('/api/decisions').set({ ...headers, 'x-demo-role': role }).send({ text: 'PRIVATE_W5_SENTINEL' })
+    expect(response.status).toBe(403)
+    expect(JSON.stringify(response.body)).not.toContain('PRIVATE_W5_SENTINEL')
+    expect(database.prepare('SELECT COUNT(*) AS count FROM receipts').get()).toEqual({ count: 0 })
+  })
+
+  it('W5 SEC-03 scopes replay material to the issuing demo principal and never exposes it publicly', async () => {
+    const app = createApp({ database, ...dependencies() })
+    const first = await request(app).post('/api/decisions').set(headers).send({ text: 'PRIVATE_W5_SENTINEL' })
+    const other = await request(app).post('/api/decisions').set({ ...headers, 'x-demo-principal': 'other-demo-user' }).send({ text: 'PRIVATE_W5_SENTINEL' })
+    expect(other.status).toBe(201)
+    expect(other.body.data.private_package.content_salt).not.toBe(first.body.data.private_package.content_salt)
+    const replay = await request(app).post('/api/decisions').set(headers).send({ text: 'PRIVATE_W5_SENTINEL' })
+    expect(replay.body.data).toEqual(first.body.data)
+    const frozen = await request(app).post('/api/epochs/freeze').set({ ...headers, 'x-demo-role': 'DEMO_OPERATOR' }).send({})
+    expect(frozen.status).toBe(201)
+    const id = first.body.data.bundle.receipt_body.receipt_id
+    for (const url of [`/api/receipts/${id}`, `/api/receipts/${id}/bundle`, `/api/epochs/${frozen.body.data.epoch.epoch_id}`, '/api/manifests']) {
+      const response = await request(app).get(url)
+      expect(response.status).toBe(200)
+      const serialized = JSON.stringify(response.body)
+      for (const secret of ['PRIVATE_W5_SENTINEL', 'content_salt', 'private_package', first.body.data.private_package.content_salt]) expect(serialized).not.toContain(secret)
+    }
+  })
+
+  it.each(['/api/appeals', '/api/reviews'])('W5 preserves %s as NOT_IMPLEMENTED', async (url) => {
+    const role = url.endsWith('reviews') ? 'DEMO_REVIEWER' : 'DEMO_USER'
+    const response = await request(createApp({ database })).post(url).set({ ...headers, 'x-demo-role': role }).send({})
+    expect(response.status).toBe(501)
+    expect(response.body.error.code).toBe('NOT_IMPLEMENTED')
+    expect(database.prepare('SELECT COUNT(*) AS count FROM receipts').get()).toEqual({ count: 0 })
+  })
 })
 
 describe('API-09 safe failure', () => {

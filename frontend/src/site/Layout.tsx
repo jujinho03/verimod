@@ -3,6 +3,8 @@ import { Link, Outlet, useLocation } from 'react-router'
 import { SiteFooter } from './SiteFooter'
 import { SiteHeader } from './SiteHeader'
 import { useAppState, useStore } from '../store/context'
+import { VerificationModeNotice } from '../features/VerificationModeNotice'
+import { baseSepoliaProfileFromEnv } from '../domain/rpcLedger'
 
 function useScrollOnNavigate() {
   const { pathname, hash } = useLocation()
@@ -30,19 +32,10 @@ function useScrollOnNavigate() {
 }
 
 function SyntheticNotice() {
-  return (
-    <div className="band notice" data-tone="dark">
-      <div className="frame">
-        <span className="notice__tag mono">Prototype mode</span>
-        <p>
-          Synthetic moderation · Simulated ledger. 점수와 anchor는 simulation이며 영수증 해시·Merkle 증명은 브라우저에서 실제 계산합니다.{' '}
-          <Link to="/protocol#simulation" className="arrow-link" style={{ display: 'inline' }}>
-            무엇이 합성인가요
-          </Link>
-        </p>
-      </div>
-    </div>
-  )
+  const { pathname, search } = useLocation()
+  const mode = pathname === '/verify' ? new URLSearchParams(search).get('profile') === 'BASE_SEPOLIA_DEMO' && baseSepoliaProfileFromEnv(import.meta.env)
+    ? 'BASE_SEPOLIA_DEMO' : 'SYNTHETIC_LOCAL' : pathname.startsWith('/receipts') || pathname === '/review' ? 'SYNTHETIC_LOCAL' : 'SERVICE'
+  return <VerificationModeNotice mode={mode} />
 }
 
 export function Layout() {

@@ -11,6 +11,7 @@ import { useStore } from '../store/context'
 import { draftDecision, type DecisionDraft } from '../store/store'
 import { ActionBadge, ArrowLink } from '../ui/bits'
 import { downloadJson, shortHash } from '../ui/format'
+import { createPrivatePackage } from '../domain/privatePackage'
 
 const HARD_LIMIT = 5000
 const LIVE_API_URL = String(import.meta.env.VITE_VERIMOD_API_URL ?? '').trim()
@@ -20,12 +21,8 @@ const liveClient = LIVE_ENABLED ? new VeriModApiClient({ baseUrl: LIVE_API_URL }
 
 interface StoredLiveDecision { created: DecisionCreated; original_text: string; saved_at: string }
 
-function loadLiveDecision(): StoredLiveDecision | null {
-  try {
-    const value = localStorage.getItem(LIVE_STORAGE_KEY)
-    return value ? JSON.parse(value) as StoredLiveDecision : null
-  } catch { return null }
-}
+// Retire the W4 plaintext cache. Owner material now stays in memory until explicitly downloaded.
+try { localStorage.removeItem(LIVE_STORAGE_KEY) } catch { /* Storage may be disabled. */ }
 
 const SAMPLES = [
   { label: '승인 예시', text: '오늘 동네 도서관에서 열린 그림책 읽기 모임에 다녀왔어요. 아이들이 정말 즐거워했습니다.' },
@@ -42,7 +39,7 @@ export function CheckPage() {
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState<'score' | 'issue' | null>(null)
   const [mode, setMode] = useState<'LIVE' | 'SYNTHETIC'>(() => liveClient ? 'LIVE' : 'SYNTHETIC')
-  const [live, setLive] = useState<StoredLiveDecision | null>(loadLiveDecision)
+  const [live, setLive] = useState<StoredLiveDecision | null>(null)
 
   const length = codePointLength(text)
   const stale = draft !== null && draft.text !== text
@@ -85,7 +82,6 @@ export function CheckPage() {
     try {
       const response = await liveClient.postDecision({ text }, crypto.randomUUID())
       const saved = { created: response.data, original_text: text, saved_at: new Date().toISOString() }
-      localStorage.setItem(LIVE_STORAGE_KEY, JSON.stringify(saved))
       setLive(saved)
     } catch (caught) {
       setError(caught instanceof ApiClientError && caught.code === 'INFERENCE_UNAVAILABLE'
@@ -186,12 +182,14 @@ export function CheckPage() {
                 </>}
                 <div className="btn-row">
                   <button type="button" className="btn btn--blue" onClick={() => downloadJson(`verimod-live-${live.created.bundle.receipt_body.receipt_id}.json`, live.created.bundle)}>공개 bundle 저장</button>
-                  <button type="button" className="btn btn--outline" onClick={() => downloadJson(`verimod-private-${live.created.bundle.receipt_body.receipt_id}.json`, {
-                    package_version: 'verimod-private/1', receipt_id: live.created.private_package.receipt_id,
-                    original_text: live.original_text, content_salt: live.created.private_package.content_salt,
-                    content_commitment: live.created.private_package.content_commitment,
-                  })}>Private Package 저장</button>
+                  <button type="button" className="btn btn--outline" onClick={async () => {
+                    try { downloadJson(`verimod-private-${live.created.bundle.receipt_body.receipt_id}.json`,
+                      await createPrivatePackage(live.created.bundle.receipt_body, live.original_text, live.created.private_package.content_salt)) }
+                    catch { setError('소유자 자료를 확인할 수 없어 Package를 저장하지 않았습니다.') }
+                  }}>Private Package 저장</button>
+                  <button type="button" className="btn btn--outline" onClick={() => { setLive(null); setText('') }}>소유자 자료 지우기</button>
                 </div>
+                <p className="muted small">비공개 자료는 이번 화면의 메모리에만 있습니다. 본인 파일로 저장한 뒤 안전하게 보관하세요. 화면을 떠나면 사라집니다.</p>
               </div>
             ) : !draft ? (
               <div className="empty">
