@@ -30,6 +30,8 @@ W4 배포·profile 값은 `docs/deployments.md`에 보존한다. 2026-10-22에 `
 
 후속 TEST-05에서는 transaction hash를 제공받아 receipt/event를 직접 대조했다. 이 결과는 [W5 TEST-05 공개 RPC 증거](../evidence/w5-t-test-05-20261022.md)에 별도로 기록한다.
 
+TEST-05의 원본 SHA 검사는 `w4-frozen-epoch-public/20261017-r01`의 10/17 frozen handoff 4개 파일을 대상으로 한다. 최신 main에 보존된 `w4-anchored-epoch-public/20261020-r01`의 anchored bundle·브라우저 증거는 별도 역사 자료이며, 이 T 진행 기록이 이를 수정하거나 동일한 파일 범위의 검증으로 주장하지 않는다.
+
 ## CHAIN-09 산식
 
 문서에 기록된 단일 W4 transaction 관측치 `gasUsed = 70,407`, receipt 2건의 단순 상각은 `70,407 / 2 = 35,203.5 gas/receipt`이다. proof bytes, event, block, 실제 gas price 및 총 비용은 이 작업에서 새로 관측하지 않았으므로 운영 평균이나 비용 추정으로 일반화하지 않는다.
