@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 import { buildSeedState } from './seed'
-import { STORAGE_KEY, saveState, validateState } from './state'
+import { LEGACY_LIVE_STORAGE_KEY, STORAGE_KEY, clearLegacyPrivacy, inspectLegacyPrivacy, legacyPrivacyPresent, readLegacyPrivacyBackup, saveState, validateState } from './state'
 import { VeriModStore, draftDecision } from './store'
 
-function memoryStorage(raw: string | null = null): Storage {
-  const map = new Map<string, string>(raw === null ? [] : [[STORAGE_KEY, raw]])
+function memoryStorage(raw: string | null = null, extra: Record<string, string> = {}): Storage {
+  const map = new Map<string, string>([...(raw === null ? [] : [[STORAGE_KEY, raw] as const]), ...Object.entries(extra)])
   return {
     get length() { return map.size },
     key: (i) => [...map.keys()][i] ?? null,
@@ -16,6 +16,51 @@ function memoryStorage(raw: string | null = null): Storage {
 }
 
 describe('persistent state recovery', () => {
+  it('detects and explicitly sanitizes every legacy private path while preserving public state', async () => {
+    const legacy = await buildSeedState()
+    const secret = Object.values(legacy.contents)[0]
+    const liveSecret = 'W4_LIVE_PRIVATE_SENTINEL'
+    const storage = memoryStorage(JSON.stringify(legacy), {
+      [LEGACY_LIVE_STORAGE_KEY]: JSON.stringify({ original_text: liveSecret, content_salt: secret.salt }),
+    })
+    const detected = inspectLegacyPrivacy(storage)
+    expect(detected.storage_available).toBe(true)
+    expect(detected.live_cache_present).toBe(true)
+    expect(detected.state_private_present).toBe(true)
+    expect(legacyPrivacyPresent(detected)).toBe(true)
+    expect(JSON.stringify(detected)).not.toContain(secret.text)
+    expect(JSON.stringify(detected)).not.toContain(secret.salt)
+    const backup = readLegacyPrivacyBackup(storage)
+    expect(JSON.stringify(backup)).toContain(liveSecret)
+
+    const result = clearLegacyPrivacy(storage)
+    expect(result).toEqual({ live_cache_removed: true, state_snapshot_sanitized: true, malformed_state_removed: false })
+    expect(storage.getItem(LEGACY_LIVE_STORAGE_KEY)).toBeNull()
+    const cleaned = JSON.parse(storage.getItem(STORAGE_KEY)!)
+    expect(cleaned.contents).toEqual({})
+    expect(cleaned.appeals).toEqual({})
+    expect(cleaned.receipts).toEqual(legacy.receipts)
+    expect(cleaned.epochs).toEqual(legacy.epochs)
+    expect(legacyPrivacyPresent(inspectLegacyPrivacy(storage))).toBe(false)
+    expect(clearLegacyPrivacy(storage)).toEqual({ live_cache_removed: false, state_snapshot_sanitized: false, malformed_state_removed: false })
+  })
+  it('handles malformed legacy state and blocked storage without exposing private values', () => {
+    const secret = 'LEGACY_PRIVATE_SENTINEL'
+    const storage = memoryStorage(`{"contents":{"x":{"text":"${secret}"}}`, { [LEGACY_LIVE_STORAGE_KEY]: secret })
+    expect(inspectLegacyPrivacy(storage).malformed_state_present).toBe(true)
+    expect(() => clearLegacyPrivacy(storage)).not.toThrow()
+    expect(storage.getItem(STORAGE_KEY)).toBeNull()
+    expect(storage.getItem(LEGACY_LIVE_STORAGE_KEY)).toBeNull()
+
+    const blocked = memoryStorage()
+    blocked.getItem = () => { throw new Error(secret) }
+    expect(inspectLegacyPrivacy(blocked).storage_available).toBe(false)
+    expect(() => readLegacyPrivacyBackup(blocked)).toThrow('기존 비공개 자료를 백업하지 못했습니다.')
+    expect(() => clearLegacyPrivacy(blocked)).toThrow('기존 비공개 자료를 정리하지 못했습니다.')
+    for (const action of [() => readLegacyPrivacyBackup(blocked), () => clearLegacyPrivacy(blocked)]) {
+      try { action() } catch (error) { expect(String(error)).not.toContain(secret) }
+    }
+  })
   it('W5 writes public state without private seed text or salt', async () => {
     const state = await buildSeedState()
     const storage = memoryStorage()

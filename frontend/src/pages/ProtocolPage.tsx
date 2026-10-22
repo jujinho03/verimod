@@ -51,7 +51,7 @@ export function ProtocolPage() {
           <h2>Simulated today</h2>
           <p>키워드 점수는 UNCALIBRATED synthetic score입니다. chain 31337의 주소·publisher·tx·block·confirmations와 reviewer 역할은 simulation입니다. 실제 외부 원장이나 인증된 사람 검토가 아닙니다.</p>
           <h2>Next integration</h2>
-          <p>원문·salt·이의 본문은 이번 방문의 메모리에만 보관합니다. 공개 영수증·원장 상태만 localStorage에 저장하며 Private Package는 본인이 직접 다운로드합니다. 운영용 신원 인증·secure storage는 구현하지 않았습니다.</p>
+          <p>새로 입력한 원문·salt·이의 본문은 이번 방문의 메모리에만 보관합니다. 공개 영수증·원장 상태만 localStorage에 저장하며 Private Package는 본인이 직접 다운로드합니다. 이전 W4 비공개 캐시가 있으면 판정 요청 화면에서 먼저 백업한 뒤 명시적으로 정리할 수 있습니다. 운영용 신원 인증·secure storage는 구현하지 않았습니다.</p>
         </div>
       </div></section>
 
@@ -284,7 +284,7 @@ export function ProtocolPage() {
                     <li>원장: 브라우저 안의 시뮬레이션. chain_id·주소·tx hash는 합성 값이고 블록은 1초마다 생깁니다.</li>
                     <li>배치: 발급 후 {BATCH_WINDOW_MS / 1000}초 대기, 같은 epoch의 다른 영수증은 내용이 없는 합성 해시</li>
                     <li>시드 영수증 5건과 검토자 권한 확인 없음</li>
-                    <li>저장: 공개 영수증·합성 원장 상태만 localStorage에 보관합니다. 비공개 원문·salt·이의 본문은 메모리에서만 사용하며 서버에 보내지 않습니다.</li>
+                    <li>저장: 공개 영수증·합성 원장 상태만 localStorage에 보관합니다. 새 비공개 원문·salt·이의 본문은 메모리에서만 사용하며 서버에 보내지 않습니다. 기존 W4 캐시는 사용자 동의 없이 지우지 않습니다.</li>
                   </ul>
                 </div>
               </div>

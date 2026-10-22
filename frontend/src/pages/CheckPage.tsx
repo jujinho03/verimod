@@ -12,11 +12,11 @@ import { draftDecision, type DecisionDraft } from '../store/store'
 import { ActionBadge, ArrowLink } from '../ui/bits'
 import { downloadJson, shortHash } from '../ui/format'
 import { createPrivatePackage } from '../domain/privatePackage'
+import { browserStorage, clearLegacyPrivacy, inspectLegacyPrivacy, legacyPrivacyPresent, readLegacyPrivacyBackup } from '../store/state'
 
 const HARD_LIMIT = 5000
 const LIVE_API_URL = String(import.meta.env.VITE_VERIMOD_API_URL ?? '').trim()
 const LIVE_ENABLED = String(import.meta.env.VITE_VERIMOD_LIVE_ENABLED ?? '') === 'true'
-const LIVE_STORAGE_KEY = 'verimod:w4-live-decision:v1'
 const liveClient = LIVE_ENABLED ? new VeriModApiClient({ baseUrl: LIVE_API_URL }) : null
 
 interface StoredLiveDecision { created: DecisionCreated; original_text: string; saved_at: string }
@@ -39,6 +39,8 @@ export function CheckPage() {
   const [busy, setBusy] = useState<'score' | 'issue' | null>(null)
   const [mode, setMode] = useState<'LIVE' | 'SYNTHETIC'>(() => liveClient ? 'LIVE' : 'SYNTHETIC')
   const [live, setLive] = useState<StoredLiveDecision | null>(null)
+  const [legacyPrivacy, setLegacyPrivacy] = useState(() => inspectLegacyPrivacy(browserStorage()))
+  const [legacyNotice, setLegacyNotice] = useState<string | null>(null)
 
   const length = codePointLength(text)
   const stale = draft !== null && draft.text !== text
@@ -47,6 +49,25 @@ export function CheckPage() {
     setText(next)
     setDraft(null)
     setError(null)
+  }
+
+  const backupLegacyPrivacy = () => {
+    try {
+      const backup = readLegacyPrivacyBackup(browserStorage())
+      if (!backup) { setLegacyNotice('백업할 레거시 비공개 자료를 찾지 못했습니다.'); return }
+      downloadJson('verimod-legacy-private-backup.json', backup)
+      setLegacyNotice('기존 비공개 자료를 소유자 파일로 저장했습니다. 파일을 확인한 뒤 정리할 수 있습니다.')
+    } catch { setLegacyNotice('기존 비공개 자료를 백업하지 못했습니다. 브라우저 저장소 설정을 확인하세요.') }
+  }
+
+  const clearLegacyPrivateData = () => {
+    try {
+      const cleaned = clearLegacyPrivacy(browserStorage())
+      setLegacyPrivacy(inspectLegacyPrivacy(browserStorage()))
+      if (cleaned.live_cache_removed || cleaned.state_snapshot_sanitized || cleaned.malformed_state_removed) {
+        setLegacyNotice('명시적으로 선택한 레거시 비공개 자료를 정리했습니다. 공개 영수증·epoch 상태는 정제 가능한 경우 유지했습니다.')
+      } else setLegacyNotice('정리할 레거시 비공개 자료를 찾지 못했습니다.')
+    } catch { setLegacyNotice('기존 비공개 자료를 정리하지 못했습니다. 브라우저 저장소 설정을 확인하세요.') }
   }
 
   const score = async () => {
@@ -163,11 +184,16 @@ export function CheckPage() {
               )}
             </div>
             <p className="muted small">원문과 salt는 공개 bundle에 넣지 않습니다. 실제 발급에서는 브라우저가 Private Receipt Package를 별도로 보관합니다.</p>
-            <p className="muted small">LIVE·합성 입력의 비공개 자료는 이번 방문의 메모리에만 보관합니다. 필요한 Package는 직접 다운로드하세요.</p>
-            <button type="button" className="btn btn--outline btn--compact" onClick={() => {
-              try { localStorage.removeItem(LIVE_STORAGE_KEY) }
-              catch { setError('기존 저장자료를 지우지 못했습니다. 브라우저 저장소 설정을 확인하세요.') }
-            }}>기존 W4 LIVE 비공개 캐시 지우기</button>
+            <p className="muted small">새로 입력한 LIVE·합성 자료는 이번 방문의 메모리에만 보관합니다. 필요한 Package는 직접 다운로드하세요.</p>
+            {legacyPrivacyPresent(legacyPrivacy) && <div className="inline-warn" role="status">
+              <p>이 브라우저에서 이전 W4 비공개 저장자료가 감지되었습니다. 원문이나 salt는 화면에 표시하지 않습니다. 먼저 본인 파일로 백업한 뒤, 동의한 경우에만 정리하세요.</p>
+              <div className="btn-row">
+                <button type="button" className="btn btn--outline btn--compact" onClick={backupLegacyPrivacy}>기존 비공개 자료 백업</button>
+                <button type="button" className="btn btn--outline btn--compact" onClick={clearLegacyPrivateData}>동의하고 레거시 비공개 자료 정리</button>
+              </div>
+            </div>}
+            {!legacyPrivacy.storage_available && <p className="inline-warn">브라우저 저장소에 접근할 수 없어 기존 자료 존재 여부를 확인하지 못했습니다.</p>}
+            {legacyNotice && <p className="muted small" role="status">{legacyNotice}</p>}
           </form>
 
           <aside className="work__side" aria-live="polite">
