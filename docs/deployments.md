@@ -15,7 +15,7 @@ T `7534907fa3ad66cc6ed29cfbee2efd8c2c75369e`의
 | confirmation 정책 | 12 이상 |
 
 계약 배포와 실제 R01 Epoch 등록은 다른 결과입니다. 현재 실제 R01 Receipt 2건은
-A DB에서 Epoch 1로 Freeze됐지만 이 Epoch의 tx/온체인 확인은 아직 없습니다.
+A DB에서 Epoch 1로 Freeze됐고, 2026-10-20 이 컨트랙트에 [등록](https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286)됐습니다(블록 48358039, 원본 DB CONFIRMED). [공개 증거](handoffs/w4-anchored-epoch-public/20261020-r01/README.md).
 T의 이전 문서에 남은 freeze 입력 대기는 [공개 인계](handoffs/w4-frozen-epoch-public/20261017-r01/README.md)로
 진전됐으며 현재는 실제 사전 ACK 채널과 운영 승인이 차단사항입니다.
 

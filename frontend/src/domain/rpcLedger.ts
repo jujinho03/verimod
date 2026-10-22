@@ -14,6 +14,8 @@ const HEX_DATA = /^0x[0-9a-f]*$/
 const EPOCHS_SELECTOR = '0x4bd2d7f9'
 const PUBLISHER_SELECTOR = '0x8c72c54e'
 const EPOCH_REGISTERED_TOPIC = '0x71ec63fe81bedeb984bf4a9033c8cb5d207929603415afbf0a88e1322887a6c4'
+/** Public Base Sepolia RPCs reject wide eth_getLogs ranges (publicnode caps 50,000 blocks). */
+export const LOG_RANGE_BLOCKS = 10_000
 
 export interface ApprovedTrustProfile extends TrustConfig {
   profile_id: 'BASE_SEPOLIA_DEMO'
@@ -123,13 +125,23 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
       }
 
       const topicEpoch = `0x${word(epoch)}`
-      const logs = await rpc('eth_getLogs', [{
-        address: profile.contract_address,
-        fromBlock: `0x${profile.deployment_block.toString(16)}`,
-        toBlock: 'latest',
-        topics: [EPOCH_REGISTERED_TOPIC, topicEpoch],
-      }])
-      if (!Array.isArray(logs) || logs.length !== 1) throw new RpcUnavailableError('epoch event is missing or ambiguous')
+      // Scan the whole deployment..head range in bounded windows; every window is still read, so a
+      // duplicate event anywhere is detected exactly as with one unbounded request.
+      const head = quantity(await rpc('eth_blockNumber', []))
+      if (head < profile.deployment_block) throw new RpcUnavailableError('head is below the deployment block')
+      const logs: unknown[] = []
+      for (let from = profile.deployment_block; from <= head; from += LOG_RANGE_BLOCKS) {
+        const to = Math.min(from + LOG_RANGE_BLOCKS - 1, head)
+        const part = await rpc('eth_getLogs', [{
+          address: profile.contract_address,
+          fromBlock: `0x${from.toString(16)}`,
+          toBlock: `0x${to.toString(16)}`,
+          topics: [EPOCH_REGISTERED_TOPIC, topicEpoch],
+        }])
+        if (!Array.isArray(part)) throw new RpcUnavailableError('invalid log response')
+        logs.push(...part)
+      }
+      if (logs.length !== 1) throw new RpcUnavailableError('epoch event is missing or ambiguous')
       const log = logs[0] as Record<string, unknown>
       if (log.removed === true) throw new RpcUnavailableError('removed epoch event')
       const event = words(log.data, 3)

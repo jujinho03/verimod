@@ -1,0 +1,119 @@
+{
+  "env": {
+    "browser": "chromium 153.0.8010.12",
+    "node": "v24.10.0",
+    "platform": "win32",
+    "at": "2026-10-20T08:34:05.502Z",
+    "base_url": "http://127.0.0.1:5179",
+    "trust_profile": "BASE_SEPOLIA_DEMO (contract 0xd17b..ec50, publisher 0xd476..82ed, min_confirmations 12, rpc publicnode+sepolia.base.org)"
+  },
+  "anchor": {
+    "chain_id": "84532",
+    "contract_address": "0xd17ba590b23e984e3f3408bcdc3529be9868ec50",
+    "epoch_id": "1",
+    "tx_hash": "0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286",
+    "block_number": "48358039",
+    "block_hash": "0xacd2061e6e25f7e76e42361c6bb9aa0b15a367b511a18db5b9d083f40a2a43cf"
+  },
+  "passed": 7,
+  "total": 7,
+  "results": [
+    {
+      "case": "CASE1a actual receipt-0",
+      "expected": [
+        "VALID"
+      ],
+      "actual": "VALID",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 80,
+      "rpc_hosts": [
+        "base-sepolia-rpc.publicnode.com"
+      ],
+      "platform_api_calls": 0,
+      "screenshot": "CASE1a.png"
+    },
+    {
+      "case": "CASE1b actual receipt-1",
+      "expected": [
+        "VALID"
+      ],
+      "actual": "VALID",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 80,
+      "rpc_hosts": [
+        "base-sepolia-rpc.publicnode.com"
+      ],
+      "platform_api_calls": 0,
+      "screenshot": "CASE1b.png"
+    },
+    {
+      "case": "CASE2 receipt body tampered (policy action)",
+      "expected": [
+        "HASH_MISMATCH"
+      ],
+      "actual": "HASH_MISMATCH",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 0,
+      "rpc_hosts": [],
+      "platform_api_calls": 0,
+      "screenshot": "CASE2.png"
+    },
+    {
+      "case": "CASE3 Merkle proof sibling tampered",
+      "expected": [
+        "INVALID_PROOF"
+      ],
+      "actual": "INVALID_PROOF",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 80,
+      "rpc_hosts": [
+        "base-sepolia-rpc.publicnode.com"
+      ],
+      "platform_api_calls": 0,
+      "screenshot": "CASE3.png"
+    },
+    {
+      "case": "CASE4a anchor -> unapproved contract (W3 address)",
+      "expected": [
+        "UNTRUSTED_ANCHOR"
+      ],
+      "actual": "UNTRUSTED_ANCHOR",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 0,
+      "rpc_hosts": [],
+      "platform_api_calls": 0,
+      "screenshot": "CASE4a.png"
+    },
+    {
+      "case": "CASE4b anchor -> unapproved chain",
+      "expected": [
+        "UNTRUSTED_ANCHOR"
+      ],
+      "actual": "UNTRUSTED_ANCHOR",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 0,
+      "rpc_hosts": [],
+      "platform_api_calls": 0,
+      "screenshot": "CASE4b.png"
+    },
+    {
+      "case": "CASE5 proof/anchor removed",
+      "expected": [
+        "PENDING_ANCHOR"
+      ],
+      "actual": "PENDING_ANCHOR",
+      "pass": true,
+      "profile": "BASE_SEPOLIA_DEMO",
+      "rpc_calls": 0,
+      "rpc_hosts": [],
+      "platform_api_calls": 0,
+      "screenshot": "CASE5.png"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+    "schema":  "w4-anchored-epoch-public/1",
+    "network":  "Base Sepolia",
+    "chain_id":  "84532",
+    "contract":  "0xd17ba590b23e984e3f3408bcdc3529be9868ec50",
+    "publisher":  "0xd47675be41ec3476f541c1d8d8a9f622c90182ed",
+    "epoch":  {
+                  "epoch_id":  "1",
+                  "merkle_root":  "0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82",
+                  "receipt_count":  2,
+                  "protocol_version":  1
+              },
+    "transaction":  {
+                        "tx_hash":  "0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286",
+                        "from":  "0xd47675be41ec3476f541c1d8d8a9f622c90182ed",
+                        "to":  "0xd17ba590b23e984e3f3408bcdc3529be9868ec50",
+                        "nonce":  3,
+                        "value":  "0",
+                        "status":  1,
+                        "gas_used":  70407,
+                        "block_number":  48358039,
+                        "block_hash":  "0xacd2061e6e25f7e76e42361c6bb9aa0b15a367b511a18db5b9d083f40a2a43cf",
+                        "explorer":  "https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286"
+                    },
+    "event_EpochRegistered":  {
+                                  "count_in_receipt":  1,
+                                  "epochId":  "1",
+                                  "root":  "0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82",
+                                  "count":  2,
+                                  "protocolVersion":  1
+                              },
+    "getter_epochs_1":  {
+                            "read_mode":  "EIP-1898 blockHash + requireCanonical=true, at inclusion block and at head",
+                            "root":  "0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82",
+                            "count":  2,
+                            "protocolVersion":  1,
+                            "match":  true
+                        },
+    "independent_rpc_reads":  [
+                                  "https://base-sepolia-rpc.publicnode.com",
+                                  "https://sepolia.base.org"
+                              ],
+    "confirmations":  {
+                          "minimum":  12,
+                          "at_independent_check":  203,
+                          "at_F_confirmation":  339,
+                          "at_browser_check":  431
+                      },
+    "f_authoritative_state":  {
+                                  "status":  "CONFIRMED",
+                                  "verifier":  "w4-rpc-confirmation/1",
+                                  "confirmation_evidence_persisted":  true,
+                                  "release_valid":  true,
+                                  "verified_at":  "2026-10-20T08:30:43.898Z"
+                              },
+    "durability_order":  "F durable prepare (SUBMITTING) recorded before broadcast; single transaction; publisher nonce 3 -\u003e 4",
+    "policy":  {
+                   "policy_status":  "W4_PROVISIONAL_E2E_ONLY",
+                   "team_approved":  false
+               },
+    "not_published":  [
+                          "signed raw transaction",
+                          "content salt",
+                          "original text",
+                          "private package",
+                          "RPC credentials",
+                          "database path/identity",
+                          "host operational details"
+                      ]
+}

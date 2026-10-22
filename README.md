@@ -31,14 +31,12 @@ flowchart LR
   E --> F[블록체인 등록<br/>Base Sepolia]
   F --> G[이용자 브라우저에서<br/>독립 검증]
   classDef done fill:#d8f3dc,stroke:#2d6a4f,color:#1b4332
-  classDef todo fill:#fff3cd,stroke:#b08900,color:#5c4400
-  class A,B,C,D,E done
-  class F,G todo
+  class A,B,C,D,E,F,G done
 ```
 
-초록색은 실제 모델과 실제 데이터로 실행을 마친 단계, 노란색은 남은 단계입니다.
+모든 단계를 실제 모델·실제 데이터·실제 Base Sepolia로 실행했습니다(2026-10-20).
 
-## 현재 진행 상황 (2026-10-18)
+## 현재 진행 상황 (2026-10-20)
 
 | 단계 | 상태 | 설명 |
 | --- | --- | --- |
@@ -47,18 +45,19 @@ flowchart LR
 | 판정 영수증 발급 | 완료 | 실제 추론 결과로 영수증 2건 발급, 실패 시 발급하지 않음(17개 실패 시나리오 통과) |
 | 영수증 묶음 고정 | 완료 | Epoch 1에 영수증 2건을 고정, 독립 재계산으로 root 일치 확인 |
 | 스마트 컨트랙트 | 배포 완료 | [Base Sepolia 컨트랙트](https://sepolia.basescan.org/address/0xd17bA590b23E984e3F3408bcdC3529BE9868EC50) |
-| 두 노트북 간 보안 연결 | 완료 | 송신 노트북 → 원본 DB 호스트 사설 SSH, 허용된 조회만 가능함을 실제 확인 |
-| 블록체인에 Epoch 등록 | 예정 | 팀의 송신 승인 후 실행 |
-| 이용자 브라우저 독립 검증 | 예정 | 등록된 기록으로 정상/변조 사례 확인 |
+| 두 노트북 간 보안 연결 | 완료 | 송신 노트북 → 원본 DB 호스트 사설 SSH, 허용된 동작만 가능함을 실제 확인 |
+| 블록체인에 Epoch 등록 | **완료** | [tx `0x175b3c1a…7286`](https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286), 블록 48,358,039. 송신 전에 원본 DB에 먼저 기록 |
+| 원본 DB 확정 | **완료** | 12회 이상 확인·이벤트·getter 검증 후 CONFIRMED와 확인 증거 기록 |
+| 이용자 브라우저 독립 검증 | **완료** | 실제 브라우저·공개 RPC로 정상 VALID, 변조 3종 탐지, 불완전 bundle 거부 (7/7) |
 
-전체 단계 판정(W4 GATE-4)은 **부분 완료(PARTIAL)** 입니다. 정책 기준값은 시험용(provisional)이며 팀 확정 전입니다. 시험 데이터(TEST)는 정책 확정 전까지 봉인해 두었습니다.
+전체 단계 판정(W4 GATE-4)은 **통과(PASS, 기술 조건 14/14)** 입니다. 정책 기준값은 시험용(provisional)이며 팀 확정 전이고, 이번 등록은 테스트넷 시연입니다. 시험 데이터(TEST)는 정책 확정 전까지 봉인해 두었습니다.
 
 ## 멘토님께: 먼저 읽을 자료
 
-1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지
-2. [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과, 실제 SSH 연결 시험 결과
-3. [현재 상태 요약](docs/03-current-status.md): 항목별 상태표
-4. [실제 고정된 영수증 공개 자료](docs/handoffs/w4-frozen-epoch-public/20261017-r01/README.md): 영수증 2건과 root, SHA-256
+1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지. 피드백은 2026-10-20에 받았고 [결과 문서](docs/mentoring/session-03-20261020-lee-jaewon.md)에 멘토 권고와 팀 결정을 나눠 정리했습니다
+2. [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과, 실제 등록·확정·브라우저 검증
+3. [실제 등록 공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md): tx, 블록, proof/anchor 포함 영수증 2건, 브라우저 검증 화면
+4. [현재 상태 요약](docs/03-current-status.md): 항목별 상태표
 5. [전체 문서 안내](docs/README.md)
 
 ## 구성과 담당
@@ -97,7 +96,9 @@ npm run dev
 | 실제 T → A SSH status 왕복 | PASS. 공개키 인증·고정 조회만 허용, 셸/PTY/포워딩/SFTP/다른 계정 차단 |
 | F confirmation 회귀 | **192/192 PASS**. 합성 DB/RPC stub 기반이며 실제 체인 검증은 아님 |
 | main 통합 회귀 | frontend 200, browser 1, backend 197, contracts 18, 각 build PASS (CI 통과) |
-| 실제 Epoch 송신·브라우저 VALID | 미실행. 송신 승인 후 진행 |
+| 실제 Epoch 등록 | PASS. tx `0x175b…7286`, 블록 48,358,039, 이벤트·EIP-1898 getter 일치, tx 1건 |
+| 원본 F DB 확정 | PASS. SUBMITTING → SUBMITTED → CONFIRMED, 확인 339회, 확인 증거 원자적 기록 |
+| 브라우저 실제 검증 | PASS 7/7. VALID 2, HASH_MISMATCH, INVALID_PROOF, UNTRUSTED_ANCHOR 2, PENDING_ANCHOR |
 
 실제 고정된 Epoch 1 root:
 
@@ -123,6 +124,6 @@ AI는 `hate / offensive / none` 3개 클래스를 예측하고, 외부에는 `ha
 ## 신뢰와 공개 범위
 
 - 원문·salt·private package·서명키·DB 경로는 공개하지 않습니다.
-- 실제 두 영수증의 proof/anchor는 블록체인 확인 전이라 null입니다. 확인 전에는 공개 체인 VALID를 주장하지 않습니다.
+- 실제 두 영수증의 proof/anchor는 원본 DB가 12회 이상 확인 후 CONFIRMED가 된 뒤에만 공개했습니다(2026-10-20). 그 전 동결 시점 자료(proof/anchor null)도 보존합니다.
 - 해시·Merkle·앵커는 AI의 정확성·공정성, 실제 모델 실행, 전체 기록의 완전성을 증명하지 않습니다.
 - 과거 실패 증거와 W3 원본은 지우지 않고 보존합니다.
