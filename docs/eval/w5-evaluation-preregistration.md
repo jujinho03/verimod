@@ -48,6 +48,16 @@
 
 현재 코드에는 실제 평가기가 없으며 위 항목이 충족되어도 이 준비 버전의 `test-evaluate`는 실행하지 못한다. 실제 구현 연결과 실행은 별도 구체적 승인 이후의 작업이다.
 
+### 10/22 추가: Git 결합·1회 claim 준비 primitive (합성 범위)
+
+[w5_execution_guard.py](../../ai/src/verimod_ai/evaluation/w5_execution_guard.py)는 위 3~5번 중 **데이터 없이 검사 가능한 부분만** 준비한다. 실제 평가기·데이터 로더·모델 로더·CLI는 없다.
+
+- `exact_rate`: X/B를 `{numerator, denominator}` 정수 분수로만 받는다. float·bool·범위 밖·safe integer 초과를 거부해 `0.0585 < 32/547` 같은 반올림 오류를 막는다.
+- `inspect_git_lock`: 호출자가 지정한 5개 역할(model/policy manifest, evaluation code, preregistration, approval record)의 **역할별 allowlist 경로**만 Git 객체에서 읽는다. 경로 검사와 승인 SHA 일치 검사는 Git·파일 접근 전에 수행한다. LOCK이 실제 commit인지, HEAD의 조상인지, `approved_at ≤ LOCK commit 시각 < 최초 평가 승인 시각` 순서인지, 잠긴 blob의 SHA-256과 HEAD의 바이트가 같은지, symlink/submodule이 아닌지를 확인한다. 모두 통과해도 `execution_allowed=false / BLOCKED / SEALED`를 반환한다.
+- `reserve_campaign_claim`: LOCK SHA·run UUID와 무관한 고정 campaign 이름으로 배타적 디렉터리를 만든다. 빈·손상·실패·완료 claim 모두 재시도를 막으며, 메타데이터 기록 실패 시에도 예약을 지우지 않는다. TTL·force·삭제 경로는 없다.
+
+`verimod.w5.lock-preflight.v1`은 **제안 schema이며 A/F가 채택한 LOCK 계약이 아니다.** 남은 한계: Git committer 시각은 사용자가 설정할 수 있어 승인 진위가 아니다. 승인 기록의 `source_sha256`은 형식만 검사한다. 바이트 일치는 정책 의미·승인 내용의 일치를 뜻하지 않는다. 가중치·tokenizer·환경·전이 의존 코드는 아직 결합하지 않았다. 임시 디렉터리 claim 시험은 운영 저장소의 권한·전원 장애·다중 호스트 내구성을 보장하지 않으며, 실제 고정 registry 위치는 별도로 확정해야 한다.
+
 ## 재현 명령
 
 저장소 루트에서 실행하며 아래 명령은 실제 데이터에 접근하지 않는다.
@@ -68,5 +78,7 @@ ai/.venv/Scripts/python.exe -B ai/scripts/prepare_w5_evaluation.py test-evaluate
 - 합성 dry-run: **PASS**. 신규 증거는 [preparation.json](../../ai/artifacts/reports/w5_ai12_preparation/20261021T042306Z-b93a05853bc0/preparation.json)에 저장했다.
 - `check-preparation`: 실제 승인 metadata가 없으므로 **BLOCKED / TEST SEALED**를 반환했다.
 - `test-evaluate`: **BLOCKED / TEST SEALED**, Python 종료 코드 **3**을 확인했다. PowerShell에서 코드 보존이 필요하면 명령 다음 줄에서 `exit $LASTEXITCODE`를 사용한다.
+
+- 10/22 실행 guard: `test_w5_execution_guard.py` **43 passed**를 포함한 W5 A 관련 8개 파일 **166 passed / 실패·오류·skip 0**. 합성 Git 저장소와 pytest 임시 디렉터리만 사용했다(8개 프로세스 동시 claim 중 1건만 성공 포함). 같은 시점 `test-evaluate`는 다시 **종료 코드 3 / BLOCKED**였다. [verification.json](../../ai/artifacts/reports/w5_ai12_execution_guard/20261022T062534Z-5d4c8800/verification.json)에 명령·소스 SHA-256·한계를 기록했다. 이 166건은 과거 102/128/61건과 중복되므로 합산하지 않는다.
 
 위 검증에는 실제 모델 inference, 데이터·운영자료 열람, LOCK 생성, TEST 최초 평가가 포함되지 않는다. 최종 commit SHA는 상위 W5 통합 실행 기록에서 추적한다.
