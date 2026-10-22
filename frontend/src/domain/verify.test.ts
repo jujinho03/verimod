@@ -260,4 +260,32 @@ describe('verifyReceipt', () => {
     review.payload.outcome = 'UPHOLD'
     expect(transitionProblem(review, f.decision.receipt_body, f.appeal.receipt_body)).toBe('유지 결과는 원래 조치와 같아야 합니다')
   })
+
+  it('W5: 제공된 synthetic lifecycle의 issuer_seq 역순과 중복을 거부한다', () => {
+    const reversed = clone(f.review.receipt_body)
+    if (reversed.event_kind !== 'REVIEW') throw new Error('fixture')
+    reversed.issuer_seq = f.appeal.receipt_body.issuer_seq
+    expect(transitionProblem(reversed, f.decision.receipt_body, f.appeal.receipt_body))
+      .toBe('제공된 연결 기록의 issuer_seq가 단조 증가하지 않습니다')
+
+    const direct = clone(f.decision.receipt_body)
+    if (direct.event_kind !== 'DECISION') throw new Error('fixture')
+    direct.payload.policy.action = 'HUMAN_REVIEW'
+    const directReview = clone(f.review.receipt_body)
+    if (directReview.event_kind !== 'REVIEW') throw new Error('fixture')
+    directReview.subject_receipt_hash = f.decision.receipt_hash
+    directReview.previous_receipt_hash = f.decision.receipt_hash
+    directReview.issuer_seq = direct.issuer_seq
+    directReview.payload.outcome = 'RESOLVED'
+    directReview.payload.resulting_action = 'ALLOW'
+    expect(transitionProblem(directReview, direct, direct))
+      .toBe('연결 기록의 issuer_seq가 최초 판정 뒤로 증가하지 않습니다')
+  })
+
+  it('W5: 선행 앵커 RPC 장애는 lifecycle 실패가 아니라 NOT_CHECKED다', async () => {
+    f.chain.rpcDown = true
+    const report = await verifyReceipt(f.review, f.ctx)
+    expect(report.code).toBe('RPC_UNAVAILABLE')
+    expect(report.lifecycle).toMatchObject({ state: 'NOT_CHECKED' })
+  })
 })

@@ -241,6 +241,13 @@ export function transitionProblem(body: AppealBody | ReviewBody, subject: Receip
     if (linked.issuer_id !== body.issuer_id) return '연결된 기록의 발급자가 서로 다릅니다'
     if (linked.content_commitment !== body.content_commitment) return '연결된 기록의 콘텐츠 commitment가 서로 다릅니다'
   }
+  // 이 검사는 제공된 fixture의 명백한 역순·중복을 막는 범위다. 발급자의
+  // 전체 이력이나 숨은 분기의 완전성/최신성을 증명하지는 않는다.
+  if (previous.receipt_id === subject.receipt_id) {
+    if (body.issuer_seq <= subject.issuer_seq) return '연결 기록의 issuer_seq가 최초 판정 뒤로 증가하지 않습니다'
+  } else if (!(subject.issuer_seq < previous.issuer_seq && previous.issuer_seq < body.issuer_seq)) {
+    return '제공된 연결 기록의 issuer_seq가 단조 증가하지 않습니다'
+  }
   const original = subject.payload.policy.action
   if (body.event_kind === 'APPEAL') {
     return original === 'RESTRICT' ? null : '이의제기는 제한 판정에만 연결할 수 있습니다'
