@@ -1,8 +1,8 @@
 # W5 DOC-09 — 멘토링 권고·결정·실행 추적
 
-기준일: 2026-10-21 KST · Owner: A / 주진호 · 상태: **PARTIAL**
+기준일: 2026-10-21 KST (10/22 갱신) · Owner: A / 주진호 · 상태: **PARTIAL**
 
-3회차 원문을 확인한 초기화 결과와 저장소 기록을 연결했다. 1·2회차 답변 원문은 현재 접근 가능한 자료에서 확인하지 못했으므로, 해당 회차의 권고는 **팀 요약에 근거한 간접 기록**으로 남긴다. 원문 확인, 팀 승인, 코드 존재, 테스트 실행, 실제 외부 E2E는 각각 별도 증거다.
+3회차 원문을 확인한 초기화 결과와 저장소 기록을 연결했다. **10/22 갱신:** 1회차 임명환 멘토 회신 원문(2026-10-05, 13쪽, S8)을 확인해 아래 별도 표로 대조했다. 2회차 금창섭 멘토 답변 원문은 여전히 접근 가능한 자료에 없다. 따라서 2회차 권고는 **팀 요약에 근거한 간접 기록**(S9)으로 남긴다. 원문 확인, 팀 승인, 코드 존재, 테스트 실행, 실제 외부 E2E는 각각 별도 증거다.
 
 ## 출처와 기준
 
@@ -14,6 +14,8 @@
 | S4 | [W4 공개 Anchor 증거](../handoffs/w4-anchored-epoch-public/20261020-r01/README.md) | 2026-10-20 고정 실증. W5 신규 시험이 아님 |
 | S5 | [W4 Validation 정책 비교](../evidence/w4-a-validation-policy.md) | Validation 1,255건·25개 후보의 집계. 운영 정책 승인·TEST 성능이 아님 |
 | S6 | [브라우저 검증 코드](../../frontend/src/domain/verify.ts) | 이번 작성에서 `RPC_UNAVAILABLE`, Content `NOT_CHECKED`, Core/보조 검증 분리 코드를 정적으로 확인. T/F 테스트를 새로 실행하지 않음 |
+| S8 | 1회차 원문: 저장소 밖 `멘토링/1회차/HTTP 451 1회차 멘토링 회신(임명환).pdf` | 2026-10-22에 직접 읽음. 저장소에는 커밋하지 않음(외부 자료). 멘토 본인이 "일부 답변은 AI 코멘트를 참조"했다고 명시함 |
+| S9 | 2회차 간접 기록: [W3 DOC-06 질문](../progress/W3.md), 7주 실행 프롬프트 W4 갱신본 p.17·p.30(팀 작성), [결정 기록부 M3-11](../02-decision-register.md) | 팀이 요약한 권고다. "F1 하나로 RESTRICT하지 말고 혼동행렬과 검토자 업무량을 함께 제시", safe/finalized 태그 실험, 10/11 B안. 멘토 원문 인용이 아니다 |
 | S7 | 2026-10-21 사용자 W5 마스터·자율 실행 지시 | A 구현·로컬 검증·문서화·로컬 커밋 허용. X/B·정책·LOCK·최초 TEST·T/F 수정·push는 포괄 승인 밖 |
 
 읽기 기준 Git SHA: `8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab`. 이는 본 문서의 출발점이며 이후 HEAD나 CI의 최신값을 보증하지 않는다. W5 초기화에서 확인한 main CI Run #235 SUCCESS도 W5 신규 변경의 테스트 결과가 아니다. 이 문서의 최종 Git SHA는 이 파일을 포함한 커밋에서 확인한다.
@@ -22,10 +24,27 @@
 
 | 추적 ID | 회차·멘토 | 권고에 대한 현재 기록 | 팀 결정·채택 | 현재 코드·실행 근거 | 검증 상태 | Owner | 남은 조건 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| M1-SCOPE | 1회차·임명환 | Scope Diet, Core E2E 우선이라는 팀 요약(S1). 답변 원문 미확인 | S1/S3에서 범위 축소 방향 기록 | W4 실제 Receipt→Epoch→Anchor→브라우저 경로(S4) | **PARTIAL**: W4 실증은 있음. 멘토 원문과 정확한 채택 시점 대조는 미완 | A(PM), T/F(구현) | 원문 또는 승인 가능한 1차 기록 확보. 원문의 문장·수치·발언 재구성 금지 |
-| M1-TRUST | 1회차·임명환 | AI 정확성과 Blockchain 무결성 구분이라는 팀 요약(S1) | README에서 주장 범위를 분리(S3) | S4의 해시·포함 증명·Anchor 검증과 AI 한계 설명 | **PARTIAL**: 현재 문서 반영 확인, 원문 출처는 미확인 | A/T | 정확성·실제 모델 실행·발급자 진실성을 체인이 증명한다고 발표하지 않음 |
+| M1-SCOPE | 1회차·임명환 | Scope Diet, Core E2E 우선. **S8 원문 확인** | S1/S3에서 범위 축소 방향 기록 | W4 실제 Receipt→Epoch→Anchor→브라우저 경로(S4) | **PASS(추적)**: 원문 권고와 W4 실증 연결 확인 | A(PM), T/F(구현) | 아래 1회차 원문 대조표 참조 |
+| M1-TRUST | 1회차·임명환 | 무결성(Integrity)과 진실성(Truthfulness) 분리. **S8 원문 확인** | README에서 주장 범위를 분리(S3) | S4의 해시·포함 증명·Anchor 검증과 AI 한계 설명 | **PASS(추적)**: 원문·문서 반영 확인 | A/T | 정확성·실제 모델 실행·발급자 진실성을 체인이 증명한다고 발표하지 않음 |
 | M2-TRIAGE | 2회차·금창섭 | AI Triage·HUMAN_REVIEW, 실제 Core E2E·Web 데모 우선이라는 팀 요약(S1) | 3단계 조치와 실제 E2E가 기록됨. X/B 승인과는 별개 | S5의 ALLOW/REVIEW/RESTRICT 집계, S4의 실제 E2E | **PARTIAL**: 기존 구현 증거 있음. 운영 정책과 본선 Web 전체 경로는 미승인·미검증 | A/F | 점수는 UNCALIBRATED. HUMAN_REVIEW 효능의 실제 운영평가 없음 |
 | M2-SCOPE-B | 2회차·금창섭 | B안 및 API/SDK 장기 확장이라는 팀 요약(S1) | M3-11: **TEAM_ADOPTED**, Core E2E 우선·실제 Appeal/Review Backend는 POST-MVP·Synthetic Lifecycle 데모(S2) | 범위 결정의 증거이지 W5 Lifecycle 구현 완료 증거가 아님 | **PARTIAL**: B안 결정 확인, W5 T/F 실행 증거 별도 필요 | A(PM), T/F | 실제 Appeal 처리 완료나 API/SDK 제품 완료로 표현 금지 |
+
+## 1회차 원문 대조 (S8) — 채택·미채택 구분
+
+| 원문 권고 | 팀 결정 | 실제 구현·근거 | 테스트·실증 | 남은 의존성 / W6 |
+| --- | --- | --- | --- | --- |
+| 포지셔닝: 정답성 증명이 아니라 이용자가 판정 기록을 독립 검증하는 시스템. Decide. Prove. Appeal. | **채택** | README·발표안의 주장 범위 | W4 브라우저 7/7(S4) | 없음 |
+| MVP: 실제 AI → Receipt → Merkle → Base Sepolia → 브라우저 검증 → 변조 탐지 | **채택** | W4 E2E 전 구간 | GATE-4 14/14(S4, 역사 증거) | W6 Core E2E 안정화(F TEST-01/03) |
+| APPEAL/REVIEW는 백엔드 대신 Synthetic Demo | **채택**(B안 M3-11) | T RCPT-05 로컬 완료 보고(원격 미확인) | T SHA·테스트 확인 필요 | F FE-03 UI W6 이월 |
+| 한계를 오라클 문제로 설명. 단 원문의 "100% 잡아낼 수 있다" 표현 | **부분 채택**: 오라클 문제 설명은 채택, "100%" 표현은 **미채택**(실행 프롬프트 금지 주장) | 발표안 신뢰 범위 | — | 발표 문구 최종 점검 |
+| AI 모델 직접 학습 배제, Foundation Model API/RAG 사용 | **미채택**: 같은 회신의 후속 의견("실제 BEEP! 기반 한국어 AI 모델 학습")과 D01에 따라 R01 fine-tuning | R01 Model Manifest | W3 Validation 지표 | 없음 |
+| MetaMask 등 지갑 연동·서명 | **미채택**: Publisher EOA + server relayer, 이용자 검증은 읽기 전용 RPC(Q11) | W4 contract·publisher | W4 tx | 없음 |
+| 토큰 보상·DAO·소각 구조·ZKP | **미채택**(BACKLOG) | — | — | 발표 로드맵으로만 언급 |
+| 단일 EOA는 임시. 아키텍처에 Phase 2 Multisig 점선 표기 | **채택**(ROADMAP) | 발표안·Q24 | — | 슬라이드 점선 표기는 W7 확인 |
+| 3-label 백엔드와 5-label UI 분리(Future Work 표시) | **채택**: 5-label은 LEGACY/SYNTHETIC로 격리 | 실행 프롬프트 Scope Diet | — | 화면 표기는 F W6 회귀에서 확인 |
+| Secondary dataset 교차 검증 1장 | **보류**(DEFERRED, AI-22 SHOULD) | — | 미실행 | MUST 완료 전 착수 금지 |
+| 503 INFERENCE_UNAVAILABLE·Receipt 미발급, 실패 시연을 기능으로 | **채택** | F W3 safe failure | W3/W4 테스트(역사 증거) | 시연 포함 여부는 W7 대본 |
+| RPC 지연 대비 비동기 PENDING UX, 안정적 RPC | **채택**(PENDING_ANCHOR) | `verify.ts`(S6) | W4 PENDING_ANCHOR 1건 | 실제 RPC 장애 실증은 F W6 |
 
 ## 3회차 — 권고별 반영과 검증
 
@@ -68,3 +87,13 @@
 10/22 A 후속 연결: [AI-11 정책 결정표](../eval/threshold-rationale.md), [AI-13 Validation 분석](../eval/w5-validation-error-analysis.md), [AI-12 합성 사전 준비](../eval/w5-evaluation-preregistration.md), [W5 실행 기록](../progress/W5.md). 신규 A 회귀102개 성공은 승인·원문·T/F 실증을 대신하지 않는다.
 
 10/22 추가 연결: [S1/S2/S3 연구·시연 정책 승인 패키지](../eval/w5-research-policy-scenarios.md), [A/F 계약 제안](../handoffs/W5-A-F-policy-contract-proposal.md), [LOCK 사전점검표](../eval/w5-lock-preflight-checklist.md). 3회차 피드백 PDF 원문은 10/22 작업 중 다시 대조했다(Q1 FRR 우선·중위 점수대 예시, Q2 L2 Confirmed·RPC_UNAVAILABLE, Q3 변조·장애 테스트, Q4 시연 구성). 1·2회차 원문은 여전히 미확인이다.
+
+## 10/22 W5 마감 반영
+
+- **W6 이월:** F 시험기간에 따른 [이월 결정](../handoffs/W5-to-W6-carryover-decision-20261022.md)으로 아래 항목은 **W6 이월, W5 PASS 아님**으로 표시한다. 담당자 증거가 오기 전까지 상태를 바꾸지 않는다.
+  - M3-06: L2 Confirmed·모드·Manifest UX
+  - M3-09: 실제 RPC 장애 표시
+  - M3-10: 점수 변조 라이브 화면
+  - M3-11의 F UI 부분
+- **T 보고:** T의 W5 완료 보고(RCPT-05 등)는 원격 `seolkyeongmin` 브랜치에 아직 없다(10/22 `git ls-remote` 결과 main과 같은 `8d0580a`). 소스·SHA를 확인하기 전까지 G5-04의 T 부분은 "보고됨·미확인"이다.
+- **DOC-09 상태:** **PARTIAL**. 1회차와 3회차 원문 대조는 완료했다. 남은 조건은 두 가지다: 2회차 원문(없으면 "미확인" 유지)과 T/F 실행 증거.

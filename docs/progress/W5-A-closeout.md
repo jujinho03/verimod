@@ -1,0 +1,60 @@
+# W5 A 마감 감사 — 티켓별 증거, GATE-5 예상, AI-12 승인 체크리스트
+
+기준일: 2026-10-22 KST · Owner: A / 주진호 · 로컬 브랜치 `jujinho` · 감사 시작 HEAD `25241b1` · 원격 main `8d0580a`(모든 A 커밋은 아직 push 안 됨)
+
+이 문서는 W5에서 A가 실제로 끝낸 것과 남은 것을 Git 증거로 정리한 것이다. **GATE-5 최종 판정은 10/25 21:00에 증거로 확정한다.** 아래 Gate 표는 예상과 위험이다.
+
+## 1. A 티켓 최종 상태
+
+| 티켓 | 산출물 | 테스트·결과 | 마지막 검증 SHA | 충족한 DoD | 승인 필요 | 타 담당 의존 |
+|---|---|---|---|---|---|---|
+| **AI-11** | [threshold-rationale](../eval/threshold-rationale.md), [정책 메모](../eval/w5-policy-decision-memo.md), [S1/S2/S3 승인 패키지](../eval/w5-research-policy-scenarios.md) | 25후보 원행 재계산 W4와 차이 0, 31,375회 조치 일치. 시나리오 테스트 9개 포함 181 passed | `aa85897`(원행), `1ba694d`(시나리오), `25241b1`(S1 초안) | 원행 검증, 25후보 비교, X/B 민감도, FRR trade-off, 결정 초안 | X/B·후보 승인, Manifest 확정, LOCK | F 정책 로딩 (W6 이월) |
+| **AI-13** | [오류 분석](../eval/w5-validation-error-analysis.md), [Model Card 한계](../eval/w5-model-card-limitations.md) | 18개 테스트(181에 포함), 실제 비식별 사례 10건 | `aa85897`, 한계 문서 보강은 본 커밋 | 최대 10건 오제재 분석, offensive 한계, Epoch 2/3 한계 기록 | 없음 | 없음 |
+| **AI-12 Guard** | [w5_execution_guard.py](../../ai/src/verimod_ai/evaluation/w5_execution_guard.py), [사전 등록](../eval/w5-evaluation-preregistration.md), [LOCK 사전점검](../eval/w5-lock-preflight-checklist.md), [binding 설계](../eval/w5-model-runtime-binding-design.md) | 43개 guard 테스트(181에 포함), `test-evaluate` 종료코드 3 | `8b711d6`, `1ba694d` | 합성 준비 범위 | LOCK, 최초 TEST | 정책 Manifest(F 의존) |
+| **AI-12 TEST** | — | 미실행 | — | 없음 | 아래 §3 전부 | — |
+| **DOC-09** | [멘토링 추적표](../mentoring/w5-mentoring-traceability.md) | 문서(링크 검사) | 본 커밋 | 1·3회차 원문 대조, 채택·미채택 구분 | 없음 | 2회차 원문 미확인, T/F 증거 |
+| **DOC-08/13** | [발표안·Gate 근거](../eval/w5-gate5-presentation.md) | 문서 | 본 커밋 | 8분 480초 구조, 증거 7구분 갱신 | 최종 발표 승인 | 리허설(전원), F 화면(W6) |
+
+테스트 숫자는 같은 테스트를 여러 번 센 결과이므로 합산하지 않는다(102/128/61/166/181). 최신 통합 결과는 [181 passed](../../ai/artifacts/reports/w5_research_scenarios/20261022T063640Z-841928ca/verification.json)이며, 이번 마감 커밋에서 다시 실행한 결과는 하단 §5에 기록한다.
+
+## 2. GATE-5 예상 (10/22 기준, 최종 판정 아님)
+
+| Gate | 담당 | 현재 증거 | 예상 | 근거·위험 |
+|---|---|---|---|---|
+| G5-01 | A | Validation 비교, S1 초안 | **PARTIAL** (승인이 오면) / **BLOCKED** (오지 않으면) | X/B·후보 승인이 와도 Manifest·LOCK은 F 정책 로딩에 의존하므로 W5 안에 끝나기 어렵다 |
+| G5-02 | A | Guard 합성 PASS, TEST SEALED | **BLOCKED** | LOCK과 별도 TEST 승인이 없으면 PASS가 불가능하다. 마감을 이유로 TEST를 열지 않는다 |
+| G5-03 | T/F | W4 14/14 역사 증거, A 측 4/4 해시 불변 대조 | **PASS 가능** | T의 TEST-05(공개 RPC 읽기 전용 재검증) 결과가 오면 보강된다. 신규 Anchor로 계산하지 않는다 |
+| G5-04 | T/F | T가 RCPT-05 완료를 보고(원격 미반영) | **PARTIAL** | T 코드 PASS(SHA 확인 후)와 F UI 통합(W6 이월)을 따로 판정한다 |
+| G5-05 | F | 없음 | **BLOCKED → W6** | FE-07·SEC-03은 이월됐다. 구현되지 않은 것은 PASS로 볼 수 없다 |
+| G5-06 | T/F | `verify.ts`에 RPC_UNAVAILABLE 코드 존재, 실제 장애 실증 없음 | **PARTIAL** | T의 RPC 상태 검증과 F의 Browser UX를 분리한다. F 부분은 W6 |
+| G5-07 | 전원 | A 로컬 181 passed, T 로컬 보고, main CI #237 = `8d0580a` | **PARTIAL** | A/T 신규 커밋은 원격 CI를 거치지 않았다. push 승인 전에는 CI PASS를 주장할 수 없다 |
+
+**종합 예상: PARTIAL.** MUST가 미충족되므로 SHOULD=0, 신규 기능=0이다. W6 초반은 미완 MUST(F 이월분과 G5-01/02)부터 처리한다. Gate 규칙은 바꾸지 않는다.
+
+## 3. AI-12 최초 TEST 평가 — 단일 승인 체크리스트
+
+아래 항목이 **순서대로 모두** 충족돼야 TEST를 1회 열 수 있다. TEST 파일과 경로는 이 체크리스트 작성 중에도 조회하지 않았다.
+
+| # | 조건 | 현재 | 증거 위치 |
+|---|---|---|---|
+| 1 | X/B와 후보의 팀장 승인 기록(승인자·시각·분수값·사유) | ☐ 미승인 (S1 PENDING) | [승인란](../eval/w5-research-policy-scenarios.md#5-팀장-승인란--research_demo-범위) |
+| 2 | A/F 계약 합의(승인 범위 metadata, rule ID, 프로필) | ☐ F 회신 대기 (W6) | [A→F 요청](../handoffs/W5-A-to-F-contract-request.md) |
+| 3 | F 정책 로딩·검증 구현과 회귀(SHA) | ☐ W6 이월 | — |
+| 4 | 새 Policy Manifest·canonical·hash 확정 승인 | ☐ | — |
+| 5 | Python/Node parity 21개 이상과 fail-closed 회귀 | ☐ | — |
+| 6 | 모델 런타임 binding(tokenizer 파일 hash, 서비스 lock, Python 버전) | ☐ 설계만 | [설계](../eval/w5-model-runtime-binding-design.md) |
+| 7 | 평가 코드 전체 의존 결합, 그룹·latency 규약 확정 | ☐ | [사전점검](../eval/w5-lock-preflight-checklist.md) |
+| 8 | 실제 평가기 구현과 영속 1회 claim 위치 확정 | ☐ | — |
+| 9 | **LOCK 승인** → LOCK 파일·commit → guard로 SHA·시각·bytes 검증 | ☐ | guard `inspect_git_lock` |
+| 10 | 정확한 LOCK SHA를 명시한 **최초 TEST 평가 승인** (scope=`FIRST_TEST_EVALUATION`) | ☐ | — |
+| 11 | 1회 실행 후 결과 보고. threshold 재조정·모델 재선정 금지 | ☐ | — |
+
+다음 사유는 위 순서를 건너뛰는 근거가 되지 않는다: 연구 방향 승인, S1 추천, F 시험기간, GATE-5 마감.
+
+## 4. 이번 마감 작업 범위
+
+변경은 A 소유 문서만 했다: DOC-09, 발표안, Model Card 한계, 결정 기록부 W5 행, 이월 결정 보존본, W6 인계, 본 문서, W5.md. 다음은 하지 않았다: 새 학습, F/T 코드, Manifest, LOCK, TEST 접근, push.
+
+## 5. 마감 검증
+
+마감 커밋에서 A 테스트를 다시 실행한 결과는 [W5.md](W5.md) 최상단에 기록한다.
