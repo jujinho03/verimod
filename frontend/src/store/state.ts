@@ -132,7 +132,8 @@ export async function validateState(state: AppState): Promise<void> {
 export function saveState(storage: Storage | null, state: AppState) {
   if (!storage) return
   try {
-    storage.setItem(STORAGE_KEY, JSON.stringify(state))
+    // Keep owner text, salt and appeal text in memory. Only public receipt/ledger state survives reload.
+    storage.setItem(STORAGE_KEY, JSON.stringify({ ...state, contents: {}, appeals: {} }))
   } catch {
     // 저장 공간이 없거나 막혀 있으면 이번 방문 동안만 메모리에 유지한다.
     console.warn('[VeriMod] 저장할 수 없어 이번 방문의 메모리에만 유지합니다.')

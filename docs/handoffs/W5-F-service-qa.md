@@ -2,6 +2,9 @@
 
 작성: 노유신(F), 2026-10-22. 상태: 구현/단위/Node RPC 검증 완료, 브라우저 QA 및 T 승인 대기.
 
+후속 SAFE PUSH의 수정·재실행·제약은 [최신 감사 기록](../evidence/w5-f/safe-push-20261022/README.md)을 따른다.
+T 최신 확인 SHA는 `f8cec268d1baccc65035336a5cc232d22f9f5546`이며 현재 F에 병합하지 않았다.
+
 ## Package 계약 — F 구현, T 리뷰 요청
 
 기존 발급 응답과 실행 문서의 계약을 재사용한다. 새 HTTP endpoint는 없다.
@@ -22,8 +25,10 @@ Core와 Content 결과는 독립 표시한다. Content 실패가 Core의 기록 
 
 다운로드는 명시적 사용자 동작이다. 가져온 파일은 React 메모리에만 보관하고 본문·salt·파일명을 화면/로그에 표시하지 않는다.
 RPC·플랫폼 API에 전송하지 않고 public Bundle에도 합치지 않는다. 화면의 지우기 또는 이탈로 해제한다.
-LIVE 발급 자료의 W4 localStorage 캐시는 제거했다. 기존 Synthetic demo store에는 합성 예시가 계속 존재하며
-운영용 secure storage 또는 실제 소유자 인증으로 주장하지 않는다.
+LIVE 신규 자료는 localStorage에 읽거나 쓰지 않는다. 기존 W4 LIVE 캐시는 자동 삭제하지 않고 소유자가 화면의 버튼으로 직접 지울 수 있다.
+SAFE PUSH 감사에서 Synthetic Store의 자동 저장 경로도 보완했다. 공개 receipt/ledger만 저장하고
+contents/appeals는 빈 map으로 직렬화한다. 원문·salt·이의 본문은 메모리에만 남고 페이지 재시작 후에는 Package가 필요하다.
+기존 Synthetic 예시는 메모리에 존재하며 운영용 secure storage 또는 실제 소유자 인증으로 주장하지 않는다.
 실제 W4 소유자 원문/salt에 접근하지 않았으므로 해당 W4 Content는 **NOT_CHECKED**다.
 
 ## 검증·신뢰 변경 범위

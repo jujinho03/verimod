@@ -369,7 +369,7 @@ function Faq() {
     {
       id: 'privacy',
       title: '원문이나 개인정보가 원장에 올라가나요?',
-      body: '올라가지 않습니다. 원장에는 여러 영수증을 묶은 root와 건수, 버전만 기록합니다. 영수증에도 원문 대신 무작위 salt를 더한 commitment만 넣고, 현재 PoC는 원문과 salt를 이 브라우저 localStorage에 평문 보관하며 인증·접근 통제가 없습니다. 실제 서비스에는 별도 접근 통제가 필요합니다.',
+      body: '원장에는 여러 영수증을 묶은 root와 건수, 버전만 기록합니다. 공개 영수증에는 원문 대신 salt를 더한 commitment만 넣습니다. 원문과 salt는 이번 방문의 메모리에서만 다루며 Private Package는 본인이 직접 다운로드합니다. 운영용 신원 인증·접근 통제는 별도로 필요합니다.',
     },
     {
       id: 'inference',

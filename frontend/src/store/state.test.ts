@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { buildSeedState } from './seed'
-import { STORAGE_KEY, validateState } from './state'
+import { STORAGE_KEY, saveState, validateState } from './state'
 import { VeriModStore, draftDecision } from './store'
 
 function memoryStorage(raw: string | null = null): Storage {
@@ -16,6 +16,49 @@ function memoryStorage(raw: string | null = null): Storage {
 }
 
 describe('persistent state recovery', () => {
+  it('W5 writes public state without private seed text or salt', async () => {
+    const state = await buildSeedState()
+    const storage = memoryStorage()
+    saveState(storage, state)
+    const raw = storage.getItem(STORAGE_KEY)!
+    for (const privateMap of [state.contents, state.appeals]) {
+      for (const own of Object.values(privateMap)) {
+        expect(raw).not.toContain(own.text)
+        expect(raw).not.toContain(own.salt)
+      }
+    }
+    expect(JSON.parse(raw).contents).toEqual({})
+    expect(JSON.parse(raw).appeals).toEqual({})
+    const reopened = await VeriModStore.open(storage)
+    expect(reopened.recoveryReason).toBeNull()
+    expect(reopened.getState().receipts).toEqual(state.receipts)
+    expect(reopened.getState().contents).toEqual({})
+  })
+  it('W5 keeps newly entered decision and appeal material in memory only', async () => {
+    const storage = memoryStorage()
+    const store = await VeriModStore.open(storage)
+    const text = '무료 당첨! 지금 바로 클릭하세요 W5_PRIVATE_INPUT_SENTINEL'
+    const decision = await store.issueDecision(await draftDecision(text, store.now()))
+    const appealText = 'W5_PRIVATE_APPEAL_SENTINEL'
+    await store.issueAppeal(decision.hash, 'FALSE_POSITIVE_CLAIM', appealText)
+    const own = store.getState().contents[decision.body.content_commitment]
+    expect(own.text).toBe(text)
+    const raw = storage.getItem(STORAGE_KEY)!
+    for (const value of [text, appealText, own.salt]) expect(raw).not.toContain(value)
+    expect((await VeriModStore.open(storage)).receiptById(decision.body.receipt_id)).not.toBeNull()
+  })
+  it('W5 storage failures never log the thrown private material', async () => {
+    const state = await buildSeedState()
+    const secret = Object.values(state.contents)[0].salt
+    const storage = memoryStorage()
+    storage.setItem = () => { throw new Error(secret) }
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    try {
+      saveState(storage, state)
+      expect(warn).toHaveBeenCalled()
+      expect(JSON.stringify(warn.mock.calls)).not.toContain(secret)
+    } finally { warn.mockRestore() }
+  })
   it('loads a valid snapshot and permits unavailable private content', async () => {
     const seed = await buildSeedState()
     await expect(validateState(seed)).resolves.toBeUndefined()

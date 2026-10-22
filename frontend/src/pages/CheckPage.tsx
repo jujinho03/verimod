@@ -21,8 +21,7 @@ const liveClient = LIVE_ENABLED ? new VeriModApiClient({ baseUrl: LIVE_API_URL }
 
 interface StoredLiveDecision { created: DecisionCreated; original_text: string; saved_at: string }
 
-// Retire the W4 plaintext cache. Owner material now stays in memory until explicitly downloaded.
-try { localStorage.removeItem(LIVE_STORAGE_KEY) } catch { /* Storage may be disabled. */ }
+// Never read/write the legacy private cache automatically; its owner may explicitly remove it.
 
 const SAMPLES = [
   { label: '승인 예시', text: '오늘 동네 도서관에서 열린 그림책 읽기 모임에 다녀왔어요. 아이들이 정말 즐거워했습니다.' },
@@ -164,6 +163,11 @@ export function CheckPage() {
               )}
             </div>
             <p className="muted small">원문과 salt는 공개 bundle에 넣지 않습니다. 실제 발급에서는 브라우저가 Private Receipt Package를 별도로 보관합니다.</p>
+            <p className="muted small">LIVE·합성 입력의 비공개 자료는 이번 방문의 메모리에만 보관합니다. 필요한 Package는 직접 다운로드하세요.</p>
+            <button type="button" className="btn btn--outline btn--compact" onClick={() => {
+              try { localStorage.removeItem(LIVE_STORAGE_KEY) }
+              catch { setError('기존 저장자료를 지우지 못했습니다. 브라우저 저장소 설정을 확인하세요.') }
+            }}>기존 W4 LIVE 비공개 캐시 지우기</button>
           </form>
 
           <aside className="work__side" aria-live="polite">

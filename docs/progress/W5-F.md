@@ -1,5 +1,13 @@
 # W5 — 노유신(F) 수행 결과
 
+이 문서는 F 전용 기록이다. A의 팀 진행 문서 `W5.md`를 생성하거나 덮어쓰지 않는다.
+아래 최초 구현 결과(240/203/7)와 SAFE PUSH 재검증 결과는 서로 다른 실행이다.
+
+최신 감사: [SAFE PUSH 및 서비스 인계](../evidence/w5-f/safe-push-20261022/README.md).
+
+SAFE PUSH 재실행: Frontend 243/243 (단일 워커), Backend 203/203 (단일 워커·테스트 러너 30초),
+typecheck/build/lint PASS. 기본 제한에서의 선행 timeout과 브라우저 환경 BLOCKED는 감사 문서에 보존했다.
+
 기록일: 2026-10-22 KST. 범위: F 서비스 구현·회귀 및 T 공동 QA 준비.
 전체 GATE-5: **PARTIAL**. 브라우저 QA·담당자 리뷰·팀 승인 증거가 남아 있다.
 
