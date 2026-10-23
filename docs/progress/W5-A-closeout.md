@@ -129,3 +129,16 @@ T가 제안한 Windows 대응 수정은 **BLOCKED / 별도 보안 작업**으로
 | A `jujinho` push | **완료.** fast-forward `8d0580a..e1c973b`. force push 아님 |
 | main | `8d0580a7` 그대로. 새 main CI 없음 |
 | F 인계 | [T merge 이후 F 통합 인계](../handoffs/W5-F-integration-after-T-merge.md) |
+
+## 10. GitHub 통합 상태 — 2026-10-23 (원격 조회 근거)
+
+| 대상 | SHA | PR | CI | 리뷰 | 병합 |
+|---|---|---|---|---|---|
+| T | `f8cec268` | #28 open, 제목 변경 완료 | #239/#241 SUCCESS | `ysn-0215`에게 요청, 제출 0건 | 미병합 |
+| F | `85a72a75` | #29 Draft | #248/#249 SUCCESS | 0건 | 미병합 |
+| A | `f8061aa0` (원격), 로컬은 그 뒤 문서 커밋 | #30 Draft | #246/#247 SUCCESS | 0건 | 미병합 |
+| main | `8d0580a7` | — | #235 SUCCESS | — | 새 main SHA 없음 |
+
+- F CI SUCCESS는 F 브랜치 단독 결과다. T/F 통합 SHA의 결과가 아니며 브라우저 QA 결과도 아니다. 브라우저 QA는 F 자체 기록상 desktop/mobile BLOCKED, LIVE 6 SKIP이다.
+- T merge 차단 사유: PR 작성자가 `jujinho03`라 본인 승인이 불가능하다. 또한 Claude Code 분류기가 리뷰 없는 merge를 거부했다. 독립 리뷰어 `ysn-0215`의 승인을 기다린다.
+- SEC-W5-01(Windows SQLite 재열기)은 OPEN이다. 어떤 PR에도 포함되지 않았다.
