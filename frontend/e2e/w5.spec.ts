@@ -3,7 +3,8 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const publicDir = resolve('../docs/handoffs/w4-anchored-epoch-public/20261020-r01')
-const evidence = resolve('../docs/evidence/w5-f/20261022')
+// Keep new runs separate from the historical W4/W5 evidence and owner downloads.
+const evidence = resolve('../private-data/w5-final-browser', process.env.W5_RUN_ID || new Date().toISOString().replace(/[:.]/g, '-'))
 const bundle = (index = 0) => JSON.parse(readFileSync(resolve(publicDir, `receipt-${index}.bundle.json`), 'utf8'))
 
 async function openPublic(page: Page, value: unknown) {
@@ -24,7 +25,11 @@ test('Base mode, missing manifest, two blocked RPCs, offline and recovery guidan
   expect(hosts.size).toBe(2)
   await expect(page.locator('.notice__tag')).toHaveText('BASE_SEPOLIA_DEMO')
   await expect(page.getByText('Prototype mode', { exact: true })).toHaveCount(0)
-  await expect(page.locator('aside .side-checks')).toContainText('공개 목록에 없어')
+  const manifest = page.locator('aside .side-row').filter({ has: page.getByText('모델·정책 manifest', { exact: true }) })
+  await expect(manifest).toHaveCount(1)
+  // The UI label for Manifest NOT_CHECKED must agree with the missing-body explanation.
+  await expect(manifest.getByText('확인 안 함', { exact: true })).toBeVisible()
+  await expect(manifest).toContainText('신뢰할 수 있는 manifest 원문을 확보하지 못했습니다')
   await expect(page.locator('#rpc')).toContainText('Ethereum L1 finality와 다릅니다')
   await expect(page.locator('#rpc')).toContainText('다시 검증하세요')
   mkdirSync(evidence, { recursive: true })
@@ -94,9 +99,10 @@ for (const [name, expected] of [['body', 'HASH_MISMATCH'], ['contract', 'UNTRUST
   })
 }
 
+// Skip before creating a browser/page unless a manual live RPC run was requested.
+const liveRpcTest = process.env.W5_LIVE_RPC === 'true' ? test : test.skip
 for (const name of ['receipt-0', 'receipt-1', 'proof']) {
-  test(`W5 NEW read-only live public RPC ${name}`, async ({ page }, info) => {
-    test.skip(process.env.W5_LIVE_RPC !== 'true', 'Explicit manual public RPC run')
+  liveRpcTest(`W5 NEW read-only live public RPC ${name}`, async ({ page }, info) => {
     const value = bundle(name === 'receipt-1' ? 1 : 0)
     if (name === 'proof') value.proof.siblings[0] = '0x' + 'f'.repeat(64)
     let calls = 0
