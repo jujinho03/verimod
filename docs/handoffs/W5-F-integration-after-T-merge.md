@@ -23,8 +23,16 @@
 
 ## 포함하면 안 되는 것 — Windows Backend SQLite 패치
 
-T의 Windows 대응 수정(`DatabaseSync(absolutePath)` 방식)은 **보안 보류** 상태다. 이 패치를 PR #29나 어떤 main 통합에도 포함하지 않는다. 기존 Backend DB 열기 구현을 이 방식으로 바꾸지 않는다. 사유는 [W5 A 마감 감사 §8](../progress/W5-A-closeout.md)에 있다.
+T의 Windows 대응 수정(`DatabaseSync(absolutePath)` 방식)은 **보안 보류** 상태다. 이 패치를 PR #29나 어떤 main 통합에도 포함하지 않는다. 기존 Backend DB 열기 구현을 이 방식으로 바꾸지 않는다. 사유와 필수 부정 검증은 [SEC-W5-01](../security/sec-w5-windows-sqlite-reopen-hold.md)에 있다.
 
 ## 그대로 유지하는 것
 
 이월 결정 D-W5F-20261022-01을 유지한다. W4 증거와 TEST SEALED도 그대로다. S1은 PENDING_APPROVAL이며 이번 통합에 정책 변경은 없다.
+
+## 2026-10-23 후속 진행 (F `85a72a75`)
+
+- F가 브라우저 assertion을 Manifest `NOT_CHECKED` 의미에 맞게 고쳤다(`frontend/e2e/w5.spec.ts`). 새 실행 결과는 Git 제외 경로 `private-data/w5-final-browser/`에 저장한다.
+- F 자체 기록: frontend 246/246, backend 203/203, build·lint·typecheck PASS.
+- **Desktop/Mobile 브라우저는 BLOCKED**(실행 환경에서 브라우저가 실행되지 않음). 수정된 assertion은 아직 한 번도 통과한 적이 없다. LIVE RPC는 6 SKIP이다.
+- T PR #28은 여전히 main에 merge되지 않았다. 독립 리뷰어로 `ysn-0215`에게 리뷰를 요청했다(2026-10-23). 위 1~5단계는 T merge 이후에 진행한다.
+- Windows SQLite 보류 내용은 [SEC-W5-01](../security/sec-w5-windows-sqlite-reopen-hold.md)로 옮겼다.
