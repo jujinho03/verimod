@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "source_commit": "1d782f649e243e952d10250fdd0c4ea3dce44e3b",
+  "source_state": "new row-revalidation source uncommitted; hashes identify actual executed bytes",
+  "started_at_utc": "2026-10-21T23:18:45.030742+00:00",
+  "finished_at_utc": "2026-10-21T23:18:51.771964+00:00",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_validation_rows.py",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_w5_validation_analysis.py",
+    "tests/test_w5_preregistration.py",
+    "tests/test_selection.py",
+    "tests/test_policy_metrics.py",
+    "tests/test_model_metrics.py",
+    "tests/test_bootstrap.py",
+    "tests/test_w4_policy.py",
+    "--junitxml=<Git-ignored run>/pytest-private.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 128,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_sha256": {
+    "ai/src/verimod_ai/evaluation/w5_validation_rows.py": "de523fd30b900e44bcffca0e91cb639d3fa4aec875a7e3a47062097cbb97f9ab",
+    "ai/scripts/revalidate_w5_rows.py": "f3b6af7541d83d58b7ee01a0827fb718390ebf9dd2b36e72cfd49c30c864f6a7",
+    "ai/tests/test_w5_validation_rows.py": "984d12078cd1683cd559d0671cff36f3e013faad550fda0aa5fe2b10abfb743f",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7",
+    "ai/src/verimod_ai/evaluation/metrics.py": "5d7c45108d4b9a900f3433d2d884d7e592ded9ae647c2eface6567f3a159ab13"
+  },
+  "row_report_sha256": "70c47b0893b7ae21691fe1a10c3ac321af7c3c73c1aa9315b4baf0545b3c8938",
+  "case_comparison_sha256": "f8ed36c95831c444d09040e8d653c245fc851b9d4e53773ceff84b8a713b199a",
+  "w4_immutable_checks": [
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-0.bundle.json",
+      "expected": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "actual": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-1.bundle.json",
+      "expected": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "actual": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/chain-evidence.json",
+      "expected": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "actual": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c",
+      "match": true
+    },
+    {
+      "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/browser-verification.json",
+      "expected": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "actual": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2",
+      "match": true
+    }
+  ],
+  "public_junit_redacted_fields": [
+    "hostname"
+  ],
+  "actual_test_dataset_accessed": false,
+  "model_inference_executed": false,
+  "policy_approved": false,
+  "lock_executed": false
+}

@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "source_commit": "aa85897bac815283e41333fbb12c4542cd42fecb",
+  "source_state": "new approval preparation sources not yet committed; executed byte hashes below",
+  "started_at_utc": "2026-10-22T00:23:31.022830+00:00",
+  "finished_at_utc": "2026-10-22T00:23:32.999934+00:00",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_policy_approval.py",
+    "tests/test_selection.py",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_policy_metrics.py",
+    "tests/test_w4_policy.py",
+    "--junitxml=<Git-ignored run>/pytest.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 61,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "source_sha256": {
+    "ai/scripts/prepare_w5_policy_approval.py": "69d7a34331420d3aac8b61f805f60e5bcb89695a0ebb56c85fafcb98af5d4007",
+    "ai/src/verimod_ai/evaluation/selection.py": "b833cf96d346b37c4b19747e9818fa07404fc9bb1c95cdca8d7c15a4a63114c7",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7",
+    "ai/tests/test_w5_policy_approval.py": "b54d6c74e1ae455bb2cd6fb8ca0eaf23ee2e847913dbf6c642f1e2dbd4ceebb8",
+    "ai/tests/test_selection.py": "06c3d46c5e18416ca91b62f37e3401cf2cc2f4f6efb24b6f0531055b59d4951c",
+    "ai/tests/test_w5_policy_selection.py": "85e0d4b4131aba1b511609bd1f7421b8d352a6acf85c3e4ba97d445bcc3ddca4",
+    "ai/tests/test_policy_metrics.py": "be7ab8072b607c36a7dabde8f39a4ed27f2c2e8c73fee0f5b38b9b3eb3afe40c",
+    "ai/tests/test_w4_policy.py": "0e37502ac01d76658cae712e8a33337f856bc5830bbd6538bf1150b62aa62ff5"
+  },
+  "additional_read_only_inspection_sha256": {
+    "backend/src/server.ts": "bf5656b8b7920c2aea8296049095031adc616377ee246b805696070e87eebe75",
+    "backend/config/w4-provisional.policy_manifest.json": "bfae146e58f5111391912c064795581227a9abef1f113fcbeeb86a19ce40426f"
+  },
+  "historical_W4_manifest_files_unchanged": 6,
+  "prior_row_revalidation_reused": true,
+  "raw_predictions_recomputed": false,
+  "cases_reanalyzed": false,
+  "F_tests_or_runtime_executed": false,
+  "node_parity_executed": false,
+  "manifest_generated": false,
+  "new_policy_hash_computed": false,
+  "lock_executed": false,
+  "test_data_accessed": false,
+  "junit_redacted_fields": [
+    "hostname"
+  ]
+}

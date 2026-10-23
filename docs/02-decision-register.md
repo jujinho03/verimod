@@ -208,3 +208,13 @@ PROPOSED: 제안 / PROTOTYPED: 코드에 시험 적용, 승인 전 / ADOPTED: �
 | 실제 AI·DB·epoch 계약·testnet | DEFERRED | [P1 backlog](06-p1-backlog.md)의 완료조건 |
 
 위 C01~C08 계약 전체는 여전히 PROPOSED다. 그 일부를 구현한 prototype과 정식 채택을 구분한다. 이번 사용자 prompt는 P0 수정을 허용한 작업 요청이며 신규 protocol 결정의 승인 근거가 아니다.
+
+## W5 연구·시연 방향과 W5→W6 이월 — 2026-10-22
+
+출처: 팀장 주진호의 대화 지시와 [이월 결정 기록](handoffs/W5-to-W6-carryover-decision-20261022.md). 오프라인 팀 전체 합의나 F 본인 확인을 증명하는 기록은 아니다.
+
+| ID | 항목 | 상태 | 경계 |
+| --- | --- | --- | --- |
+| D-W5A-20261022-01 | AI 정책을 운영 정책이 아닌 RESEARCH_DEMO 시나리오(S1/S2/S3)로 검토 | ADOPTED_BY_A_LEAD | 방향 승인일 뿐이다. X/B 값, 후보, Manifest, LOCK, TEST는 미승인. [비교](eval/w5-research-policy-scenarios.md) |
+| D-W5A-20261022-02 | S1: X=3/50, B=9/20, H50-90_O50-90 | RECOMMENDED / PENDING_APPROVAL | A 추천 초안이다. 승인란은 비어 있다 |
+| D-W5F-20261022-01 | F(노유신) W5 잔여 MUST와 F 의존 공동 QA를 W6로 이월 | ADOPTED_BY_A_LEAD | 시험기간 사유. W5 PASS로 표시하지 않고 다른 팀원에게 자동 이관하지 않는다. GATE-5 기준·11/04 동결은 변경 없음. [W6 인계](handoffs/W6-transition-handoff.md) |
