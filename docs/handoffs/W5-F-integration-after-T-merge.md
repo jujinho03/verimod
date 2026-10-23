@@ -36,3 +36,17 @@ T의 Windows 대응 수정(`DatabaseSync(absolutePath)` 방식)은 **보안 보�
 - **Desktop/Mobile 브라우저는 BLOCKED**(실행 환경에서 브라우저가 실행되지 않음). 수정된 assertion은 아직 한 번도 통과한 적이 없다. LIVE RPC는 6 SKIP이다.
 - T PR #28은 여전히 main에 merge되지 않았다. 독립 리뷰어로 `ysn-0215`에게 리뷰를 요청했다(2026-10-23). 위 1~5단계는 T merge 이후에 진행한다.
 - Windows SQLite 보류 내용은 [SEC-W5-01](../security/sec-w5-windows-sqlite-reopen-hold.md)로 옮겼다.
+
+## 2026-10-24 — T PR #28 merge 완료: F가 반영할 main
+
+- **새 main SHA: `639030b349e66a92c453e2e6936ba43ad165e8d7`** (Merge commit. 부모 `8d0580a7` + T `cd5b1c53`). merge 전에 `ysn-0215`가 `cd5b1c53`에 APPROVED했고, CI #250/#251이 SUCCESS였다.
+- T의 마지막 수정 `cd5b1c53`: `transitionProblem`에 선택 인자 `hashes`가 추가됐다. receipt UUID가 같은데 hash가 다르면 거부하고, 직접 연결 여부는 검증된 hash로 판정한다. F가 main을 merge할 때 **이 hash 기반 검사와 W5 테스트를 모두 유지해야 한다.**
+- 사전 계산 결과 `nohyusin`(`85a72a75`)과 새 main 사이에 충돌은 없다(`git merge-tree`). 실제 merge 결과와 테스트로 다시 확인한다.
+
+**F 실행 순서 (위 1~5단계 구체화):**
+1. `git fetch origin` → `nohyusin`에서 `git merge origin/main`(일반 merge. rebase·force 금지) → push
+2. 유지 확인: T `issuer_seq`·UUID/hash 검사, F Manifest `NOT_CHECKED` 의미, Private Package 계약, legacy storage의 명시적 정리 방식
+3. frontend 전체(unit·build·lint·typecheck), backend 전체 회귀
+4. W5 desktop/mobile 브라우저 회귀를 실제 실행한다. 실행 환경 문제로 BLOCKED이면 그대로 기록한다. **LIVE RPC SKIP은 PASS가 아니다.**
+5. 새 F SHA의 GitHub CI SUCCESS를 확인하고, 결과를 PR #29에 남긴다
+6. Draft를 해제하고 독립 리뷰를 요청한다(T `k0ng-min`, 필요하면 A). main merge는 팀장이 따로 승인한다
