@@ -110,3 +110,22 @@
 | A Python 테스트 | 181 passed (로컬, 원격 CI 미경유) |
 | TEST | SEALED |
 | A/T/F 포함 main CI | 없음 (main merge 0건) |
+
+## 8. Backend 보안 보류 — Windows SQLite 재열기 패치 (2026-10-23)
+
+T가 제안한 Windows 대응 수정은 **BLOCKED / 별도 보안 작업**으로 관리한다(팀장 결정).
+
+- 문제: `DatabaseSync(absolutePath)`로 다시 열면 열기 직전에 파일이 삭제되는 경쟁 상황에서 SQLite가 **빈 DB를 새로 만들 수 있다.** 그러면 원본 authoritative DB가 없는데도 서비스가 빈 상태로 계속 동작한다. 기존의 no-create/fail-closed 조건(DB가 없으면 만들지 않고 실패해야 함)을 지키지 못한다.
+- 조치: 이 패치를 main, F PR #29, 어떤 통합에도 포함하지 않는다. 기존 Backend DB 열기 구현을 교체하지 않는다.
+- 확인: PR #28의 변경 파일 8개에는 backend나 SQLite 관련 파일이 없다(2026-10-23 PR files API와 `git diff`로 확인).
+- 표기: W5 CI 성공이나 F backend 203 PASS를 "Windows 재열기 문제 해결"로 표시하지 않는다.
+- 후속(W6, T 담당 + A 리뷰): 존재하지 않는 경로를 생성하지 않는 열기 방식(예: SQLite URI `mode=rw`)과, 삭제 경쟁을 재현하는 부정 테스트를 함께 제출한다.
+
+## 9. 2026-10-23 원격 통합 실행 결과
+
+| 작업 | 결과 |
+|---|---|
+| T PR #28 merge | **미실행.** 7개 안전 조건은 모두 충족했다. 그러나 Claude Code 권한 분류기가 API merge 요청을 거부했다("Merge Without Review"). 제목 변경도 같은 요청에 포함돼 실행되지 않았다. 우회하지 않았다 |
+| A `jujinho` push | **완료.** fast-forward `8d0580a..e1c973b`. force push 아님 |
+| main | `8d0580a7` 그대로. 새 main CI 없음 |
+| F 인계 | [T merge 이후 F 통합 인계](../handoffs/W5-F-integration-after-T-merge.md) |
