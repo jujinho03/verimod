@@ -235,15 +235,28 @@ async function checkContent(body: ReceiptBody, ctx: VerifierContext): Promise<Si
 }
 
 /** 이의제기·검토 기록이 선행 기록과 맞게 연결됐는지 본다. 문제가 없으면 null. */
-export function transitionProblem(body: AppealBody | ReviewBody, subject: ReceiptBody, previous: ReceiptBody): string | null {
+export function transitionProblem(
+  body: AppealBody | ReviewBody,
+  subject: ReceiptBody,
+  previous: ReceiptBody,
+  hashes?: { body: Hex32; subject: Hex32; previous: Hex32 },
+): string | null {
   if (subject.event_kind !== 'DECISION') return '연결 대상이 최초 판정 기록이 아닙니다'
   for (const linked of [subject, previous]) {
     if (linked.issuer_id !== body.issuer_id) return '연결된 기록의 발급자가 서로 다릅니다'
     if (linked.content_commitment !== body.content_commitment) return '연결된 기록의 콘텐츠 commitment가 서로 다릅니다'
   }
+  if (hashes && (
+    (subject.receipt_id === previous.receipt_id && hashes.subject !== hashes.previous)
+    || (body.receipt_id === subject.receipt_id && hashes.body !== hashes.subject)
+    || (body.receipt_id === previous.receipt_id && hashes.body !== hashes.previous)
+  )) return '서로 다른 receipt hash가 같은 receipt_id를 사용합니다'
   // 이 검사는 제공된 fixture의 명백한 역순·중복을 막는 범위다. 발급자의
   // 전체 이력이나 숨은 분기의 완전성/최신성을 증명하지는 않는다.
-  if (previous.receipt_id === subject.receipt_id) {
+  // 직접 연결은 검증된 hash가 동일한 경우에만 허용한다. hash 없이 이 함수를
+  // 직접 호출하는 기존 단위 테스트에서는 같은 객체만 직접 연결로 본다.
+  const samePrevious = hashes ? hashes.previous === hashes.subject : previous === subject
+  if (samePrevious) {
     if (body.issuer_seq <= subject.issuer_seq) return '연결 기록의 issuer_seq가 최초 판정 뒤로 증가하지 않습니다'
   } else if (!(subject.issuer_seq < previous.issuer_seq && previous.issuer_seq < body.issuer_seq)) {
     return '제공된 연결 기록의 issuer_seq가 단조 증가하지 않습니다'
@@ -288,7 +301,9 @@ async function checkLifecycle(body: ReceiptBody, ctx: VerifierContext): Promise<
   }
   const subject = reports[0].body as ReceiptBody
   const previous = (reports[1] ?? reports[0]).body as ReceiptBody
-  const problem = transitionProblem(body, subject, previous)
+  const problem = transitionProblem(body, subject, previous, {
+    body: await receiptHash(body), subject: refs[0], previous: refs[1] ?? refs[0],
+  })
   return problem
     ? { state: 'FAILED', detail: problem }
     : { state: 'PASSED', detail: `선행 기록 ${refs.length}건의 포함과 연결 규칙을 확인했습니다` }
