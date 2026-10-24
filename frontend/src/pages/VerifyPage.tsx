@@ -9,6 +9,8 @@ import { TamperPanel } from '../features/TamperPanel'
 import { useVerify } from '../features/useVerify'
 import { VerifyReportView } from '../features/VerifyReportView'
 import { VerificationStagePanel } from '../features/VerificationStagePanel'
+import { PrivatePackageInput } from '../features/PrivatePackageInput'
+import { SyntheticLifecycleDemo } from '../features/SyntheticLifecycleDemo'
 import { SIM_CHAIN, trustConfig } from '../store/ledger'
 import { useAppState, useStore } from '../store/context'
 import { ArrowLink } from '../ui/bits'
@@ -22,7 +24,8 @@ const BASE_PROFILE = baseSepoliaProfileFromEnv(import.meta.env)
 export function VerifyPage() {
   const store = useStore()
   const state = useAppState()
-  const [params] = useSearchParams()
+  const [params, setParams] = useSearchParams()
+  const [privatePackage, setPrivatePackage] = useState<unknown>(null)
   const receipts = [...state.receipts].sort((a, b) => b.issued_at - a.issued_at)
   const initial = (params.get('receipt') && store.receiptById(params.get('receipt') ?? '')) || receipts[0] || null
 
@@ -31,9 +34,7 @@ export function VerifyPage() {
   const [json, setJson] = useState(() => (initial ? JSON.stringify(store.bundle(initial), null, 2) : ''))
   const [notice, setNotice] = useState<string | null>(null)
   const [trust, setTrust] = useState<TrustConfig | null>(null)
-  const [verifierMode, setVerifierMode] = useState<VerifierMode>(() =>
-    params.get('profile') === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? 'BASE_SEPOLIA_DEMO' : 'LOCAL_HARDHAT_FALLBACK',
-  )
+  const verifierMode: VerifierMode = params.get('profile') === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE ? 'BASE_SEPOLIA_DEMO' : 'LOCAL_HARDHAT_FALLBACK'
   const [tamperId, setTamperId] = useState(
     receipts.find((r) => r.body.receipt_id === 'a91d3c07-6e2b-4b58-9f14-2c7e8d0b5a63')?.body.receipt_id ?? receipts[0]?.body.receipt_id ?? '',
   )
@@ -55,10 +56,10 @@ export function VerifyPage() {
     setNotice(null)
     if (verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE) {
       const context = await store.verifierContext()
-      await verify.run(json, { ...context, trust: BASE_PROFILE, ledger: createPublicRpcLedger(BASE_PROFILE) })
+      await verify.run(json, { ...context, trust: BASE_PROFILE, ledger: createPublicRpcLedger(BASE_PROFILE), privatePackage })
       return
     }
-    await verify.run(json)
+    await verify.run(json, { ...await store.verifierContext(), privatePackage })
   }
 
   const selected = store.receiptById(selectedId)
@@ -163,11 +164,13 @@ export function VerifyPage() {
               <div className="field">
                 <label className="field__label" htmlFor="verify-profile">승인 프로필</label>
                 <select id="verify-profile" className="select" value={verifierMode} onChange={(event) => {
-                  setVerifierMode(event.target.value as VerifierMode)
+                  const next = new URLSearchParams(params)
+                  next.set('profile', event.target.value)
+                  setParams(next, { replace: true })
                   verify.clear()
                 }}>
                   {BASE_PROFILE && <option value="BASE_SEPOLIA_DEMO">BASE_SEPOLIA_DEMO · 공개 RPC</option>}
-                  <option value="LOCAL_HARDHAT_FALLBACK">LOCAL_HARDHAT_FALLBACK · 합성 로컬</option>
+                  <option value="LOCAL_HARDHAT_FALLBACK">SYNTHETIC_LOCAL · Mock 원장 (공개 체인 증거 아님)</option>
                 </select>
               </div>
               {!BASE_PROFILE && <p className="inline-warn">승인된 Base Sepolia 주소·publisher·RPC·확정 기준이 아직 build에 주입되지 않아 공개 RPC 모드를 활성화하지 않았습니다.</p>}
@@ -197,12 +200,15 @@ export function VerifyPage() {
                 <input type="checkbox" checked={state.rpc_down} onChange={(event) => store.setRpcDown(event.target.checked)} />
                 <span>RPC 장애 가정 · 원장 조회가 실패하면 변조가 아니라 RPC_UNAVAILABLE로 나옵니다</span>
               </label>}
+              {verifierMode === 'BASE_SEPOLIA_DEMO' && <p className="muted small">L2 Confirmed (Base Sepolia, ≥12 blocks) · Ethereum L1 finality와 다릅니다. RPC 장애 시 네트워크를 확인한 뒤 다시 검증하세요. 자동으로 로컬 VALID로 바꾸지 않습니다.</p>}
             </div>
+            <PrivatePackageInput present={privatePackage !== null} onChange={(value) => { setPrivatePackage(value); verify.clear() }} />
           </div>
 
           <aside className="work__side" aria-live="polite">
             {verify.report ? (
               <>
+                {verifierMode === 'BASE_SEPOLIA_DEMO' && verify.report.code === 'VALID' && <p role="status">L2 Confirmed · Base Sepolia · {verify.report.confirmations} blocks (기준 ≥12) · L1 finality 보장 아님</p>}
                 <VerificationStagePanel report={verify.report} />
                 <VerifyReportView report={verify.report} />
               </>
@@ -212,6 +218,8 @@ export function VerifyPage() {
           </aside>
         </div>
       </section>
+
+      <SyntheticLifecycleDemo />
 
       <section className="band" data-tone="mist" id="tamper">
         <div className="frame tamper-section">

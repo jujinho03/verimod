@@ -1,5 +1,7 @@
 import { hexToBytes, isHex32, type Hex32 } from './hash'
 import type { ManifestHashes } from './manifests'
+import { checkManifests, type PublicManifestDocument } from './manifestCheck'
+import { checkPrivatePackage } from './privatePackage'
 import { verifyInclusion } from './merkle'
 import { contentCommitment, receiptHash } from './receipt'
 import { parseBundleJson, validateBundle } from './schema'
@@ -49,6 +51,8 @@ export interface VerifierContext {
   trust: TrustConfig
   ledger: LedgerReader
   manifests: ManifestHashes
+  manifestDocuments?: PublicManifestDocument[]
+  privatePackage?: unknown
   findBundle(receiptHash: Hex32): VerificationBundle | null
   findPrivateContent(commitment: Hex32): PrivateContent | null
 }
@@ -209,22 +213,6 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
 
 const notChecked = (detail: string): SideCheck => ({ state: 'NOT_CHECKED', detail })
 
-function checkManifests(body: ReceiptBody, manifests: ManifestHashes): SideCheck {
-  if (body.event_kind === 'APPEAL') return notChecked('이의제기 기록은 manifest를 참조하지 않습니다')
-  if (body.event_kind === 'REVIEW') {
-    return body.payload.review_policy_manifest_hash === manifests.review
-      ? { state: 'PASSED', detail: '공개된 검토 정책 manifest 해시와 일치합니다' }
-      : { state: 'FAILED', detail: '검토 정책 manifest 해시가 공개 목록에 없습니다' }
-  }
-  const unknown = [
-    body.payload.inference.model_manifest_hash !== manifests.model && '모델',
-    body.payload.policy.policy_manifest_hash !== manifests.policy && '정책',
-  ].filter(Boolean)
-  return unknown.length === 0
-    ? { state: 'PASSED', detail: '공개된 모델·정책 manifest 해시와 일치합니다' }
-    : { state: 'FAILED', detail: `${unknown.join('·')} manifest 해시가 공개 목록에 없습니다` }
-}
-
 async function checkContent(body: ReceiptBody, ctx: VerifierContext): Promise<SideCheck> {
   const own = ctx.findPrivateContent(body.content_commitment)
   if (!own) return notChecked('원문과 salt가 이 기기에 없어 확인하지 않았습니다')
@@ -317,8 +305,9 @@ export async function verifyReceipt(input: unknown, ctx: VerifierContext): Promi
   }
   return {
     ...core,
-    manifest: checkManifests(core.body, ctx.manifests),
-    content: await checkContent(core.body, ctx),
-    lifecycle: await checkLifecycle(core.body, ctx),
+    manifest: await checkManifests(core.body, ctx.manifests, ctx.manifestDocuments),
+    content: Object.hasOwn(ctx, 'privatePackage') ? await checkPrivatePackage(ctx.privatePackage, core)
+      : core.code === 'VALID' ? await checkContent(core.body, ctx) : notChecked('Core VALID 이후에만 비공개 자료를 대조합니다.'),
+    lifecycle: core.code === 'VALID' ? await checkLifecycle(core.body, ctx) : notChecked('Core 검증이 끝나지 않아 연결 확인을 수행하지 않았습니다.'),
   }
 }

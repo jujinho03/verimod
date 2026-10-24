@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { freezeEpoch } from './epoch'
 import { randomHex32, type Hex32 } from './hash'
-import { manifestHashes } from './manifests'
+import { manifestHashes, MODEL_MANIFEST, POLICY_MANIFEST, REVIEW_POLICY_MANIFEST } from './manifests'
 import { evaluatePolicy } from './policy'
 import {
   ISSUER_ID,
@@ -132,6 +132,11 @@ async function fixture() {
     trust,
     ledger,
     manifests,
+    manifestDocuments: [
+      { kind: 'model', expected_hash: manifests.model, manifest: MODEL_MANIFEST },
+      { kind: 'policy', expected_hash: manifests.policy, manifest: POLICY_MANIFEST },
+      { kind: 'review', expected_hash: manifests.review, manifest: REVIEW_POLICY_MANIFEST },
+    ],
     findBundle: (hash) => bundles.get(hash) ?? null,
     findPrivateContent: (c) => (c === commitment ? { salt, text } : null),
   }
