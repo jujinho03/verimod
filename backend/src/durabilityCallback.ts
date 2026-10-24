@@ -85,8 +85,13 @@ export function loadCallbackApproval(path: string, syntheticTestOnly: boolean): 
   return cfg as unknown as CallbackApproval
 }
 
-/** mode=rw forbids creation even if the file disappears after the filesystem checks. No migrations. */
+/** Opens only on platforms where the runtime can safely uphold the approved DB binding. No migrations. */
 export function openApprovedDatabase(cfg: CallbackApproval): DatabaseSync {
+  // node:sqlite does not expose a writable, existing-file-only open mode on
+  // Windows. Its normal writable open can create a replacement after our
+  // pathname/identity checks, so never use it for an approved callback DB.
+  // Keep this fail-closed until the runtime supplies an atomic no-create API.
+  requireThat(process.platform !== 'win32', 'WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
   const path = resolve(cfg.database_path)
   requireThat(!lstatSync(path).isSymbolicLink() && realpathSync(path) === path, 'NONCANONICAL_DB_PATH')
   const matchesIdentity = () => {

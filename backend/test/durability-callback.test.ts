@@ -105,7 +105,18 @@ afterEach(() => {
   rmSync(directory, { recursive: true, force: true })
 })
 
-describe('F callback CLI and authoritative database binding', () => {
+describe.skipIf(process.platform !== 'win32')('SEC-W5-01 Windows callback guard', () => {
+  it('fails closed before opening or creating the approved database', () => {
+    const before = readFileSync(dbPath)
+    expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+    expect(readFileSync(dbPath)).toEqual(before)
+    expect(existsSync(dbPath)).toBe(true)
+  })
+})
+
+const writableCallback = process.platform === 'win32' ? describe.skip : describe
+
+writableCallback('F callback CLI and authoritative database binding', () => {
   it('runs on Windows, emits one snake_case ACK, survives reopen and retries identical bytes', async () => {
     const result = await cli()
     expect(result.code).toBe(0)
@@ -187,7 +198,7 @@ describe('F callback CLI and authoritative database binding', () => {
   }, 15000)
 })
 
-describe('exact pinned T protocol, using the actual F CLI and adapter', () => {
+writableCallback('exact pinned T protocol, using the actual F CLI and adapter', () => {
   it('T requestDurableSubmissionAck accepts the F wire ACK after durable SQLite commit', async () => {
     const ack = await gate.requestDurableSubmissionAck(request, process.execPath, args())
     expect(ack).toMatchObject({ epochId: '1', root: cfg.epoch.root, count: '2', protocolVersion: '1', txHash: request.txHash, nonce: '7', status: 'SUBMITTING' })
@@ -224,7 +235,7 @@ describe('exact pinned T protocol, using the actual F CLI and adapter', () => {
   })
 })
 
-describe('trusted post-submission acceptance, confirmation remains blocked', () => {
+writableCallback('trusted post-submission acceptance, confirmation remains blocked', () => {
   it('runs the SUBMITTED CLI against a loopback read-only RPC stub without signing or sending', async () => {
     expect((await cli()).code).toBe(0)
     const tx = Transaction.from(request.rawTransaction), methods: string[] = []
