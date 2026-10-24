@@ -1,0 +1,98 @@
+{
+  "scope": "W5_F_FINAL_INTEGRATION",
+  "date_kst": "2026-10-24",
+  "tested_source_commit": "8405734b6abd4baa6d137b2e669e6fe9e9f39ed7",
+  "prior_f": "85a72a75552e766d00cee8f8c261a1411505cb01",
+  "integrated_main": "639030b349e66a92c453e2e6936ba43ad165e8d7",
+  "integration_method": "ordinary merge; no rebase",
+  "frontend": {
+    "build": "PASS",
+    "skipped": 0,
+    "failed": 0,
+    "w5_typecheck": "PASS",
+    "files": 23,
+    "tsc_build_typecheck": "PASS",
+    "passed": 250,
+    "existing_lint_warnings": 2,
+    "lint": "PASS"
+  },
+  "backend": {
+    "single_complete_run": true,
+    "default_workers_and_test_timeouts": true,
+    "elapsed_ms": 103314,
+    "timed_out": false,
+    "failed": 0,
+    "passed": 203,
+    "build": "PASS",
+    "dependencies": "PASS",
+    "runner_timeout_ms": 180000,
+    "files": 12,
+    "windows_sqlite_code_changed": false,
+    "skipped": 0,
+    "typecheck": "PASS"
+  },
+  "browser": {
+    "server": "owned in-process Vite on OS-selected loopback port; closed after suites",
+    "owned_server_closed": true,
+    "live_rpc": {
+      "skipped": 6,
+      "passed": 0,
+      "executed": 0,
+      "mode": "explicitly disabled"
+    },
+    "basic": {
+      "failed": 0,
+      "passed": 1,
+      "matrix_assertions": 20,
+      "skipped": 0
+    },
+    "test_bodies_changed": false,
+    "engine": "Playwright Chromium Headless Shell 153.0.8010.12 / revision 1243",
+    "desktop": {
+      "viewport": "1440x1000",
+      "selected": 15,
+      "executed": 12,
+      "failed": 0,
+      "passed": 12,
+      "skipped": 3
+    },
+    "mobile": {
+      "viewport": "390x844",
+      "emulated": true,
+      "selected": 15,
+      "executed": 12,
+      "failed": 0,
+      "passed": 12,
+      "skipped": 3
+    }
+  },
+  "historical": {
+    "backend_and_shared_diff_vs_prior_f": "EMPTY",
+    "w4_docs_hashed": 53,
+    "protected_diff_vs_prior_f": "EMPTY"
+  },
+  "boundaries": {
+    "chain_transaction_sent": false,
+    "pr29_draft": true,
+    "s1_approval": false,
+    "main_merge_performed": false,
+    "policy": "W4_PROVISIONAL_E2E_ONLY",
+    "actual_db_changed": false,
+    "team_approved": false,
+    "policy_lock": false,
+    "test_data_accessed": false
+  },
+  "remaining": [
+    "Independent T review of the final F SHA",
+    "Live RPC browser QA not executed",
+    "Physical mobile device QA not executed",
+    "Team decision to release Draft and merge"
+  ],
+  "local_evidence_dir": "private-data/w5-final-integration-20261024-01",
+  "attempts": [
+    "Initial frontend npm test: temp-cache ENOENT; retried with per-run TEMP/TMP, full 250 PASS",
+    "Initial backend attempt interrupted before summary; complete retry ran all 203 together with default workers/timeouts",
+    "Initial browser missing binary/Windows npm webServer teardown blocked; official Chromium installed in ignored per-run folder",
+    "Successful browser adapter retains suite bodies/projects/assertions, substitutes owned Vite lifecycle and Chromium channel; all three CLI exits 0"
+  ]
+}

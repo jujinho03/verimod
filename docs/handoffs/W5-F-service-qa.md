@@ -1,3 +1,4 @@
+> **2026-10-24 최신 F 통합 기록:** T main `639030b3`을 일반 merge한 소스로 Frontend 250/250, Backend 203/203, 기본 browser 1/1, W5 Desktop/Mobile 각 12/12가 통과했습니다. Live RPC 6건은 SKIP입니다. 아래 이전 기록은 당시 이력이며, 현재 통합 증거는 [최종 통합 결과](../evidence/w5-f/integration-20261024/README.md)를 참조하세요. PR #29는 Draft이며 최종 F SHA의 T 독립 리뷰가 필요합니다.
 # W5 F → T/A 서비스 QA 인계
 
 작성: 노유신(F), 2026-10-22. 상태: 구현/단위/Node RPC 검증 완료, 브라우저 QA 및 T 승인 대기.
