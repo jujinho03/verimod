@@ -1,0 +1,41 @@
+# W5 — T / 설경민: Synthetic Lifecycle · RPC · Gas
+
+기준일: 2026-10-22. 이 문서는 W5에서 새로 수행한 소스·회귀 검증과 W4의 읽기 전용 기록을 분리한다. Synthetic fixture와 LOCAL/RPC stub 결과를 Base Sepolia의 공개 검증으로 표시하지 않는다.
+
+## RCPT-05 / TEST-05 결과
+
+`frontend/src/domain/verify.ts`는 APPEAL과 REVIEW의 `subject_receipt_hash`, `previous_receipt_hash`, `issuer_id`, `content_commitment`, event transition을 확인한다. W5에서 제공된 연결 fixture 범위의 `issuer_seq` 단조 증가 검사도 추가했다.
+
+- `RESTRICT → APPEAL → REVIEW`와 `HUMAN_REVIEW → direct REVIEW(RESOLVED)`만 허용한다.
+- `ALLOW → APPEAL`, 해시 참조 오류, 금지 transition은 lifecycle `FAILED`이다.
+- 제공한 선행 bundle이 없으면 `INCOMPLETE_HISTORY`이다.
+- 선행 기록의 anchor가 `PENDING_ANCHOR`이거나 RPC가 응답하지 않으면 `NOT_CHECKED`이다. 이는 무결성 실패가 아니다.
+- 이 검사는 fixture에서 제공된 연결의 역순·중복을 잡을 뿐, 발급자 전역 이력의 완전성·최신성 또는 숨은 분기 부재를 보장하지 않는다.
+
+회귀 명령: `npm test -- --run frontend/src/domain/verify.test.ts` (저장소 루트에서 실행 시 frontend 작업 디렉터리를 사용한다). 테스트는 Synthetic receipt·in-memory ledger만 사용한다.
+
+## W4 증거의 읽기 전용 참조
+
+W4 배포·profile 값은 `docs/deployments.md`에 보존한다. 2026-10-22에 `https://sepolia.base.org`로 **읽기 전용** RPC 재확인을 수행했다. 새 transaction, epoch, signer, 운영 DB 연결은 수행하지 않았다.
+
+| 확인 | 결과 |
+| --- | --- |
+| `eth_chainId` | `0x14a34` (= 84532, Base Sepolia) |
+| approved contract code | `0xd17ba590b23e984e3f3408bcdc3529be9868ec50`에 non-empty code |
+| `publisher()` | `0xd47675be41ec3476f541c1d8d8a9f622c90182ed`, 승인 값과 일치 |
+| `epochs(1)` getter | root `0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82`, count 2, version 1 |
+| `safe` / `finalized` 태그 | endpoint가 응답함 (각각 `0x2e61a74` / `0x2e6096c`) |
+
+동일 endpoint는 넓은 과거 범위의 `eth_getLogs`를 200 block range로 제한했다. 따라서 이 재확인은 getter와 profile의 독립 읽기 검증이며, 해당 endpoint만으로 과거 event/transaction receipt를 자동 발견했다는 주장은 하지 않는다. W4 역사 증거와 이 W5 신규 실행 결과를 혼합하지 않는다.
+
+후속 TEST-05에서는 transaction hash를 제공받아 receipt/event를 직접 대조했다. 이 결과는 [W5 TEST-05 공개 RPC 증거](../evidence/w5-t-test-05-20261022.md)에 별도로 기록한다.
+
+TEST-05의 원본 SHA 검사는 `w4-frozen-epoch-public/20261017-r01`의 10/17 frozen handoff 4개 파일을 대상으로 한다. 최신 main에 보존된 `w4-anchored-epoch-public/20261020-r01`의 anchored bundle·브라우저 증거는 별도 역사 자료이며, 이 T 진행 기록이 이를 수정하거나 동일한 파일 범위의 검증으로 주장하지 않는다.
+
+## CHAIN-09 산식
+
+문서에 기록된 단일 W4 transaction 관측치 `gasUsed = 70,407`, receipt 2건의 단순 상각은 `70,407 / 2 = 35,203.5 gas/receipt`이다. proof bytes, event, block, 실제 gas price 및 총 비용은 이 작업에서 새로 관측하지 않았으므로 운영 평균이나 비용 추정으로 일반화하지 않는다.
+
+## SERVICE QA 범위
+
+검증 결과는 core status와 lifecycle side-check를 분리한다. `RPC_UNAVAILABLE`은 network availability이며 `HASH_MISMATCH`, `INVALID_PROOF`, `UNTRUSTED_ANCHOR`와 구별한다. UI의 Synthetic/LOCAL 표기는 공개 Base 검증을 뜻하지 않는다. API-05/06, global log, consistency proof는 POST-MVP 범위로 유지한다.
