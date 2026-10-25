@@ -36,3 +36,11 @@ T가 Windows에서 backend DB를 다시 열 때 생기는 문제를 고치려고
 4. 팀장이 merge를 승인한다.
 
 이 조건을 다 채울 때까지 상태는 **OPEN**이다. W6 T 작업으로 이월한다. 원격 공개 Issue 등록은 저장소가 공개 상태이므로 하지 않았다. 팀장이 판단해 비공개 채널로 공유한다.
+
+## 2026-10-25 후속 — fail-closed 수정 (F PR #29에 포함, main 미병합)
+
+- 처음 거부한 direct-path 재열기 패치는 **어느 브랜치에도 들어가지 않았다.**
+- 대신 T가 `baf8b36`("fail closed Windows callback DB reopen")을 냈고, F PR #29(head `19be2b79`)에 포함됐다. `openApprovedDatabase`는 이제 `process.platform === 'win32'`이면 `WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED`로 열기를 거부한다. 비 Windows 경로(`mode=rw` no-create + 경로·identity 검사)는 바뀌지 않았다.
+- F 보고: Windows backend 153 PASS / 53 SKIP, Linux backend 199 PASS / 7 SKIP. 53 SKIP은 Windows에서 실행할 수 없게 된 callback 경로다. **SKIP은 PASS가 아니다.**
+- **운영 영향:** authoritative DB는 A의 Windows 노트북에 있다. 이 수정이 main에 들어가면 그 노트북에서 F callback(prepare/submitted/confirmed)을 **실행할 수 없다.** 새 Epoch 등록(예: W6 SEED-01)에는 비 Windows 실행 환경이나 별도 승인된 방식이 필요하다.
+- **상태 변경:** 위험한 동작(빈 DB 생성)은 차단됐다(Windows에서는 지원하지 않는 방식으로 차단). Windows에서 쓰기 가능한 callback 지원은 여전히 **OPEN**이다. 위 8개 부정 검증 중 이 수정으로 직접 확인된 것은 "Windows 경로 거부"뿐이다. 나머지는 Linux 경로의 기존 테스트에 의존한다.

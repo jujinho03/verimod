@@ -142,3 +142,35 @@ T가 제안한 Windows 대응 수정은 **BLOCKED / 별도 보안 작업**으로
 - F CI SUCCESS는 F 브랜치 단독 결과다. T/F 통합 SHA의 결과가 아니며 브라우저 QA 결과도 아니다. 브라우저 QA는 F 자체 기록상 desktop/mobile BLOCKED, LIVE 6 SKIP이다.
 - T merge 차단 사유: PR 작성자가 `jujinho03`라 본인 승인이 불가능하다. 또한 Claude Code 분류기가 리뷰 없는 merge를 거부했다. 독립 리뷰어 `ysn-0215`의 승인을 기다린다.
 - SEC-W5-01(Windows SQLite 재열기)은 OPEN이다. 어떤 PR에도 포함되지 않았다.
+
+## 11. 최종 통합 상태 — 2026-10-25 (GATE-5 판정 전)
+
+| 항목 | SHA | CI | 리뷰 | 상태 |
+|---|---|---|---|---|
+| T PR #28 | merge `639030b3` (head `cd5b1c53`) | #252 main SUCCESS | `ysn-0215` APPROVED | **병합 완료** |
+| F PR #29 | `19be2b79` | #258/#259 SUCCESS | `k0ng-min` 요청됨, **제출 0건** | Draft, 미병합 |
+| A PR #30 | `8984869e` 이후 문서 커밋 | #253/#254 SUCCESS (`8984869e`) | 미요청 | Draft, 미병합 |
+| main | `639030b3` (T만 포함) | #252 SUCCESS | — | A·F 미포함 |
+
+**A가 로컬에서 만든 통합 후보 (push 안 함):**
+- 후보 SHA `16aa1e15` = main `639030b3` + F `19be2b79` + A `8984869e`. 두 merge 모두 충돌 없음.
+- A Python 전체 307 passed, subtests 27 passed, 실패·오류 0. `test-evaluate` 종료코드 3(EXPECTED_BLOCK).
+- W4 증거 45개 파일은 `ba8b7bc` 이후 변경 0.
+- 증거: [verification.json](../../ai/artifacts/reports/w5_integration_dryrun/20261025-16aa1e15/verification.json)
+- 이 결과는 GitHub CI가 아니며, 실제 main 결과가 아니다.
+
+**F 보고 수치 (F 증거 기준, A가 재실행하지 않음):** frontend 250 PASS, Windows backend 153 PASS / 53 SKIP, Linux backend 199 PASS / 7 SKIP, W5 Desktop 12 PASS, Mobile emulation 12 PASS, LIVE-RPC 0 PASS / 6 SKIP, W4 파일 53개 무결성.
+
+**G5 재평가 (21:00 판정 전 현황):**
+
+| Gate | 현재 증거 | 현황 | 21:00까지 필요한 것 |
+|---|---|---|---|
+| G5-01 | Validation 비교, S1 초안 | **BLOCKED**: S1 PENDING_APPROVAL | 팀장 X/B·후보 승인. Manifest·LOCK은 승인 이후 단계 |
+| G5-02 | Guard 합성 PASS, exit 3 | **BLOCKED**: LOCK 없음, TEST SEALED | 없음. 순서상 W5 안에 불가 |
+| G5-03 | W4 증거 불변(45/45, F 53), T TEST-05 | **PASS 가능** | 없음 |
+| G5-04 | T lifecycle main 병합, F Timeline은 F PR | **PARTIAL** | F PR #29 리뷰·병합 |
+| G5-05 | F Private Package·legacy storage·SEC fail-closed는 F PR | **PARTIAL** | F PR #29 리뷰·병합 |
+| G5-06 | RPC 구분 코드, Desktop/Mobile emulation 24 PASS(F 보고), LIVE 6 SKIP | **PARTIAL** | LIVE RPC 실측(W6 가능), 실기기 QA |
+| G5-07 | T main CI #252, F/A 브랜치 CI, A 통합 후보 307 | **PARTIAL** | A/T/F 포함 main CI |
+
+종합 현황: **PARTIAL 예상.** 최종 판정은 21:00에 위 증거로 확정한다. TEST와 LOCK은 마감을 이유로 실행하지 않는다.
