@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "scope": "AI-12 execution-guard preparation primitives on invented Git/claim fixtures only",
+  "source_commit": "4f1d875c6605fdbaba368eab95b221e61fd11970",
+  "source_state": "execution guard sources not yet committed at run time; executed byte hashes below",
+  "command": [
+    "ai/.venv/Scripts/python.exe",
+    "-B",
+    "-m",
+    "pytest",
+    "-p",
+    "no:cacheprovider",
+    "-q",
+    "tests/test_w5_execution_guard.py",
+    "tests/test_w5_preregistration.py",
+    "tests/test_w5_policy_approval.py",
+    "tests/test_w5_policy_selection.py",
+    "tests/test_w5_validation_rows.py",
+    "tests/test_w5_validation_analysis.py",
+    "tests/test_w4_policy.py",
+    "tests/test_policy_metrics.py",
+    "--basetemp=<Git-ignored run>/basetemp",
+    "--junitxml=<Git-ignored run>/pytest.xml"
+  ],
+  "cwd": "ai",
+  "returncode": 0,
+  "pytest_counts": {
+    "tests": 166,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_counts_by_module": {
+    "PolicyMetricTests": 9,
+    "test_w4_policy": 11,
+    "test_w5_execution_guard": 43,
+    "test_w5_policy_approval": 12,
+    "test_w5_policy_selection": 23,
+    "test_w5_preregistration": 24,
+    "test_w5_validation_analysis": 18,
+    "test_w5_validation_rows": 26
+  },
+  "test_evaluate_cli": {
+    "command": "scripts/prepare_w5_evaluation.py test-evaluate",
+    "exit_code": 3,
+    "status": "BLOCKED"
+  },
+  "source_sha256": {
+    "ai/src/verimod_ai/evaluation/w5_execution_guard.py": "152a4489ee05ed3f7f3a766532b17b98c1dcd47653ecd7d90d3e3e0f661b293b",
+    "ai/tests/test_w5_execution_guard.py": "d2917160610097e9ce26317dd460c783a4b2c26c5f089099a6378f933936809a",
+    "ai/src/verimod_ai/evaluation/w5_preregistration.py": "0fa945a314436edf7e56aca8bb3462ca679289000f80679d40c35b355eb5095b",
+    "ai/scripts/prepare_w5_evaluation.py": "af6b0fd24d3d6431958fdbbc52c55063837dad28d2f7a9e57de8f856d39c10c6",
+    "ai/tests/test_w5_preregistration.py": "96a0f499ccfc14ac6c7393b2a4357dcaf54d88583d91c199feae25a62fa78829"
+  },
+  "guard_result_contract": {
+    "execution_allowed": false,
+    "execution_status": "BLOCKED",
+    "test_state": "SEALED"
+  },
+  "proposed_schema_adopted": false,
+  "claim_registry": "disposable pytest temp directories only; no operational registry created",
+  "real_lock_created": false,
+  "manifest_generated": false,
+  "new_policy_hash_computed": false,
+  "test_data_accessed": false,
+  "T_F_code_changed": false,
+  "pushed": false,
+  "not_aggregated_with": [
+    "102 (20261021T214312Z-cdfcb0c7)",
+    "128 (20261021T231440Z-aa90617c)",
+    "61 (20261022T001829Z-6d4a3888)"
+  ],
+  "known_limits": [
+    "Git committer timestamps are user-settable and do not authenticate approval",
+    "source_sha256 strings in authorization metadata are format-checked only",
+    "artifact byte equality does not prove semantic policy/approval equality",
+    "weights/tokenizer/environment/transitive evaluator dependencies not bound",
+    "temp-dir claim tests do not establish power-loss, permission or multi-host durability"
+  ],
+  "junit_redacted_fields": [
+    "hostname"
+  ]
+}

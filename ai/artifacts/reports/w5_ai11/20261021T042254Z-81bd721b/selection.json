@@ -1,0 +1,1558 @@
+{
+  "ticket": "AI-11",
+  "status": "PARTIAL",
+  "aggregate_audit": "PASS",
+  "formal_selection": "BLOCKED_X_B_AND_POLICY_APPROVAL_REQUIRED",
+  "team_approved": false,
+  "X": null,
+  "B": null,
+  "adopted_candidate_id": null,
+  "lock_executed": false,
+  "test_accessed": false,
+  "model_executed": false,
+  "row_recomputation": "BLOCKED_EXACT_VALIDATION_PREDICTIONS_LOCATION_UNVERIFIED",
+  "evidence_kind": "SAVED_VALIDATION_AGGREGATE_AUDIT_NOT_NEW_INFERENCE",
+  "candidate_count": 25,
+  "predictions_sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+  "private_predictions_hash_verified": false,
+  "selection_rule": "FRR<=X and HRR_TOTAL<=B; min HAR, max RP, min HRR_TOTAL",
+  "policy_semantics": "TRUNCATED_HUMAN_REVIEW > ANY_RESTRICT > ANY_REVIEW > ALLOW",
+  "minimum_candidate_FRR": 0.05850091407678245,
+  "candidates": [
+    {
+      "candidate_id": "H25-50_O25-50",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 24495
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 180483
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 247,
+        "HUMAN_REVIEW": 214,
+        "RESTRICT": 794
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 176,
+          "denominator": 547,
+          "value": 0.3217550274223035
+        },
+        "RP": {
+          "numerator": 618,
+          "denominator": 794,
+          "value": 0.7783375314861462
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 214,
+          "denominator": 1255,
+          "value": 0.17051792828685258
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 794,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 214
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 170.5179282868526
+    },
+    {
+      "candidate_id": "H25-50_O25-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 24495
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 247,
+        "HUMAN_REVIEW": 339,
+        "RESTRICT": 669
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 119,
+          "denominator": 547,
+          "value": 0.21755027422303475
+        },
+        "RP": {
+          "numerator": 550,
+          "denominator": 669,
+          "value": 0.8221225710014948
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 339,
+          "denominator": 1255,
+          "value": 0.2701195219123506
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 669,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 339
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 270.1195219123506
+    },
+    {
+      "candidate_id": "H25-50_O50-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 24495
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 273,
+        "RESTRICT": 669
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 119,
+          "denominator": 547,
+          "value": 0.21755027422303475
+        },
+        "RP": {
+          "numerator": 550,
+          "denominator": 669,
+          "value": 0.8221225710014948
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 273,
+          "denominator": 1255,
+          "value": 0.21752988047808766
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 669,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 273
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 217.52988047808765
+    },
+    {
+      "candidate_id": "H25-50_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 24495
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 300,
+        "RESTRICT": 642
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 108,
+          "denominator": 547,
+          "value": 0.19744058500914077
+        },
+        "RP": {
+          "numerator": 534,
+          "denominator": 642,
+          "value": 0.8317757009345794
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 300,
+          "denominator": 1255,
+          "value": 0.23904382470119523
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 642,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 300
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 239.04382470119523
+    },
+    {
+      "candidate_id": "H25-50_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 24495
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 300,
+        "RESTRICT": 642
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 108,
+          "denominator": 547,
+          "value": 0.19744058500914077
+        },
+        "RP": {
+          "numerator": 534,
+          "denominator": 642,
+          "value": 0.8317757009345794
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 300,
+          "denominator": 1255,
+          "value": 0.23904382470119523
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 642,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 300
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 239.04382470119523
+    },
+    {
+      "candidate_id": "H25-75_O25-50",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 180483
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 247,
+        "HUMAN_REVIEW": 219,
+        "RESTRICT": 789
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 174,
+          "denominator": 547,
+          "value": 0.3180987202925046
+        },
+        "RP": {
+          "numerator": 615,
+          "denominator": 789,
+          "value": 0.779467680608365
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 219,
+          "denominator": 1255,
+          "value": 0.1745019920318725
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 789,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 219
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 174.5019920318725
+    },
+    {
+      "candidate_id": "H25-75_O25-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 247,
+        "HUMAN_REVIEW": 412,
+        "RESTRICT": 596
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 22,
+          "denominator": 708,
+          "value": 0.031073446327683617
+        },
+        "HRR_TOTAL": {
+          "numerator": 412,
+          "denominator": 1255,
+          "value": 0.3282868525896414
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 596,
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 412
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 328.2868525896414
+    },
+    {
+      "candidate_id": "H25-75_O50-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 346,
+        "RESTRICT": 596
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 346,
+          "denominator": 1255,
+          "value": 0.2756972111553785
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 596,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 346
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 275.6972111553785
+    },
+    {
+      "candidate_id": "H25-75_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 502,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 502,
+          "denominator": 1255,
+          "value": 0.4
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 502
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 400.0
+    },
+    {
+      "candidate_id": "H25-75_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 4613,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 313,
+        "HUMAN_REVIEW": 502,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 43,
+          "denominator": 708,
+          "value": 0.06073446327683616
+        },
+        "HRR_TOTAL": {
+          "numerator": 502,
+          "denominator": 1255,
+          "value": 0.4
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 502
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 400.0
+    },
+    {
+      "candidate_id": "H50-75_O25-50",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 180483
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 195,
+        "RESTRICT": 789
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 174,
+          "denominator": 547,
+          "value": 0.3180987202925046
+        },
+        "RP": {
+          "numerator": 615,
+          "denominator": 789,
+          "value": 0.779467680608365
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 195,
+          "denominator": 1255,
+          "value": 0.1553784860557769
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 789,
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 195
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 155.3784860557769
+    },
+    {
+      "candidate_id": "H50-75_O25-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 388,
+        "RESTRICT": 596
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 388,
+          "denominator": 1255,
+          "value": 0.30916334661354583
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 596,
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 388
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 309.16334661354585
+    },
+    {
+      "candidate_id": "H50-75_O50-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 198,
+        "RESTRICT": 596
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 91,
+          "denominator": 547,
+          "value": 0.1663619744058501
+        },
+        "RP": {
+          "numerator": 505,
+          "denominator": 596,
+          "value": 0.8473154362416108
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 198,
+          "denominator": 1255,
+          "value": 0.15776892430278885
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 596,
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 198
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 157.76892430278886
+    },
+    {
+      "candidate_id": "H50-75_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 354,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 354,
+          "denominator": 1255,
+          "value": 0.28207171314741036
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 354
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 282.0717131474104
+    },
+    {
+      "candidate_id": "H50-75_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 216950
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 586,
+        "HUMAN_REVIEW": 229,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 53,
+          "denominator": 547,
+          "value": 0.09689213893967093
+        },
+        "RP": {
+          "numerator": 387,
+          "denominator": 440,
+          "value": 0.8795454545454545
+        },
+        "HAR": {
+          "numerator": 158,
+          "denominator": 708,
+          "value": 0.2231638418079096
+        },
+        "HRR_TOTAL": {
+          "numerator": 229,
+          "denominator": 1255,
+          "value": 0.18247011952191236
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 440,
+          "ALLOW": 586,
+          "HUMAN_REVIEW": 229
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 182.47011952191235
+    },
+    {
+      "candidate_id": "H50-90_O25-50",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 180483
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 230,
+        "RESTRICT": 754
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 171,
+          "denominator": 547,
+          "value": 0.3126142595978062
+        },
+        "RP": {
+          "numerator": 583,
+          "denominator": 754,
+          "value": 0.773209549071618
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 230,
+          "denominator": 1255,
+          "value": 0.18326693227091634
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 754,
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 230
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 183.26693227091633
+    },
+    {
+      "candidate_id": "H50-90_O25-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 544,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 544,
+          "denominator": 1255,
+          "value": 0.4334661354581673
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 544,
+          "ALLOW": 271,
+          "RESTRICT": 440
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 433.4661354581673
+    },
+    {
+      "candidate_id": "H50-90_O50-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 354,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 354,
+          "denominator": 1255,
+          "value": 0.28207171314741036
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 354,
+          "ALLOW": 461,
+          "RESTRICT": 440
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 282.0717131474104
+    },
+    {
+      "candidate_id": "H50-90_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 461,
+        "HUMAN_REVIEW": 542,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 90,
+          "denominator": 708,
+          "value": 0.1271186440677966
+        },
+        "HRR_TOTAL": {
+          "numerator": 542,
+          "denominator": 1255,
+          "value": 0.43187250996015936
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 542,
+          "ALLOW": 461,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 431.87250996015933
+    },
+    {
+      "candidate_id": "H50-90_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 24495,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 586,
+        "HUMAN_REVIEW": 417,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 158,
+          "denominator": 708,
+          "value": 0.2231638418079096
+        },
+        "HRR_TOTAL": {
+          "numerator": 417,
+          "denominator": 1255,
+          "value": 0.3322709163346614
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 417,
+          "ALLOW": 586,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 332.27091633466136
+    },
+    {
+      "candidate_id": "H75-90_O25-50",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 180483
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 230,
+        "RESTRICT": 754
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 171,
+          "denominator": 547,
+          "value": 0.3126142595978062
+        },
+        "RP": {
+          "numerator": 583,
+          "denominator": 754,
+          "value": 0.773209549071618
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 230,
+          "denominator": 1255,
+          "value": 0.18326693227091634
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "RESTRICT": 754,
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 230
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 183.26693227091633
+    },
+    {
+      "candidate_id": "H75-90_O25-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 28833,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 271,
+        "HUMAN_REVIEW": 544,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 24,
+          "denominator": 708,
+          "value": 0.03389830508474576
+        },
+        "HRR_TOTAL": {
+          "numerator": 544,
+          "denominator": 1255,
+          "value": 0.4334661354581673
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 544,
+          "ALLOW": 271,
+          "RESTRICT": 440
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 433.4661354581673
+    },
+    {
+      "candidate_id": "H75-90_O50-75",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 646501
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 466,
+        "HUMAN_REVIEW": 349,
+        "RESTRICT": 440
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 74,
+          "denominator": 547,
+          "value": 0.13528336380255943
+        },
+        "RP": {
+          "numerator": 366,
+          "denominator": 440,
+          "value": 0.8318181818181818
+        },
+        "HAR": {
+          "numerator": 93,
+          "denominator": 708,
+          "value": 0.13135593220338984
+        },
+        "HRR_TOTAL": {
+          "numerator": 349,
+          "denominator": 1255,
+          "value": 0.27808764940239045
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 349,
+          "ALLOW": 466,
+          "RESTRICT": 440
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 278.08764940239047
+    },
+    {
+      "candidate_id": "H75-90_O50-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 180483,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 466,
+        "HUMAN_REVIEW": 537,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 93,
+          "denominator": 708,
+          "value": 0.13135593220338984
+        },
+        "HRR_TOTAL": {
+          "numerator": 537,
+          "denominator": 1255,
+          "value": 0.42788844621513944
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 537,
+          "ALLOW": 466,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 427.8884462151394
+    },
+    {
+      "candidate_id": "H75-90_O75-90",
+      "thresholds_ppm": {
+        "hate": {
+          "review": 216950,
+          "restrict": 887209
+        },
+        "offensive": {
+          "review": 646501,
+          "restrict": 828254
+        }
+      },
+      "n": 1255,
+      "actions": {
+        "ALLOW": 659,
+        "HUMAN_REVIEW": 344,
+        "RESTRICT": 252
+      },
+      "metrics": {
+        "FRR": {
+          "numerator": 32,
+          "denominator": 547,
+          "value": 0.05850091407678245
+        },
+        "RP": {
+          "numerator": 220,
+          "denominator": 252,
+          "value": 0.873015873015873
+        },
+        "HAR": {
+          "numerator": 203,
+          "denominator": 708,
+          "value": 0.2867231638418079
+        },
+        "HRR_TOTAL": {
+          "numerator": 344,
+          "denominator": 1255,
+          "value": 0.27410358565737053
+        }
+      },
+      "by_input_status": {
+        "FULL": {
+          "HUMAN_REVIEW": 344,
+          "ALLOW": 659,
+          "RESTRICT": 252
+        },
+        "TRUNCATED": {}
+      },
+      "review_per_1000_at_validation_mix": 274.1035856573705
+    }
+  ],
+  "observed_boundary_simulations": [
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.05850091407678245,
+      "B": 0.27410358565737053,
+      "feasible_count": 1,
+      "candidate_id": "H75-90_O75-90",
+      "fully_tied_candidates": [
+        "H75-90_O75-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.05850091407678245,
+      "B": 0.3322709163346614,
+      "feasible_count": 2,
+      "candidate_id": "H50-90_O75-90",
+      "fully_tied_candidates": [
+        "H50-90_O75-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.05850091407678245,
+      "B": 0.42788844621513944,
+      "feasible_count": 3,
+      "candidate_id": "H75-90_O50-90",
+      "fully_tied_candidates": [
+        "H75-90_O50-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.05850091407678245,
+      "B": 0.43187250996015936,
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.09689213893967093,
+      "B": 0.18247011952191236,
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.09689213893967093,
+      "B": 0.28207171314741036,
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.09689213893967093,
+      "B": 0.4,
+      "feasible_count": 6,
+      "candidate_id": "H25-75_O50-90",
+      "fully_tied_candidates": [
+        "H25-75_O50-90",
+        "H25-75_O75-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.13528336380255943,
+      "B": 0.27808764940239045,
+      "feasible_count": 3,
+      "candidate_id": "H75-90_O50-75",
+      "fully_tied_candidates": [
+        "H75-90_O50-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.13528336380255943,
+      "B": 0.28207171314741036,
+      "feasible_count": 5,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.13528336380255943,
+      "B": 0.4334661354581673,
+      "feasible_count": 12,
+      "candidate_id": "H50-90_O25-75",
+      "fully_tied_candidates": [
+        "H50-90_O25-75",
+        "H75-90_O25-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.1663619744058501,
+      "B": 0.15776892430278885,
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O50-75",
+      "fully_tied_candidates": [
+        "H50-75_O50-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.1663619744058501,
+      "B": 0.2756972111553785,
+      "feasible_count": 4,
+      "candidate_id": "H25-75_O50-75",
+      "fully_tied_candidates": [
+        "H25-75_O50-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.1663619744058501,
+      "B": 0.30916334661354583,
+      "feasible_count": 8,
+      "candidate_id": "H50-75_O25-75",
+      "fully_tied_candidates": [
+        "H50-75_O25-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.1663619744058501,
+      "B": 0.3282868525896414,
+      "feasible_count": 9,
+      "candidate_id": "H25-75_O25-75",
+      "fully_tied_candidates": [
+        "H25-75_O25-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.19744058500914077,
+      "B": 0.23904382470119523,
+      "feasible_count": 4,
+      "candidate_id": "H25-50_O50-90",
+      "fully_tied_candidates": [
+        "H25-50_O50-90",
+        "H25-50_O75-90"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.21755027422303475,
+      "B": 0.21752988047808766,
+      "feasible_count": 3,
+      "candidate_id": "H25-50_O50-75",
+      "fully_tied_candidates": [
+        "H25-50_O50-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.21755027422303475,
+      "B": 0.2701195219123506,
+      "feasible_count": 6,
+      "candidate_id": "H25-50_O25-75",
+      "fully_tied_candidates": [
+        "H25-50_O25-75"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.3126142595978062,
+      "B": 0.18326693227091634,
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O25-50",
+      "fully_tied_candidates": [
+        "H50-90_O25-50",
+        "H75-90_O25-50"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.3180987202925046,
+      "B": 0.1553784860557769,
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O25-50",
+      "fully_tied_candidates": [
+        "H50-75_O25-50"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.3180987202925046,
+      "B": 0.1745019920318725,
+      "feasible_count": 3,
+      "candidate_id": "H25-75_O25-50",
+      "fully_tied_candidates": [
+        "H25-75_O25-50"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    },
+    {
+      "status": "FEASIBLE",
+      "usage": "SIMULATION_ONLY_NOT_TEAM_APPROVED",
+      "X": 0.3217550274223035,
+      "B": 0.17051792828685258,
+      "feasible_count": 3,
+      "candidate_id": "H25-50_O25-50",
+      "fully_tied_candidates": [
+        "H25-50_O25-50"
+      ],
+      "last_resort": "candidate_id ascending; all metric ties disclosed; adoption still requires approval"
+    }
+  ],
+  "requested_simulation": null,
+  "limitations": [
+    "native none is a normal proxy, not policy ALLOW",
+    "scores are UNCALIBRATED, not harmful probabilities",
+    "workload per 1000 assumes the Validation class/score mix; no traffic or service-time forecast",
+    "25 candidates share Validation selection bias; no TEST/generalization claim",
+    "FRR, HAR and review cost cannot all be minimized by selecting the lowest FRR alone"
+  ],
+  "sources": {
+    "validation.json": {
+      "path": "ai/artifacts/reports/w4_a_validation/20261016/validation.json",
+      "file_sha256": "a3a2d9a68dd06f26520fb74d30f393eeb79bf0f075fe55b3881de6c5b94bd9bb",
+      "semantic_json_sha256": "ddddf229b696d6df39393d514830168a6dd2652ee366a295b23f919ea53ef8c7"
+    },
+    "policy_candidates.json": {
+      "path": "ai/artifacts/reports/w4_a_validation/20261016/policy_candidates.json",
+      "file_sha256": "ca4e79ca850384a434fcb6ffdc5b4f091f0bef9e118610414deae3b00d7f0ff1",
+      "semantic_json_sha256": "e11fe67a210949e6b31a6ce27bc64dca805f7135600898748d937ca8e5632b87"
+    }
+  },
+  "created_at_utc": "2026-10-21T04:22:54.616190+00:00",
+  "source_commit": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+  "execution_source_sha256": {
+    "ai/scripts/select_w5_policy.py": "67d27e37f52e0e347107a5045e60b43318dd7e807f62f670571f5176099d4ad4",
+    "ai/src/verimod_ai/evaluation/selection.py": "b833cf96d346b37c4b19747e9818fa07404fc9bb1c95cdca8d7c15a4a63114c7",
+    "ai/src/verimod_ai/evaluation/policy_metrics.py": "24bdf0b47054447abad4e16e049f8e40755cbb18a68292a2e2e7fe29bbe83035"
+  }
+}

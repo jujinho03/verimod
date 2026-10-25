@@ -1,0 +1,2 @@
+# Preserve evidence bytes; recognize Windows CRLF as a line ending.
+*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -1,0 +1,1743 @@
+{
+  "ticket": "AI-11/AI-13-ROW-REVALIDATION",
+  "created_at_utc": "2026-10-21T23:13:46.997595+00:00",
+  "base_git_sha": "1d782f649e243e952d10250fdd0c4ea3dce44e3b",
+  "prediction_provenance": {
+    "role": "validation_predictions",
+    "sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+    "expected_sha256": "74fcac005741574422edcd597dc1f78d8234b20e24e50f35d722d01fd927a400",
+    "hash_match": true
+  },
+  "prediction_schema": {
+    "status": "PASS",
+    "rows": 1255,
+    "schema_keys": [
+      "input_status",
+      "local_row",
+      "native_prediction",
+      "native_scores",
+      "native_truth",
+      "raw_logits",
+      "scores_ppm"
+    ],
+    "native_truth_counts": {
+      "hate": 305,
+      "none": 547,
+      "offensive": 403
+    },
+    "native_prediction_counts": {
+      "offensive": 431,
+      "none": 597,
+      "hate": 227
+    },
+    "input_status_counts": {
+      "FULL": 1255
+    }
+  },
+  "recalculation": {
+    "status": "PASS",
+    "candidate_count": 25,
+    "differences": [],
+    "difference_count": 0,
+    "python_reference_action_comparisons": 31375,
+    "python_reference_action_mismatches": 0,
+    "quantiles_ppm": {
+      "hate": {
+        "25": 4613,
+        "50": 24495,
+        "75": 216950,
+        "90": 887209
+      },
+      "offensive": {
+        "25": 28833,
+        "50": 180483,
+        "75": 646501,
+        "90": 828254
+      }
+    },
+    "model": {
+      "classes": [
+        "hate",
+        "offensive",
+        "none"
+      ],
+      "n": 1255,
+      "confusion_matrix": {
+        "hate": {
+          "hate": 177,
+          "offensive": 100,
+          "none": 28
+        },
+        "offensive": {
+          "hate": 37,
+          "offensive": 226,
+          "none": 140
+        },
+        "none": {
+          "hate": 13,
+          "offensive": 105,
+          "none": 429
+        }
+      },
+      "per_class": {
+        "hate": {
+          "precision": 0.7797356828193832,
+          "recall": 0.580327868852459,
+          "f1": 0.6654135338345865,
+          "support": 305,
+          "precision_defined": true,
+          "recall_defined": true,
+          "f1_defined": true
+        },
+        "offensive": {
+          "precision": 0.5243619489559165,
+          "recall": 0.5607940446650124,
+          "f1": 0.5419664268585132,
+          "support": 403,
+          "precision_defined": true,
+          "recall_defined": true,
+          "f1_defined": true
+        },
+        "none": {
+          "precision": 0.7185929648241206,
+          "recall": 0.7842778793418648,
+          "f1": 0.75,
+          "support": 547,
+          "precision_defined": true,
+          "recall_defined": true,
+          "f1_defined": true
+        }
+      },
+      "macro_f1": 0.6524599868976999,
+      "micro_f1": 0.6629482071713148,
+      "accuracy": 0.6629482071713148
+    },
+    "candidates": [
+      {
+        "candidate_id": "H25-50_O25-50",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 24495
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 180483
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 214,
+          "RESTRICT": 794
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 176,
+            "denominator": 547,
+            "value": 0.3217550274223035
+          },
+          "RP": {
+            "numerator": 618,
+            "denominator": 794,
+            "value": 0.7783375314861462
+          },
+          "HAR": {
+            "numerator": 22,
+            "denominator": 708,
+            "value": 0.031073446327683617
+          },
+          "HRR_TOTAL": {
+            "numerator": 214,
+            "denominator": 1255,
+            "value": 0.17051792828685258
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 794,
+            "ALLOW": 247,
+            "HUMAN_REVIEW": 214
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-50_O25-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 24495
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 339,
+          "RESTRICT": 669
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 119,
+            "denominator": 547,
+            "value": 0.21755027422303475
+          },
+          "RP": {
+            "numerator": 550,
+            "denominator": 669,
+            "value": 0.8221225710014948
+          },
+          "HAR": {
+            "numerator": 22,
+            "denominator": 708,
+            "value": 0.031073446327683617
+          },
+          "HRR_TOTAL": {
+            "numerator": 339,
+            "denominator": 1255,
+            "value": 0.2701195219123506
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 669,
+            "ALLOW": 247,
+            "HUMAN_REVIEW": 339
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-50_O50-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 24495
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 273,
+          "RESTRICT": 669
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 119,
+            "denominator": 547,
+            "value": 0.21755027422303475
+          },
+          "RP": {
+            "numerator": 550,
+            "denominator": 669,
+            "value": 0.8221225710014948
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 273,
+            "denominator": 1255,
+            "value": 0.21752988047808766
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 669,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 273
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-50_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 24495
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 300,
+          "RESTRICT": 642
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 108,
+            "denominator": 547,
+            "value": 0.19744058500914077
+          },
+          "RP": {
+            "numerator": 534,
+            "denominator": 642,
+            "value": 0.8317757009345794
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 300,
+            "denominator": 1255,
+            "value": 0.23904382470119523
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 642,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 300
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-50_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 24495
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 300,
+          "RESTRICT": 642
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 108,
+            "denominator": 547,
+            "value": 0.19744058500914077
+          },
+          "RP": {
+            "numerator": 534,
+            "denominator": 642,
+            "value": 0.8317757009345794
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 300,
+            "denominator": 1255,
+            "value": 0.23904382470119523
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 642,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 300
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-75_O25-50",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 180483
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 219,
+          "RESTRICT": 789
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 174,
+            "denominator": 547,
+            "value": 0.3180987202925046
+          },
+          "RP": {
+            "numerator": 615,
+            "denominator": 789,
+            "value": 0.779467680608365
+          },
+          "HAR": {
+            "numerator": 22,
+            "denominator": 708,
+            "value": 0.031073446327683617
+          },
+          "HRR_TOTAL": {
+            "numerator": 219,
+            "denominator": 1255,
+            "value": 0.1745019920318725
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 789,
+            "ALLOW": 247,
+            "HUMAN_REVIEW": 219
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-75_O25-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 247,
+          "HUMAN_REVIEW": 412,
+          "RESTRICT": 596
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 91,
+            "denominator": 547,
+            "value": 0.1663619744058501
+          },
+          "RP": {
+            "numerator": 505,
+            "denominator": 596,
+            "value": 0.8473154362416108
+          },
+          "HAR": {
+            "numerator": 22,
+            "denominator": 708,
+            "value": 0.031073446327683617
+          },
+          "HRR_TOTAL": {
+            "numerator": 412,
+            "denominator": 1255,
+            "value": 0.3282868525896414
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 596,
+            "ALLOW": 247,
+            "HUMAN_REVIEW": 412
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-75_O50-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 346,
+          "RESTRICT": 596
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 91,
+            "denominator": 547,
+            "value": 0.1663619744058501
+          },
+          "RP": {
+            "numerator": 505,
+            "denominator": 596,
+            "value": 0.8473154362416108
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 346,
+            "denominator": 1255,
+            "value": 0.2756972111553785
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 596,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 346
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-75_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 502,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 502,
+            "denominator": 1255,
+            "value": 0.4
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 440,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 502
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H25-75_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 4613,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 313,
+          "HUMAN_REVIEW": 502,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 43,
+            "denominator": 708,
+            "value": 0.06073446327683616
+          },
+          "HRR_TOTAL": {
+            "numerator": 502,
+            "denominator": 1255,
+            "value": 0.4
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 440,
+            "ALLOW": 313,
+            "HUMAN_REVIEW": 502
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-75_O25-50",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 180483
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 195,
+          "RESTRICT": 789
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 174,
+            "denominator": 547,
+            "value": 0.3180987202925046
+          },
+          "RP": {
+            "numerator": 615,
+            "denominator": 789,
+            "value": 0.779467680608365
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 195,
+            "denominator": 1255,
+            "value": 0.1553784860557769
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 789,
+            "ALLOW": 271,
+            "HUMAN_REVIEW": 195
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-75_O25-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 388,
+          "RESTRICT": 596
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 91,
+            "denominator": 547,
+            "value": 0.1663619744058501
+          },
+          "RP": {
+            "numerator": 505,
+            "denominator": 596,
+            "value": 0.8473154362416108
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 388,
+            "denominator": 1255,
+            "value": 0.30916334661354583
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 596,
+            "ALLOW": 271,
+            "HUMAN_REVIEW": 388
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-75_O50-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 198,
+          "RESTRICT": 596
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 91,
+            "denominator": 547,
+            "value": 0.1663619744058501
+          },
+          "RP": {
+            "numerator": 505,
+            "denominator": 596,
+            "value": 0.8473154362416108
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 198,
+            "denominator": 1255,
+            "value": 0.15776892430278885
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 596,
+            "ALLOW": 461,
+            "HUMAN_REVIEW": 198
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-75_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 354,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 354,
+            "denominator": 1255,
+            "value": 0.28207171314741036
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 440,
+            "ALLOW": 461,
+            "HUMAN_REVIEW": 354
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-75_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 586,
+          "HUMAN_REVIEW": 229,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 158,
+            "denominator": 708,
+            "value": 0.2231638418079096
+          },
+          "HRR_TOTAL": {
+            "numerator": 229,
+            "denominator": 1255,
+            "value": 0.18247011952191236
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 440,
+            "ALLOW": 586,
+            "HUMAN_REVIEW": 229
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-90_O25-50",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 180483
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 230,
+          "RESTRICT": 754
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 171,
+            "denominator": 547,
+            "value": 0.3126142595978062
+          },
+          "RP": {
+            "numerator": 583,
+            "denominator": 754,
+            "value": 0.773209549071618
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 230,
+            "denominator": 1255,
+            "value": 0.18326693227091634
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 754,
+            "ALLOW": 271,
+            "HUMAN_REVIEW": 230
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-90_O25-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 544,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943
+          },
+          "RP": {
+            "numerator": 366,
+            "denominator": 440,
+            "value": 0.8318181818181818
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 544,
+            "denominator": 1255,
+            "value": 0.4334661354581673
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 544,
+            "ALLOW": 271,
+            "RESTRICT": 440
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-90_O50-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 354,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943
+          },
+          "RP": {
+            "numerator": 366,
+            "denominator": 440,
+            "value": 0.8318181818181818
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 354,
+            "denominator": 1255,
+            "value": 0.28207171314741036
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 354,
+            "ALLOW": 461,
+            "RESTRICT": 440
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-90_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 542,
+          "RESTRICT": 252
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245
+          },
+          "RP": {
+            "numerator": 220,
+            "denominator": 252,
+            "value": 0.873015873015873
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 542,
+            "denominator": 1255,
+            "value": 0.43187250996015936
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 542,
+            "ALLOW": 461,
+            "RESTRICT": 252
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H50-90_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 586,
+          "HUMAN_REVIEW": 417,
+          "RESTRICT": 252
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245
+          },
+          "RP": {
+            "numerator": 220,
+            "denominator": 252,
+            "value": 0.873015873015873
+          },
+          "HAR": {
+            "numerator": 158,
+            "denominator": 708,
+            "value": 0.2231638418079096
+          },
+          "HRR_TOTAL": {
+            "numerator": 417,
+            "denominator": 1255,
+            "value": 0.3322709163346614
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 417,
+            "ALLOW": 586,
+            "RESTRICT": 252
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H75-90_O25-50",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 216950,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 180483
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 230,
+          "RESTRICT": 754
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 171,
+            "denominator": 547,
+            "value": 0.3126142595978062
+          },
+          "RP": {
+            "numerator": 583,
+            "denominator": 754,
+            "value": 0.773209549071618
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 230,
+            "denominator": 1255,
+            "value": 0.18326693227091634
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "RESTRICT": 754,
+            "ALLOW": 271,
+            "HUMAN_REVIEW": 230
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H75-90_O25-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 216950,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 28833,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 271,
+          "HUMAN_REVIEW": 544,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943
+          },
+          "RP": {
+            "numerator": 366,
+            "denominator": 440,
+            "value": 0.8318181818181818
+          },
+          "HAR": {
+            "numerator": 24,
+            "denominator": 708,
+            "value": 0.03389830508474576
+          },
+          "HRR_TOTAL": {
+            "numerator": 544,
+            "denominator": 1255,
+            "value": 0.4334661354581673
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 544,
+            "ALLOW": 271,
+            "RESTRICT": 440
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H75-90_O50-75",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 216950,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 646501
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 466,
+          "HUMAN_REVIEW": 349,
+          "RESTRICT": 440
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943
+          },
+          "RP": {
+            "numerator": 366,
+            "denominator": 440,
+            "value": 0.8318181818181818
+          },
+          "HAR": {
+            "numerator": 93,
+            "denominator": 708,
+            "value": 0.13135593220338984
+          },
+          "HRR_TOTAL": {
+            "numerator": 349,
+            "denominator": 1255,
+            "value": 0.27808764940239045
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 349,
+            "ALLOW": 466,
+            "RESTRICT": 440
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H75-90_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 216950,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 466,
+          "HUMAN_REVIEW": 537,
+          "RESTRICT": 252
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245
+          },
+          "RP": {
+            "numerator": 220,
+            "denominator": 252,
+            "value": 0.873015873015873
+          },
+          "HAR": {
+            "numerator": 93,
+            "denominator": 708,
+            "value": 0.13135593220338984
+          },
+          "HRR_TOTAL": {
+            "numerator": 537,
+            "denominator": 1255,
+            "value": 0.42788844621513944
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 537,
+            "ALLOW": 466,
+            "RESTRICT": 252
+          },
+          "TRUNCATED": {}
+        }
+      },
+      {
+        "candidate_id": "H75-90_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 216950,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "n": 1255,
+        "actions": {
+          "ALLOW": 659,
+          "HUMAN_REVIEW": 344,
+          "RESTRICT": 252
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245
+          },
+          "RP": {
+            "numerator": 220,
+            "denominator": 252,
+            "value": 0.873015873015873
+          },
+          "HAR": {
+            "numerator": 203,
+            "denominator": 708,
+            "value": 0.2867231638418079
+          },
+          "HRR_TOTAL": {
+            "numerator": 344,
+            "denominator": 1255,
+            "value": 0.27410358565737053
+          }
+        },
+        "by_input_status": {
+          "FULL": {
+            "HUMAN_REVIEW": 344,
+            "ALLOW": 659,
+            "RESTRICT": 252
+          },
+          "TRUNCATED": {}
+        }
+      }
+    ]
+  },
+  "public_input_sha256": {
+    "validation.json": "a3a2d9a68dd06f26520fb74d30f393eeb79bf0f075fe55b3881de6c5b94bd9bb",
+    "policy_candidates.json": "ca4e79ca850384a434fcb6ffdc5b4f091f0bef9e118610414deae3b00d7f0ff1"
+  },
+  "X": null,
+  "B": null,
+  "team_approved": false,
+  "policy_selected": false,
+  "lock_executed": false,
+  "test_accessed": false,
+  "model_inference_executed": false,
+  "raw_text_or_personal_data_published": false,
+  "split_provenance": {
+    "role": "validation_split",
+    "sha256": "a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a",
+    "expected_sha256": "a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a",
+    "hash_match": true
+  },
+  "split_alignment": {
+    "status": "PASS",
+    "aligned_rows": 1255,
+    "unique_record_count": 1255,
+    "basis": "Pinned split hash + W4 emitter sequential local_row + all native truths match",
+    "text_published": false,
+    "record_ids_published": false
+  },
+  "case_analysis": {
+    "status": "PASS",
+    "verified_real_cases": 10,
+    "normal_proxy_restrict_population": 91,
+    "native_prediction_within_restrict": {
+      "offensive": 77,
+      "hate": 13,
+      "none": 1
+    },
+    "none_proxy_prediction_action_cross_counts": {
+      "hate": {
+        "ALLOW": 0,
+        "HUMAN_REVIEW": 0,
+        "RESTRICT": 13
+      },
+      "offensive": {
+        "ALLOW": 0,
+        "HUMAN_REVIEW": 28,
+        "RESTRICT": 77
+      },
+      "none": {
+        "ALLOW": 371,
+        "HUMAN_REVIEW": 57,
+        "RESTRICT": 1
+      }
+    },
+    "selection_method": "Round robin over native-prediction/restrict-trigger strata, descending maximum restrict margin then private local_row; not representative sampling.",
+    "surface_feature_method": "Fixed coarse regex booleans; no semantic/causal interpretation or harmfulness re-labeling.",
+    "public_cases": [
+      {
+        "case_id": "VFP-01",
+        "ground_truth": "none",
+        "model_prediction": "hate",
+        "scores_ppm": {
+          "hate": 965152,
+          "offensive": 28177
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 748202
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_HATE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-02",
+        "ground_truth": "none",
+        "model_prediction": "none",
+        "scores_ppm": {
+          "hate": 289002,
+          "offensive": 145353
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 72052
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_NONE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Policy restrict thresholds can fire despite native none argmax; this is observed rule behavior, not proof of a model misclassification."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-03",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 489165,
+          "offensive": 493480
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 272215
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-04",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 226965,
+          "offensive": 747985
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate",
+          "offensive"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 10015,
+          "offensive": 101484
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-05",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 44945,
+          "offensive": 921085
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "offensive"
+        ],
+        "restrict_margin_ppm": {
+          "offensive": 274584
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-06",
+        "ground_truth": "none",
+        "model_prediction": "hate",
+        "scores_ppm": {
+          "hate": 952680,
+          "offensive": 35725
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 735730
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_HATE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-07",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 427257,
+          "offensive": 538573
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 210307
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": true,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-08",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 242927,
+          "offensive": 739630
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate",
+          "offensive"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 25977,
+          "offensive": 93129
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-09",
+        "ground_truth": "none",
+        "model_prediction": "offensive",
+        "scores_ppm": {
+          "hate": 49162,
+          "offensive": 916205
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "offensive"
+        ],
+        "restrict_margin_ppm": {
+          "offensive": 269704
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_OFFENSIVE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": false,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": false
+        },
+        "possible_causes_unverified": [
+          "Threshold sensitivity or annotation/context ambiguity are possible; no semantic cause established."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      },
+      {
+        "case_id": "VFP-10",
+        "ground_truth": "none",
+        "model_prediction": "hate",
+        "scores_ppm": {
+          "hate": 895112,
+          "offensive": 92638
+        },
+        "policy_candidate": "H50-75_O50-75",
+        "policy_action": "RESTRICT",
+        "triggered_restrict_labels": [
+          "hate"
+        ],
+        "restrict_margin_ppm": {
+          "hate": 678162
+        },
+        "error_category": "NORMAL_PROXY_RESTRICT_NATIVE_HATE",
+        "observed_surface_features": {
+          "quote_mark_present": false,
+          "negation_surface_marker": true,
+          "coarse_profanity_surface_marker": false,
+          "laughter_or_jamo_marker": false,
+          "question_mark_present": true
+        },
+        "possible_causes_unverified": [
+          "A coarse negation marker is present; negation-scope errors are unverified and need matched private review."
+        ],
+        "risk_to_users": "Normal-proxy content is automatically restricted under the provisional policy; concrete harm and label appropriateness are not independently adjudicated.",
+        "improvement_hypothesis": "Privately review label/context and threshold margins; compare approved Validation candidate routing; do not tune on TEST or infer calibrated harm probability.",
+        "content_review_scope": "Deterministic surface features only; no human semantic adjudication or causal explanation.",
+        "original_text_published": false,
+        "source_row_index_published": false
+      }
+    ]
+  },
+  "status": "PASS",
+  "execution_source_sha256": {
+    "ai/scripts/revalidate_w5_rows.py": "f3b6af7541d83d58b7ee01a0827fb718390ebf9dd2b36e72cfd49c30c864f6a7",
+    "ai/src/verimod_ai/evaluation/w5_validation_rows.py": "55cc65198ed7a2f024b2e3f2cd02fe36070b3b3e28c4a31eb66712da3f07626e",
+    "ai/src/verimod_ai/evaluation/w4_policy.py": "5585f53c003bbbb5a7a65a7d48fc054404ac02a765eeeb5f16eabc16c4d3d0b7",
+    "ai/scripts/run_w4_validation.py": "ba161b1ab2d779f06baf022c04cacbea5979368c62774bbad6f8ae13bd6a0d48"
+  },
+  "scope": "Row re-evaluation of W4 saved Validation scores; no new model execution, TEST evaluation, approval or LOCK.",
+  "case_mapping_storage": "LOCAL_GIT_IGNORED_NO_TEXT_OR_RECORD_IDS"
+}

@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "scope": "LOCAL DRY-RUN integration candidate only; never pushed; not a GitHub CI result",
+  "candidate_sha": "16aa1e1571e3de45f5dea8e138e7f4ee7d8fb375",
+  "candidate_construction": "detached worktree at origin/main 639030b3, git merge --no-ff origin/nohyusin 19be2b79, then git merge --no-ff jujinho 8984869e; both merges conflict-free",
+  "includes": [
+    "T cd5b1c53",
+    "SEC baf8b36b",
+    "F 19be2b79",
+    "A 8984869e"
+  ],
+  "command": "PYTHONPATH=<worktree>/ai/src ai/.venv/Scripts/python.exe -B -m pytest -p no:cacheprovider -q tests/ (cwd <worktree>/ai)",
+  "pytest_counts": {
+    "tests": 334,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_counts_by_module": {
+    "BaselineConfigTests": 7,
+    "BootstrapTests": 5,
+    "DatasetIntegrityTests": 11,
+    "EdaTests": 4,
+    "ModelMetricTests": 6,
+    "PolicyMetricTests": 9,
+    "PreprocessingTests": 10,
+    "RunnerTests": 15,
+    "SelectionTests": 6,
+    "TaxonomyTests": 4,
+    "TokenAnalysisBoundaryTests": 3,
+    "W3HandoffTests": 11,
+    "WorkspaceTests": 4,
+    "test_w4_inference": 46,
+    "test_w4_policy": 11,
+    "test_w5_execution_guard": 43,
+    "test_w5_policy_approval": 12,
+    "test_w5_policy_selection": 23,
+    "test_w5_preregistration": 24,
+    "test_w5_research_scenarios": 9,
+    "test_w5_validation_analysis": 18,
+    "test_w5_validation_rows": 26
+  },
+  "first_attempt_note": "first run in a deep scratchpad path hit Windows MAX_PATH in synthetic git fixtures (17 setup errors); rerun with a short Git-ignored basetemp passed. No source change.",
+  "ai_tree_changed_by_T_F_merge": false,
+  "test_evaluate": {
+    "exit_code": 3,
+    "classification": "EXPECTED_BLOCK"
+  },
+  "w4_evidence_scope_files": 45,
+  "w4_evidence_changed_since_ba8b7bc": 0,
+  "test_data_accessed": false,
+  "lock_executed": false,
+  "s1_status": "PENDING_APPROVAL"
+}

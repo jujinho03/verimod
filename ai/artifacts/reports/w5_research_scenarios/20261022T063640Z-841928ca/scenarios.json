@@ -1,0 +1,572 @@
+{
+  "ticket": "AI-11-RESEARCH-DEMO-SCENARIOS",
+  "status": "PASS",
+  "scope": "RESEARCH_DEMO_SCENARIO_COMPARISON_NOT_POLICY_APPROVAL",
+  "selection_rule": "FRR<=X and HRR_TOTAL<=B; then min HAR, max RP, min HRR_TOTAL; candidate_id last",
+  "x_b_semantics": "research assumptions; not measured reviewer capacity or approved operating limits",
+  "scenarios": {
+    "S1": {
+      "label": "FRR protection first",
+      "X": {
+        "numerator": 3,
+        "denominator": 50,
+        "value": 0.06,
+        "percent": 6.0
+      },
+      "B": {
+        "numerator": 9,
+        "denominator": 20,
+        "value": 0.45,
+        "percent": 45.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 4,
+      "candidate_id": "H50-90_O50-90",
+      "fully_tied_candidates": [
+        "H50-90_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL",
+      "ranked_feasible_pool": [
+        {
+          "candidate_id": "H50-90_O50-90",
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "HAR": {
+            "numerator": 15,
+            "denominator": 118,
+            "value": 0.1271186440677966,
+            "percent": 12.711864406779661
+          },
+          "RP": {
+            "numerator": 55,
+            "denominator": 63,
+            "value": 0.873015873015873,
+            "percent": 87.3015873015873
+          },
+          "HRR_TOTAL": {
+            "numerator": 542,
+            "denominator": 1255,
+            "value": 0.43187250996015936,
+            "percent": 43.18725099601593
+          }
+        },
+        {
+          "candidate_id": "H75-90_O50-90",
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "HAR": {
+            "numerator": 31,
+            "denominator": 236,
+            "value": 0.13135593220338984,
+            "percent": 13.135593220338984
+          },
+          "RP": {
+            "numerator": 55,
+            "denominator": 63,
+            "value": 0.873015873015873,
+            "percent": 87.3015873015873
+          },
+          "HRR_TOTAL": {
+            "numerator": 537,
+            "denominator": 1255,
+            "value": 0.42788844621513944,
+            "percent": 42.788844621513945
+          }
+        },
+        {
+          "candidate_id": "H50-90_O75-90",
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "HAR": {
+            "numerator": 79,
+            "denominator": 354,
+            "value": 0.2231638418079096,
+            "percent": 22.316384180790962
+          },
+          "RP": {
+            "numerator": 55,
+            "denominator": 63,
+            "value": 0.873015873015873,
+            "percent": 87.3015873015873
+          },
+          "HRR_TOTAL": {
+            "numerator": 417,
+            "denominator": 1255,
+            "value": 0.3322709163346614,
+            "percent": 33.22709163346614
+          }
+        },
+        {
+          "candidate_id": "H75-90_O75-90",
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "HAR": {
+            "numerator": 203,
+            "denominator": 708,
+            "value": 0.2867231638418079,
+            "percent": 28.67231638418079
+          },
+          "RP": {
+            "numerator": 55,
+            "denominator": 63,
+            "value": 0.873015873015873,
+            "percent": 87.3015873015873
+          },
+          "HRR_TOTAL": {
+            "numerator": 344,
+            "denominator": 1255,
+            "value": 0.27410358565737053,
+            "percent": 27.410358565737052
+          }
+        }
+      ],
+      "selected": {
+        "candidate_id": "H50-90_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 887209
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245
+          },
+          "RP": {
+            "numerator": 220,
+            "denominator": 252,
+            "value": 0.873015873015873
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 542,
+            "denominator": 1255,
+            "value": 0.43187250996015936
+          }
+        },
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 542,
+          "RESTRICT": 252
+        },
+        "class_actions": {
+          "none": {
+            "RESTRICT": 32,
+            "HUMAN_REVIEW": 144,
+            "ALLOW": 371
+          },
+          "harmful": {
+            "RESTRICT": 220,
+            "HUMAN_REVIEW": 398,
+            "ALLOW": 90
+          }
+        }
+      },
+      "stability_cell": {
+        "X": {
+          "lower_inclusive": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "upper_exclusive": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          }
+        },
+        "B": {
+          "lower_inclusive": {
+            "numerator": 544,
+            "denominator": 1255,
+            "value": 0.4334661354581673,
+            "percent": 43.34661354581673
+          },
+          "upper_exclusive": null
+        }
+      }
+    },
+    "S2": {
+      "label": "balanced",
+      "X": {
+        "numerator": 1,
+        "denominator": 10,
+        "value": 0.1,
+        "percent": 10.0
+      },
+      "B": {
+        "numerator": 3,
+        "denominator": 10,
+        "value": 0.3,
+        "percent": 30.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 3,
+      "candidate_id": "H50-75_O50-90",
+      "fully_tied_candidates": [
+        "H50-75_O50-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL",
+      "ranked_feasible_pool": [
+        {
+          "candidate_id": "H50-75_O50-90",
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          },
+          "HAR": {
+            "numerator": 15,
+            "denominator": 118,
+            "value": 0.1271186440677966,
+            "percent": 12.711864406779661
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545,
+            "percent": 87.95454545454545
+          },
+          "HRR_TOTAL": {
+            "numerator": 354,
+            "denominator": 1255,
+            "value": 0.28207171314741036,
+            "percent": 28.207171314741036
+          }
+        },
+        {
+          "candidate_id": "H50-75_O75-90",
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          },
+          "HAR": {
+            "numerator": 79,
+            "denominator": 354,
+            "value": 0.2231638418079096,
+            "percent": 22.316384180790962
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545,
+            "percent": 87.95454545454545
+          },
+          "HRR_TOTAL": {
+            "numerator": 229,
+            "denominator": 1255,
+            "value": 0.18247011952191236,
+            "percent": 18.247011952191237
+          }
+        },
+        {
+          "candidate_id": "H75-90_O75-90",
+          "FRR": {
+            "numerator": 32,
+            "denominator": 547,
+            "value": 0.05850091407678245,
+            "percent": 5.850091407678245
+          },
+          "HAR": {
+            "numerator": 203,
+            "denominator": 708,
+            "value": 0.2867231638418079,
+            "percent": 28.67231638418079
+          },
+          "RP": {
+            "numerator": 55,
+            "denominator": 63,
+            "value": 0.873015873015873,
+            "percent": 87.3015873015873
+          },
+          "HRR_TOTAL": {
+            "numerator": 344,
+            "denominator": 1255,
+            "value": 0.27410358565737053,
+            "percent": 27.410358565737052
+          }
+        }
+      ],
+      "selected": {
+        "candidate_id": "H50-75_O50-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 180483,
+            "restrict": 828254
+          }
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 90,
+            "denominator": 708,
+            "value": 0.1271186440677966
+          },
+          "HRR_TOTAL": {
+            "numerator": 354,
+            "denominator": 1255,
+            "value": 0.28207171314741036
+          }
+        },
+        "actions": {
+          "ALLOW": 461,
+          "HUMAN_REVIEW": 354,
+          "RESTRICT": 440
+        },
+        "class_actions": {
+          "none": {
+            "RESTRICT": 53,
+            "HUMAN_REVIEW": 123,
+            "ALLOW": 371
+          },
+          "harmful": {
+            "RESTRICT": 387,
+            "HUMAN_REVIEW": 231,
+            "ALLOW": 90
+          }
+        }
+      },
+      "stability_cell": {
+        "X": {
+          "lower_inclusive": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          },
+          "upper_exclusive": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943,
+            "percent": 13.528336380255942
+          }
+        },
+        "B": {
+          "lower_inclusive": {
+            "numerator": 354,
+            "denominator": 1255,
+            "value": 0.28207171314741036,
+            "percent": 28.207171314741036
+          },
+          "upper_exclusive": {
+            "numerator": 388,
+            "denominator": 1255,
+            "value": 0.30916334661354583,
+            "percent": 30.916334661354583
+          }
+        }
+      }
+    },
+    "S3": {
+      "label": "review-volume limited",
+      "X": {
+        "numerator": 1,
+        "denominator": 10,
+        "value": 0.1,
+        "percent": 10.0
+      },
+      "B": {
+        "numerator": 1,
+        "denominator": 5,
+        "value": 0.2,
+        "percent": 20.0
+      },
+      "feasibility": "FEASIBLE",
+      "feasible_count": 1,
+      "candidate_id": "H50-75_O75-90",
+      "fully_tied_candidates": [
+        "H50-75_O75-90"
+      ],
+      "usage": "HYPOTHETICAL_SENSITIVITY_NOT_APPROVAL",
+      "ranked_feasible_pool": [
+        {
+          "candidate_id": "H50-75_O75-90",
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          },
+          "HAR": {
+            "numerator": 79,
+            "denominator": 354,
+            "value": 0.2231638418079096,
+            "percent": 22.316384180790962
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545,
+            "percent": 87.95454545454545
+          },
+          "HRR_TOTAL": {
+            "numerator": 229,
+            "denominator": 1255,
+            "value": 0.18247011952191236,
+            "percent": 18.247011952191237
+          }
+        }
+      ],
+      "selected": {
+        "candidate_id": "H50-75_O75-90",
+        "thresholds_ppm": {
+          "hate": {
+            "review": 24495,
+            "restrict": 216950
+          },
+          "offensive": {
+            "review": 646501,
+            "restrict": 828254
+          }
+        },
+        "metrics": {
+          "FRR": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093
+          },
+          "RP": {
+            "numerator": 387,
+            "denominator": 440,
+            "value": 0.8795454545454545
+          },
+          "HAR": {
+            "numerator": 158,
+            "denominator": 708,
+            "value": 0.2231638418079096
+          },
+          "HRR_TOTAL": {
+            "numerator": 229,
+            "denominator": 1255,
+            "value": 0.18247011952191236
+          }
+        },
+        "actions": {
+          "ALLOW": 586,
+          "HUMAN_REVIEW": 229,
+          "RESTRICT": 440
+        },
+        "class_actions": {
+          "none": {
+            "RESTRICT": 53,
+            "HUMAN_REVIEW": 66,
+            "ALLOW": 428
+          },
+          "harmful": {
+            "RESTRICT": 387,
+            "HUMAN_REVIEW": 163,
+            "ALLOW": 158
+          }
+        }
+      },
+      "stability_cell": {
+        "X": {
+          "lower_inclusive": {
+            "numerator": 53,
+            "denominator": 547,
+            "value": 0.09689213893967093,
+            "percent": 9.689213893967093
+          },
+          "upper_exclusive": {
+            "numerator": 74,
+            "denominator": 547,
+            "value": 0.13528336380255943,
+            "percent": 13.528336380255942
+          }
+        },
+        "B": {
+          "lower_inclusive": {
+            "numerator": 46,
+            "denominator": 251,
+            "value": 0.18326693227091634,
+            "percent": 18.326693227091635
+          },
+          "upper_exclusive": {
+            "numerator": 273,
+            "denominator": 1255,
+            "value": 0.21752988047808766,
+            "percent": 21.752988047808767
+          }
+        }
+      }
+    }
+  },
+  "deltas": {
+    "S1_to_S2": {
+      "from": "H50-90_O50-90",
+      "to": "H50-75_O50-90",
+      "none_RESTRICT": 21,
+      "harmful_ALLOW": 0,
+      "none_ALLOW": 0,
+      "HUMAN_REVIEW": -188,
+      "RESTRICT": 188
+    },
+    "S2_to_S3": {
+      "from": "H50-75_O50-90",
+      "to": "H50-75_O75-90",
+      "none_RESTRICT": 0,
+      "harmful_ALLOW": 68,
+      "none_ALLOW": 57,
+      "HUMAN_REVIEW": -125,
+      "RESTRICT": 0
+    }
+  },
+  "approved_X": null,
+  "approved_B": null,
+  "team_approved": false,
+  "adopted_candidate_id": null,
+  "manifest_generated": false,
+  "new_policy_manifest_hash": null,
+  "lock_executed": false,
+  "test_accessed": false,
+  "raw_prediction_rows_recomputed": false,
+  "candidate_pool": 25,
+  "source_report_sha256": "70c47b0893b7ae21691fe1a10c3ac321af7c3c73c1aa9315b4baf0545b3c8938",
+  "execution_script_sha256": "9da5619390ec34f82262e9882b3f409fca4c1a202ab625c9232b439c466fa0ba",
+  "source_commit": "8b711d62ebc8b1d612629dff12e393568095fe0b",
+  "created_at_utc": "2026-10-22T06:36:40.629522+00:00"
+}

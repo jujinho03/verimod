@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "staged_before_this_record": 12,
+  "staged_sha256": {
+    "docs/eval/w5-policy-decision-memo.md": "2a276fc8562faa5d8ccded408fc177c0e430e0c8e9455015291a2fb86255663f",
+    "docs/eval/threshold-rationale.md": "be2bb7dd5c51a2b26a4a6b267b710499d2871a19c94d6c57fea35a9a3511e430",
+    "docs/progress/W5.md": "bb5f4e8f979d7de3bc054da20627bfd2570a1ef24fd98d484b7203856d66da74",
+    "ai/scripts/prepare_w5_policy_approval.py": "69d7a34331420d3aac8b61f805f60e5bcb89695a0ebb56c85fafcb98af5d4007",
+    "ai/tests/test_w5_policy_approval.py": "b54d6c74e1ae455bb2cd6fb8ca0eaf23ee2e847913dbf6c642f1e2dbd4ceebb8",
+    "docs/handoffs/W5-A-policy-activation-readiness.md": "73b8bbc690e181c52808abee3f41d28accfa5d5bf7619a501a168d40e0ce2631",
+    "ai/artifacts/reports/w5_policy_approval/.gitattributes": "31d00b8f7991d230430e4260c06c9d6857cb534b0bc1e673c0bee9c528540703",
+    "ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/preparation.json": "bc4dad331bf2a0e7cf1fa9a8b8d433690df8d3bac9862cc32aa51fba8f8431ea",
+    "ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/verification.json": "b31efdd35d1591b785d1b28b694d0c88a869621d926d64fd85b7e7ae2bf58673",
+    "ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/pytest.xml": "1ee5c52f6756766aa845c54b5d3e8e413175bf60d25e1b35cded6d08d6bc44c8",
+    "ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/pytest-output.txt": "be52f2ecb0ef36574d094658de22e0b3b74d8fb93e11c4372ca43d9616a9b15c",
+    "ai/artifacts/reports/w5_policy_approval/20261022T001829Z-6d4a3888/review.json": "58a713689ffcf8dd3c2cb88ffa7f392155b2ae5a62f57a1988731fb1fa5807a5"
+  },
+  "only_expected_A_preparation_changes": true,
+  "document_and_tested_source_hashes_match": true,
+  "historical_W4_manifest_files_unchanged": 6,
+  "raw_predictions_recomputed": false,
+  "error_cases_reanalyzed": false,
+  "policy_approved": false,
+  "manifest_generated": false,
+  "new_policy_hash_computed": false,
+  "lock_executed": false,
+  "test_data_accessed": false,
+  "FT_implementation_modified": false,
+  "push_performed": false
+}
