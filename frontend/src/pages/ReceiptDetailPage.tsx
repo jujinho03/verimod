@@ -10,6 +10,8 @@ import { useAppState, useNow, useStore } from '../store/context'
 import type { StoredReceipt } from '../store/state'
 import { ActionBadge, AnchorBadge } from '../ui/bits'
 import { EVENT_LABEL, downloadJson, formatDateTime, shortHash } from '../ui/format'
+import { createPrivatePackage } from '../domain/privatePackage'
+import { useState } from 'react'
 
 function VerifyBox({ receipt }: { receipt: StoredReceipt }) {
   const store = useStore()
@@ -32,6 +34,7 @@ function VerifyBox({ receipt }: { receipt: StoredReceipt }) {
 }
 
 export function ReceiptDetailPage() {
+  const [packageNotice, setPackageNotice] = useState<string | null>(null)
   const { receiptId = '' } = useParams()
   const store = useStore()
   useAppState()
@@ -104,6 +107,12 @@ export function ReceiptDetailPage() {
           </div>
         </dl>
         <div className="btn-row">
+          <button type="button" className="btn btn--outline btn--compact" onClick={async () => {
+            const own = store.getState().contents[body.content_commitment]
+            if (!own) return setPackageNotice('이 기기에 소유자 자료가 없습니다.')
+            try { downloadJson(`verimod-private-${body.receipt_id}.json`, await createPrivatePackage(body, own.text, own.salt)); setPackageNotice('본인 소유 파일을 안전하게 보관하세요. 원격 전송하지 않습니다.') }
+            catch { setPackageNotice('소유자 자료가 일치하지 않아 다운로드하지 않았습니다.') }
+          }}>Private Package 저장</button>
           <button
             type="button"
             className="btn btn--outline btn--compact"
@@ -115,6 +124,7 @@ export function ReceiptDetailPage() {
             검증기로 열기
           </Link>
         </div>
+        {packageNotice && <p role="status">{packageNotice}</p>}
       </PageHero>
 
       <section className="band" data-tone="dark">

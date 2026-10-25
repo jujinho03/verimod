@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { ISSUER_ID } from './receipt'
 import { baseSepoliaProfileFromEnv, createPublicRpcLedger, LOG_RANGE_BLOCKS, type ApprovedTrustProfile } from './rpcLedger'
-import { UntrustedLedgerError } from './verify'
+import { RpcUnavailableError } from './verify'
 
 const contract = `0x${'a'.repeat(40)}`
 const publisher = `0x${'b'.repeat(40)}`
@@ -17,6 +17,15 @@ const profile: ApprovedTrustProfile = {
 }
 
 describe('FE-02 approved Base Sepolia RPC reader', () => {
+  it('W5 keeps two endpoint failures pending and supplies bounded abort signals', async () => {
+    const fetcher = vi.fn(async (_url: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      expect(init?.signal).toBeInstanceOf(AbortSignal)
+      throw new TypeError('synthetic network failure')
+    })
+    await expect(createPublicRpcLedger({ ...profile, rpc_urls: ['https://primary.example', 'https://backup.example'] }, fetcher).blockNumber())
+      .rejects.toBeInstanceOf(RpcUnavailableError)
+    expect(fetcher).toHaveBeenCalledTimes(2)
+  })
   it('loads a profile only when every approved value is present and normalized', () => {
     expect(baseSepoliaProfileFromEnv({})).toBeNull()
     expect(baseSepoliaProfileFromEnv({
@@ -79,8 +88,8 @@ describe('FE-02 approved Base Sepolia RPC reader', () => {
     await expect(reader.getEpoch(contract, '1')).rejects.toThrow('epoch event is missing or ambiguous')
   })
 
-  it('treats a responsive wrong-chain RPC as untrusted rather than unavailable', async () => {
+  it('treats a wrong-chain RPC endpoint as unavailable without changing the approved profile', async () => {
     const fetcher = async () => new Response(JSON.stringify({ jsonrpc: '2.0', id: 1, result: '0x7a69' }))
-    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).rejects.toBeInstanceOf(UntrustedLedgerError)
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
   })
 })

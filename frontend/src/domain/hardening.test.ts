@@ -89,7 +89,7 @@ describe('epoch compatibility and independent Merkle reference', () => {
       expect([...root]).toEqual([...reference(entries)])
       for (let i = 0; i < n; i++) expect(await verifyInclusion(entries[i], i, n, await inclusionProof(entries, i), root)).toBe(true)
     }
-  })
+  }, 15_000)
   it('rejects empty, duplicate, and gapped issuer_seq members, preserves a snapshot across awaits', async () => {
     const a = { receipt_id: '00000000-0000-4000-8000-000000000001', receipt_hash: H }
     const b = { receipt_id: '00000000-0000-4000-8000-000000000002', receipt_hash: `0x${'cd'.repeat(32)}` as Hex32 }

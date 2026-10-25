@@ -231,7 +231,7 @@ export function LifecycleTimeline({ receipt }: { receipt: StoredReceipt }) {
   if (last.body.event_kind === 'APPEAL') hint = '검토 결과가 기록되면 여기에 이어집니다.'
 
   return (
-    <ol className="timeline">
+    <div><p className="inline-warn">SYNTHETIC LIFECYCLE DEMO · Mock ledger · 공개 체인 증거 아님. 각 단계는 별도 영수증이며 최초 DECISION은 유지됩니다. 실제 접수·사람 검토·게시물 복구는 POST-MVP입니다.</p><ol className="timeline">
       {history.map((item) => (
         <li key={item.hash} className={`timeline__item${item.hash === receipt.hash ? ' is-current' : ''}`}>
           <span className="timeline__node" aria-hidden />
@@ -261,6 +261,6 @@ export function LifecycleTimeline({ receipt }: { receipt: StoredReceipt }) {
           <p className="timeline__hint muted">{hint}</p>
         </li>
       )}
-    </ol>
+    </ol></div>
   )
 }

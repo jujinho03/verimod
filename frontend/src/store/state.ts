@@ -32,6 +32,111 @@ export interface AppState {
 }
 
 export const STORAGE_KEY = 'verimod:state:v1'
+export const LEGACY_LIVE_STORAGE_KEY = 'verimod:w4-live-decision:v1'
+
+export interface LegacyPrivacyStatus {
+  storage_available: boolean
+  live_cache_present: boolean
+  state_private_present: boolean
+  malformed_state_present: boolean
+}
+
+export interface LegacyPrivacyBackup {
+  format: 'verimod-legacy-private-backup/1'
+  live_cache?: string
+  state_snapshot?: string
+}
+
+export interface LegacyPrivacyCleanup {
+  live_cache_removed: boolean
+  state_snapshot_sanitized: boolean
+  malformed_state_removed: boolean
+}
+
+const isRecord = (value: unknown): value is Record<string, unknown> => value !== null && typeof value === 'object' && !Array.isArray(value)
+
+/** Detects legacy private browser data without parsing it into UI text or logs. */
+export function inspectLegacyPrivacy(storage: Storage | null): LegacyPrivacyStatus {
+  if (!storage) return { storage_available: false, live_cache_present: false, state_private_present: false, malformed_state_present: false }
+  try {
+    const live = storage.getItem(LEGACY_LIVE_STORAGE_KEY) !== null
+    const raw = storage.getItem(STORAGE_KEY)
+    if (raw === null) return { storage_available: true, live_cache_present: live, state_private_present: false, malformed_state_present: false }
+    try {
+      const parsed = JSON.parse(raw) as unknown
+      if (!isRecord(parsed)) return { storage_available: true, live_cache_present: live, state_private_present: false, malformed_state_present: true }
+      const hasPrivateMap = (value: unknown) => isRecord(value) && Object.keys(value).length > 0
+      return {
+        storage_available: true,
+        live_cache_present: live,
+        state_private_present: hasPrivateMap(parsed.contents) || hasPrivateMap(parsed.appeals),
+        malformed_state_present: false,
+      }
+    } catch {
+      return { storage_available: true, live_cache_present: live, state_private_present: false, malformed_state_present: true }
+    }
+  } catch {
+    return { storage_available: false, live_cache_present: false, state_private_present: false, malformed_state_present: false }
+  }
+}
+
+export function legacyPrivacyPresent(status: LegacyPrivacyStatus): boolean {
+  return status.live_cache_present || status.state_private_present || status.malformed_state_present
+}
+
+/** Returns raw legacy values only for an explicit owner-initiated download. */
+export function readLegacyPrivacyBackup(storage: Storage | null): LegacyPrivacyBackup | null {
+  if (!storage) throw new Error('브라우저 저장소에 접근할 수 없습니다.')
+  try {
+    const live = storage.getItem(LEGACY_LIVE_STORAGE_KEY)
+    const state = storage.getItem(STORAGE_KEY)
+    const status = inspectLegacyPrivacy(storage)
+    if (!legacyPrivacyPresent(status)) return null
+    return {
+      format: 'verimod-legacy-private-backup/1',
+      ...(live === null ? {} : { live_cache: live }),
+      ...(state === null ? {} : { state_snapshot: state }),
+    }
+  } catch {
+    throw new Error('기존 비공개 자료를 백업하지 못했습니다.')
+  }
+}
+
+/** Sanitizes only after an explicit owner action; public receipt and epoch fields remain in a valid state snapshot. */
+export function clearLegacyPrivacy(storage: Storage | null): LegacyPrivacyCleanup {
+  if (!storage) throw new Error('브라우저 저장소에 접근할 수 없습니다.')
+  try {
+    const result: LegacyPrivacyCleanup = { live_cache_removed: false, state_snapshot_sanitized: false, malformed_state_removed: false }
+    const raw = storage.getItem(STORAGE_KEY)
+    if (raw !== null) {
+      let parsed: unknown
+      try { parsed = JSON.parse(raw) } catch {
+        storage.removeItem(STORAGE_KEY)
+        result.malformed_state_removed = true
+        parsed = null
+      }
+      if (parsed !== null) {
+        if (!isRecord(parsed)) {
+          storage.removeItem(STORAGE_KEY)
+          result.malformed_state_removed = true
+        } else {
+          const hasPrivateMap = (value: unknown) => isRecord(value) && Object.keys(value).length > 0
+          if (hasPrivateMap(parsed.contents) || hasPrivateMap(parsed.appeals)) {
+            storage.setItem(STORAGE_KEY, JSON.stringify({ ...parsed, contents: {}, appeals: {} }))
+            result.state_snapshot_sanitized = true
+          }
+        }
+      }
+    }
+    if (storage.getItem(LEGACY_LIVE_STORAGE_KEY) !== null) {
+      storage.removeItem(LEGACY_LIVE_STORAGE_KEY)
+      result.live_cache_removed = true
+    }
+    return result
+  } catch {
+    throw new Error('기존 비공개 자료를 정리하지 못했습니다.')
+  }
+}
 
 export function loadState(storage: Storage | null): AppState | null {
   if (!storage) return null
@@ -132,7 +237,8 @@ export async function validateState(state: AppState): Promise<void> {
 export function saveState(storage: Storage | null, state: AppState) {
   if (!storage) return
   try {
-    storage.setItem(STORAGE_KEY, JSON.stringify(state))
+    // Keep owner text, salt and appeal text in memory. Only public receipt/ledger state survives reload.
+    storage.setItem(STORAGE_KEY, JSON.stringify({ ...state, contents: {}, appeals: {} }))
   } catch {
     // 저장 공간이 없거나 막혀 있으면 이번 방문 동안만 메모리에 유지한다.
     console.warn('[VeriMod] 저장할 수 없어 이번 방문의 메모리에만 유지합니다.')

@@ -1,0 +1,107 @@
+{
+  "scope": "SEC-W5-01_F_INDEPENDENT_REVIEW",
+  "date_kst": "2026-10-25",
+  "prior_f": "a45e0d5b25e4918350f9d20f1dbb4dbef2b831f9",
+  "sec_sha": "baf8b36b3e8ce9089ea6c7496e716eefe27fe4ff",
+  "tested_source_commit": "90f400b426da6841ca72e0971eb264d0e5755a69",
+  "sec_parent_is_prior_f": true,
+  "sec_diff": [
+    "backend/src/durabilityCallback.ts",
+    "backend/test/durability-callback.test.ts"
+  ],
+  "security_review": "PASS",
+  "independent_guard": {
+    "passed": 3,
+    "cases": [
+      "existing approved synthetic DB unchanged",
+      "deleted approved synthetic DB not recreated",
+      "guard precedes path evaluation"
+    ],
+    "error_code": "WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED"
+  },
+  "original_sec_windows": {
+    "skip": 53,
+    "pass": 148,
+    "total": 204,
+    "fail": 3
+  },
+  "final_windows_backend": {
+    "platform": "win32",
+    "skip": 53,
+    "fail": 0,
+    "node": "v24.16.0",
+    "approved_writable_callback_supported": false,
+    "trusted_confirmation_executed": 71,
+    "single_whole_run": true,
+    "pass": 153,
+    "trusted_confirmation_pass": 71,
+    "total": 206
+  },
+  "frontend": {
+    "w5_typecheck": "PASS",
+    "skip": 0,
+    "files": 23,
+    "lint": "PASS",
+    "existing_lint_warnings": 2,
+    "fail": 0,
+    "build": "PASS",
+    "pass": 250
+  },
+  "backend_build": "PASS",
+  "backend_typecheck": "PASS",
+  "linux_reference": {
+    "ci": 257,
+    "platform": "ubuntu-24.04",
+    "pass": 199,
+    "sha": "baf8b36b3e8ce9089ea6c7496e716eefe27fe4ff",
+    "fail": 0,
+    "new_f_sha_ci": "PENDING_PUSH",
+    "skip": 5
+  },
+  "browser": {
+    "engine": "Chromium Headless Shell 153.0.8010.12 / Playwright 1243",
+    "basic": {
+      "fail": 0,
+      "pass": 1
+    },
+    "owned_vite_closed": true,
+    "mobile_emulation": {
+      "skip": 3,
+      "pass": 12,
+      "fail": 0,
+      "executed": 12
+    },
+    "desktop": {
+      "skip": 3,
+      "pass": 12,
+      "fail": 0,
+      "executed": 12
+    },
+    "live_rpc": {
+      "skip": 6,
+      "pass": 0,
+      "executed": 0
+    }
+  },
+  "w4": {
+    "frontend_diff": "EMPTY",
+    "protocol_diff": "EMPTY",
+    "hashes_unchanged": 53
+  },
+  "boundaries": {
+    "policy": "W4_PROVISIONAL_E2E_ONLY",
+    "policy_lock": false,
+    "test_data_accessed": false,
+    "s1_approval": false,
+    "chain_tx_sent": false,
+    "actual_db_changed": false,
+    "team_approved": false
+  },
+  "remaining": [
+    "Remote push and new exact-SHA Linux CI",
+    "Formal T review of final F SHA, separate from F SEC review",
+    "Draft release and main merge require team decision",
+    "Windows approved writable Callback unsupported",
+    "Live RPC browser 6 skipped; physical mobile not tested"
+  ]
+}

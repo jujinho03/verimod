@@ -1,5 +1,7 @@
 import { hexToBytes, isHex32, type Hex32 } from './hash'
 import type { ManifestHashes } from './manifests'
+import { checkManifests, type PublicManifestDocument } from './manifestCheck'
+import { checkPrivatePackage } from './privatePackage'
 import { verifyInclusion } from './merkle'
 import { contentCommitment, receiptHash } from './receipt'
 import { parseBundleJson, validateBundle } from './schema'
@@ -49,6 +51,8 @@ export interface VerifierContext {
   trust: TrustConfig
   ledger: LedgerReader
   manifests: ManifestHashes
+  manifestDocuments?: PublicManifestDocument[]
+  privatePackage?: unknown
   findBundle(receiptHash: Hex32): VerificationBundle | null
   findPrivateContent(commitment: Hex32): PrivateContent | null
 }
@@ -209,22 +213,6 @@ export async function verifyCore(input: unknown, ctx: VerifierContext): Promise<
 
 const notChecked = (detail: string): SideCheck => ({ state: 'NOT_CHECKED', detail })
 
-function checkManifests(body: ReceiptBody, manifests: ManifestHashes): SideCheck {
-  if (body.event_kind === 'APPEAL') return notChecked('이의제기 기록은 manifest를 참조하지 않습니다')
-  if (body.event_kind === 'REVIEW') {
-    return body.payload.review_policy_manifest_hash === manifests.review
-      ? { state: 'PASSED', detail: '공개된 검토 정책 manifest 해시와 일치합니다' }
-      : { state: 'FAILED', detail: '검토 정책 manifest 해시가 공개 목록에 없습니다' }
-  }
-  const unknown = [
-    body.payload.inference.model_manifest_hash !== manifests.model && '모델',
-    body.payload.policy.policy_manifest_hash !== manifests.policy && '정책',
-  ].filter(Boolean)
-  return unknown.length === 0
-    ? { state: 'PASSED', detail: '공개된 모델·정책 manifest 해시와 일치합니다' }
-    : { state: 'FAILED', detail: `${unknown.join('·')} manifest 해시가 공개 목록에 없습니다` }
-}
-
 async function checkContent(body: ReceiptBody, ctx: VerifierContext): Promise<SideCheck> {
   const own = ctx.findPrivateContent(body.content_commitment)
   if (!own) return notChecked('원문과 salt가 이 기기에 없어 확인하지 않았습니다')
@@ -235,11 +223,31 @@ async function checkContent(body: ReceiptBody, ctx: VerifierContext): Promise<Si
 }
 
 /** 이의제기·검토 기록이 선행 기록과 맞게 연결됐는지 본다. 문제가 없으면 null. */
-export function transitionProblem(body: AppealBody | ReviewBody, subject: ReceiptBody, previous: ReceiptBody): string | null {
+export function transitionProblem(
+  body: AppealBody | ReviewBody,
+  subject: ReceiptBody,
+  previous: ReceiptBody,
+  hashes?: { body: Hex32; subject: Hex32; previous: Hex32 },
+): string | null {
   if (subject.event_kind !== 'DECISION') return '연결 대상이 최초 판정 기록이 아닙니다'
   for (const linked of [subject, previous]) {
     if (linked.issuer_id !== body.issuer_id) return '연결된 기록의 발급자가 서로 다릅니다'
     if (linked.content_commitment !== body.content_commitment) return '연결된 기록의 콘텐츠 commitment가 서로 다릅니다'
+  }
+  if (hashes && (
+    (subject.receipt_id === previous.receipt_id && hashes.subject !== hashes.previous)
+    || (body.receipt_id === subject.receipt_id && hashes.body !== hashes.subject)
+    || (body.receipt_id === previous.receipt_id && hashes.body !== hashes.previous)
+  )) return '서로 다른 receipt hash가 같은 receipt_id를 사용합니다'
+  // 이 검사는 제공된 fixture의 명백한 역순·중복을 막는 범위다. 발급자의
+  // 전체 이력이나 숨은 분기의 완전성/최신성을 증명하지는 않는다.
+  // 직접 연결은 검증된 hash가 동일한 경우에만 허용한다. hash 없이 이 함수를
+  // 직접 호출하는 기존 단위 테스트에서는 같은 객체만 직접 연결로 본다.
+  const samePrevious = hashes ? hashes.previous === hashes.subject : previous === subject
+  if (samePrevious) {
+    if (body.issuer_seq <= subject.issuer_seq) return '연결 기록의 issuer_seq가 최초 판정 뒤로 증가하지 않습니다'
+  } else if (!(subject.issuer_seq < previous.issuer_seq && previous.issuer_seq < body.issuer_seq)) {
+    return '제공된 연결 기록의 issuer_seq가 단조 증가하지 않습니다'
   }
   const original = subject.payload.policy.action
   if (body.event_kind === 'APPEAL') {
@@ -281,7 +289,9 @@ async function checkLifecycle(body: ReceiptBody, ctx: VerifierContext): Promise<
   }
   const subject = reports[0].body as ReceiptBody
   const previous = (reports[1] ?? reports[0]).body as ReceiptBody
-  const problem = transitionProblem(body, subject, previous)
+  const problem = transitionProblem(body, subject, previous, {
+    body: await receiptHash(body), subject: refs[0], previous: refs[1] ?? refs[0],
+  })
   return problem
     ? { state: 'FAILED', detail: problem }
     : { state: 'PASSED', detail: `선행 기록 ${refs.length}건의 포함과 연결 규칙을 확인했습니다` }
@@ -295,8 +305,9 @@ export async function verifyReceipt(input: unknown, ctx: VerifierContext): Promi
   }
   return {
     ...core,
-    manifest: checkManifests(core.body, ctx.manifests),
-    content: await checkContent(core.body, ctx),
-    lifecycle: await checkLifecycle(core.body, ctx),
+    manifest: await checkManifests(core.body, ctx.manifests, ctx.manifestDocuments),
+    content: Object.hasOwn(ctx, 'privatePackage') ? await checkPrivatePackage(ctx.privatePackage, core)
+      : core.code === 'VALID' ? await checkContent(core.body, ctx) : notChecked('Core VALID 이후에만 비공개 자료를 대조합니다.'),
+    lifecycle: core.code === 'VALID' ? await checkLifecycle(core.body, ctx) : notChecked('Core 검증이 끝나지 않아 연결 확인을 수행하지 않았습니다.'),
   }
 }

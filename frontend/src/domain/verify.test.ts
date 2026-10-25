@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { freezeEpoch } from './epoch'
 import { randomHex32, type Hex32 } from './hash'
-import { manifestHashes } from './manifests'
+import { manifestHashes, MODEL_MANIFEST, POLICY_MANIFEST, REVIEW_POLICY_MANIFEST } from './manifests'
 import { evaluatePolicy } from './policy'
 import {
   ISSUER_ID,
@@ -132,6 +132,11 @@ async function fixture() {
     trust,
     ledger,
     manifests,
+    manifestDocuments: [
+      { kind: 'model', expected_hash: manifests.model, manifest: MODEL_MANIFEST },
+      { kind: 'policy', expected_hash: manifests.policy, manifest: POLICY_MANIFEST },
+      { kind: 'review', expected_hash: manifests.review, manifest: REVIEW_POLICY_MANIFEST },
+    ],
     findBundle: (hash) => bundles.get(hash) ?? null,
     findPrivateContent: (c) => (c === commitment ? { salt, text } : null),
   }
@@ -158,6 +163,30 @@ afterEach(() => {
 })
 
 const clone = <T>(value: T): T => structuredClone(value)
+
+/** Builds a wholly in-memory, separately anchored ledger so lifecycle tests exercise verifyReceipt end-to-end. */
+async function lifecycleLedger(bodies: ReceiptBody[]) {
+  const hashes = await Promise.all(bodies.map(receiptHash))
+  const base = await f.ctx.ledger.getEpoch(CONTRACT, '1')
+  if (!base) throw new Error('fixture epoch missing')
+  const bundles = new Map<Hex32, VerificationBundle>()
+  const epochs = new Map<string, EpochRecord>()
+  for (let i = 0; i < bodies.length; i++) {
+    const frozen = await freezeEpoch([{ receipt_id: bodies[i].receipt_id, receipt_hash: hashes[i] }])
+    const epochId = String(i + 1)
+    epochs.set(epochId, { ...base, epoch_id: epochId, root: frozen.root, receipt_count: 1, issuer_seq_min: frozen.issuer_seq_min, issuer_seq_max: frozen.issuer_seq_max })
+    bundles.set(hashes[i], {
+      receipt_body: bodies[i], receipt_hash: hashes[i], proof: frozen.proofs[hashes[i]],
+      anchor: { ...f.decision.anchor!, epoch_id: epochId },
+    })
+  }
+  const ctx: VerifierContext = {
+    ...f.ctx,
+    ledger: { getEpoch: async (_address, epochId) => epochs.get(epochId) ?? null, blockNumber: async () => 1100 },
+    findBundle: (hash) => bundles.get(hash) ?? null,
+  }
+  return { ctx, bundles, hashes }
+}
 
 describe('verifyReceipt', () => {
   it('합성 시나리오의 최초 판정은 제한이다', () => {
@@ -259,5 +288,85 @@ describe('verifyReceipt', () => {
     if (review.event_kind !== 'REVIEW') throw new Error('fixture')
     review.payload.outcome = 'UPHOLD'
     expect(transitionProblem(review, f.decision.receipt_body, f.appeal.receipt_body)).toBe('유지 결과는 원래 조치와 같아야 합니다')
+  })
+
+  it('W5: 제공된 synthetic lifecycle의 issuer_seq 역순과 중복을 거부한다', () => {
+    const reversed = clone(f.review.receipt_body)
+    if (reversed.event_kind !== 'REVIEW') throw new Error('fixture')
+    reversed.issuer_seq = f.appeal.receipt_body.issuer_seq
+    expect(transitionProblem(reversed, f.decision.receipt_body, f.appeal.receipt_body))
+      .toBe('제공된 연결 기록의 issuer_seq가 단조 증가하지 않습니다')
+
+    const direct = clone(f.decision.receipt_body)
+    if (direct.event_kind !== 'DECISION') throw new Error('fixture')
+    direct.payload.policy.action = 'HUMAN_REVIEW'
+    const directReview = clone(f.review.receipt_body)
+    if (directReview.event_kind !== 'REVIEW') throw new Error('fixture')
+    directReview.subject_receipt_hash = f.decision.receipt_hash
+    directReview.previous_receipt_hash = f.decision.receipt_hash
+    directReview.issuer_seq = direct.issuer_seq
+    directReview.payload.outcome = 'RESOLVED'
+    directReview.payload.resulting_action = 'ALLOW'
+    expect(transitionProblem(directReview, direct, direct))
+      .toBe('연결 기록의 issuer_seq가 최초 판정 뒤로 증가하지 않습니다')
+  })
+
+  it('W5: UUID 충돌로 issuer_seq 역순을 우회하지 않고 Core와 Lifecycle을 분리한다', async () => {
+    const decision = buildDecision({
+      receiptId: '00000000-0000-4000-8000-000000000010', issuerSeq: 10, recordedAt: '2026-09-10T00:00:00.000Z',
+      inference: clone((f.decision.receipt_body as Extract<ReceiptBody, { event_kind: 'DECISION' }>).payload.inference) as Parameters<typeof buildDecision>[0]['inference'],
+      policy: clone((f.decision.receipt_body as Extract<ReceiptBody, { event_kind: 'DECISION' }>).payload.policy),
+    })
+    const decisionHash = await receiptHash(decision)
+    const appeal = buildAppeal({
+      receiptId: decision.receipt_id, issuerSeq: 30, recordedAt: '2026-09-10T00:01:00.000Z', decision, decisionHash,
+      appealCommitment: await appealCommitment(randomHex32(), 'synthetic appeal'), reasonCode: 'CONTEXT_MISSING',
+    })
+    const appealHash = await receiptHash(appeal)
+    const review = buildReview({
+      receiptId: '00000000-0000-4000-8000-000000000020', issuerSeq: 20, recordedAt: '2026-09-10T00:02:00.000Z',
+      decision, decisionHash, previousHash: appealHash, outcome: 'OVERTURN', resultingAction: 'ALLOW',
+      reasonCodes: ['FALSE_POSITIVE_SLANG'], reviewPolicyHash: f.ctx.manifests.review,
+    })
+    const ledger = await lifecycleLedger([decision, appeal, review])
+    const report = await verifyReceipt(ledger.bundles.get(ledger.hashes[2])!, ledger.ctx)
+    expect(report.code).toBe('VALID')
+    expect(report.lifecycle).toMatchObject({ state: 'FAILED', detail: expect.stringContaining('같은 receipt_id') })
+
+    const distinctAppeal = buildAppeal({
+      receiptId: '00000000-0000-4000-8000-000000000011', issuerSeq: 30, recordedAt: '2026-09-10T00:01:00.000Z', decision, decisionHash,
+      appealCommitment: await appealCommitment(randomHex32(), 'synthetic appeal'), reasonCode: 'CONTEXT_MISSING',
+    })
+    const distinctAppealHash = await receiptHash(distinctAppeal)
+    const reversedReview = buildReview({
+      receiptId: '00000000-0000-4000-8000-000000000012', issuerSeq: 20, recordedAt: '2026-09-10T00:02:00.000Z',
+      decision, decisionHash, previousHash: distinctAppealHash, outcome: 'OVERTURN', resultingAction: 'ALLOW',
+      reasonCodes: ['FALSE_POSITIVE_SLANG'], reviewPolicyHash: f.ctx.manifests.review,
+    })
+    const reversedLedger = await lifecycleLedger([decision, distinctAppeal, reversedReview])
+    expect((await verifyReceipt(reversedLedger.bundles.get(reversedLedger.hashes[2])!, reversedLedger.ctx)).lifecycle.state).toBe('FAILED')
+  })
+
+  it('W5: 순방향 연결과 hash가 같은 직접 REVIEW는 lifecycle을 통과한다', async () => {
+    const decision = buildDecision({
+      receiptId: '00000000-0000-4000-8000-000000000030', issuerSeq: 10, recordedAt: '2026-09-10T00:00:00.000Z',
+      inference: clone((f.decision.receipt_body as Extract<ReceiptBody, { event_kind: 'DECISION' }>).payload.inference) as Parameters<typeof buildDecision>[0]['inference'],
+      policy: { ...clone((f.decision.receipt_body as Extract<ReceiptBody, { event_kind: 'DECISION' }>).payload.policy), action: 'HUMAN_REVIEW' },
+    })
+    const decisionHash = await receiptHash(decision)
+    const review = buildReview({
+      receiptId: '00000000-0000-4000-8000-000000000031', issuerSeq: 20, recordedAt: '2026-09-10T00:01:00.000Z',
+      decision, decisionHash, previousHash: decisionHash, outcome: 'RESOLVED', resultingAction: 'ALLOW',
+      reasonCodes: ['FALSE_POSITIVE_SLANG'], reviewPolicyHash: f.ctx.manifests.review,
+    })
+    const ledger = await lifecycleLedger([decision, review])
+    expect((await verifyReceipt(ledger.bundles.get(ledger.hashes[1])!, ledger.ctx)).lifecycle.state).toBe('PASSED')
+  })
+
+  it('W5: 선행 앵커 RPC 장애는 lifecycle 실패가 아니라 NOT_CHECKED다', async () => {
+    f.chain.rpcDown = true
+    const report = await verifyReceipt(f.review, f.ctx)
+    expect(report.code).toBe('RPC_UNAVAILABLE')
+    expect(report.lifecycle).toMatchObject({ state: 'NOT_CHECKED' })
   })
 })

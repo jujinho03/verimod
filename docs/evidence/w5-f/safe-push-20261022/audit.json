@@ -1,0 +1,178 @@
+{
+  "at": "2026-10-22T08:33:32.949Z",
+  "branch": "nohyusin",
+  "initial_commit": "1085240368a2109dcbc5be245d6485004be27cb7",
+  "origin": "https://github.com/jujinho03/verimod.git",
+  "observed_remote": {
+    "main": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+    "nohyusin": "8d0580a7ef6a7e88c2314e6f5f30ff5f08f693ab",
+    "t": "f8cec268d1baccc65035336a5cc232d22f9f5546"
+  },
+  "results": {
+    "frontend": {
+      "total": 243,
+      "passed": 243,
+      "failed": 0,
+      "skipped": 0,
+      "files": 23,
+      "report_sha256": "1305a743d7d903f627b5faa4a075896fd01c74e69ca942671fbc65c6e257b046"
+    },
+    "backend": {
+      "total": 203,
+      "passed": 203,
+      "failed": 0,
+      "skipped": 0,
+      "files": 12,
+      "report_sha256": "500999a2b754f35f7fe22b46cc6d27393130d1583d1f85d90ad5051485fafeba"
+    }
+  },
+  "prior_attempts": {
+    "frontend-tests-first-attempt.json": {
+      "passed": 242,
+      "total": 243,
+      "failed": 1,
+      "report_sha256": "7f2a521875e3df74d5ffb87a23c9c3dde799f791ccee5c38b32decb9e59e18d7"
+    },
+    "backend-tests-first-attempt.json": {
+      "passed": 199,
+      "total": 203,
+      "failed": 4,
+      "report_sha256": "242864114b86f11baa3d6297d6175faf92fcd5146da52aa2bcb4db4f636d989f"
+    },
+    "backend-tests-serial-default-timeout.json": {
+      "passed": 202,
+      "total": 203,
+      "failed": 1,
+      "report_sha256": "a9c5c4890829a2ac3914e651f8f3f7366e7ab371fcf4b119569e4d3af7fe4584"
+    }
+  },
+  "final_test_commands": {
+    "frontend": "npm test -- --maxWorkers=1",
+    "backend": "npm test -- --maxWorkers=1 --testTimeout=30000"
+  },
+  "functional_deadlines_and_assertions_unchanged": true,
+  "frontend_build": "PASS",
+  "frontend_lint": {
+    "status": "PASS",
+    "errors": 0,
+    "preexisting_warnings": 2
+  },
+  "frontend_w5_typecheck": "PASS",
+  "backend_typecheck": "PASS",
+  "backend_build": "PASS",
+  "browser_qa": {
+    "status": "BLOCKED",
+    "baseline_attempt": "npm run test:browser -- --max-failures=1",
+    "test_body_executed": 0,
+    "reason": "Chromium executable missing; official installation failed with EPERM realpath and download timeout",
+    "w5_mobile_desktop_status": "BLOCKED_PRESERVED"
+  },
+  "historical_node_rpc": {
+    "passed": 7,
+    "total": 7,
+    "new_execution_this_audit": false,
+    "report_sha256": "6bece99a62d77a60ab936aa016ed82307edf7b91e652c4cb4a6b09b56ed19901"
+  },
+  "scope_and_privacy": {
+    "status": "PASS",
+    "changed_files": [
+      "backend/test/decisions.test.ts",
+      "docs/evidence/w5-f/20261022/README.md",
+      "docs/evidence/w5-f/20261022/browser-blocker.json",
+      "docs/evidence/w5-f/20261022/node-public-rpc.json",
+      "docs/evidence/w5-f/20261022/regression-summary.json",
+      "docs/evidence/w5-f/safe-push-20261022/README.md",
+      "docs/evidence/w5-f/safe-push-20261022/audit.json",
+      "docs/handoffs/W5-F-service-qa.md",
+      "docs/progress/W5-F.md",
+      "frontend/e2e/w5.spec.ts",
+      "frontend/package.json",
+      "frontend/playwright.config.ts",
+      "frontend/playwright.w5.config.ts",
+      "frontend/scripts/w5-readonly-smoke.mts",
+      "frontend/src/domain/manifestCheck.ts",
+      "frontend/src/domain/privatePackage.ts",
+      "frontend/src/domain/rpcLedger.test.ts",
+      "frontend/src/domain/rpcLedger.ts",
+      "frontend/src/domain/syntheticLifecycle.ts",
+      "frontend/src/domain/verify.ts",
+      "frontend/src/domain/w5-private-package.test.ts",
+      "frontend/src/domain/w5-status.test.ts",
+      "frontend/src/features/PrivatePackageInput.tsx",
+      "frontend/src/features/ReceiptParts.tsx",
+      "frontend/src/features/SyntheticLifecycleDemo.tsx",
+      "frontend/src/features/VerificationModeNotice.tsx",
+      "frontend/src/features/w5-ui.test.tsx",
+      "frontend/src/pages/CheckPage.tsx",
+      "frontend/src/pages/ProtocolPage.tsx",
+      "frontend/src/pages/ReceiptDetailPage.tsx",
+      "frontend/src/pages/VerifyPage.tsx",
+      "frontend/src/pages/home/Home.tsx",
+      "frontend/src/site/Layout.tsx",
+      "frontend/src/store/state.test.ts",
+      "frontend/src/store/state.ts",
+      "frontend/tsconfig.w5-tools.json"
+    ],
+    "forbidden_paths": [],
+    "secret_pattern_findings": [],
+    "code_paths_manually_reviewed": true,
+    "owner_material_persistence": "MEMORY_ONLY_FOR_NEW_WRITES",
+    "legacy_live_cache": "PRESERVED_UNTIL_OWNER_EXPLICIT_REMOVAL",
+    "team_progress_path_not_written": true,
+    "user_artifacts_preserved": 7,
+    "w4_and_production_sources_unchanged": true
+  },
+  "source_hash_encoding": "UTF-8 with CRLF normalized to LF",
+  "source_sha256": {
+    "backend/test/decisions.test.ts": "27e93bf7848c13687c2c412be6ca382b5042654f420059c1c93109d95d9193cb",
+    "frontend/e2e/w5.spec.ts": "eb6d30a996c4d682d6f480f214bc3d00252936292cf43e5854eb7ed96e449c72",
+    "frontend/package.json": "fc096396cde0a610eb3abbddef25eaf766018d8c965cfe21e61250c0a8cada94",
+    "frontend/playwright.config.ts": "49feb9bb4c8f74011856a4cedec41b2b84d3722ac1c80249da94eb404a2d6ca6",
+    "frontend/playwright.w5.config.ts": "2123ff792007b23a2fd7224eb5ad895ef3bebaf1415aa192302cac96ca026dd7",
+    "frontend/scripts/w5-readonly-smoke.mts": "d5ff39ff44f99f56e35a0ab4e8ed14693d19872c1d96b9245243b528e3dd983a",
+    "frontend/src/domain/manifestCheck.ts": "b26f52043dbc43ef3e148feb8a96946bfb0482564762ea3e0ffde0c978c57cc2",
+    "frontend/src/domain/privatePackage.ts": "33dae8b6f0e7353eac75a3bb4cc1f75f4783a9fb02a05333e73f2c360ee40697",
+    "frontend/src/domain/rpcLedger.test.ts": "2dc45ccf9fc610367ee8a61a4d786ef8aa929e017d21f6a089334c2502869076",
+    "frontend/src/domain/rpcLedger.ts": "0adc84450283b5e3c821aff014c7a7c801d33682126ad405853b69e68c374d85",
+    "frontend/src/domain/syntheticLifecycle.ts": "a1ce4b279cfa07ce52a4847bafb83f006fa67dc906717a1ae702ea996cda16f6",
+    "frontend/src/domain/verify.ts": "3578147ed584f4d5f90a34429d03c2957456715bb467469683b0985b20f32b7a",
+    "frontend/src/domain/w5-private-package.test.ts": "af8ede6331defdcd844d7e37e2075dc7492f3ff4a6d80ba1a2894e0839c7cdec",
+    "frontend/src/domain/w5-status.test.ts": "0324449ba0428c90fcbb573ab6ae8c6f1bf631c520b0c0d6529303ab43b9dee3",
+    "frontend/src/features/PrivatePackageInput.tsx": "65777e258e7d0d8652bb65a2a7f74bfe5276c7dedfbf1b577a651806a401de25",
+    "frontend/src/features/ReceiptParts.tsx": "d0111ebf62e662727b27c9f445e7e119c75b087d8dbb194b7c4b3217ab75d07f",
+    "frontend/src/features/SyntheticLifecycleDemo.tsx": "edb5b803ec76757cce34f6bcf5c5f3068ea9d3d0475db78551c5126ae1c2ef6e",
+    "frontend/src/features/VerificationModeNotice.tsx": "1c72fef18107a7c2f16efdde4c4ab97efe19feffd1883fc60140dd40c9cf6710",
+    "frontend/src/features/w5-ui.test.tsx": "21eb54b55fa9e67bec03b22361cabe8a1f5134ae70ba5f8cf4b7c2c6eff4bb48",
+    "frontend/src/pages/CheckPage.tsx": "49b291a815063d1f5f6c13dc439cf6597bd05049851243b4a31a65742db67cb7",
+    "frontend/src/pages/ProtocolPage.tsx": "c6f13bd8dfd438681ad49a421391c32ca651ac947797ed7033dd890fe1285c4f",
+    "frontend/src/pages/ReceiptDetailPage.tsx": "dd2f586fd40cfa09ad31bada9dba6a312336ae5f20882d45571ff6e16db61a2c",
+    "frontend/src/pages/VerifyPage.tsx": "5e6ee7a166fc718e73daa22df21174d5c3ff01cc1ee15cc750266e165819a42b",
+    "frontend/src/pages/home/Home.tsx": "e5bf8fd73827091eb10fe1212aee7be85163b8642cf8c23bf380c42807413dfd",
+    "frontend/src/site/Layout.tsx": "d2aa5122f76fcddab8acb035f0e48228e5fc551723570ff63a466e5b16c19941",
+    "frontend/src/store/state.test.ts": "65afb41f65f5313f6b5718539e8e65263fc1d4d338c9a59be82dea82f02f8e0b",
+    "frontend/src/store/state.ts": "6db41f33318b729d83a9c6ce331526c966b0ed982c71764fa1a7e597e6c84900",
+    "frontend/tsconfig.w5-tools.json": "b8cc728065f5c8b6c35a4907f4fe3a9d715a8ed295d12d70bcecf3402c5494d9"
+  },
+  "private_log_sha256": {
+    "frontend-test.log": "6426cf109cc35b6cb0a68f6d6e29f43f89023366dd367b6957004a4d532a0351",
+    "frontend-build.log": "c3df33b9315e8b08fdfdde7c9b47f7c2e5d5fbc4fc50f3a7fe70d59d7e79d802",
+    "frontend-lint.log": "53101e83a1652c2c94c07738aa7291531c62183164a9ce8b0de16443f455bc54",
+    "frontend-tools.log": "279df4ca6e25058644e8048b074fe92a70238c6e6ab318e8b1c517bd4a28af87",
+    "backend-test.log": "122b8a116585998bb4cda5520e12a9a92e1b342f0242918187b143765f0f0e5b",
+    "backend-test-serial.log": "5f9273072d8cb763f821a522a75dc52c768d64f04d5118d53c93820be6aecc32",
+    "backend-test-final.log": "bfdf6846cb222ca670870a800ed4eb26019da79eae4714e631e0bb1549585968",
+    "backend-typecheck.log": "075f8e42618d8154c9159769c36ba7f05b67472ddf79df3ba9ac64d6e3cae30a",
+    "backend-build.log": "e14590cd21c090243fc1544447c4655e98f574ed588d9323d2bcafd3a7cc18dc",
+    "browser.log": "dcfa25e451cd190dd2dd9b2f494fc3711661146095c62e2ad94e36fe648c3a69",
+    "browser-install.log": "40209cdd3855414ca00b831ef950b3158eeec2d14df531a46f3f04c21dcf2762"
+  },
+  "t_rcpt05_merged": false,
+  "t_review": "PENDING",
+  "gate_5": "PARTIAL",
+  "github_actions": "AWAITING_PUSH",
+  "actual_chain_tx_sent": false,
+  "test_data_accessed": false,
+  "policy_lock_performed": false,
+  "policy": "W4_PROVISIONAL_E2E_ONLY",
+  "team_approved": false
+}
