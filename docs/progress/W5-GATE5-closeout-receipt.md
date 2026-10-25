@@ -78,3 +78,9 @@ S1은 RECOMMENDED / **PENDING_APPROVAL**이다(X=3/50, B=9/20, H50-90_O50-90 추
 1. **21:00 GATE-5 최종 판정:** 위 초안(PARTIAL)을 채택할지 결정
 2. **S1 승인 여부:** X=3/50, B=9/20, H50-90_O50-90 그대로 갈지, S2로 갈지, W6로 미룰지
 3. **SEC-W5-01 실행 환경:** W6에서 새 Epoch가 필요하면 어디서 실행할지
+
+## 8. 최종 판정 반영 — 2026-10-25 20:23 KST
+
+§5의 판정 초안 중 G5-03·04는 PASS, G5-05는 원래 요구사항(권한/멱등)과 대조해 **PARTIAL**로 확정했다(Windows 53 SKIP). **종합 PARTIAL** (PASS 2 / PARTIAL 3 / BLOCKED 2). 확정 시각·판정자·사유는 [판정 기록 §3](W5-GATE5-decision-record.md)에 있다.
+
+**W5: CLOSED — GATE-5 PARTIAL / W6 MUST CARRYOVER.** 기준 main `efce466d`, CI #267 SUCCESS. 이 영수증의 §4(정책·평가 경계)는 그대로 유효하다.

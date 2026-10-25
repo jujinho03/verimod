@@ -36,17 +36,38 @@
 
 영수증 초안과 달라진 점이 하나 있다. G5-05를 "PASS 후보"에서 **PARTIAL**로 낮췄다. 원래 요구사항에 "권한/멱등"이 포함돼 있는데, Windows 53 SKIP으로 그 일부가 검증되지 않았기 때문이다. 팀장이 21:00에 이 판정안을 바꿀 수 있다.
 
-## 3. 최종 판정 — 21:00 KST 이후 기록
+## 3. 최종 판정 — 팀장 조기 마감 (2026-10-25 20:23 KST)
 
-> **미기록.** 2026-10-25 21:00 KST 이후에 팀장 확인을 받아 아래를 채운다. 그 전까지 이 칸은 비워 둔다.
+> 이 절의 원래 제목은 "21:00 KST 이후 기록"이었다. 21:00은 팀 실행 계획(p.33·p.49)에서 정한 **팀 내부 Gate 시각**이며, 대회 운영 측의 공식 마감이 아니다. 팀장이 3회차 멘토링 진행을 위해 조기 마감을 지시했다. 그래서 확정 시각은 **실제 기록 시각**으로 적고, 21:00로 소급하지 않는다.
 
 | 항목 | 값 |
 |---|---|
-| 확정 시각 (KST) | |
-| 판정자 | |
-| 종합 판정 | |
-| G5-01 ~ G5-07 | |
-| §2 판정안과 다른 점 | |
-| 기준 main SHA / CI | |
+| 확정 시각 (KST) | **2026-10-25 20:23** (Windows 시스템 시계, Korea Standard Time 변환. UTC 11:23) |
+| 판정자 | 팀장 주진호(A). 대화 지시 "GATE-5 FINAL CLOSEOUT ONE-SHOT" |
+| 종합 판정 | **PARTIAL** |
+| G5-01 ~ G5-07 | G5-01 **BLOCKED** · G5-02 **BLOCKED** · G5-03 **PASS** · G5-04 **PASS** · G5-05 **PARTIAL** · G5-06 **PARTIAL** · G5-07 **PARTIAL** (PASS 2 / PARTIAL 3 / BLOCKED 2) |
+| §2 판정안과 다른 점 | 없음. §2 판정안을 그대로 채택 |
+| 기준 main SHA / CI | `efce466df24c916fb2be1bf075176137fd4c4332` / #267 push SUCCESS (frontend·backend·contracts) |
+| 기록 근거 커밋 | 영수증 `a432d645`, 판정안·W6 계획 `fc101b7e`(CI #269 SUCCESS) |
+
+**G5-05 PARTIAL 사유:** 원래 요구사항은 "Private Receipt Package·권한/멱등/프라이버시"다. Package 검증, 프라이버시, legacy storage 처리는 충족했다. 그러나 Windows에서 승인된 writable callback이 UNSUPPORTED(SEC-W5-01 fail-closed)여서, 해당 경로를 포함한 backend 53개 테스트가 Windows에서 SKIP됐다. Windows의 권한·멱등 경로 일부가 검증되지 않았으므로 PASS로 보지 않는다. 위험한 동작(빈 DB 생성)이 막혔다는 사실과 정상 기능이 지원된다는 것은 구별한다.
+
+**미통과 Gate의 W6 이월 (확정):**
+- G5-01·02 → W6 A1~A5 (S1 결정, 계약, Manifest·parity, LOCK, 최초 TEST — 각각 별도 승인)
+- G5-05 → W6 T1 (SEC-W5-01 실행 방안과 부정 검증 8종)
+- G5-06 → W6 F1·F3 (LIVE-RPC 실측, 실기기 QA)
+- G5-07 → W6 A7 (DOC-09 2회차, 리허설)
+
+**판정이 바꾸지 않는 것:** S1 PENDING_APPROVAL, `team_approved=false`, A/F 정책 계약 PROPOSED, LOCK 미실행, TEST SEALED, Windows callback UNSUPPORTED, LIVE-RPC 6 SKIP, 실제 체인 송신 미승인, W4 역사적 증거 불변. W5 종료는 위 과제의 완료나 승인을 뜻하지 않는다.
+
+## 4. W5 종료 상태
+
+**W5: CLOSED — GATE-5 PARTIAL / W6 MUST CARRYOVER** (2026-10-25 20:23 KST)
+
+- W5 구현과 A/T/F 통합 완료: main `efce466d`, CI #267 SUCCESS
+- GATE-5 최종 판정 완료(§3)
+- 남은 MUST의 W6 이월 확정([W6 MUST 계획](../handoffs/W6-MUST-plan.md))
+- 추가 W5 개발 작업 없음
+- 미통과 자동 조치를 W6에 적용: SHOULD=0, 신규 기능=0, 남은 MUST 우선
 
 미통과 시 자동 조치: SHOULD=0, 신규 기능=0. W6 초반에는 남은 MUST부터 처리한다([W6 MUST 계획](../handoffs/W6-MUST-plan.md)).
