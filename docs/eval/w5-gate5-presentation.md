@@ -96,3 +96,11 @@ HUMAN_REVIEW는 자동 제한과 자동 허용 사이의 검토 구간을 제공
 5. 팀장이 최종 정책·LOCK·최초 TEST·GATE-5를 각각 해당 증거와 승인 순서에 따라 결정한다. 일반 문서 승인이나 “다음 단계” 지시로 대신하지 않는다.
 
 이번 문서 작업은 보호 운영자료·TEST 데이터·DB·키·체인에 접근하지 않으며 T/F 구현을 수정하지 않는다. W6 Model Card 최종본이나 실제 Appeal backend를 완료했다고 주장하지 않는다.
+
+## 10/25 갱신 — 발표 증거 상태
+
+- §10/22 표의 4·5번(T 보고, F 이월)은 이제 **main에 병합된 코드**다. T #28과 F #29 모두 독립 리뷰 APPROVED를 받았고, main `03296595`의 CI #264가 SUCCESS다.
+- 발표에서 완료형으로 말할 수 있는 것: Synthetic Lifecycle 연결·전이 검증, Private Package, Manifest `NOT_CHECKED`, RPC 상태 분리.
+- 단서를 함께 말해야 하는 것: Desktop/Mobile은 **emulation** 12+12 PASS이며 실기기가 아니다. LIVE-RPC는 0 PASS / 6 SKIP이다. Windows의 승인된 writable callback은 미지원이다.
+- 그대로인 것: S1 추천안·승인 대기, LOCK 미실행, TEST SEALED, 운영형 Appeal/Review는 POST-MVP.
+- Gate 판정 초안은 [마감 감사 §12](../progress/W5-A-closeout.md)를 따른다.

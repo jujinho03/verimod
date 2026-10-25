@@ -50,3 +50,7 @@ T의 Windows 대응 수정(`DatabaseSync(absolutePath)` 방식)은 **보안 보�
 4. W5 desktop/mobile 브라우저 회귀를 실제 실행한다. 실행 환경 문제로 BLOCKED이면 그대로 기록한다. **LIVE RPC SKIP은 PASS가 아니다.**
 5. 새 F SHA의 GitHub CI SUCCESS를 확인하고, 결과를 PR #29에 남긴다
 6. Draft를 해제하고 독립 리뷰를 요청한다(T `k0ng-min`, 필요하면 A). main merge는 팀장이 따로 승인한다
+
+## 2026-10-25 — 완료
+
+F PR #29가 `k0ng-min` APPROVED(`19be2b79`)를 받아 main `03296595`에 병합됐다(CI #264 SUCCESS). 이 문서의 F 통합 단계는 끝났다. A는 main을 `jujinho`에 일반 merge했다(`c4945ab6`). W6에 남은 F 관련 항목은 LIVE-RPC 실측, 실기기 QA, Windows callback 실행 방안이다.

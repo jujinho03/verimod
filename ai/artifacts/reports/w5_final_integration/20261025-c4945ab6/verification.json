@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scope": "A Python full suite on the actual A merge commit (main T+F+SEC merged into jujinho)",
+  "merge_commit": "c4945ab6fdfb005668d7710903ecaa3a2bf94421",
+  "parents": [
+    "f1dbf175177aec5d18187b6c6f17403f29496d6d",
+    "03296595127e144d607895efbcf5b40a274c0743"
+  ],
+  "main_sha": "03296595127e144d607895efbcf5b40a274c0743",
+  "main_ci": "#264 push SUCCESS",
+  "command": "ai/.venv/Scripts/python.exe -B -m pytest -p no:cacheprovider -q tests/ --basetemp=<short Git-ignored path> (cwd ai)",
+  "pytest_summary": "307 passed, 27 subtests passed, 1 warning, 0 failed, 0 errors",
+  "junit_counts": {
+    "tests": 334,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "count_note": "JUnit tests=334 counts 307 tests + 27 subtests; report 307 (+27 subtests), never 334+307",
+  "junit_cases_by_module": {
+    "BaselineConfigTests": 7,
+    "BootstrapTests": 5,
+    "DatasetIntegrityTests": 11,
+    "EdaTests": 4,
+    "ModelMetricTests": 6,
+    "PolicyMetricTests": 9,
+    "PreprocessingTests": 10,
+    "RunnerTests": 15,
+    "SelectionTests": 6,
+    "TaxonomyTests": 4,
+    "TokenAnalysisBoundaryTests": 3,
+    "W3HandoffTests": 11,
+    "WorkspaceTests": 4,
+    "test_w4_inference": 46,
+    "test_w4_policy": 11,
+    "test_w5_execution_guard": 43,
+    "test_w5_policy_approval": 12,
+    "test_w5_policy_selection": 23,
+    "test_w5_preregistration": 24,
+    "test_w5_research_scenarios": 9,
+    "test_w5_validation_analysis": 18,
+    "test_w5_validation_rows": 26
+  },
+  "ai_files_changed_by_main_merge": [],
+  "test_evaluate": {
+    "entrypoint": "ai/scripts/prepare_w5_evaluation.py test-evaluate",
+    "exit_code": 3,
+    "reason": "BLOCKED / TEST SEALED: real evaluation is not implemented in this preparation release",
+    "classification": "EXPECTED_BLOCK",
+    "test_data_accessed": false
+  },
+  "w4_scope_tracked_files": 45,
+  "w4_scope_changed_since_ba8b7bc": [],
+  "supersedes_dry_run": "ai/artifacts/reports/w5_integration_dryrun/20261025-16aa1e15 (local candidate, not final)",
+  "s1_status": "PENDING_APPROVAL",
+  "lock_executed": false,
+  "test_state": "SEALED",
+  "junit_redacted_fields": [
+    "hostname"
+  ]
+}

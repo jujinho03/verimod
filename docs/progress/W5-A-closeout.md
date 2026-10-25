@@ -174,3 +174,37 @@ T가 제안한 Windows 대응 수정은 **BLOCKED / 별도 보안 작업**으로
 | G5-07 | T main CI #252, F/A 브랜치 CI, A 통합 후보 307 | **PARTIAL** | A/T/F 포함 main CI |
 
 종합 현황: **PARTIAL 예상.** 최종 판정은 21:00에 위 증거로 확정한다. TEST와 LOCK은 마감을 이유로 실행하지 않는다.
+
+## 12. T+F main 통합 후 A 최종 검증 — 2026-10-25 (GATE-5 판정 전)
+
+| 항목 | SHA | CI | 리뷰 | 상태 |
+|---|---|---|---|---|
+| T PR #28 | merge `639030b3` | #252 SUCCESS | `ysn-0215` APPROVED (`cd5b1c53`) | MERGED |
+| F PR #29 | merge `03296595` (head `19be2b79`) | head #258/#259, main **#264 SUCCESS** | `k0ng-min` APPROVED (`19be2b79`) | MERGED |
+| main | `03296595` (T+F+SEC) | #264 SUCCESS | — | A 미포함 |
+| A PR #30 | merge `c4945ab6` (부모 `f1dbf175` + `03296595`) 이후 문서 커밋 | 아래 push 이후 신규 CI | 독립 리뷰 요청 예정 | 미병합 |
+
+**A 최종 검증 (실제 merge commit `c4945ab6`):**
+- A Python 전체: **307 passed, 27 subtests passed**, 실패·오류 0, 경고 1. JUnit `tests=334`는 307과 27을 합친 값이며, 두 수를 다시 더하지 않는다.
+- main merge로 바뀐 `ai/` 파일은 0개다. AI-11(정책·Validation), AI-12(Guard), AI-13(오류 분석) 테스트가 모두 같은 실행에 포함된다.
+- `test-evaluate`: 종료코드 3, 사유 `BLOCKED / TEST SEALED`. 데이터 경로 인자가 없는 공식 진입점이 데이터 접근 전에 거부한 것이므로 **EXPECTED_BLOCK**이다.
+- W4 증거: A 범위 45개 파일이 `ba8b7bc` 이후 변경 0. F 범위 53개는 F 증거(`docs/evidence/w5-f/integration-20261024/w4-sha256.json`)를 따른다.
+- 증거: [verification.json](../../ai/artifacts/reports/w5_final_integration/20261025-c4945ab6/verification.json). §11의 로컬 후보 `16aa1e15` 결과는 이 결과로 대체된다.
+
+**F 보고 수치 (F 증거, A 재실행 아님):** Windows backend 153 PASS / 53 SKIP, Linux backend 199 PASS / 7 SKIP, W5 Desktop 12 PASS, Mobile emulation 12 PASS, LIVE-RPC 0 PASS / 6 SKIP.
+
+**SEC-W5-01:** 위험 경로(빈 DB 생성)는 main에서 fail-closed다. Windows의 승인된 writable callback은 **UNSUPPORTED**이며 OPEN으로 W6에 넘긴다.
+
+**G5 판정 초안 (21:00 판정용, 확정 아님):**
+
+| Gate | 증거 | 초안 | 남은 MUST |
+|---|---|---|---|
+| G5-01 | Validation·S1 초안 | **BLOCKED** | 팀장 X/B·후보 승인. 코드 통합으로 충족되지 않는다 |
+| G5-02 | Guard 합성 PASS, EXPECTED_BLOCK | **BLOCKED** | LOCK → 별도 TEST 승인 (W6) |
+| G5-03 | W4 증거 불변(A 45, F 53), T TEST-05 | **PASS 후보** | — |
+| G5-04 | T lifecycle·F Synthetic UI가 main에 있음, T/F 리뷰 APPROVED | **PASS 후보** | Synthetic 표기 최종 화면 확인 |
+| G5-05 | F Private Package·legacy storage·SEC fail-closed가 main에 있음 | **PASS 후보** | Windows callback 미지원은 운영 제약으로 기록 |
+| G5-06 | RPC 상태 분리, Desktop/Mobile emulation 24 PASS | **PARTIAL** | LIVE-RPC 실측(6 SKIP), 실기기 QA |
+| G5-07 | main #264, A CI, A Python 307 | **PARTIAL** | A PR #30 독립 리뷰·병합 후 A/T/F main CI |
+
+종합 초안: **PARTIAL.** 최종 판정은 팀장이 21:00에 확정한다.
