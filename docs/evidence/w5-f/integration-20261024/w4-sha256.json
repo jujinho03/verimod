@@ -1,0 +1,214 @@
+[
+  {
+    "path": "docs/evidence/w4-a-actual-frozen-epoch.md",
+    "sha256": "545cc290f5ced4fecb0ad92fcdbda1199f72bf55647ec4c906d26a264685fd7d"
+  },
+  {
+    "path": "docs/evidence/w4-a-final-revalidation.md",
+    "sha256": "64ee301cf91e5924fab25a72b3400c83e6a76d48f875f7b995333a38b822391c"
+  },
+  {
+    "path": "docs/evidence/w4-a-validation-policy.md",
+    "sha256": "79238245d7f627b2e41f531f6e4a5cb9b77159bc73c9a53b92206d0337631506"
+  },
+  {
+    "path": "docs/evidence/w4-f-callback/20261017/README.md",
+    "sha256": "cb3b9f2b6eca48a2633b0ca78af4cb191a96ff3295c36cd9cda1617119151fb0"
+  },
+  {
+    "path": "docs/evidence/w4-f-callback/20261017/regression-summary.json",
+    "sha256": "afe0b2948ad54cbd9e5bafd5bd2658e076191f55d199275ca19bb893cd74d8dd"
+  },
+  {
+    "path": "docs/evidence/w4-f-callback/20261017/windows-cli-final.jsonl",
+    "sha256": "608d1fa152d9fadb8fee38c0ae54f7494b0ae0b3f077e8c30533606912446e42"
+  },
+  {
+    "path": "docs/evidence/w4-f-callback/20261017/windows-cli.jsonl",
+    "sha256": "4b44aa01e4c2a2d3b1db49284c883eb0624bbfefecbfbfcfbeaa9b941d1779a4"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/README.md",
+    "sha256": "e51e93ec4b762ce9109c82d4d6733e735ceff80c19336819df321ac8bae12710"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/browser-check.json",
+    "sha256": "4907525aa67c6ecb1f704e9ae698bbbdbe1060f6bfc1f7cb95393de575d918ff"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/regression-summary.json",
+    "sha256": "e9fb30f5f4b6b98aa881ca7410fa94a41b1b7dfcfe6990921510dc8e355594dc"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/t-source-audit.json",
+    "sha256": "d6e48de9f376a998b688bb8481f0cc2fa6b147e813a27f936416688341c9e336"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/windows-confirmation-final.jsonl",
+    "sha256": "f79b74345ff3dd8ab8e4e6ab222d52d28ab1735654795b812110f9426a4c81a6"
+  },
+  {
+    "path": "docs/evidence/w4-f-confirmation/20261017/windows-confirmation.jsonl",
+    "sha256": "86c61ce1418832fb9414b534d4db2d6c70e63bac1b67852442d67f759709f9bf"
+  },
+  {
+    "path": "docs/evidence/w4-f-final-integration/20261016-r01/README.md",
+    "sha256": "6262977e2768b4512b41d114a301b34a17df66bacab082a12f12588caedd13b3"
+  },
+  {
+    "path": "docs/evidence/w4-f-final-integration/20261016-r01/execution-status.json",
+    "sha256": "0730d0a554bcef22b2618e4075b1f1408a58aa6feb99eeed44b850ee1d60e6c6"
+  },
+  {
+    "path": "docs/evidence/w4-f-final-integration/20261016-r01/regression-summary.json",
+    "sha256": "2fc8fc7b4ed05afc9bcd18afeedb46129b1514a8fbd0b9f088966bd073f2f352"
+  },
+  {
+    "path": "docs/evidence/w4-f-final-integration/20261016-r01/source-audit.json",
+    "sha256": "072bdd77e59c0bcc571e53ba33f9a4f8d3321f4fabeb08d058417af590b7fbeb"
+  },
+  {
+    "path": "docs/evidence/w4-f-windows-esm/20261016-r01/README.md",
+    "sha256": "321bdddf305c516caa1db5ba08bf6d4132b10051858ecfe5f86259e816c654f0"
+  },
+  {
+    "path": "docs/evidence/w4-f-windows-esm/20261016-r01/f-revision-preflight.json",
+    "sha256": "c4b5305fe4309040fe862f6be9ef3419e6b10eca01250dcedc384e6e2e3ff7ad"
+  },
+  {
+    "path": "docs/evidence/w4-f-windows-esm/20261016-r01/validation.json",
+    "sha256": "22ab83e83b713bed805743973fb5cbc72a1e516ed1d168efcb9eb24cdb6c9e07"
+  },
+  {
+    "path": "docs/evidence/w4-f-windows-esm/20261016-r01/windows-smoke.jsonl",
+    "sha256": "6b21b3c0000903163d8cc263b5d267ada0176054b9064f4c9f69c3dad94d3320"
+  },
+  {
+    "path": "docs/evidence/w4-mentor-docs-update/20261017/verification.json",
+    "sha256": "a9c292986dc112abf30b3d490639d03990e3b04a3473d55d66e0f752a5368277"
+  },
+  {
+    "path": "docs/handoffs/W4-A-revalidation-plan.md",
+    "sha256": "0261b1571d01df2f25def668005e998ca1bc457a430b9b4eabb6d1a36968d7fb"
+  },
+  {
+    "path": "docs/handoffs/W4-A-to-FT.md",
+    "sha256": "eb9ca8dfdc2e18cd11c9a463de7279d0c2c4cc1dc41dcc4021bdefe6bf7dd428"
+  },
+  {
+    "path": "docs/handoffs/W4-AFT-operations.md",
+    "sha256": "036913284b44a8ae5e775e471e74baf23881d27fe1c9ab153ab61854d11febda"
+  },
+  {
+    "path": "docs/handoffs/W4-F-actual-host-run-request.md",
+    "sha256": "251aa5e3ff3fc9710880811b516fac15cb36164a4276739df47c9e9798741aad"
+  },
+  {
+    "path": "docs/handoffs/W4-F-durable-callback-runner.md",
+    "sha256": "0c9defc34b01c41b6e83e89f2f2283c95c806731c8854f81bc3d630408d42f93"
+  },
+  {
+    "path": "docs/handoffs/W4-F-frozen-epoch.schema.json",
+    "sha256": "8e072902daf086ef508dd2b7e0dad49254b9b540601d8468e8487cd399350b92"
+  },
+  {
+    "path": "docs/handoffs/W4-F-prebroadcast-durability.md",
+    "sha256": "539c82d6a00506e02e04662dfb5d919eed3b514cceb0c4b8f9fb6b8615672b4a"
+  },
+  {
+    "path": "docs/handoffs/W4-F-trusted-confirmation.md",
+    "sha256": "b5b6eecda707ccacaf65f077f01b4648d5fa4583702ac7932697b834059d2316"
+  },
+  {
+    "path": "docs/handoffs/W4-T-epoch-handoff.md",
+    "sha256": "2276b860420a6412853f1a714a28ef5826235af70aab18f5464a559f411d9dc9"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/.gitattributes",
+    "sha256": "ed0552c0c90dc66525615947b802a78c48a1bf76ef68886ec8679298594f2511"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md",
+    "sha256": "92827b4579a5ec23a97f3c2db453feeb63585eeaa9bbeec52788880adce0cb60"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE1a.png",
+    "sha256": "58de7da237d460bfc7afa3bd044529c5f7eaf0cfb311abfdb27b593e2a7b11da"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE1b.png",
+    "sha256": "b308dd7c7d5785e01457d8b297f2bb6959659ce8532fac1bf0219928f8ba06e4"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE2.png",
+    "sha256": "d3c47e4e2dbe634d4aa075ee76e59f87b18dd52fb25a2c52907d6b89012ca583"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE3.png",
+    "sha256": "dd99e56eaea10a624dfef2119eafdc4741dd127cc0170bde89c6e7ad48895076"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE4a.png",
+    "sha256": "8a22a3250bacda171d7cb4f49dfe8623b4543966d5e1e04f2489cac92f4163de"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE4b.png",
+    "sha256": "9f61f1296d116937f061cba3553f47634f632025b6471356bda22f992ce9ac53"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/CASE5.png",
+    "sha256": "753dc7004e036891a0e7e403e402ff3268d08cbb26ae91bc38a6ff75b762c8e3"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/browser/browser-verification.json",
+    "sha256": "e49c4b2dcc0cb68eb26799b783f0da7a232fb7619c724b65b97460ef01ac2be2"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/chain-evidence.json",
+    "sha256": "09f5a0e7b34cf6a327ec810fe447a21673bc537b82f5dd78deb1941a3c4dd47c"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-0.bundle.json",
+    "sha256": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72"
+  },
+  {
+    "path": "docs/handoffs/w4-anchored-epoch-public/20261020-r01/receipt-1.bundle.json",
+    "sha256": "826a0af4030a9c525c015fd719ea117ecb2c4eb5467976ac88b0b921dee0cbb0"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/.gitattributes",
+    "sha256": "ed0552c0c90dc66525615947b802a78c48a1bf76ef68886ec8679298594f2511"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/README.md",
+    "sha256": "6c28a6176243502514c7294c8effef045281d395ee58dc0b314ce81114c9904b"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/execution-status.json",
+    "sha256": "ad0bf44da950ad320c54c0f572ea612526b5cd7113b88a95bdfc6b3c707512c5"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/frozen-epoch-handoff.json",
+    "sha256": "77cc18e1a1f76848a8189a5a262a39140ddb9b3ab9332a38650c57488d728e2f"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/receipt-0.bundle.json",
+    "sha256": "b0d071d94fa0aaa976258bd25b22079ad68569d8ff37cfb99f898267a72db1c4"
+  },
+  {
+    "path": "docs/handoffs/w4-frozen-epoch-public/20261017-r01/receipt-1.bundle.json",
+    "sha256": "299d9e9a8bf4fc81f552b506874e010799bae217711038269ece86e422ad1b8f"
+  },
+  {
+    "path": "docs/progress/W4-A.md",
+    "sha256": "b28cd2bff32c07d1a556413b69c1c8e2dc7c3e64511ff31be9ac742735bfdda5"
+  },
+  {
+    "path": "docs/progress/W4-F-manifest-fix.md",
+    "sha256": "5fe232a95106308a3af257a2f3598780e04ac9fde3b7a9561b0cff10552e5610"
+  },
+  {
+    "path": "docs/progress/W4.md",
+    "sha256": "8fcb6d7938163d56be575ac0e668c98acc16a5d78f1ee156081caea36a19b1b9"
+  }
+]

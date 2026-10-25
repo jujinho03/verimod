@@ -78,6 +78,7 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
   const callUrl = async (url: string, method: string, params: unknown[]) => {
     const response = await fetcher(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(5000),
       body: JSON.stringify({ jsonrpc: '2.0', id: ++requestId, method, params }),
     })
     if (!response.ok) throw new RpcUnavailableError(`RPC HTTP ${response.status}`)
@@ -91,8 +92,7 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
       try {
         const chain = await callUrl(url, 'eth_chainId', [])
         if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
-          untrusted = new UntrustedLedgerError('RPC chain id mismatch')
-          continue
+          throw new RpcUnavailableError('RPC chain id mismatch')
         }
         return await callUrl(url, method, params)
       } catch (error) {

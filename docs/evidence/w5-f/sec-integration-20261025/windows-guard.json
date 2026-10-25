@@ -1,0 +1,27 @@
+{
+  "head": "baf8b36b3e8ce9089ea6c7496e716eefe27fe4ff",
+  "platform": "win32",
+  "passed": 3,
+  "rows": [
+    {
+      "case": "approved_existing_db",
+      "pass": true,
+      "unchanged": true,
+      "code": "WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED"
+    },
+    {
+      "case": "approved_db_deleted_before_open",
+      "pass": true,
+      "new_db_created": false,
+      "code": "WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED"
+    },
+    {
+      "case": "guard_precedes_path_access",
+      "pass": true,
+      "code": "WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED"
+    }
+  ],
+  "synthetic_only": true,
+  "actual_db_access": false,
+  "chain_tx_sent": false
+}
