@@ -112,12 +112,25 @@ describe.skipIf(process.platform !== 'win32')('SEC-W5-01 Windows callback guard'
     expect(readFileSync(dbPath)).toEqual(before)
     expect(existsSync(dbPath)).toBe(true)
   })
+  it('does not recreate an approved database deleted before opening', () => {
+    expect(existsSync(dbPath)).toBe(true)
+    rmSync(dbPath)
+    expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+    expect(existsSync(dbPath)).toBe(false)
+  })
+  it('fails before evaluating the approved database path', () => {
+    const guarded = new Proxy(cfg, { get(target, key, receiver) {
+      if (key === 'database_path') throw new Error('DATABASE_PATH_WAS_READ')
+      return Reflect.get(target, key, receiver)
+    } })
+    expect(() => openApprovedDatabase(guarded)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+  })
 })
 
 const writableCallback = process.platform === 'win32' ? describe.skip : describe
 
 writableCallback('F callback CLI and authoritative database binding', () => {
-  it('runs on Windows, emits one snake_case ACK, survives reopen and retries identical bytes', async () => {
+  it('runs on supported platforms, emits one snake_case ACK, survives reopen and retries identical bytes', async () => {
     const result = await cli()
     expect(result.code).toBe(0)
     const ack = JSON.parse(result.stdout)
