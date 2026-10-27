@@ -21,6 +21,7 @@ W6의 F 범위만 수행했다. 기존 W5 UI를 재구현하지 않았고, 승�
 | F2 / FE-04 동일 W4 seed 공격 | PARTIAL | 실제 브라우저에서 `VALID`와 body 변경 `HASH_MISMATCH`를 관측했다. body 재해시 후 기존 proof의 `INVALID_PROOF` 실측은 공개 RPC 연속 불가로 BLOCKED. W4의 역사적 INVALID_PROOF를 신규 W6 PASS로 재분류하지 않는다. |
 | F3 / FE-05·06 상태·모드 분리 | PASS | Base Sepolia, L2 confirmed/L1 finality 경계, `RPC_UNAVAILABLE`/변조 상태, 단계별 Core 상태가 화면에서 분리됨을 캡처로 확인했다. Manifest 원문 부재는 기존대로 NOT_CHECKED다. |
 | F4 / 실제 RPC 장애·복구 | PARTIAL | `20261027-1740-efce466d` Desktop Chromium에서 동일 입력 SHA-256 `0b73aa52...f52235`로 `VALID → RPC_UNAVAILABLE → VALID` 1회 PASS(초기/복구 재시도 0). 두 승인 endpoint 모두 실제 route 차단됨을 확인했다. 이후 반복에서는 공개 endpoint rate-limit/불가로 복구가 3회 연속 막혀 안정적 10회 KPI는 미충족이다. |
+| F4 재실측 보충 | BLOCKED_ENVIRONMENT | 위 차단은 Playwright route abort이며 물리 네트워크 차단이 아니다. T+F 재실측용 Desktop/Mobile-emulation 계측을 분리 추가했지만, 이번 재실행은 localhost 격리 및 공개 RPC DNS 차단으로 제품 판정 전에 중단됐다. |
 | F5 / 실기기 Mobile QA | NOT_EXECUTED | 실기기 증거가 없다. W5의 Mobile emulation 12 PASS는 역사적 결과일 뿐 실기기 PASS가 아니다. |
 | F6 / 신규 정책 로딩 | BLOCKED | X/B 팀장 승인, A/F 계약 확정, signed Manifest, parity, fail-closed 선행조건이 없다. W4 provisional 경계를 유지했다. |
 | F7 / 데모·폴백 준비 | PARTIAL | W6 전용 Desktop 브라우저 회귀와 별도 증거 경로를 추가했다. Tier 1 Base 실측은 확보했지만 LOCAL 3회와 RECORDED 전환은 이번 실행에서 새로 검증하지 않았다. |
@@ -34,6 +35,7 @@ W6의 F 범위만 수행했다. 기존 W5 UI를 재구현하지 않았고, 승�
 - Backend unit (localhost 허용 환경): 12 files, 153 PASS, 53 SKIP, 0 FAIL. 53 SKIP은 Windows writable callback UNSUPPORTED 경계다.
 - Backend typecheck/build: PASS.
 - W6 actual browser: 성공 run에서 장애·복구 1 PASS, 이후 rehash 케이스 1 FAIL 및 Mobile 2 NOT_RUN. 실패 원인은 제품이 RPC 장애를 `INVALID_PROOF`로 위장하지 않고 `RPC_UNAVAILABLE`로 닫은 것이다. 전용 W6 spec은 기본 browser config와 분리했다.
+- W6 T+F recovery 재실행: Desktop/Mobile-emulation 모두 `BLOCKED_ENVIRONMENT`. shell/in-app browser의 localhost 차단과 격리 browser의 공개 RPC DNS 실패를 확인했다. Mobile 100초 문제를 제품 RPC·라우팅·재시도·UI 중 하나로 확정하지 않았으며, 이번 관측은 제품 코드 진입 전 네트워크 계층 차단이다.
 - 민감정보·원문·salt·키 공개: 0건. 실제 tx 송신: 0건.
 
 로컬 원본 스크린샷·Playwright JSON은 Git 제외 경로 `private-data/w6-f-browser/20261027-1740-efce466d/`에 보존한다. 공개 가능한 요약은 `docs/evidence/w6-f/20261027/`에 있다.

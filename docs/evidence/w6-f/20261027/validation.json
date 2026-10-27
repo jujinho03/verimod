@@ -36,7 +36,17 @@
     "repeat_failure": "PUBLIC_RPC_UNAVAILABLE_AFTER_RECOVERY",
     "body_tamper": "HASH_MISMATCH",
     "rehash_with_original_proof": "BLOCKED_BY_PUBLIC_RPC_UNAVAILABLE",
-    "physical_mobile": "NOT_EXECUTED"
+    "physical_mobile": "NOT_EXECUTED",
+    "joint_rerun": {
+      "desktop": "BLOCKED_ENVIRONMENT",
+      "mobile_emulation": "BLOCKED_ENVIRONMENT",
+      "mobile_physical_device": "NOT_EXECUTED",
+      "failure_injection": "PLAYWRIGHT_ROUTE_ABORT_NOT_PHYSICAL_NETWORK_DISABLE",
+      "localhost_browser": "BLOCKED",
+      "public_rpc_dns": "BLOCKED",
+      "base_10_consecutive": "NOT_EXECUTED",
+      "local_3_consecutive": "NOT_EXECUTED"
+    }
   },
   "gates": {
     "policy_loading": "BLOCKED_NO_APPROVAL",

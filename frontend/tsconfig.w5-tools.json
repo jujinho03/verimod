@@ -5,7 +5,9 @@
     "scripts/w5-readonly-smoke.mts",
     "e2e/w5.spec.ts",
     "e2e/w6.spec.ts",
+    "e2e/w6-rpc-recovery.spec.ts",
     "playwright.w5.config.ts",
-    "playwright.w6.config.ts"
+    "playwright.w6.config.ts",
+    "playwright.w6-recovery.config.ts"
   ]
 }

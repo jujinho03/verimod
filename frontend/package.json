@@ -11,6 +11,7 @@
     "test:browser": "playwright test",
     "w5:browser": "playwright test --config=playwright.w5.config.ts",
     "w6:browser": "playwright test --config=playwright.w6.config.ts",
+    "w6:rpc-recovery": "playwright test --config=playwright.w6-recovery.config.ts",
     "w5:typecheck": "tsc -p tsconfig.w5-tools.json",
     "w5:rpc-smoke": "node ../backend/node_modules/tsx/dist/cli.mjs scripts/w5-readonly-smoke.mts",
     "preview": "vite preview"
