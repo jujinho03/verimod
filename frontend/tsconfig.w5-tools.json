@@ -1,5 +1,11 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": { "types": ["node", "vite/client"], "tsBuildInfoFile": "./node_modules/.tmp/w5-tools.tsbuildinfo" },
-  "include": ["scripts/w5-readonly-smoke.mts", "e2e/w5.spec.ts", "playwright.w5.config.ts"]
+  "include": [
+    "scripts/w5-readonly-smoke.mts",
+    "e2e/w5.spec.ts",
+    "e2e/w6.spec.ts",
+    "playwright.w5.config.ts",
+    "playwright.w6.config.ts"
+  ]
 }
