@@ -1,0 +1,39 @@
+{
+  "schema_version": "verimod/w6-f-independent-review/v1",
+  "source_commit": "b72720d8074516daaabc18408c36a15c59d452e9",
+  "review_commit": "50f2061bead31f971df692d78179af27784f0d47",
+  "source_run_id": "20261027-1740-efce466d",
+  "receipt_hash": "0x96684f068edaaec7b2ae8abafdaae40c90c118f2d7bede9e4b0dec2278eed3b6",
+  "input_sha256": "0b73aa5285934b097c8d4aa564021c64ff5173ac555a3b4c1e61c92085f52235",
+  "desktop_recovery": {
+    "result": "PASS",
+    "duration_ms": 247530,
+    "states": ["VALID", "RPC_UNAVAILABLE", "VALID"],
+    "blocked_hosts": ["base-sepolia-rpc.publicnode.com", "sepolia.base.org"],
+    "initial_rpc_retries": 0,
+    "recovery_rpc_retries": 0,
+    "failure_injection": "PLAYWRIGHT_ROUTE_ABORT_INTERNETDISCONNECTED",
+    "physical_network_disabled": false,
+    "observed_at": "2026-10-27T08:33:32.711Z"
+  },
+  "repeat_and_tamper": {
+    "hash_mismatch": "OBSERVED",
+    "invalid_proof": "BLOCKED",
+    "blocking_state": "RPC_UNAVAILABLE",
+    "reason": "Approved public RPC endpoints remained unavailable after three attempts; INVALID_PROOF was not claimed as observed."
+  },
+  "mobile_emulation": "NOT_RUN_AFTER_MAX_FAILURE",
+  "physical_mobile": "NOT_EXECUTED",
+  "privacy": {
+    "private_material_access": false,
+    "transaction_sent": false,
+    "raw_playwright_report_shared": false,
+    "raw_report_with_local_paths": "RETAINED_LOCALLY_ONLY",
+    "secrets_in_tracked_commit_content": 0
+  },
+  "w4_public_evidence": {
+    "tree_before": "1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee",
+    "tree_after": "1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee",
+    "changed": false
+  }
+}
