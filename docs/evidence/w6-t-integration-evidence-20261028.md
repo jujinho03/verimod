@@ -15,8 +15,8 @@
 
 | 증빙 | 결과 | 원본 문서 |
 | --- | --- | --- |
-| W6 T 실행 영수증 | PARTIAL: T 단독 범위 완료, 팀 Exit 아님 | `w6-w7-t-execution-receipt-20261027.md` |
-| SEC-W5-01 Windows no-create 회귀 | PASS: writable callback은 `UNSUPPORTED` | `w6-w7-t-execution-receipt-20261027.md` |
+| W6 T 실행 영수증 | PARTIAL: T 단독 범위 완료, 팀 Exit 아님 | `w6-t-execution-receipt-20261027.md` |
+| SEC-W5-01 Windows no-create 회귀 | PASS: writable callback은 `UNSUPPORTED` | `w6-t-execution-receipt-20261027.md` |
 | F W6 CI-isolation 독립 리뷰 | APPROVED: `1620f82` 한정 | `w6-t-review-nohyusin-1620f82-20261028.md` |
 | RPC 안정화/최적화 독립 리뷰 | BLOCKED: 최적화 원본은 별도 브랜치 | `w6-t-rpc-independent-review-20261027.md` |
 
