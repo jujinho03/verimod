@@ -1,0 +1,47 @@
+{
+  "owner": "A / 주진호",
+  "ticket": "AI-19",
+  "derived_from": "online-offline-config-smoke.json",
+  "captured": {
+    "utc": "2026-10-27T05:26:52+00:00",
+    "kst": "2026-10-27T14:26:52+09:00"
+  },
+  "note": "Split view of the online-config smoke run; values are copied, not re-measured.",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "venv": "ai/.venv/Scripts/python.exe",
+    "packages": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "fastapi": "0.143.0",
+      "uvicorn": "0.54.0",
+      "starlette": "1.8.0",
+      "pydantic": "2.14.1",
+      "safetensors": "0.8.0",
+      "numpy": "2.5.3",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.2"
+    },
+    "lock_check": {
+      "ai/requirements-w4-service.lock.txt": {
+        "sha256": "a29661947f837e3ccf40569c5143f27779effeb7aa75371ae85d692077dca0a4",
+        "pinned": 18,
+        "mismatches": []
+      },
+      "ai/requirements-w3.lock.txt": {
+        "sha256": "442f7fce453348aeb1701ba4915e7ac7cfbdc003f0fcc273a1f93297b90e919a",
+        "pinned": 32,
+        "mismatches": []
+      }
+    },
+    "pip_check": {
+      "returncode": 0,
+      "output": "No broken requirements found."
+    }
+  },
+  "device": "cpu (torch.cuda.is_available()=False)"
+}

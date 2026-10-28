@@ -1,0 +1,42 @@
+{
+  "owner": "A / 주진호",
+  "ticket": "AI-19",
+  "derived_from": "online-offline-config-smoke.json",
+  "captured": {
+    "utc": "2026-10-27T05:26:52+00:00",
+    "kst": "2026-10-27T14:26:52+09:00"
+  },
+  "note": "Split view of the online-config smoke run; values are copied, not re-measured.",
+  "artifacts": {
+    "model_dir_exists": true,
+    "snapshot_exists": true,
+    "weights": {
+      "exists": true,
+      "bytes": 442505820,
+      "sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+      "expected": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+      "match": true
+    },
+    "config": {
+      "sha256_lf": "757e8a080d4620e6b9b109e3a59cfeb2bf5383811721513e2eb1a3c8095814e6",
+      "expected": "757e8a080d4620e6b9b109e3a59cfeb2bf5383811721513e2eb1a3c8095814e6",
+      "match": true
+    },
+    "manifest": {
+      "path": "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json",
+      "sha256_lf": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+      "expected": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+      "pinned_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+      "match": true
+    },
+    "service_constants_match": true,
+    "tokenizer_snapshot_files": {
+      "tokenizer.json": "66ac6204e18a45fa724fca7d44bc5f450881aa4c34f6352ddf27ada2294f07d3",
+      "tokenizer_config.json": "2c869369e1420125b87876b036ef9715e6844e73dcabb65791e0f655aa11cb9d",
+      "special_tokens_map.json": "2b2b6960db46dfc77be309404710b41541fb8f46596b9622f5456be4538df942",
+      "vocab.txt": "1ad4978b5dbe269dcc402a3c6eb71ceab21d712bca3b7d3b9994845e54cdcb39"
+    },
+    "tokenizer_note": "Collected for evidence only. The service pins tokenizer revision and local_files_only=True but does not verify these file hashes; this is NOT the W5 runtime binding implementation or a LOCK."
+  },
+  "model_load_and_tokenizer_load": "verified indirectly: /healthz 200 requires both to succeed with local_files_only=True"
+}

@@ -1,0 +1,275 @@
+{
+  "owner": "A / 주진호",
+  "ticket": "AI-19",
+  "mode": "physical-offline",
+  "started": {
+    "utc": "2026-10-27T06:44:24+00:00",
+    "kst": "2026-10-27T15:44:24+09:00"
+  },
+  "hf_hub_offline": "1",
+  "transformers_offline": "1",
+  "git": {
+    "branch": "jujinho",
+    "head": "44842f78fdc8102507b9f3aeeed5d0eda8e9eeaf",
+    "tracked_changes": [
+      "M docs/eval/w5-model-card-limitations.md"
+    ],
+    "w4_scope_changed_since_ba8b7bc": [],
+    "w4_scope_worktree_changes": [
+      "?? ai/artifacts/reports/w4_a_revalidation/20261016-final-r01/"
+    ]
+  },
+  "network": {
+    "adapters": [
+      {
+        "Name": "VMware Network Adapter VMnet8",
+        "InterfaceDescription": "VMware Virtual Ethernet Adapter for VMnet8",
+        "Status": "Up",
+        "MediaType": "802.3",
+        "HardwareInterface": false
+      },
+      {
+        "Name": "VMware Network Adapter VMnet1",
+        "InterfaceDescription": "VMware Virtual Ethernet Adapter for VMnet1",
+        "Status": "Up",
+        "MediaType": "802.3",
+        "HardwareInterface": false
+      },
+      {
+        "Name": "Bluetooth 네트워크 연결",
+        "InterfaceDescription": "Bluetooth Device (Personal Area Network)",
+        "Status": "Disconnected",
+        "MediaType": "802.3",
+        "HardwareInterface": false
+      },
+      {
+        "Name": "Tailscale",
+        "InterfaceDescription": "Tailscale Tunnel",
+        "Status": "Up",
+        "MediaType": "IP",
+        "HardwareInterface": false
+      },
+      {
+        "Name": "Wi-Fi",
+        "InterfaceDescription": "Intel(R) Wi-Fi 6 AX201 160MHz",
+        "Status": "Disconnected",
+        "MediaType": "Native 802.11",
+        "HardwareInterface": true
+      }
+    ],
+    "profiles": [
+      {
+        "InterfaceAlias": "Tailscale",
+        "IPv4Connectivity": 3,
+        "IPv6Connectivity": 1,
+        "NetworkCategory": 1
+      }
+    ],
+    "default_routes": [
+      {
+        "InterfaceAlias": "Wi-Fi",
+        "DestinationPrefix": "0.0.0.0/0",
+        "NextHop": "REDACTED_GATEWAY",
+        "RouteMetric": 0
+      }
+    ],
+    "query_error": null,
+    "external_probes": {
+      "dns_huggingface.co": "FAILED:gaierror",
+      "dns_github.com": "FAILED:gaierror",
+      "tcp_1.1.1.1:443": "FAILED:OSError",
+      "tcp_8.8.8.8:53": "FAILED:OSError",
+      "tcp_huggingface.co:443": "FAILED:gaierror"
+    },
+    "internet_profiles": [],
+    "isolation_checks": {
+      "external_dns_tcp_all_failed": true,
+      "no_internet_connectivity_profile": true,
+      "no_physical_adapter_up": true,
+      "no_default_route_on_up_adapter": true,
+      "adapter_query_succeeded": true
+    },
+    "isolation_detail": {
+      "physical_adapters_up": [],
+      "adapters_with_default_route_up": [],
+      "vpn_like_adapters_up": [
+        "Tailscale"
+      ],
+      "virtual_adapters_up_without_default_route": [
+        "Tailscale",
+        "VMware Network Adapter VMnet1",
+        "VMware Network Adapter VMnet8"
+      ],
+      "note": "Virtual adapters without a default route (e.g. VMware host-only/NAT) do not fail isolation. A VPN adapter fails it only if it holds a default route or any external probe succeeds."
+    },
+    "isolation_verdict": "PHYSICAL_OFFLINE_VERIFIED"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "python": "3.12.14 (main, Sep  1 2026, 14:17:39) [MSC v.1944 64 bit (AMD64)]",
+    "venv": "ai/.venv/Scripts/python.exe",
+    "packages": {
+      "torch": "2.14.1+cpu",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "fastapi": "0.143.0",
+      "uvicorn": "0.54.0",
+      "starlette": "1.8.0",
+      "pydantic": "2.14.1",
+      "safetensors": "0.8.0",
+      "numpy": "2.5.3",
+      "httpx": "0.28.1",
+      "huggingface-hub": "0.36.2"
+    },
+    "lock_check": {
+      "ai/requirements-w4-service.lock.txt": {
+        "sha256": "a29661947f837e3ccf40569c5143f27779effeb7aa75371ae85d692077dca0a4",
+        "pinned": 18,
+        "mismatches": []
+      },
+      "ai/requirements-w3.lock.txt": {
+        "sha256": "442f7fce453348aeb1701ba4915e7ac7cfbdc003f0fcc273a1f93297b90e919a",
+        "pinned": 32,
+        "mismatches": []
+      }
+    },
+    "pip_check": {
+      "returncode": 0,
+      "output": "No broken requirements found."
+    }
+  },
+  "artifacts": {
+    "model_dir_exists": true,
+    "snapshot_exists": true,
+    "weights": {
+      "exists": true,
+      "bytes": 442505820,
+      "sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+      "expected": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+      "match": true
+    },
+    "config": {
+      "sha256_lf": "757e8a080d4620e6b9b109e3a59cfeb2bf5383811721513e2eb1a3c8095814e6",
+      "expected": "757e8a080d4620e6b9b109e3a59cfeb2bf5383811721513e2eb1a3c8095814e6",
+      "match": true
+    },
+    "manifest": {
+      "path": "ai/artifacts/manifests/AI07-BL-KLUE-RB-45126-R01.model_manifest.json",
+      "sha256_lf": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+      "expected": "0163a8bc1d06e12d248fda7abdf7c940bb246bdcf91cebac05dd33b8bafc76a2",
+      "pinned_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+      "match": true
+    },
+    "service_constants_match": true,
+    "tokenizer_snapshot_files": {
+      "tokenizer.json": "66ac6204e18a45fa724fca7d44bc5f450881aa4c34f6352ddf27ada2294f07d3",
+      "tokenizer_config.json": "2c869369e1420125b87876b036ef9715e6844e73dcabb65791e0f655aa11cb9d",
+      "special_tokens_map.json": "2b2b6960db46dfc77be309404710b41541fb8f46596b9622f5456be4538df942",
+      "vocab.txt": "1ad4978b5dbe269dcc402a3c6eb71ceab21d712bca3b7d3b9994845e54cdcb39"
+    },
+    "tokenizer_note": "Collected for evidence only. The service pins tokenizer revision and local_files_only=True but does not verify these file hashes; this is NOT the W5 runtime binding implementation or a LOCK."
+  },
+  "server": {
+    "port": 8099,
+    "server_log": "server-physical-offline-20261027T064424Z.log",
+    "command": "ai/.venv/Scripts/python.exe -B ai/scripts/serve_w4_inference.py --host 127.0.0.1 --port 8099",
+    "server_pid": 26944,
+    "startup_ms": 20455.6,
+    "healthz": {
+      "status": 200,
+      "body": {
+        "ready": true,
+        "run_id": "AI07-BL-KLUE-RB-45126-R01",
+        "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+        "artifact_sha256": "a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f",
+        "device": "cpu",
+        "batch_size": 1,
+        "torch_num_threads": 4,
+        "torch_num_interop_threads": 1
+      }
+    },
+    "infer_first": {
+      "status": 200,
+      "latency_ms": 884.47,
+      "response": {
+        "ok": true,
+        "request_id": "w6_ai19_offline_probe",
+        "inference": {
+          "output_version": "inference/1",
+          "inference_id": "89fcf4f9-3ecf-41a6-b5a5-4f7a2fbcd675",
+          "content_commitment": "0xabababababababababababababababababababababababababababababababab",
+          "model_manifest_hash": "0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1",
+          "taxonomy_id": "verimod-ko-beep-hate",
+          "taxonomy_version": "1",
+          "scores_ppm": {
+            "hate": 3401,
+            "offensive": 10902
+          },
+          "score_semantics": "UNCALIBRATED",
+          "input_status": "FULL",
+          "evidence": [],
+          "inferred_at": "2026-10-27T06:44:54.878Z"
+        }
+      }
+    },
+    "infer_warm": [
+      {
+        "status": 200,
+        "latency_ms": 80.16
+      },
+      {
+        "status": 200,
+        "latency_ms": 74.66
+      },
+      {
+        "status": 200,
+        "latency_ms": 74.17
+      },
+      {
+        "status": 200,
+        "latency_ms": 79.1
+      },
+      {
+        "status": 200,
+        "latency_ms": 78.7
+      }
+    ],
+    "fail_closed_empty_input": {
+      "status": 400,
+      "response": {
+        "ok": false,
+        "request_id": "w6_ai19_empty",
+        "error": {
+          "code": "EMPTY_INPUT",
+          "retryable": false
+        }
+      },
+      "pass": true
+    },
+    "contract_checks": {
+      "ok": true,
+      "request_id": true,
+      "model_manifest_hash": true,
+      "score_semantics": true,
+      "taxonomy": true,
+      "input_status": true,
+      "content_commitment_echo": true,
+      "scores_keys": true,
+      "scores_range": true,
+      "validate_i1": true
+    },
+    "contract_problems": [],
+    "status": "OK",
+    "server_exit_code": 1,
+    "server_stopped": true
+  },
+  "network_after": "PHYSICAL_OFFLINE_VERIFIED",
+  "finished": {
+    "utc": "2026-10-27T06:44:59+00:00",
+    "kst": "2026-10-27T15:44:59+09:00"
+  },
+  "classification": "OK",
+  "ai19_verdict": "PASS_CANDIDATE"
+}
