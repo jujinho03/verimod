@@ -39,6 +39,13 @@
 | W4 공개 증거 | `docs/handoffs/w4-anchored-epoch-public/20261020-r01` tree `1911f46c`가 main·F·T에서 같다 |
 | `npm run w5:typecheck` @ `1620f82c` | A가 별도 worktree에서 실행해 **PASS**(exit 0). app `tsc -b` PASS, lint PASS(기존 경고 2건). F 본인 결과를 대신하지 않는다. worktree는 실행 후 삭제했다 |
 
+## 3-1. 추가 기록 (2026-10-28 17:54 KST, push 이후)
+
+- A W6 커밋 `b2f0d9e5b4f802be7630cdf90abd56988fa1095a`를 `jujinho`에 일반 push했다(`44842f7..b2f0d9e`, fast-forward, force 없음).
+- push CI #275(`40660013846`)가 frontend·backend·contracts 모두 SUCCESS였다.
+- 이 기록을 담은 후속 커밋이 A PR의 최종 head가 된다. PR 화면의 head SHA를 기준으로 리뷰한다.
+- 같은 시각 PR #31 GitHub 리뷰는 여전히 0건이고, T PR은 여전히 없다.
+
 ## 4. 병합 기록 (병합이 일어날 때 추가)
 
 | 시각 (KST) | PR | 승인자 / 승인 SHA | 병합자 | Merge SHA | main CI Run | 결과 |
