@@ -1,0 +1,37 @@
+{
+  "owner": "A / 주진호",
+  "ticket": "AI-19",
+  "derived_from": "online-offline-config-smoke.json",
+  "captured": {
+    "utc": "2026-10-27T05:26:52+00:00",
+    "kst": "2026-10-27T14:26:52+09:00"
+  },
+  "note": "Split view of the online-config smoke run; values are copied, not re-measured.",
+  "git": {
+    "branch": "jujinho",
+    "head": "44842f78fdc8102507b9f3aeeed5d0eda8e9eeaf",
+    "tracked_changes": [],
+    "w4_scope_changed_since_ba8b7bc": [],
+    "w4_scope_worktree_changes": [
+      "?? ai/artifacts/reports/w4_a_revalidation/20261016-final-r01/"
+    ]
+  },
+  "service_contract": {
+    "launcher": "ai/scripts/serve_w4_inference.py (forces HF_HUB_OFFLINE=1, TRANSFORMERS_OFFLINE=1, audit hook denies dataset paths)",
+    "app": "ai/src/verimod_ai/inference/service.py:create_app",
+    "host": "127.0.0.1",
+    "port": 8099,
+    "workers": 1,
+    "healthz": "200 only after artifact hash + local model load, else 503",
+    "infer_request": [
+      "text",
+      "content_commitment (0x + 64 lowercase hex)",
+      "request_id (optional)"
+    ],
+    "model_load": "AutoModelForSequenceClassification.from_pretrained(selected_model, local_files_only=True, use_safetensors=True)",
+    "tokenizer_load": "AutoTokenizer.from_pretrained('klue/roberta-base', revision=02f94ba5..., cache_dir=ai/.venv/hf-cache, local_files_only=True)",
+    "documented_command_matches_source": true
+  },
+  "test_data_accessed": false,
+  "w4_note": "w4_scope_worktree_changes lists one pre-existing untracked W4 directory; no tracked W4 file changed."
+}

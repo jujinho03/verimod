@@ -1,0 +1,37 @@
+{
+  "record": "W6 A-local BASE KPI attempt (DEMO-08 reference, not F's official KPI)",
+  "owner_of_run": "A / 주진호",
+  "source_sha": "44842f78fdc8102507b9f3aeeed5d0eda8e9eeaf",
+  "frontend_backend_diff_vs_main_efce466d": "0 lines",
+  "test_code_modified": false,
+  "command": "W5_LIVE_RPC=true W5_RUN_ID=w6-a-base-kpi-20261027 npx playwright test -c playwright.w5.config.ts --project desktop --grep \"live public RPC receipt-0\" --repeat-each 10 --max-failures 0",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v24.10.0",
+    "browser": "Playwright channel msedge (config default), headless, desktop viewport 1440x1000",
+    "network": "normal home Wi-Fi; public RPC base-sepolia-rpc.publicnode.com, sepolia.base.org",
+    "profile": "BASE_SEPOLIA_DEMO, chain_id 84532"
+  },
+  "input": "W4 public handoff receipt-0 bundle (unchanged, read-only)",
+  "expected": "VALID",
+  "window_utc": ["2026-10-27T09:02:07Z", "2026-10-27T09:06:39Z"],
+  "attempts": [
+    {"n": 1, "start_utc": "2026-10-27T09:02:12Z", "seconds": 48.1, "result": "PASS (VALID)"},
+    {"n": 2, "start_utc": "2026-10-27T09:03:01Z", "seconds": 48.8, "result": "PASS (VALID)"},
+    {"n": 3, "start_utc": "2026-10-27T09:03:51Z", "seconds": 23.9, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 4, "start_utc": "2026-10-27T09:04:17Z", "seconds": 30.7, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 5, "start_utc": "2026-10-27T09:04:49Z", "seconds": 29.0, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 6, "start_utc": "2026-10-27T09:05:19Z", "seconds": 19.9, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 7, "start_utc": "2026-10-27T09:05:41Z", "seconds": 14.8, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 8, "start_utc": "2026-10-27T09:05:57Z", "seconds": 16.0, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 9, "start_utc": "2026-10-27T09:06:14Z", "seconds": 9.7, "result": "SKIP (RPC_UNAVAILABLE)"},
+    {"n": 10, "start_utc": "2026-10-27T09:06:25Z", "seconds": 12.3, "result": "SKIP (RPC_UNAVAILABLE)", "https_post_calls": 114}
+  ],
+  "summary": {"attempts": 10, "valid": 2, "rpc_unavailable": 8, "hash_mismatch_or_other_failure": 0, "consecutive_valid_from_start": 2},
+  "kpi_verdict": "NOT_MET (10 consecutive VALID required; observed 2/10, then 8 consecutive RPC_UNAVAILABLE)",
+  "misclassification": "none: no run reported HASH_MISMATCH or INVALID_PROOF while RPC was unavailable",
+  "cause": "NOT_CONFIRMED. Code-confirmed mechanism: each verification scans deployment_block..head in 10,000-block eth_getLogs windows, each preceded by eth_chainId (frontend/src/domain/rpcLedger.ts); one window failing on both RPCs makes the whole verification RPC_UNAVAILABLE. Public RPC rate limiting is a hypothesis.",
+  "tx_sent": false,
+  "private_material_access": false,
+  "raw_artifacts_location": "private-data/ (git-ignored, not for commit): w6-a-base-kpi-report.json, w5-final-browser/w6-a-base-kpi-20261027/"
+}
