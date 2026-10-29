@@ -75,9 +75,6 @@ function addressWord(data: unknown): string {
 
 export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: typeof fetch = fetch): LedgerReader {
   let requestId = 0
-  const checkedChains = new Map<string, Promise<void>>()
-  // A reader exists for one verification attempt. Reuse only successful endpoint identity checks
-  // inside that attempt; evict failures so a later call must authenticate the endpoint again.
   const callUrl = async (url: string, method: string, params: unknown[]) => {
     const response = await fetcher(url, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -89,19 +86,13 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
     if (payload.error || !Object.hasOwn(payload, 'result')) throw new RpcUnavailableError('RPC error response')
     return payload.result
   }
-  const checkChain = (url: string) => {
-    const existing = checkedChains.get(url)
-    if (existing) return existing
-    const pending = callUrl(url, 'eth_chainId', []).then((chain) => {
-      if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
-        throw new RpcUnavailableError('RPC chain id mismatch')
-      }
-    }).catch((error) => {
-      checkedChains.delete(url)
-      throw error
-    })
-    checkedChains.set(url, pending)
-    return pending
+  // Re-authenticate the endpoint's chain before every logical call. A cached success would let an
+  // endpoint that switches chains mid-verification feed unchecked heads, logs or receipts.
+  const checkChain = async (url: string) => {
+    const chain = await callUrl(url, 'eth_chainId', [])
+    if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
+      throw new RpcUnavailableError('RPC chain id mismatch')
+    }
   }
   const rpc = async (method: string, params: unknown[]) => {
     let untrusted: UntrustedLedgerError | null = null
