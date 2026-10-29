@@ -125,6 +125,27 @@ describe.skipIf(process.platform !== 'win32')('SEC-W5-01 Windows callback guard'
     } })
     expect(() => openApprovedDatabase(guarded)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
   })
+  it.each([
+    ['replacement fixture', () => {
+      const replacement = join(directory, 'replacement.sqlite')
+      copyFileSync(dbPath, replacement)
+      return { ...cfg, database_path: replacement }
+    }],
+    ['changed identity fixture', () => ({ ...cfg, database_identity: { ...cfg.database_identity, ino: '1' } })],
+    ['missing-file fixture', () => ({ ...cfg, database_path: join(directory, 'missing.sqlite') })],
+    ['non-SQLite header fixture', () => {
+      const invalid = join(directory, 'not-a-sqlite.bin')
+      writeFileSync(invalid, 'synthetic only; not SQLite')
+      return { ...cfg, database_path: invalid }
+    }],
+    ['unsupported schema fixture', () => ({ ...cfg, database_path: dbPath })],
+  ])('refuses %s before a writable open, preserving the synthetic fixture', (_name, configure) => {
+    const before = readFileSync(dbPath)
+    const candidate = configure()
+    expect(() => openApprovedDatabase(candidate)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+    expect(readFileSync(dbPath)).toEqual(before)
+    expect(existsSync(join(directory, 'missing.sqlite'))).toBe(false)
+  })
 })
 
 const writableCallback = process.platform === 'win32' ? describe.skip : describe
