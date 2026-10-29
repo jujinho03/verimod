@@ -24,7 +24,7 @@ F [PR #31](https://github.com/jujinho03/verimod/pull/31), T [PR #32](https://git
 
 - **AI-19:** 2026-10-27 기존 물리 오프라인 실측 1회에서 로컬 R01 `/healthz`와 `/infer`가 성공했습니다. [실행 판정과 범위](../docs/evidence/w6-a-ai19-offline/ai19-final-assessment.md) · [결과 JSON](../docs/evidence/w6-a-ai19-offline/physical-offline-result.json). 새 학습이나 이번 재실행은 없었습니다.
 - **실행 출처 한계:** 결과 JSON의 `git.tracked_changes`에는 당시 `docs/eval/w5-model-card-limitations.md` 수정 1건이 기록돼 있으나 판정 문서 첫머리는 전체 추적 변경 0건이라고 적어 서로 다릅니다. 당시 결과에 미친 영향은 미확인입니다. W4 범위 변경 여부는 별도 검사로 기록됐습니다. 기존 기록은 그대로 보존합니다.
-- 서버 원본 로그는 공개 Git에 없으므로 이번 감사는 결과 JSON과 기존 판정 기록을 대조한 것입니다. 당시 서버 로그를 독립적으로 확인하거나 모델을 재실행한 것은 아닙니다.
+- 서버 원본 로그는 공개 Git에 없습니다. 확인한 로컬 서버 로그는 기동 완료만 보여 주므로 HTTP·격리 결과는 JSON 기록에 근거하며 원본 로그로 독립 검증하지 못했습니다. 모델은 재실행하지 않았습니다.
 - AI 추론과 F의 authoritative Receipt 발급·고정은 별도 경로입니다. 새 Receipt 발급 및 W4 앵커 포함을 AI-19만으로 주장하지 않으며, 신규 앵커 전 Receipt는 PENDING입니다.
 - 가중치·config·Manifest의 고정 hash는 서비스가 검사합니다. tokenizer revision 고정과 로컬 로딩은 구현돼 있으나, AI-19의 tokenizer 파일 hash 수집은 증거일 뿐 파일 hash Runtime Binding 구현이나 LOCK이 아닙니다.
 - [Data Card](../docs/data-card.md)와 [Model Card](../docs/model-card.md)는 현재 공개 산출물입니다. 모델 정확도와 정책 안전성은 별도의 평가 문제이며 블록체인 무결성 증명이 정확성을 보증하지 않습니다.
