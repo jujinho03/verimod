@@ -21,6 +21,22 @@
 
 `replacement`, `identity`, header/schema, symlink/reparse, and writable ACK must therefore not be reported as a Windows operational PASS.  “PASS (fail-closed)” only means the unsafe operation was prevented.
 
+## Execution receipt (Windows, synthetic fixtures only)
+
+Run on 2026-10-29 KST from this branch's test worktree.  No test process received an operational DB path, wallet/signing material, raw content, salt, or a write-capable public-chain RPC.
+
+| command | observed result |
+| --- | --- |
+| `backend: npm test -- test/durability-callback.test.ts` | 8 passed, 53 skipped |
+| `backend: npm test` | 12 files passed; 158 passed, 53 skipped |
+| `backend: npm run typecheck` | PASS |
+| `backend: npm run build` | PASS |
+| `backend/contracts: npm test` | 18 passing (LOCAL Hardhat harness only) |
+| `backend/contracts: npm run build` | PASS |
+| `frontend: npm test` | 23 files passed; 250 passed |
+| `frontend: npm run lint` | exit 0; existing optional-chaining warnings (2) |
+| `frontend: npm run build` | PASS |
+
 ## F RPC independent review
 
 Reviewed code at this basis: `frontend/src/domain/rpcLedger.ts`, `verify.ts`, `merkle.ts`, and `approvedProfiles.ts`.  The W6 F change `1620f82` only separates manual W6 RPC recovery from deterministic CI; it does not change the ledger/verifier trust logic.
