@@ -52,6 +52,12 @@ flowchart LR
 
 전체 단계 판정(W4 GATE-4)은 **통과(PASS, 기술 조건 14/14)** 입니다. 정책 기준값은 시험용(provisional)이며 팀 확정 전이고, 이번 등록은 테스트넷 시연입니다. 시험 데이터(TEST)는 정책 확정 전까지 봉인해 두었습니다.
 
+### W6 통합 현황 (2026-10-29 기준)
+
+A·F·T의 W6 변경은 main `f7c84f27`에 통합됐고 병합 후 CI가 성공했습니다. [AI-19](docs/evidence/w6-a-ai19-offline/README.md)는 R01의 물리 오프라인 추론 1회 증거입니다. 이 새 추론과 위 W4 Epoch 1의 기존 영수증은 별도 실행이며 새 추론이 온체인에 앵커됐다는 뜻이 아닙니다. [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) · [W6 미완료 및 증거 경계](docs/evidence/w6-a-gap-closure-20261029.md)를 참고하세요.
+
+W6 Engineering Exit은 전체 PASS가 아닙니다. BASE 반복 안정성, 실제 Hardhat LOCAL, 실기기 모바일, 신규 rehash 변조 실측 및 공동 480초 리허설이 남아 있습니다. W4는 시험용 provisional 정책을 사용했으며 S1 등 연구 정책은 승인 대기 중입니다. Model/Policy LOCK은 실행하지 않았고 TEST는 봉인 상태입니다.
+
 ## 멘토님께: 먼저 읽을 자료
 
 1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지. 피드백은 2026-10-20에 받았고 [결과 문서](docs/mentoring/session-03-20261020-lee-jaewon.md)에 멘토 권고와 팀 결정을 나눠 정리했습니다
