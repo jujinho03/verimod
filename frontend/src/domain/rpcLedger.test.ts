@@ -49,13 +49,22 @@ describe('FE-02 approved Base Sepolia RPC reader', () => {
       else if (request.method === 'eth_blockNumber') result = '0x7a'
       else throw new Error(`unexpected ${request.method}`)
       return new Response(JSON.stringify({ jsonrpc: '2.0', id: request.id, result }))
-    }) as unknown as typeof fetch
-    const reader = createPublicRpcLedger(profile, fetcher)
+    })
+    const reader = createPublicRpcLedger(profile, fetcher as unknown as typeof fetch)
     await expect(reader.getEpoch(contract, '1')).resolves.toEqual({
       epoch_id: '1', root, receipt_count: 3, protocol_version: 1, publisher,
       issuer_seq_min: null, issuer_seq_max: null, anchored_block: 120,
     })
     await expect(reader.blockNumber()).resolves.toBe(122)
+    expect(fetcher.mock.calls.map(([, init]) => JSON.parse(String(init?.body)).method)).toEqual([
+      'eth_chainId',
+      'eth_call',
+      'eth_call',
+      'eth_blockNumber',
+      'eth_getLogs',
+      'eth_getTransactionReceipt',
+      'eth_blockNumber',
+    ])
   })
 
   const chunkedFetcher = (head: number, logBlocks: number[], ranges: Array<[number, number]>) => (async (_url: string | URL | Request, init?: RequestInit) => {
@@ -79,13 +88,33 @@ describe('FE-02 approved Base Sepolia RPC reader', () => {
     const wide = { ...profile, deployment_block: 0 }
     const reader = createPublicRpcLedger(wide, chunkedFetcher(25_000, [21_000], ranges))
     await expect(reader.getEpoch(contract, '1')).resolves.toMatchObject({ anchored_block: 21_000, root })
-    expect(ranges).toEqual([[0, 9_999], [10_000, 19_999], [20_000, 25_000]])
+    expect(ranges).toEqual([[0, 25_000]])
     expect(ranges.every(([from, to]) => to - from + 1 <= LOG_RANGE_BLOCKS)).toBe(true)
   })
 
   it('rejects an epoch event duplicated across different windows', async () => {
-    const reader = createPublicRpcLedger({ ...profile, deployment_block: 0 }, chunkedFetcher(25_000, [5_000, 21_000], []))
+    const reader = createPublicRpcLedger({ ...profile, deployment_block: 0 }, chunkedFetcher(125_000, [5_000, 105_000], []))
     await expect(reader.getEpoch(contract, '1')).rejects.toThrow('epoch event is missing or ambiguous')
+  })
+
+  it('does not cache a failed chain identity check', async () => {
+    let chainAttempts = 0
+    const fetcher = vi.fn(async (_url: string | URL | Request, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body)) as { id: number; method: string }
+      if (request.method === 'eth_chainId') {
+        chainAttempts++
+        if (chainAttempts === 1) throw new TypeError('synthetic first-attempt failure')
+        return new Response(JSON.stringify({ jsonrpc: '2.0', id: request.id, result: '0x14a34' }))
+      }
+      if (request.method === 'eth_blockNumber') {
+        return new Response(JSON.stringify({ jsonrpc: '2.0', id: request.id, result: '0x7a' }))
+      }
+      throw new Error('unexpected method')
+    }) as unknown as typeof fetch
+    const reader = createPublicRpcLedger(profile, fetcher)
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+    await expect(reader.blockNumber()).resolves.toBe(122)
+    expect(chainAttempts).toBe(2)
   })
 
   it('treats a wrong-chain RPC endpoint as unavailable without changing the approved profile', async () => {
