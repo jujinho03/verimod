@@ -15,6 +15,7 @@ export default defineConfig({
     channel: process.env.W6_BROWSER_CHANNEL || undefined,
     headless: true,
     trace: 'on',
+    video: process.env.W6_RECORD_VIDEO === 'true' ? 'on' : 'off',
     screenshot: 'only-on-failure',
   },
   projects: [

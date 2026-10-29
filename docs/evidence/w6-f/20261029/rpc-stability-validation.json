@@ -1,0 +1,224 @@
+{
+  "schema_version": "verimod/w6-f-rpc-stability/v1",
+  "recorded_at_kst": "2026-10-29T15:20:00+09:00",
+  "branch": "f-w6-rpc-stability-20261029",
+  "source_main": "f08b7208ec8dd82e57535523b256844858f5cd6a",
+  "requested_main_ancestor": "f7c84f27ff964d114cacc8c5c181b4df8b9f766b",
+  "old_candidate_code_commit": "d241f79",
+  "fixed_candidate_code_commit": "d90335b484ab9491f046434ac604d79426c4e648",
+  "measurement_classification": {
+    "old_candidate": "OLD_CANDIDATE_MEASUREMENT",
+    "old_private_logs": "ORIGINAL_NOT_INDEPENDENTLY_VERIFIED",
+    "fixed_candidate": "FIXED_CANDIDATE_MEASUREMENT",
+    "physical_mobile": "NOT_EXECUTED",
+    "actual_hardhat_local": "NOT_EXECUTED"
+  },
+  "profile": "BASE_SEPOLIA_DEMO",
+  "receipt_hash": "0x96684f068edaaec7b2ae8abafdaae40c90c118f2d7bede9e4b0dec2278eed3b6",
+  "input_sha256": "0b73aa5285934b097c8d4aa564021c64ff5173ac555a3b4c1e61c92085f52235",
+  "historical_baseline": {
+    "source": "docs/evidence/w6-a-closeout/base-kpi-a-local-20261027.json",
+    "valid": 2,
+    "attempts": 10,
+    "rpc_unavailable": 8,
+    "last_partial_attempt_https_posts": 114,
+    "comparison_note": "Historical A-host measurement, not rerun as a before/after pair in this environment."
+  },
+  "fresh_environment_failures_retained": {
+    "initial_valid_attempt": "RPC_UNAVAILABLE",
+    "initial_base10": "0/10 RPC_UNAVAILABLE",
+    "observed_cause": "Both approved RPC hostnames temporarily failed DNS resolution; first calls timed out and later calls returned fetch failure.",
+    "rate_limit_429": 0
+  },
+  "old_candidate_measurement": {
+    "classification": "OLD_CANDIDATE_MEASUREMENT",
+    "independent_verification": "ORIGINAL_NOT_INDEPENDENTLY_VERIFIED",
+    "optimized_base10_rerun": {
+    "valid": 10,
+    "attempts": 10,
+    "failed": 0,
+    "skipped": 0,
+    "consecutive_10_pass": true,
+    "elapsed_ms": {
+      "minimum": 17542,
+      "maximum": 30173,
+      "average": 21150,
+      "per_attempt": [20129, 20098, 19617, 19986, 19481, 30173, 26495, 19486, 18497, 17542]
+    },
+    "rpc_calls_per_attempt": 79,
+    "methods_per_attempt": {
+      "eth_chainId": 1,
+      "eth_call": 2,
+      "eth_blockNumber": 2,
+      "eth_getLogs": 73,
+      "eth_getTransactionReceipt": 1
+    },
+    "range": {
+      "deployment_block": 48012271,
+      "observed_head_first_attempt": 51659226,
+      "full_range_preserved": true,
+      "window_blocks": 50000
+    },
+    "all_attempts": {
+      "rate_limited_429": 0,
+      "timeouts": 0,
+      "response_bytes": 57720,
+      "primary_endpoint_successful_http": 790,
+      "backup_endpoint_calls": 0
+    }
+    }
+  },
+  "fixed_candidate_measurement": {
+    "classification": "FIXED_CANDIDATE_MEASUREMENT",
+    "execution_sha": "d90335b484ab9491f046434ac604d79426c4e648",
+    "base10": {
+      "valid": 8,
+      "attempts": 10,
+      "failed": 2,
+      "skipped": 0,
+      "consecutive_10_pass": false,
+      "per_attempt_code": ["VALID", "VALID", "VALID", "VALID", "VALID", "VALID", "VALID", "VALID", "RPC_UNAVAILABLE", "RPC_UNAVAILABLE"],
+      "successful_elapsed_ms": [12694, 12012, 12886, 11367, 12106, 11881, 12062, 12173],
+      "successful_elapsed_average_ms": 12148,
+      "successful_rpc_calls_per_attempt": 160,
+      "successful_methods_per_attempt": {
+        "eth_chainId": 80,
+        "eth_call": 2,
+        "eth_blockNumber": 2,
+        "eth_getLogs": 75,
+        "eth_getTransactionReceipt": 1
+      },
+      "rate_limited_429": 2,
+      "timeouts": 0,
+      "failure_detail": "Attempts 9 and 10 received primary HTTP 429; backup returned HTTP 413 for the same 50,000-block eth_getLogs range; result remained RPC_UNAVAILABLE fail-closed."
+    },
+    "rehash_matrix": {
+      "body_changed_hash_unchanged": {
+        "result": "HASH_MISMATCH",
+        "elapsed_ms": 14,
+        "rpc_calls": 0
+      },
+      "body_changed_hash_recomputed_proof_unchanged": {
+        "result": "INVALID_PROOF",
+        "elapsed_ms": 12443,
+        "rpc_calls": 160,
+        "rate_limited_429": 0,
+        "timeouts": 0
+      }
+    },
+    "recovery": {
+      "failure_injection": "PLAYWRIGHT_ROUTE_ABORT_INTERNETDISCONNECTED_FOR_BOTH_APPROVED_RPC_HOSTS",
+      "desktop": {
+        "states": ["VALID", "RPC_UNAVAILABLE", "VALID"],
+        "initial_ms": 16800,
+        "outage_ms": 160,
+        "recovery_ms": 14634,
+        "exceeded_100s": false
+      },
+      "mobile_emulation": {
+        "states": ["VALID", "RPC_UNAVAILABLE", "VALID"],
+        "initial_ms": 14719,
+        "outage_ms": 174,
+        "recovery_ms": 14669,
+        "exceeded_100s": false,
+        "physical_mobile": false
+      }
+    },
+    "backup_rpc": {
+      "endpoint": "sepolia.base.org",
+      "observed_chain_id": "84532",
+      "full_event_scan_support": false,
+      "observed_limit": "eth_getLogs maximum 200-block range",
+      "failure_mode": "RPC_UNAVAILABLE"
+    }
+  },
+  "call_reduction": {
+    "old_path_projected_at_observed_head": 740,
+    "candidate_observed": 79,
+    "reduction_percent": 89.3,
+    "basis": "365 full-range 10,000-block log windows and eth_chainId before every logical RPC versus 73 full-range 50,000-block windows and one successful chain check per reader. The old count is code-derived, not a fresh successful baseline run."
+  },
+  "old_candidate_rehash_matrix": {
+    "classification": "OLD_CANDIDATE_MEASUREMENT / ORIGINAL_NOT_INDEPENDENTLY_VERIFIED",
+    "original": "VALID in optimized BASE 10/10 rerun",
+    "body_changed_hash_unchanged": {
+      "result": "HASH_MISMATCH",
+      "elapsed_ms": 44,
+      "rpc_calls": 0
+    },
+    "body_changed_hash_recomputed_proof_unchanged": {
+      "result": "INVALID_PROOF",
+      "elapsed_ms": 19835,
+      "rpc_calls": 79,
+      "rate_limited_429": 0,
+      "timeouts": 0
+    }
+  },
+  "old_candidate_recovery": {
+    "classification": "OLD_CANDIDATE_MEASUREMENT / ORIGINAL_NOT_INDEPENDENTLY_VERIFIED",
+    "failure_injection": "PLAYWRIGHT_ROUTE_ABORT_INTERNETDISCONNECTED_FOR_BOTH_APPROVED_RPC_HOSTS",
+    "physical_network_disabled": false,
+    "same_input_before_after": true,
+    "desktop": {
+      "states": ["VALID", "RPC_UNAVAILABLE", "VALID"],
+      "initial_ms": 21243,
+      "outage_ms": 377,
+      "recovery_ms": 17064,
+      "exceeded_100s": false
+    },
+    "mobile_emulation": {
+      "states": ["VALID", "RPC_UNAVAILABLE", "VALID"],
+      "initial_ms": 18170,
+      "outage_ms": 295,
+      "recovery_ms": 18088,
+      "exceeded_100s": false,
+      "physical_mobile": false
+    },
+    "runner_note": "Both assertions passed. The sandbox PTY did not close after child processes and port exited, so the wrapper session was interrupted after artifact verification."
+  },
+  "recording": {
+    "desktop_recovery_video": "PRIVATE_LOCAL_ONLY",
+    "sha256": "7135c73e0e7450be17209528b02550226bb3cbe2ba8581321d9f605c4b621e57",
+    "bytes": 864083,
+    "decode_check": "PASS_FFMPEG_FRAME_EXTRACTION",
+    "recorded_recovery_demo_ready": true,
+    "recorded_full_demo_ready": false
+  },
+  "regression": {
+    "frontend_unit": "255/255 PASS by 23-file isolated execution; standard npm test was BLOCKED_ENVIRONMENT by sandbox Vitest SSR temp-cache ENOENT",
+    "rpc_ledger_unit": "11/11 PASS",
+    "lint": "PASS with 2 pre-existing warnings",
+    "build": "PASS",
+    "w5_typecheck": "PASS",
+    "default_browser": "BLOCKED_ENVIRONMENT: browser launched with the local Playwright bundle but the sandbox PTY did not return a completed test result; not counted as PASS"
+  },
+  "security_invariants": {
+    "chain_id_84532": "PRESERVED",
+    "approved_publisher_and_profile": "PRESERVED",
+    "epochs_getter_root_count_version": "PRESERVED",
+    "full_deployment_to_head_event_scan": "PRESERVED",
+    "duplicate_event_rejection": "PRESERVED",
+    "event_getter_cross_check": "PRESERVED",
+    "transaction_receipt_binding": "PRESERVED: status/to/blockNumber/blockHash and Event-to-Receipt block number/hash match; no separate canonical-block lookup is claimed",
+    "merkle_inclusion": "PRESERVED",
+    "confirmation_gate": "PRESERVED",
+    "rpc_unavailable_fail_closed": "PRESERVED",
+    "w4_public_tree": "1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee",
+    "chain_transaction_sent": false
+  },
+  "fallbacks": {
+    "BASE_SEPOLIA_DEMO": "Fixed candidate 8/10 VALID and 2/10 RPC_UNAVAILABLE; consecutive 10 criterion NOT_MET",
+    "SYNTHETIC_LOCAL": "Browser mock ledger; not Hardhat",
+    "ACTUAL_HARDHAT_LOCAL": "NOT_VERIFIED",
+    "RECORDED": "Desktop recovery clip exists locally and decodes; full presentation recording not produced"
+  },
+  "remaining_blockers": [
+    "Independent review of the chain-id cache removal and full-range window change",
+    "CI on the pushed candidate SHA",
+    "Fixed candidate BASE consecutive 10 remains NOT_MET (8/10)",
+    "Backup RPC cannot serve the 50,000-block full Event window",
+    "Physical mobile QA",
+    "Actual Hardhat LOCAL verification",
+    "Full presentation recording and team acceptance"
+  ]
+}

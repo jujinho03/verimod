@@ -3,6 +3,7 @@
   "compilerOptions": { "types": ["node", "vite/client"], "tsBuildInfoFile": "./node_modules/.tmp/w5-tools.tsbuildinfo" },
   "include": [
     "scripts/w5-readonly-smoke.mts",
+    "scripts/w6-rpc-audit.mts",
     "e2e/w5.spec.ts",
     "e2e/w6.spec.ts",
     "e2e/w6-rpc-recovery.spec.ts",

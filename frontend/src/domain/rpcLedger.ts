@@ -14,8 +14,8 @@ const HEX_DATA = /^0x[0-9a-f]*$/
 const EPOCHS_SELECTOR = '0x4bd2d7f9'
 const PUBLISHER_SELECTOR = '0x8c72c54e'
 const EPOCH_REGISTERED_TOPIC = '0x71ec63fe81bedeb984bf4a9033c8cb5d207929603415afbf0a88e1322887a6c4'
-/** Public Base Sepolia RPCs reject wide eth_getLogs ranges (publicnode caps 50,000 blocks). */
-export const LOG_RANGE_BLOCKS = 10_000
+/** Public Base Sepolia RPCs reject ranges above 50,000 blocks. Keep the full scan at that bound. */
+export const LOG_RANGE_BLOCKS = 50_000
 
 export interface ApprovedTrustProfile extends TrustConfig {
   profile_id: 'BASE_SEPOLIA_DEMO'
@@ -86,14 +86,19 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
     if (payload.error || !Object.hasOwn(payload, 'result')) throw new RpcUnavailableError('RPC error response')
     return payload.result
   }
+  // Re-authenticate the endpoint's chain before every logical call. A cached success would let an
+  // endpoint that switches chains mid-verification feed unchecked heads, logs or receipts.
+  const checkChain = async (url: string) => {
+    const chain = await callUrl(url, 'eth_chainId', [])
+    if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
+      throw new RpcUnavailableError('RPC chain id mismatch')
+    }
+  }
   const rpc = async (method: string, params: unknown[]) => {
     let untrusted: UntrustedLedgerError | null = null
     for (const url of profile.rpc_urls) {
       try {
-        const chain = await callUrl(url, 'eth_chainId', [])
-        if (typeof chain !== 'string' || BigInt(chain) !== BigInt(profile.chain_id)) {
-          throw new RpcUnavailableError('RPC chain id mismatch')
-        }
+        await checkChain(url)
         return await callUrl(url, method, params)
       } catch (error) {
         if (error instanceof UntrustedLedgerError) untrusted = error
