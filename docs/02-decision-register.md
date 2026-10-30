@@ -2,6 +2,14 @@
 
 STATUS: CURRENT (decision evidence; 개별 결정 상태는 아래 표 기준)
 
+## W6 → W7 데모 범위 결정 — 승인 메시지 기록
+
+| ID | 상태 | 결정 / 경계 | 근거 |
+|---|---|---|---|
+| D-W6A-20261030-01 | APPROVED_BY_TEAM_LEAD (사용자 메시지의 자기 식별에 근거); 문서 통합 대기 | Option B Core Demo. 실제 Hardhat LOCAL·물리 모바일은 필수 시연에서 제외하되 각각 NOT_VERIFIED·NOT_EXECUTED 유지. E6·원래 W6 Engineering Exit는 PARTIAL. S1 미승인·LOCK 미실행·TEST SEALED. W6 조건부 종료는 독립 승인된 문서가 main에 반영되고 병합 후 CI·W4를 검증한 뒤 최종 확정 | [범위·위험·승인 근거](evidence/w6-w7-core-demo-scope-proposal-20261030.md), [W7 인계](handoffs/W7-core-demo-approved-handoff-20261030.md) |
+
+사용자가 대화에서 자신을 주진호(A)라고 밝히고 명시 승인했다. 대화 작성자의 실명·GitHub 계정 동일성은 독립 인증할 수 없으며 정확한 승인 시각은 미확인이다. 대화 턴 시작·확인 관측 시각은 상세 기록에 승인 시각과 구분해 남긴다. 기존 `W6-RPC-RELEASE-ACCEPTANCE`는 별도의 RPC 코드 통합 결정이다. 이 기록은 정책·LOCK·TEST·신규 송신을 승인하지 않는다.
+
 ## W1 kickoff 결정 evidence — 2026-09-23
 
 ### 승인 출처와 권한(authority)
