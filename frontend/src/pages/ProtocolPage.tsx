@@ -37,19 +37,19 @@ export function ProtocolPage() {
     <>
       <PageHero label="Protocol · 규칙" title="영수증을 만들고 검증하는 규칙">
         <p>
-          이 페이지의 규칙은 팀 합의 전 제안(PROPOSED v0.1)을 시험 구현한 것입니다. 확정된 JSON Schema나 컨트랙트 ABI가 아니며, 공통 테스트 벡터로 교차 검증하기 전까지 상호운용을 주장하지 않습니다.
+          아래는 브라우저 시험 구현과 일부 제안 규칙의 설명입니다. 영수증 해시·Merkle 검증은 코드로 구현됐고 W4 Epoch 1은 실제 Base Sepolia에 등록됐습니다. 이 설명 전체가 승인된 운영 표준이나 확정 JSON Schema·ABI라는 뜻은 아닙니다.
         </p>
         <ArrowLink to={`${REPO_URL}/blob/main/docs/01-domain-and-interfaces.md`} external>
           인터페이스 제안서 원문
         </ArrowLink>
       </PageHero>
 
-      <section className="band" data-tone="mist"><div className="frame docs">
-        <div>
+      <section className="band" data-tone="mist"><div className="frame">
+        <div className="docs__body">
           <h2>Implemented today</h2>
           <p>브라우저 Receipt 생성, 제한형 canonical hashing, SHA-256, Merkle proof, 변조 탐지와 연결 이력 계산.</p>
           <h2>Simulated today</h2>
-          <p>키워드 점수는 UNCALIBRATED synthetic score입니다. chain 31337의 주소·publisher·tx·block·confirmations와 reviewer 역할은 simulation입니다. 실제 외부 원장이나 인증된 사람 검토가 아닙니다.</p>
+          <p>기본 Lifecycle의 키워드 점수는 UNCALIBRATED 합성 점수입니다. chain 31337의 주소·publisher·tx·block·confirmations와 reviewer 역할은 simulation이며 실제 사람 검토가 아닙니다. W4 공개 Receipt의 Base Sepolia 검증과 R01 실제 추론은 별도 경로이고, 새 추론이 과거 W4 앵커에 포함된 것은 아닙니다. S1 연구 정책은 승인 대기이며 운영 Appeal/Review는 Post-MVP입니다.</p>
           <h2>Next integration</h2>
           <p>새로 입력한 원문·salt·이의 본문은 이번 방문의 메모리에만 보관합니다. 공개 영수증·원장 상태만 localStorage에 저장하며 Private Package는 본인이 직접 다운로드합니다. 이전 W4 비공개 캐시가 있으면 판정 요청 화면에서 먼저 백업한 뒤 명시적으로 정리할 수 있습니다. 운영용 신원 인증·secure storage는 구현하지 않았습니다.</p>
         </div>

@@ -27,7 +27,7 @@ function Hero() {
         </div>
         <div className="hero__aside">
           <p>
-            AI가 콘텐츠를 제한한 판정과 근거를 영수증으로 받고, 외부 원장에 고정된 기록과 직접 대조합니다. 이의제기와 사람 검토도 같은 기록에 이어집니다.
+            AI 판정 기록을 영수증으로 확인합니다. 기본 화면의 이의제기·검토는 합성 시연이며, 실제 W4 공개 앵커 검증과 R01 추론은 별도 사례입니다.
           </p>
           <div className="btn-row">
             <Link to="/check" className="btn btn--navy">
@@ -78,7 +78,7 @@ function Highlights() {
     { to: '/check', label: 'Decide', title: '문장을 넣으면 항목별 점수와 조치가 나옵니다', art: <DecideArt /> },
     { to: '/receipts', label: 'Prove', title: '판정마다 영수증을 발급하고 합성 원장 root와 대조합니다', art: <ReceiptArt /> },
     { to: '/verify#tamper', label: 'Verify', title: '사본의 점수 하나만 바꿔도 원래 앵커 기준 검증에 실패합니다', art: <TamperArt /> },
-    { to: '/review', label: 'Appeal', title: '이의제기와 사람 검토가 최초 판정에 새 기록으로 이어집니다', art: <AppealArt /> },
+    { to: '/review', label: 'Appeal', title: '합성 이의제기와 검토 기록을 최초 판정에 연결합니다', art: <AppealArt /> },
   ]
   return (
     <section className="band" data-tone="mist" aria-label="핵심 기능">
@@ -115,7 +115,7 @@ function Platform() {
           </Reveal>
           <Reveal delay={2}>
             <p className="lead">
-              이용자는 플랫폼이 지금 보여주는 DB 값에 기대지 않고, 받은 영수증과 포함 증명으로 원장의 root까지 직접 다시 계산합니다. 현재는 합성 원장과 대조하며 실제 외부 앵커는 후속 통합 대상입니다. 해시 일치는 AI의 정답 여부를 증명하지 않습니다.
+              이용자는 플랫폼이 지금 보여주는 DB 값에 기대지 않고, 받은 영수증과 포함 증명으로 원장의 root까지 직접 다시 계산합니다. 기본 브라우저 Lifecycle은 합성 원장을 사용합니다. W4 Epoch 1은 실제 Base Sepolia에 등록된 과거 공개 증거이며, 실제 R01 추론은 별도 경로입니다. 새 추론과 기존 W4 영수증은 새로운 단일 E2E 실행이 아닙니다. 해시 일치는 AI의 정답 여부를 증명하지 않습니다.
             </p>
           </Reveal>
           <Reveal delay={3}>
@@ -225,7 +225,7 @@ function Flow() {
       content: (
         <FlowPane
           visual={<TimelineVisual />}
-          title="이의제기와 검토 결과를 새 기록으로 연결합니다"
+          title="합성 이의제기와 검토 결과를 새 기록으로 연결합니다"
           points={['원래 판정은 그대로 두고 이의제기 영수증을 추가합니다', '검토자는 조치를 유지하거나 바꾸고 사유를 남깁니다', '선행 기록의 해시와 원장 포함 여부까지 함께 확인합니다']}
           to="/review"
           cta="검토 콘솔 열기"
@@ -237,7 +237,7 @@ function Flow() {
     <section className="band" data-tone="mist" id="flow" aria-labelledby="flow-title">
       <div className="frame inset flow">
         <Reveal as="h2" className="title-m">
-          <span id="flow-title">판정부터 사람 검토까지, 영수증 하나로 이어집니다</span>
+          <span id="flow-title">브라우저 합성 데모: 판정부터 검토까지</span>
         </Reveal>
         <Tabs items={items} label="작동 단계" />
       </div>
@@ -249,7 +249,7 @@ function Scope() {
   const yes = [
     ['기록 일치', '받은 영수증이 발급 당시 원장에 고정된 기록과 같은지 확인합니다.'],
     ['원장 포함', '영수증 해시가 신뢰한 컨트랙트의 epoch root에 포함되는지 확인합니다.'],
-    ['이의제기 연결', '이의제기와 검토 기록이 어느 최초 판정에 이어지는지 확인합니다.'],
+    ['이의제기 연결', '합성 이의제기와 검토 기록이 어느 최초 판정에 이어지는지 확인합니다. 실제 운영 Appeal/Review 백엔드는 Post-MVP입니다.'],
   ]
   const no = [
     ['판정의 정확성과 공정성', '기록이 일치해도 AI가 옳게 판단했다는 뜻은 아닙니다. 오탐 평가와 사람 검토가 따로 필요합니다.'],

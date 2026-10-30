@@ -6,11 +6,17 @@
 
 [![CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Amain)
 
+## W7 데모 범위와 출처 (2026-10-30)
+
+승인 결정 [D-W6A-20261030-01](docs/evidence/w6-w7-core-demo-scope-proposal-20261030.md)의 Option B에서 **새 R01 실제 추론**과 **과거 W4 공개 Receipt의 Base Sepolia 검증**은 별개 사례입니다. 기본 브라우저 Lifecycle 및 Appeal/Review는 합성 데모이며 실제 운영 이의제기 백엔드는 Post-MVP입니다. 새 추론이 기존 W4 Epoch에 앵커됐다는 주장이 아닙니다.
+
+W6는 수용된 위험을 동반한 조건부 종료이며 원래 Engineering Exit는 PARTIAL입니다. E6의 연속 BASE 10회는 NOT_MET, 실제 Hardhat LOCAL은 NOT_VERIFIED, 물리 모바일은 NOT_EXECUTED입니다. S1은 PENDING_APPROVAL, LOCK은 NOT_EXECUTED, TEST는 SEALED입니다. 480초 리허설과 전체 녹화는 실제 완료·검증 전 별도로 확인합니다. 과거 F의 rehash·복구 보고는 [공개 요약](docs/evidence/w6-f/20261029/README.md)에 기록돼 있으나 원본 private 로그의 독립 검증 한계가 있습니다. [심사위원용 실행 안내](docs/08-submission-guide.md)에서 실제 모드와 재현 경로를 확인하세요.
+
 ## 한눈에 보기
 
 **문제.** 플랫폼이 AI로 게시물을 제한할 때, 이용자는 판정 이유를 받더라도 그 기록이 나중에 바뀌었는지 플랫폼 밖에서 확인할 방법이 없습니다.
 
-**해결.** VeriMod는 AI 판정마다 **판정 영수증(Decision Receipt)** 을 발급하고, 영수증 묶음의 지문(Merkle root)을 **공개 블록체인(Base Sepolia)** 에 고정합니다. 이용자는 받은 영수증을 공개 기준점과 직접 대조해, 판정 기록이 발급 후 바뀌지 않았는지 스스로 확인하고 이의제기할 수 있습니다.
+**해결 방향.** VeriMod는 AI 판정의 **판정 영수증(Decision Receipt)** 과 영수증 묶음의 지문(Merkle root)을 통해 공개 기준점과 대조합니다. W4에서는 기존 영수증 묶음을 **공개 블록체인(Base Sepolia)** 에 고정했습니다. 이용자는 받은 영수증을 공개 기준점과 직접 대조해, 판정 기록이 발급 후 바뀌지 않았는지 스스로 확인하고 이의제기할 수 있습니다.
 
 | VeriMod가 확인해 주는 것 | VeriMod가 주장하지 않는 것 |
 | --- | --- |
@@ -20,7 +26,7 @@
 
 블록체인에는 최소 정보(epoch 번호, Merkle root, 건수, 버전)만 올립니다. 게시물 원문, salt, 개인정보는 올리지 않습니다.
 
-## 동작 흐름과 현재 위치
+## W4 당시 동작 흐름과 실행 기록
 
 ```mermaid
 flowchart LR

@@ -9,12 +9,12 @@ export function useVerify() {
   const sequence = useRef(0)
 
   const run = useCallback(
-    async (input: unknown, context?: VerifierContext) => {
+    async (input: unknown, context?: VerifierContext | Promise<VerifierContext>) => {
       const request = ++sequence.current
       setReport(null)
       setRunning(true)
       try {
-        const next = await verifyReceipt(input, context ?? await store.verifierContext())
+        const next = await verifyReceipt(input, await (context ?? store.verifierContext()))
         if (request === sequence.current) setReport(next)
         return next
       } finally {

@@ -41,7 +41,7 @@ export function SiteFooter() {
         <div className="frame">
           <div className="site-footer__brand">
             <LogoMark className="brand__mark" />
-            <p>AI가 내린 판정과 근거를 영수증으로 받고, 외부 원장에 고정된 기록과 직접 대조합니다.</p>
+            <p>판정 기록의 무결성을 검증합니다. W4 공개 앵커와 새 R01 추론은 별도 사례입니다.</p>
             <p className="mono faint">Team HTTP 451 · BLOCK AI 2026</p>
           </div>
           <div className="site-footer__links">
@@ -68,7 +68,7 @@ export function SiteFooter() {
       <div className="band site-footer__base" data-tone="dark">
         <div className="band band--gap-top" data-tone="dark">
           <div className="frame">
-            <span>시험 버전입니다. 점수와 원장 기록은 합성 데이터이며 법적 효력이 없습니다.</span>
+            <span>기본 Lifecycle은 합성 데모입니다. W4 공개 검증과 R01 실제 추론은 별도 경로입니다.</span>
             <span>무결성 확인은 판정의 정확성·공정성을 증명하지 않습니다.</span>
           </div>
         </div>
