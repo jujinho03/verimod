@@ -1,0 +1,339 @@
+// A independent synthetic review tests for PR #37 (rpcLedger). Synthetic data only; no network.
+// Every expectation states the SECURE behaviour. A failing test means the implementation under test
+// does not meet it. Tests prefixed "RESIDUAL" document known limits and assert the observed behaviour.
+import { describe, expect, it } from 'vitest'
+import { ISSUER_ID } from './receipt'
+import { createPublicRpcLedger, LOG_RANGE_BLOCKS, type ApprovedTrustProfile } from './rpcLedger'
+import { RpcUnavailableError, UntrustedLedgerError } from './verify'
+
+const BASE = '0x14a34' // 84532
+const MAINNET = '0x1'
+const contract = `0x${'a'.repeat(40)}`
+const publisher = `0x${'b'.repeat(40)}`
+const root = `0x${'c'.repeat(64)}`
+const fakeRoot = `0x${'9'.repeat(64)}`
+const txHash = `0x${'d'.repeat(64)}`
+const blockHash = `0x${'e'.repeat(64)}`
+const w = (value: bigint) => value.toString(16).padStart(64, '0')
+const hex = (n: number) => `0x${n.toString(16)}`
+
+const profile: ApprovedTrustProfile = {
+  profile_id: 'BASE_SEPOLIA_DEMO', chain_id: '84532', contract_address: contract,
+  publisher, issuer_id: ISSUER_ID, protocol_version: 1,
+  rpc_urls: ['https://primary.example'], deployment_block: 0, min_confirmations: 2,
+}
+
+type Req = { id: number; method: string; params: Array<Record<string, string>> }
+type Reply = { result?: unknown; error?: unknown; http?: number; raw?: string; throws?: boolean }
+interface ChainState {
+  chain: string
+  head: number
+  events: number[]
+  eventRoot?: string
+  receipt?: Record<string, unknown>
+}
+
+/** A synthetic endpoint whose backend chain can be switched by a hook. */
+function endpoint(state: ChainState, hook?: (req: Req, s: ChainState, served: string[]) => Reply | undefined) {
+  const served: string[] = []
+  const handle = (req: Req): Reply => {
+    const override = hook?.(req, state, served)
+    if (override) return override
+    switch (req.method) {
+      case 'eth_chainId': return { result: state.chain }
+      case 'eth_call':
+        return req.params[0].data === '0x8c72c54e'
+          ? { result: `0x${'0'.repeat(24)}${publisher.slice(2)}` }
+          : { result: `${root}${w(3n)}${w(1n)}` }
+      case 'eth_blockNumber': return { result: hex(state.head) }
+      case 'eth_getLogs': {
+        const from = Number(req.params[0].fromBlock), to = Number(req.params[0].toBlock)
+        return {
+          result: state.events.filter((b) => b >= from && b <= to).map((b) => ({
+            data: `${state.eventRoot ?? root}${w(3n)}${w(1n)}`, blockNumber: hex(b), blockHash, transactionHash: txHash,
+          })),
+        }
+      }
+      case 'eth_getTransactionReceipt':
+        return { result: state.receipt ?? { status: '0x1', to: contract, blockNumber: hex(state.events[0] ?? 0), blockHash } }
+      default: throw new Error(`unexpected ${req.method}`)
+    }
+  }
+  return { state, served, handle }
+}
+
+function fetcherFor(map: Record<string, ReturnType<typeof endpoint>>, log: string[] = []) {
+  return (async (url: string | URL | Request, init?: RequestInit) => {
+    const req = JSON.parse(String(init?.body)) as Req
+    const ep = map[String(url)]
+    log.push(`${String(url)} ${req.method}`)
+    const reply = ep.handle(req)
+    ep.served.push(req.method)
+    if (reply.throws) throw new TypeError('synthetic network failure')
+    if (reply.http) return new Response('busy', { status: reply.http })
+    if (reply.raw !== undefined) return new Response(reply.raw)
+    const body: Record<string, unknown> = { jsonrpc: '2.0', id: req.id }
+    if ('error' in reply) body.error = reply.error
+    if ('result' in reply) body.result = reply.result
+    return new Response(JSON.stringify(body))
+  }) as unknown as typeof fetch
+}
+
+const P = 'https://primary.example'
+const S = 'https://backup.example'
+
+describe('A-REVIEW chain identity (scenarios 1-12)', () => {
+  it('C01 normal chain id: full getEpoch succeeds', async () => {
+    const ep = endpoint({ chain: BASE, head: 125_000, events: [105_000] })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1'))
+      .resolves.toMatchObject({ root, anchored_block: 105_000 })
+  })
+
+  it('C02 wrong chain id from the start: RPC_UNAVAILABLE', async () => {
+    const ep = endpoint({ chain: MAINNET, head: 9999, events: [] })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C03 chain switches after a successful check: later head 9999 must not be accepted', async () => {
+    const ep = endpoint({ chain: BASE, head: 122, events: [] })
+    const reader = createPublicRpcLedger(profile, fetcherFor({ [P]: ep }))
+    await expect(reader.blockNumber()).resolves.toBe(122)
+    ep.state.chain = MAINNET; ep.state.head = 9999
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C04 chain switches after a plain RPC error: success must not stay cached', async () => {
+    let failOnce = true
+    const ep = endpoint({ chain: BASE, head: 122, events: [] }, (req) => {
+      if (req.method === 'eth_blockNumber' && failOnce) { failOnce = false; return { error: { code: -32000, message: 'synthetic' } } }
+      return undefined
+    })
+    const reader = createPublicRpcLedger(profile, fetcherFor({ [P]: ep }))
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+    ep.state.chain = MAINNET; ep.state.head = 9999
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C05a failover to a never-checked wrong-chain secondary: RPC_UNAVAILABLE', async () => {
+    const primary = endpoint({ chain: BASE, head: 122, events: [] }, (req) => (req.method === 'eth_blockNumber' ? { http: 503 } : undefined))
+    const backup = endpoint({ chain: MAINNET, head: 9999, events: [] })
+    const reader = createPublicRpcLedger({ ...profile, rpc_urls: [P, S] }, fetcherFor({ [P]: primary, [S]: backup }))
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C05b secondary validated earlier, then switches chain: must be re-checked', async () => {
+    const primary = endpoint({ chain: BASE, head: 122, events: [] }, () => ({ throws: true }))
+    const backup = endpoint({ chain: BASE, head: 122, events: [] })
+    const reader = createPublicRpcLedger({ ...profile, rpc_urls: [P, S] }, fetcherFor({ [P]: primary, [S]: backup }))
+    await expect(reader.blockNumber()).resolves.toBe(122)
+    backup.state.chain = MAINNET; backup.state.head = 9999
+    await expect(reader.blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C06 separate readers do not share identity state', async () => {
+    const ep = endpoint({ chain: BASE, head: 122, events: [] })
+    const fetcher = fetcherFor({ [P]: ep })
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).resolves.toBe(122)
+    ep.state.chain = MAINNET
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C07 different TrustProfile endpoints are authenticated independently', async () => {
+    const good = endpoint({ chain: BASE, head: 122, events: [] })
+    const bad = endpoint({ chain: MAINNET, head: 9999, events: [] })
+    const fetcher = fetcherFor({ [P]: good, [S]: bad })
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).resolves.toBe(122)
+    await expect(createPublicRpcLedger({ ...profile, rpc_urls: [S] }, fetcher).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C08 concurrent calls: a failed identity check fails every waiter and is not reused', async () => {
+    let chainCalls = 0
+    const ep = endpoint({ chain: BASE, head: 122, events: [] }, (req) => {
+      if (req.method === 'eth_chainId' && ++chainCalls === 1) return { throws: true }
+      return undefined
+    })
+    const reader = createPublicRpcLedger(profile, fetcherFor({ [P]: ep }))
+    const results = await Promise.allSettled([reader.blockNumber(), reader.blockNumber()])
+    expect(results.some((r) => r.status === 'rejected')).toBe(true)
+    await expect(reader.blockNumber()).resolves.toBe(122)
+  })
+
+  it('C08b concurrent calls: a chain switch between two concurrent calls is not hidden by a shared check', async () => {
+    const ep = endpoint({ chain: BASE, head: 122, events: [] }, (req, s) => {
+      if (req.method === 'eth_chainId') { const c = s.chain; s.chain = MAINNET; s.head = 9999; return { result: c } }
+      return undefined
+    })
+    const reader = createPublicRpcLedger(profile, fetcherFor({ [P]: ep }))
+    const results = await Promise.allSettled([reader.blockNumber(), reader.blockNumber()])
+    // The second call must perform its own identity check and see chain 1.
+    expect(ep.served.filter((m) => m === 'eth_chainId').length).toBe(2)
+    expect(results.some((r) => r.status === 'rejected')).toBe(true)
+  })
+
+  it('C09 slow endpoint is aborted by the 5 s bound: RPC_UNAVAILABLE', async () => {
+    const fetcher = ((_u: string, init?: RequestInit) => new Promise<Response>((resolve, reject) => {
+      const t = setTimeout(() => resolve(new Response(JSON.stringify({ jsonrpc: '2.0', id: 1, result: BASE }))), 6_500)
+      init?.signal?.addEventListener('abort', () => { clearTimeout(t); reject(init.signal?.reason) })
+    })) as unknown as typeof fetch
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  }, 15_000)
+
+  it('C10 endpoint that never answers: RPC_UNAVAILABLE after abort', async () => {
+    const fetcher = ((_u: string, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+      init?.signal?.addEventListener('abort', () => reject(init.signal?.reason))
+    })) as unknown as typeof fetch
+    await expect(createPublicRpcLedger(profile, fetcher).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  }, 15_000)
+
+  it.each([
+    ['missing result', { raw: JSON.stringify({ jsonrpc: '2.0', id: 1 }) }],
+    ['error object', { error: { code: -32600, message: 'bad' } }],
+    ['non-JSON body', { raw: '<html>gateway</html>' }],
+    ['numeric chain id', { result: 84532 }],
+  ])('C11 malformed JSON-RPC (%s): RPC_UNAVAILABLE', async (_name, reply) => {
+    const ep = endpoint({ chain: BASE, head: 122, events: [] }, (req) => (req.method === 'eth_chainId' ? reply as Reply : undefined))
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).blockNumber()).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('C12 chain switches during the windowed Event scan: forged event must not be accepted', async () => {
+    let logsServed = 0
+    const ep = endpoint({ chain: BASE, head: 125_000, events: [] }, (req, s) => {
+      if (req.method === 'eth_getLogs' && ++logsServed === 1) {
+        // After the first window the backend becomes another chain that carries a matching-looking event.
+        queueMicrotask(() => { s.chain = MAINNET; s.events = [60_000] })
+      }
+      return undefined
+    })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+
+  it('RESIDUAL TOCTOU: a switch between eth_chainId and the data call in the same logical request is not detectable', async () => {
+    const ep = endpoint({ chain: BASE, head: 122, events: [] }, (req, s) => {
+      if (req.method === 'eth_chainId') { const c = s.chain; s.chain = MAINNET; s.head = 9999; return { result: c } }
+      return undefined
+    })
+    // Observed (not desired): accepted on every implementation, because chain id and data are separate requests.
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).blockNumber()).resolves.toBe(9999)
+  })
+})
+
+describe('A-REVIEW 50,000-block windows (phase C)', () => {
+  const ranges = (deployment: number, head: number) => {
+    const seen: Array<[number, number]> = []
+    const ep = endpoint({ chain: BASE, head, events: [head] }, (req) => {
+      if (req.method === 'eth_getLogs') seen.push([Number(req.params[0].fromBlock), Number(req.params[0].toBlock)])
+      return undefined
+    })
+    return { seen, run: () => createPublicRpcLedger({ ...profile, deployment_block: deployment }, fetcherFor({ [P]: ep })).getEpoch(contract, '1') }
+  }
+  const assertCover = (seen: Array<[number, number]>, from: number, to: number) => {
+    expect(seen[0][0]).toBe(from)
+    expect(seen.at(-1)?.[1]).toBe(to)
+    for (let i = 0; i < seen.length; i++) {
+      expect(seen[i][1] - seen[i][0] + 1).toBeLessThanOrEqual(LOG_RANGE_BLOCKS)
+      expect(seen[i][1]).toBeGreaterThanOrEqual(seen[i][0])
+      if (i > 0) expect(seen[i][0]).toBe(seen[i - 1][1] + 1)
+    }
+  }
+
+  it('W01 range of exactly 50,000 blocks is one inclusive window', async () => {
+    const r = ranges(0, 49_999); await r.run()
+    expect(r.seen).toEqual([[0, 49_999]])
+  })
+  it('W02 50,001 blocks produce a trailing 1-block window', async () => {
+    const r = ranges(0, 50_000); await r.run()
+    expect(r.seen).toEqual([[0, 49_999], [50_000, 50_000]])
+  })
+  it('W03 non-zero deployment block, partial last window, contiguous with no gap or overlap', async () => {
+    const r = ranges(100, 150_150); await r.run()
+    assertCover(r.seen, 100, 150_150)
+    expect(r.seen.length).toBe(4)
+  })
+  it('W04 deployment == head scans exactly one block', async () => {
+    const r = ranges(7, 7); await r.run()
+    expect(r.seen).toEqual([[7, 7]])
+  })
+  it('W05 events at the 49,999/50,000 boundary are each found exactly once', async () => {
+    for (const b of [49_999, 50_000]) {
+      const ep = endpoint({ chain: BASE, head: 120_000, events: [b] })
+      await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).resolves.toMatchObject({ anchored_block: b })
+    }
+  })
+  it('W06 duplicate events in different windows are rejected', async () => {
+    const ep = endpoint({ chain: BASE, head: 200_000, events: [10, 150_000] })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toThrow('missing or ambiguous')
+  })
+  it('W07 missing event is rejected', async () => {
+    const ep = endpoint({ chain: BASE, head: 200_000, events: [] })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toThrow('missing or ambiguous')
+  })
+  it('W08 event root differing from getter is rejected', async () => {
+    const ep = endpoint({ chain: BASE, head: 200_000, events: [70_000], eventRoot: fakeRoot })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toThrow('event/getter mismatch')
+  })
+  it.each([
+    ['blockNumber', { status: '0x1', to: contract, blockNumber: hex(70_001), blockHash }],
+    ['blockHash', { status: '0x1', to: contract, blockNumber: hex(70_000), blockHash: `0x${'f'.repeat(64)}` }],
+    ['status', { status: '0x0', to: contract, blockNumber: hex(70_000), blockHash }],
+    ['to', { status: '0x1', to: publisher, blockNumber: hex(70_000), blockHash }],
+  ])('W09 receipt %s not matching the event is rejected', async (_n, receipt) => {
+    const ep = endpoint({ chain: BASE, head: 200_000, events: [70_000], receipt })
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toThrow('does not authenticate')
+  })
+  it('W10 a middle window timing out on every endpoint fails closed (no partial success)', async () => {
+    let n = 0
+    const failMiddle = (req: Req): Reply | undefined => (req.method === 'eth_getLogs' && Number(req.params[0].fromBlock) === 50_000 ? { throws: true } : undefined)
+    const a = endpoint({ chain: BASE, head: 200_000, events: [150_000] }, (req) => { n++; return failMiddle(req) })
+    const b = endpoint({ chain: BASE, head: 200_000, events: [150_000] }, failMiddle)
+    await expect(createPublicRpcLedger({ ...profile, rpc_urls: [P, S] }, fetcherFor({ [P]: a, [S]: b })).getEpoch(contract, '1'))
+      .rejects.toBeInstanceOf(RpcUnavailableError)
+    expect(n).toBeGreaterThan(0)
+  })
+  it('W11 HTTP 429 on a window fails over to the backup and still covers the full range', async () => {
+    const seen: Array<[number, number]> = []
+    const a = endpoint({ chain: BASE, head: 120_000, events: [100_000] }, (req) => (req.method === 'eth_getLogs' && Number(req.params[0].fromBlock) === 50_000 ? { http: 429 } : undefined))
+    const b = endpoint({ chain: BASE, head: 120_000, events: [100_000] }, (req) => {
+      if (req.method === 'eth_getLogs') seen.push([Number(req.params[0].fromBlock), Number(req.params[0].toBlock)])
+      return undefined
+    })
+    await expect(createPublicRpcLedger({ ...profile, rpc_urls: [P, S] }, fetcherFor({ [P]: a, [S]: b })).getEpoch(contract, '1'))
+      .resolves.toMatchObject({ anchored_block: 100_000 })
+    expect(seen).toEqual([[50_000, 99_999]])
+  })
+  it('W12 provider rejecting a 50,000-block range on every endpoint fails closed', async () => {
+    const tooWide = (req: Req): Reply | undefined => (req.method === 'eth_getLogs' && Number(req.params[0].toBlock) - Number(req.params[0].fromBlock) + 1 > 10_000
+      ? { error: { code: -32005, message: 'block range too large' } } : undefined)
+    const a = endpoint({ chain: BASE, head: 120_000, events: [100_000] }, tooWide)
+    const b = endpoint({ chain: BASE, head: 120_000, events: [100_000] }, tooWide)
+    await expect(createPublicRpcLedger({ ...profile, rpc_urls: [P, S] }, fetcherFor({ [P]: a, [S]: b })).getEpoch(contract, '1'))
+      .rejects.toBeInstanceOf(RpcUnavailableError)
+  })
+  it('W13 head below deployment block and removed events are rejected', async () => {
+    const low = endpoint({ chain: BASE, head: 50, events: [] })
+    await expect(createPublicRpcLedger({ ...profile, deployment_block: 100 }, fetcherFor({ [P]: low })).getEpoch(contract, '1')).rejects.toThrow('below the deployment')
+    const removed = endpoint({ chain: BASE, head: 1000, events: [500] }, (req) => (req.method === 'eth_getLogs' && Number(req.params[0].fromBlock) === 0
+      ? { result: [{ data: `${root}${w(3n)}${w(1n)}`, blockNumber: hex(500), blockHash, transactionHash: txHash, removed: true }] } : undefined))
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: removed })).getEpoch(contract, '1')).rejects.toThrow('removed')
+  })
+  it('W14 publisher mismatch is UNTRUSTED', async () => {
+    const ep = endpoint({ chain: BASE, head: 1000, events: [500] }, (req) => (req.method === 'eth_call' && req.params[0].data === '0x8c72c54e'
+      ? { result: `0x${'0'.repeat(24)}${'1'.repeat(40)}` } : undefined))
+    await expect(createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1')).rejects.toBeInstanceOf(UntrustedLedgerError)
+  })
+})
+
+describe('A-REVIEW pre-existing observations (same code in main; not introduced by PR #37)', () => {
+  it('OBS1 log.address is not compared with the approved contract', async () => {
+    const ep = endpoint({ chain: BASE, head: 1000, events: [], receipt: { status: '0x1', to: contract, blockNumber: hex(500), blockHash } }, (req) => (req.method === 'eth_getLogs'
+      ? { result: [{ address: publisher, data: `${root}${w(3n)}${w(1n)}`, blockNumber: hex(500), blockHash, transactionHash: txHash }] } : undefined))
+    const outcome = await createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1').then(() => 'accepted', () => 'rejected')
+    expect(['accepted', 'rejected']).toContain(outcome)
+    console.log(`OBS1 log.address mismatch -> ${outcome}`)
+  })
+  it('OBS2 a log returned outside the requested window is not range-checked', async () => {
+    const ep = endpoint({ chain: BASE, head: 120_000, events: [], receipt: { status: '0x1', to: contract, blockNumber: hex(90_000), blockHash } }, (req) => (req.method === 'eth_getLogs' && Number(req.params[0].fromBlock) === 0
+      ? { result: [{ data: `${root}${w(3n)}${w(1n)}`, blockNumber: hex(90_000), blockHash, transactionHash: txHash }] } : undefined))
+    const outcome = await createPublicRpcLedger(profile, fetcherFor({ [P]: ep })).getEpoch(contract, '1').then(() => 'accepted', () => 'rejected')
+    console.log(`OBS2 out-of-window log -> ${outcome}`)
+  })
+})
