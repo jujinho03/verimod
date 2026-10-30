@@ -1,5 +1,13 @@
 # W6 A Acting Protocol Security Review — 2026-10-29 KST
 
+## UPDATE — 2026-10-30: PR #37 통합 이후
+
+이 UPDATE는 아래 역사적 스냅샷 이후의 상태다. PR #37은 일반 Merge Commit `5354ec8e0001077cab013de35e243849e6980d0b`로 main에 병합됐고, 병합 후 [main CI 40969214888](https://github.com/jujinho03/verimod/actions/runs/40969214888)의 frontend·backend·contracts가 SUCCESS다. T의 전문 보안 리뷰는 미완료이며, A는 보안 패치 작성에도 기여했다.
+
+F의 수정 후보 실행 보고는 BASE 8 VALID / 2 RPC_UNAVAILABLE, 연속 10회 성공 NOT_MET이다. Primary HTTP 429와 backup HTTP 413 및 관측된 200-block getLogs 제한이 남아 있다. 원본 private 로그와 실행 후보 SHA의 최종 원격 HEAD 대응은 독립 검증하지 않았다. 실제 Hardhat LOCAL은 NOT_VERIFIED, Physical Mobile은 NOT_EXECUTED, 전체 시연 녹화는 미완료다.
+
+팀장 결정 `W6-RPC-RELEASE-ACCEPTANCE`는 KPI 미달을 명시한 코드 통합 수용이다. E6은 PARTIAL이며 E6 PASS, 전체 Engineering Exit PASS 또는 Scope Cut 승인을 의미하지 않는다. 자세한 최신 발표 기준은 [5회차 멘토링 기술 보고](mentoring-brief-20261030.md)를 참조한다.
+
 > 역사적 스냅샷: 아래 본문은 2026-10-29 18:02 KST의 판단과 당시 PR·CI·실측 상태를 보존한다. 이후 #34·#35는 독립 승인 후 병합됐고, #37의 수정 HEAD `16880b45`는 코드 범위 승인과 별도로 E6 수용 판단을 기다린다. 수정 후보의 F 보고는 BASE 8/10이며 원본 로그는 독립 확인하지 않았다. 현재 main과 시연 상태는 [5회차 멘토링 기술 보고](mentoring-brief-20261030.md) 및 GitHub에서 확인한다.
 
 - 작성: A / 주진호 (`jujinho03`). T(설경민, `k0ng-min`)가 외부 일정으로 리뷰할 수 없어 A가 임시로 보안 리뷰를 맡았다. **T 전문 리뷰는 수행되지 않았다.**
