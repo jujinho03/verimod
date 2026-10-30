@@ -111,18 +111,26 @@ test('same W4 seed distinguishes live RPC outage from tamper and recovers', asyn
 test('same W4 seed yields hash mismatch then invalid proof after rehash', async ({ page }, info) => {
   mkdirSync(evidence, { recursive: true })
   const original = bundle()
-  await openPublic(page, original)
+  await page.goto('/verify')
+  await page.getByRole('tab', { name: 'W4 공개 검증 샘플 불러오기' }).click()
+  expect(JSON.parse(await page.locator('#verify-json').inputValue())).toEqual(original)
+  await page.getByRole('button', { name: '검증하기', exact: true }).click()
+  await expect(page.locator('aside .verdict__code')).toBeVisible({ timeout: 120_000 })
   const initialRpcRetries = await expectLiveCode(page, 'VALID')
 
-  const changed = structuredClone(original)
-  changed.receipt_body.payload.policy.action = changed.receipt_body.payload.policy.action === 'ALLOW' ? 'RESTRICT' : 'ALLOW'
-  await page.locator('#verify-json').fill(JSON.stringify(changed))
+  await page.getByRole('button', { name: '본문 변경 · 기존 해시 유지' }).click()
+  const changed = JSON.parse(await page.locator('#verify-json').inputValue())
+  expect(changed.receipt_hash).toBe(original.receipt_hash)
   await verifyAgain(page)
   await expect(page.locator('aside .verdict__code')).toHaveText('HASH_MISMATCH')
   await page.screenshot({ path: resolve(evidence, `${info.project.name}-04-hash-mismatch.png`) })
 
-  changed.receipt_hash = await receiptHash(changed.receipt_body)
-  await page.locator('#verify-json').fill(JSON.stringify(changed))
+  await page.getByRole('button', { name: '본문 변경 · 해시 재계산' }).click()
+  await expect(page.getByText('현재 입력: 본문 변경 + 해시 재계산 (기존 proof 유지)', { exact: true })).toBeVisible()
+  const rehashed = JSON.parse(await page.locator('#verify-json').inputValue())
+  expect(rehashed.receipt_hash).toBe(await receiptHash(rehashed.receipt_body))
+  expect(rehashed.proof).toEqual(original.proof)
+  expect(rehashed.anchor).toEqual(original.anchor)
   await verifyAgain(page)
   const rehashRpcRetries = await expectLiveCode(page, 'INVALID_PROOF', 3, true)
   if (rehashRpcRetries === null) {

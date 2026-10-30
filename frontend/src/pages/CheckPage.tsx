@@ -48,6 +48,7 @@ export function CheckPage() {
   const reset = (next: string) => {
     setText(next)
     setDraft(null)
+    setLive(null)
     setError(null)
   }
 
@@ -98,6 +99,7 @@ export function CheckPage() {
   const issueLive = async () => {
     if (!liveClient || text.trim().length === 0) return
     setError(null)
+    setLive(null)
     setBusy('issue')
     try {
       const response = await liveClient.postDecision({ text }, crypto.randomUUID())
@@ -115,7 +117,7 @@ export function CheckPage() {
   return (
     <>
       <PageHero label="Decide · 판정 요청" title="글을 넣으면 항목별 점수와 조치를 보여드립니다">
-        <p>{mode === 'LIVE' ? '실제 AI 서비스 응답을 서버 정책과 판정서 발급으로 연결합니다. 추론 실패 시 판정서는 생성되지 않습니다.' : '시험 버전의 점수는 키워드 기반 합성 점수기가 만듭니다. 실제 AI 모델의 판단이나 성능이 아닙니다.'}</p>
+        <p>{mode === 'LIVE' ? '실제 AI 서비스 응답을 서버 정책과 판정서 발급으로 연결합니다. 점수는 UNCALIBRATED이며 새 판정은 기존 W4 앵커와 별개입니다.' : '시험 버전의 점수는 키워드 기반 합성 점수기가 만듭니다. 실제 AI 모델의 판단이나 성능이 아닙니다.'}</p>
         <ArrowLink to="/protocol#policy">적용 정책과 기준값 보기</ArrowLink>
       </PageHero>
 
@@ -131,19 +133,20 @@ export function CheckPage() {
             <h2 className="title-s">판정할 글</h2>
             <div className="field">
               <label className="field__label" htmlFor="decision-mode">실행 경로</label>
-              <select id="decision-mode" className="select" value={mode} onChange={(event) => {
+              <select id="decision-mode" className="select" value={mode} disabled={busy !== null} onChange={(event) => {
                 setMode(event.target.value as 'LIVE' | 'SYNTHETIC')
                 setError(null)
                 setDraft(null)
+                setLive(null)
               }}>
                 {liveClient && <option value="LIVE">LIVE · 실제 AI → 서버 판정서</option>}
                 <option value="SYNTHETIC">SYNTHETIC · 브라우저 합성 데모</option>
               </select>
-              {!liveClient && <p className="inline-warn">VITE_VERIMOD_API_URL이 설정되지 않아 실제 AI 경로를 활성화하지 않았습니다.</p>}
+              {!liveClient && <p className="inline-warn">실제 AI 경로가 비활성화되어 있습니다. LIVE 설정과 백엔드 준비가 필요합니다.</p>}
             </div>
             <div className="chips" role="group" aria-label="예시 문장">
               {SAMPLES.map((sample) => (
-                <button key={sample.label} type="button" className="chip" onClick={() => reset(sample.text)}>
+                <button key={sample.label} type="button" className="chip" disabled={busy !== null} onClick={() => reset(sample.text)}>
                   {sample.label}
                 </button>
               ))}
@@ -160,8 +163,9 @@ export function CheckPage() {
                 className="textarea"
                 rows={10}
                 maxLength={HARD_LIMIT}
+                disabled={busy !== null}
                 value={text}
-                onChange={(event) => setText(event.target.value)}
+                onChange={(event) => { setText(event.target.value); setLive(null); setError(null) }}
                 placeholder="판정받고 싶은 게시글이나 댓글을 붙여 넣으세요"
               />
               {length > MAX_INPUT_CODE_POINTS && (
@@ -178,7 +182,7 @@ export function CheckPage() {
                 {busy ? (mode === 'LIVE' ? '발급 중' : '계산 중') : mode === 'LIVE' ? '실제 판정서 발급' : '판정 요청'}
               </button>
               {text && (
-                <button type="button" className="btn btn--outline" onClick={() => reset('')}>
+                <button type="button" className="btn btn--outline" disabled={busy !== null} onClick={() => reset('')}>
                   지우기
                 </button>
               )}
@@ -204,7 +208,7 @@ export function CheckPage() {
                   <p className="summary-line">실제 모델 score를 서버 정책이 평가해 판정서를 발급했습니다. 새 판정서는 공개 체인 anchor 전까지 PENDING입니다.</p>
                   <ScoreBars scores={live.created.bundle.receipt_body.payload.inference.scores_ppm} />
                   <dl className="kv">
-                    <dt>상태</dt><dd>PENDING · 아직 공개 Base 검증 결과가 아닙니다</dd>
+                    <dt>상태</dt><dd>PENDING_ANCHOR · 아직 공개 Base 검증 결과가 아닙니다</dd>
                     <dt>판정서</dt><dd><code className="hash">{live.created.bundle.receipt_body.receipt_id}</code></dd>
                     <dt>모델 manifest</dt><dd><code className="hash">{shortHash(live.created.bundle.receipt_body.payload.inference.model_manifest_hash)}</code></dd>
                     <dt>정책 manifest</dt><dd><code className="hash">{shortHash(live.created.bundle.receipt_body.payload.policy.policy_manifest_hash)}</code></dd>
@@ -226,7 +230,7 @@ export function CheckPage() {
                 <p className="mono faint">결과</p>
                 <h2 className="title-s">왼쪽에 글을 넣고 판정을 요청하세요</h2>
                 <ol className="empty__steps">
-                  <li>항목별 합성 점수와 검토·제한 기준선</li>
+                  <li>{mode === 'LIVE' ? '실제 모델 점수와 서버 정책 조치' : '항목별 합성 점수와 검토·제한 기준선'}</li>
                   <li>정책이 정한 조치와 적용된 규칙</li>
                   <li>근거로 기록된 문장 구간</li>
                   <li>영수증 발급 후 봉인과 검증</li>

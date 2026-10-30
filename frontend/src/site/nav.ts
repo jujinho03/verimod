@@ -67,12 +67,12 @@ export const MENUS: Menu[] = [
       {
         label: '이의제기와 검토',
         links: [
-          { to: '/receipts?filter=appealable', title: '이의제기', desc: '제한 판정에 사유를 남기고 연결된 기록을 받습니다', icon: FlagIcon },
-          { to: '/review', title: '검토 콘솔', desc: '대기 중인 건의 조치를 유지하거나 바꿉니다', icon: ReviewIcon },
+          { to: '/receipts?filter=appealable', title: '이의제기', desc: '합성 이의제기 기록의 흐름을 체험합니다', icon: FlagIcon },
+          { to: '/review', title: '검토 콘솔', desc: '합성 검토 흐름을 체험합니다', icon: ReviewIcon },
         ],
       },
     ],
-    foot: { to: '/#flow', title: '전체 흐름', desc: '판정부터 사람 검토까지 한 화면에서', icon: LayersIcon },
+    foot: { to: '/#flow', title: '전체 흐름', desc: '판정과 합성 검토의 범위를 확인합니다', icon: LayersIcon },
   },
   {
     id: 'people',
@@ -82,13 +82,13 @@ export const MENUS: Menu[] = [
         label: '콘텐츠 작성 이용자',
         links: [
           { to: '/receipts', title: '받은 판정 확인', desc: '조치·점수·근거와 영수증을 봅니다', icon: ReceiptIcon },
-          { to: '/receipts?filter=appealable', title: '이의제기하기', desc: '원본을 지운 채가 아니라 새 기록으로 남깁니다', icon: FlagIcon },
+          { to: '/receipts?filter=appealable', title: '이의제기하기', desc: '합성 데모에서 연결된 기록을 확인합니다', icon: FlagIcon },
         ],
       },
       {
         label: '플랫폼 운영자와 검토자',
         links: [
-          { to: '/review', title: '검토 대기열', desc: '이의제기와 검토 보류 건을 처리합니다', icon: BuildingIcon },
+          { to: '/review', title: '검토 대기열', desc: '합성 이의제기와 검토 보류 흐름입니다', icon: BuildingIcon },
           { to: '/receipts', title: '발급 기록', desc: '발급·배치·앵커 상태를 한 표로 봅니다', icon: DatabaseIcon },
         ],
       },

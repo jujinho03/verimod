@@ -81,7 +81,7 @@ export class VeriModApiClient {
   constructor(options: ApiClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? '').replace(/\/$/, '')
     this.timeoutMs = options.timeoutMs ?? 8000
-    this.fetcher = options.fetcher ?? fetch
+    this.fetcher = options.fetcher ?? globalThis.fetch.bind(globalThis)
     this.principal = options.principal?.trim() || 'verimod-browser-user'
   }
 

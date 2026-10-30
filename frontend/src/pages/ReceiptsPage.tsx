@@ -159,7 +159,7 @@ export function ReceiptsPage() {
           <div>
             <h2 className="title-s">시험 데이터 초기화</h2>
             <p className="muted">
-              영수증과 원문은 이 브라우저의 저장소에만 있습니다. 초기화하면 직접 만든 기록을 지우고, 이의제기부터 검토까지 끝난 건을 포함한 합성 영수증 5건으로 되돌립니다.
+              공개 영수증과 합성 원장 상태는 브라우저 저장소에 보관합니다. 새로 입력한 원문과 salt는 이번 방문의 메모리에만 있습니다. 초기화하면 직접 만든 합성 기록을 지우고, 이의제기부터 검토까지 끝난 건을 포함한 합성 영수증 5건으로 되돌립니다.
             </p>
           </div>
           <button type="button" className="btn btn--outline" onClick={() => void reset()} disabled={resetting}>

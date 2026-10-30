@@ -1,6 +1,12 @@
 # VeriMod Backend — 한국어 실행·구현 안내
 
-## main의 구현 범위
+## 2026-10-30 W7 상태 업데이트
+
+아래 W3/W4 문단은 병합 전 시점의 역사 기록입니다. W4 HTTP adapter·Freeze·confirmation 등의 코드는 이후 main에 통합됐고 W4 Epoch 1은 2026-10-20 Base Sepolia에 실제 등록됐습니다. [W4 공개 증거](../docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md)와 [현재 W7 실행 안내](../docs/08-submission-guide.md)를 참조하세요.
+
+서버 기본값은 fail-closed이며 실제 R01 발급은 `VERIMOD_W4_PROVISIONAL_E2E_ONLY`, 로컬 inference URL 및 일치하는 모델·정책 manifest와 threshold 설정을 필요로 합니다. 데모에는 새 비운영 SQLite 경로를 명시하고 원본 운영 DB를 지정하지 않습니다. 이 서버는 loopback에 바인딩하며 브라우저가 다른 origin인 경우 별도의 검증된 same-origin proxy 또는 CORS 구성이 필요합니다. Python `/infer` 성공만으로 브라우저→Node 발급이 검증된 것은 아닙니다. 신규 발급은 새 앵커 전 `PENDING_ANCHOR`입니다. 연구 정책 승인·LOCK·TEST를 의미하지 않습니다.
+
+## main의 구현 범위 — 역사 기록 (W3 시점)
 
 main 실행 코드는 W3 영수증 발급 경계입니다. 실제 모델 출력 fixture를 재생하는 공동 테스트는 있지만 서버에 W4 실제 모델 HTTP adapter/정책/Freeze/confirmation을 병합한 상태는 아닙니다. 최신 구현은 [F c1f750e](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9/backend), 실제 R01 환경은 A 브랜치를 확인합니다.
 
@@ -21,7 +27,7 @@ main 공동 테스트는 A 선정 모델의 실제 출력 fixture를 별도로 �
 
 [W3 통합 원본](../docs/evidence/w3-team-integration.md)을 보존합니다.
 
-## W4의 별도 구현과 실행 증거
+## W4의 별도 구현과 실행 증거 — 당시 기록
 
 최신 F에는 실제 Python HTTP adapter, 승인 Model/Policy Manifest 내용/hash/threshold binding, SQLite Freeze, durable prepare ACK, trusted submitted/confirmed와 public release gate가 있습니다. 이는 F 소스의 구현 범위이며 main 배포가 아닙니다.
 

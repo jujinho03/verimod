@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint src e2e *.ts",
     "test": "vitest run",
-    "test:browser": "playwright test",
+    "test:browser": "playwright test && playwright test --config=playwright.w7-live.config.ts && playwright test --config=playwright.w7-w4-shortcut.config.ts",
     "w5:browser": "playwright test --config=playwright.w5.config.ts",
     "w6:browser": "playwright test --config=playwright.w6.config.ts",
     "w6:rpc-recovery": "playwright test --config=playwright.w6-recovery.config.ts",
