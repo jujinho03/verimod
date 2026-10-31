@@ -1,5 +1,7 @@
 # W7 Core Demo 인계 — 팀장 결정과 실행 준비
 
+> **이후 경과 — 2026-10-31 확인:** 아래의 문서 PR 대기 표기는 작성 당시 기록입니다. 결정 기록은 [PR #39](https://github.com/jujinho03/verimod/pull/39)로 main에 반영됐고, W6은 수용된 위험을 동반해 조건부 종료됐습니다. 원래 W6 Engineering Exit와 E6은 계속 `PARTIAL`입니다. 현재 읽기 순서와 근거는 [멘토링 한눈에 보기](../mentoring/mentor-brief-20261031.md)를 참조하세요.
+
 결정 `D-W6A-20261030-01`: 대화에서 팀장 주진호(A)를 밝힌 사용자의 승인 메시지에 Option B의 포함·제외 범위와 데모 PoC 위험 수용이 명시됐다. 승인 메시지의 계정 신원 및 정확한 발신 시각은 이 문서에서 독립 검증하지 않았다. 승인 근거와 시각은 별도 결정 기록을 따른다. **저장소의 정식 결정 반영과 W6 조건부 종료 확정은 문서 PR의 F 독립 승인, 병합 및 병합 후 CI 검증을 기다린다.** 이 인계는 리허설이나 시연이 실행됐다는 기록이 아니다.
 
 기준 main `fd1fe1b50671f88b89ff1412cd702b59f46d0c18`; 이 SHA는 작성 기준이며 이번 W7 실행 SHA가 아니다. [결정 기록](../evidence/w6-w7-core-demo-scope-proposal-20261030.md), [기존 5-Beat 시트](W6-W7-five-beat-rehearsal-20261029.md), [W6 MUST](W6-MUST-plan.md), [F 공개 실측 요약](../evidence/w6-f/20261029/README.md), [보안 감사](../evidence/w6-a-security-closure-20261029/README.md)를 함께 읽는다. 과거 시점의 문서는 소급 수정하지 않는다.

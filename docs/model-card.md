@@ -1,5 +1,7 @@
 # VeriMod Model Card — R01 (`AI07-BL-KLUE-RB-45126-R01`)
 
+> **대상:** 멘토·연구·개발 담당자 · **목적:** 모델 정체성, VALIDATION 결과, 정책 위험과 사용 한계를 확인합니다. [Data Card](data-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
+
 | 항목 | 값 |
 |---|---|
 | 문서 | AI-18 Model Card, 버전 1.0 |

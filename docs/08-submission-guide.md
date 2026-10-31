@@ -4,6 +4,10 @@ STATUS: CURRENT (W7 Option B 안내; 실행 결과는 각 세션에서 별도 �
 
 HTTP 451 · BLOCK AI 2026 · **Decide. Prove. Appeal.**
 
+> **대상:** 발표자·심사위원 · **목적:** 실행 전 준비와 화면별 결과의 출처를 확인합니다.
+>
+> **함께 읽기:** [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md) · [W7 인계](handoffs/W7-core-demo-approved-handoff-20261030.md) · [Data Card](data-card.md) · [Model Card](model-card.md). 아래 9월 제출 자료는 당시 기록입니다.
+
 ## 무엇을 확인할 수 있나요?
 
 VeriMod는 판정 기록의 Decision Receipt hash와 Merkle 포함 증명을 이용해 사후 기록 무결성을 대조합니다. 기록이 일치하더라도 AI 판정의 정확성·실제 모델 실행·원문 진실성·플랫폼의 모든 기록의 완전성을 증명하지는 않습니다. 원문·salt·개인정보는 온체인에 올리지 않습니다.
@@ -47,6 +51,42 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8099/infer -ContentType 'ap
 
 브라우저 LIVE 발급은 `VITE_VERIMOD_LIVE_ENABLED=true`가 필요합니다. 개발 서버에서 `VITE_VERIMOD_API_URL`을 비워두면 같은 origin의 `/api`를 Vite가 로컬 Node 서버에 proxy합니다. 별도 origin 주소를 지정하면 현재 backend에는 CORS middleware가 없어 브라우저 요청이 차단될 수 있습니다. Node 서버에는 `VERIMOD_DB_PATH`, `VERIMOD_W4_PROVISIONAL_E2E_ONLY`, `VERIMOD_INFERENCE_URL`, `VERIMOD_MODEL_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_HASH`와 hate/offensive review/restrict PPM 네 값이 필요합니다. 이 경로는 추가 환경 및 브라우저 origin 경계 검증이 필요하므로 현재 추천 경로는 준비된 로컬 R01 직접 추론입니다. 원본 DB나 승인되지 않은 정책값은 사용하지 않습니다. [backend 안내](../backend/README.md)를 참고하세요.
 
+### 선택 경로: 브라우저에서 로컬 LIVE 발급
+
+아래는 코드에서 확인한 Windows PowerShell 설정 예시이며, 이 문서 갱신 시점의 새 실측 결과는 아닙니다. 먼저 별도 터미널에서 위 Python 서비스를 기동해 `/healthz`의 ready를 확인합니다. 다음은 **저장소 루트에서 시작하는 다른 터미널**의 예시입니다. 임시 DB에는 입력과 salt가 들어갈 수 있으므로 비공개로 보관하고 원본 DB를 사용하지 않습니다.
+
+```powershell
+$repoRoot = (Get-Location).Path
+$demoDir = Join-Path $env:TEMP ("verimod-demo-" + [guid]::NewGuid().ToString('N'))
+New-Item -ItemType Directory -Path $demoDir | Out-Null
+$env:VERIMOD_DB_PATH = Join-Path $demoDir 'demo.sqlite'
+$env:VERIMOD_W4_PROVISIONAL_E2E_ONLY = 'true'
+$env:VERIMOD_INFERENCE_URL = 'http://127.0.0.1:8099/infer'
+$env:VERIMOD_MODEL_MANIFEST_PATH = Join-Path $repoRoot 'backend/config/w4-r01.model_manifest.json'
+$env:VERIMOD_POLICY_MANIFEST_PATH = Join-Path $repoRoot 'backend/config/w4-provisional.policy_manifest.json'
+$env:VERIMOD_POLICY_MANIFEST_HASH = '0xa4559132db0d048483c43b258d189027b5de59067ae0b0f4365da2b222299a1e'
+$env:VERIMOD_HATE_REVIEW_PPM = '24495'
+$env:VERIMOD_HATE_RESTRICT_PPM = '216950'
+$env:VERIMOD_OFFENSIVE_REVIEW_PPM = '180483'
+$env:VERIMOD_OFFENSIVE_RESTRICT_PPM = '646501'
+Set-Location (Join-Path $repoRoot 'backend')
+npm ci
+npm run dev
+```
+
+다른 터미널에서 저장소의 `frontend` 디렉터리로 이동해 아래를 실행합니다. Node는 `127.0.0.1:3001`에 바인딩되며 Vite의 `/api` proxy가 이를 사용합니다. 터널이나 LAN 공개는 하지 않습니다. 기존 W4 공개 검증용 환경 변수는 앞 절과 같습니다.
+
+```powershell
+$env:VITE_VERIMOD_LIVE_ENABLED = 'true'
+$env:VITE_VERIMOD_API_URL = ''
+npm ci
+npm run dev -- --host 127.0.0.1
+```
+
+`/check`에서 LIVE 모드로 무해한 입력을 제출해 실제 응답과 `PENDING_ANCHOR`를 확인합니다. provisional 설정은 승인된 S1 정책이 아니며 정책 실행은 로컬 W4 시험 경계에 한정됩니다. 실패하면 오류를 그대로 기록하고 새 판정서가 발급됐다고 표시하지 않습니다.
+
+> **이후 확인 — PR #42:** 격리 Windows 환경에서 브라우저→Node→R01 발급의 `201 / PENDING_ANCHOR`, 모델 중단 시 `503` 및 복구 후 재발급이 보고됐습니다. [PR 실행 요약](https://github.com/jujinho03/verimod/pull/42)은 이전 실행의 근거이며, 이번 발표 PC와 세션에서 경로가 준비됐다는 보장은 아닙니다. 원본 DB를 사용하거나 새 앵커를 만들지 않습니다.
+
 ### 발표 직전 준비 상태
 
 각 값은 실제 확인한 이번 실행에서만 기록합니다. 하나라도 확인하지 못하면 해당 항목은 READY가 아닙니다.
@@ -75,7 +115,7 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8099/infer -ContentType 'ap
 
 아래는 2026-09-14 제출 당시 기록입니다. 아래의 `현재`, `후속 구현 대상`, 저장 경계 및 실행 결과는 그 당시 관점이며 위 W7 안내보다 우선하지 않습니다.
 
-# 2026-09-14 제출 안내 — 역사 기록
+## 2026-09-14 제출 안내 — 역사 기록
 
 STATUS: HISTORICAL (아래의 당시 synthetic PoC 안내는 현재 구현 전체를 설명하지 않음)
 
@@ -83,7 +123,7 @@ HTTP 451 · BLOCK AI 2026 · **Decide. Prove. Appeal.**
 
 VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판정을 덮어쓰지 않는 이의제기 이력으로 연결하는 protocol을 목표로 한다. **현재 결과물은 frontend synthetic protocol PoC**다. Hash·Merkle proof 계산은 실제 수행하며 moderation score와 ledger/anchor는 simulation이다.
 
-## 30초 안에 확인할 근거
+### 30초 안에 확인할 근거
 
 | 질문 | 근거 |
 |---|---|
@@ -93,7 +133,7 @@ VeriMod는 AI 판정 기록을 이용자가 직접 재계산하고, 원본 판�
 | 테스트를 실행했나? | [실행 기록](07-validation-2026-09-13.md) · [GitHub CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml) |
 | 다음 실제 통합 계획은? | [P1 backlog](06-p1-backlog.md) |
 
-## 실행 준비
+### 실행 준비
 
 Node 24.19.0 / npm 12.0.2에서 검증했다. 아래 명령은 제출용 main 브랜치를 가져온다. 검증과 반영 이력은 [PR #1](https://github.com/jujinho03/verimod/pull/1)의 P0 hardening, [PR #2](https://github.com/jujinho03/verimod/pull/2)의 repository quality pass, 그리고 [GitHub Actions](https://github.com/jujinho03/verimod/actions/workflows/ci.yml)에서 확인한다. 2026-09-14 당시 제출 기준 main은 `f1e4384ef9f024b127db20ba97e4fd54e642ee50`이었다(historical baseline). CURRENT는 `git fetch origin` 후 최신 `origin/main`과 해당 SHA의 GitHub CI를 확인한다. 과거 실행 결과를 현재 성공 증거로 재사용하지 않는다.
 
@@ -106,7 +146,7 @@ npm run dev
 
 터미널에 표시된 localhost 주소를 연다. 기본값은 `http://localhost:5173`이며 포트가 이미 사용 중이면 달라질 수 있다. Web Crypto는 localhost 또는 HTTPS에서 사용한다. 이 PoC 실행에 backend, wallet, RPC key, DB는 필요하지 않다. 공개 웹앱 배포나 testnet 배포를 완료한 결과물이 아니다.
 
-## 정상 → 변조 → 재해싱 확인
+### 정상 → 변조 → 재해싱 확인
 
 1. `/verify`에서 [01-valid.json](examples/01-valid.json)을 붙여넣거나 파일로 선택해 **검증하기**를 누른다. 기본 seed 원장에서는 `VALID`가 나온다.
 2. 같은 방식으로 [02-tampered.json](examples/02-tampered.json)을 검증한다. violence 점수만 바뀌어 `HASH_MISMATCH`가 나온다.
@@ -115,7 +155,7 @@ npm run dev
 
 세 JSON 모두 기본 seed의 합성 epoch #1을 사용한다. 다른 브라우저에서 새로 발급한 임의의 bundle은 원래 브라우저 원장까지 전달하지 않으므로 동일한 결과를 보장하지 않는다. 최초 실행 또는 별도 브라우저 프로필로 시연하면 기존 작업 자료를 초기화할 필요가 없다.
 
-## 새 판정 → 이의제기 → 검토 확인
+### 새 판정 → 이의제기 → 검토 확인
 
 1. `/check`에서 다음 **합성 검증용 문장**을 입력한다: `무료 당첨 이벤트! 지금 바로 클릭하고 할인코드를 받으세요 http://example.com`
 2. synthetic 결과와 정책의 RESTRICT를 확인하고 영수증을 발급한다.
@@ -125,14 +165,14 @@ npm run dev
 
 기본 seed의 영화 문장 판정은 이미 appeal·OVERTURN 이력이 있으므로 새 appeal 시연에는 새 판정을 사용한다. REVIEW의 `HUMAN_REVIEWER` 표시는 인증된 사람의 검토 증명이 아니다. 실제 사용자 사건이나 민감한 원문을 시연에 넣지 않는다.
 
-## 검증의 의미
+### 검증의 의미
 
 - **입증하는 범위:** 제한형 canonical bytes·SHA-256·Merkle inclusion 계산, 고정된 합성 root에 대한 사본 변경 탐지, 제공된 기록의 연결 규칙.
 - **입증하지 않는 범위:** AI 정확성·공정성·실제 모델 실행, 실제 blockchain transaction, 모든 moderation 기록의 완전성, 실제 사람의 검토 신원.
 - **저장 경계:** raw text·salt·appeal 본문은 localStorage에 평문으로 남는 PoC 편의 저장이다. production 보안 저장소가 아니다.
 - **남은 항목:** 실제 AI·업무 backend·DB·epoch contract·testnet, contract 개발 의존성 audit 항목, LICENSE 결정. [감사 보고](05-protocol-audit.md)를 참고한다.
 
-## 제출 문구
+### 제출 문구
 
 > VeriMod는 Decision Receipt의 hash와 Merkle proof를 이용해 판정 기록의 사후 변경을 직접 확인하고, 이의제기·검토 결과를 연결하는 frontend synthetic protocol PoC입니다. 브라우저에서 암호학 계산과 변조 탐지를 수행합니다. 현재 moderation score와 blockchain anchor는 simulation이며, 실제 AI와 backend·EVM testnet 통합은 후속 구현 대상입니다.
 

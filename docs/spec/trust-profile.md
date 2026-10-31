@@ -2,6 +2,8 @@
 
 상태: **W3 FREEZE CANDIDATE — Entry Closure evidence 전에는 FRZ-01 PASS가 아님.** 소유: PROTOCOL. `TrustProfile`은 검증기의 신뢰 루트이며, receipt bundle·API·RPC endpoint가 제공한 locator는 신뢰 루트가 아니다.
 
+> **2026-10-31 읽기 안내:** 아래는 W3 시점의 후보 사양입니다. 이후 W4 공개 앵커와 현재 검증 경로는 [W4 증거](../handoffs/w4-anchored-epoch-public/20261020-r01/README.md) 및 [승인 profile 구현](../../frontend/src/domain/approvedProfiles.ts)을 확인하세요. 이 안내는 W3 당시 승인 기록을 변경하지 않습니다.
+
 ```ts
 type TrustProfile = {
   profile_id: 'BASE_SEPOLIA_DEMO' | 'LOCAL_HARDHAT_FALLBACK'

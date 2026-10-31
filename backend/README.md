@@ -1,5 +1,7 @@
 # VeriMod Backend — 한국어 실행·구현 안내
 
+> **대상:** 발표자·백엔드 담당자 · **목적:** 로컬 발급 경로와 공개·비공개 경계를 확인합니다. 현재 시연 동선은 [심사위원용 실행 안내](../docs/08-submission-guide.md), 발표 근거는 [멘토링 요약](../docs/mentoring/mentor-brief-20261031.md)을 참조하세요.
+
 ## 2026-10-30 W7 상태 업데이트
 
 아래 W3/W4 문단은 병합 전 시점의 역사 기록입니다. W4 HTTP adapter·Freeze·confirmation 등의 코드는 이후 main에 통합됐고 W4 Epoch 1은 2026-10-20 Base Sepolia에 실제 등록됐습니다. [W4 공개 증거](../docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md)와 [현재 W7 실행 안내](../docs/08-submission-guide.md)를 참조하세요.

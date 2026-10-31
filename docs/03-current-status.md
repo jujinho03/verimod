@@ -1,5 +1,25 @@
 # 최신 구현·실행·승인 상태
 
+> **기준:** 2026-10-31 확인 main `f6ad522513dcb198d520c70f98c1cc5e98748f51` · [main CI 41178415036](https://github.com/jujinho03/verimod/actions/runs/41178415036) Frontend·Backend·Contracts SUCCESS. 코드, 기록된 실행 및 승인 상태는 아래와 같이 구분합니다.
+
+## 현재 상태 요약 — W7
+
+| 항목 | 상태·근거 | 해석 범위 |
+| --- | --- | --- |
+| W4 GATE-4 | **PASS, 기술 조건 14/14**; [공개 증거](handoffs/w4-anchored-epoch-public/20261020-r01/README.md) | 2026-10-20의 Base Sepolia Epoch 1·Receipt 2건에 대한 역사적 실증 |
+| W5 GATE-5 | **PARTIAL**; [결정 기록](progress/W5-GATE5-decision-record.md) | 미완료 사항은 W6/W7로 이월 |
+| W6 Engineering Exit | **PARTIAL**; [W6 근거](evidence/w6-a-closeout/e1-e8-matrix.md) | W6은 위험 수용을 동반한 조건부 종료이며 전체 Gate PASS가 아님 |
+| W7 데모 범위 | **Option B 승인**; [결정](evidence/w6-w7-core-demo-scope-proposal-20261030.md) · [인계](handoffs/W7-core-demo-approved-handoff-20261030.md) | 새 R01 추론과 과거 W4 앵커는 별도 사례 |
+| 신규 R01 발급 | [PR #42 실행 요약](https://github.com/jujinho03/verimod/pull/42): 브라우저→Node→R01의 201, 실패 503 및 복구 보고 | 새 Receipt는 `PENDING_ANCHOR`, proof·anchor null; W4 Epoch 1에 포함되지 않음 |
+| GitHub 통합 | [PR #41](https://github.com/jujinho03/verimod/pull/41)·[PR #42](https://github.com/jujinho03/verimod/pull/42) 병합, 위 기준 CI 성공 | CI는 새 현장 LIVE 실행이나 전체 발표 리허설이 아님 |
+| 안정성과 시연 | BASE 연속 10회 `NOT_MET`, E6 `PARTIAL`; 실제 Hardhat LOCAL `NOT_VERIFIED`, 물리 모바일 `NOT_EXECUTED` | 과거 실측 및 미검증 범위를 [W7 안내](08-submission-guide.md)에서 구분 |
+| 정책·데이터 | S1 `PENDING_APPROVAL`, Model/Policy LOCK `NOT_EXECUTED`, TEST `SEALED` | 연구 정책 추천과 W4 provisional 시연 정책은 다름 |
+| 멘토링·리허설 | DOC-09 `PARTIAL`, OPS-04 `NOT_VERIFIED`; 최종 기록 기준 480초 공동 리허설·전체 녹화 미완료 | [멘토링 감사](mentoring/w7-mentoring-evidence-audit-20261030.md)와 실제 세션을 별도 확인 |
+
+## W4 역사 스냅샷 — 2026-10-20
+
+> **대상:** 멘토·팀원 · **목적:** W4 당시 구현·실행·승인 근거를 확인합니다. W7 안내는 [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)와 [실행 안내](08-submission-guide.md)를 참조하세요.
+
 > **2026-10-30 업데이트:** 아래 본문은 2026-10-20 W4 기준의 역사 스냅샷입니다. 현재 승인된 W7 범위, 실행 경로와 미완료 상태는 [W7 심사위원용 실행 안내](08-submission-guide.md) 및 [Option B 결정 기록](evidence/w6-w7-core-demo-scope-proposal-20261030.md)을 확인하세요. 과거 W4 실행은 새 W7 실행을 보증하지 않습니다.
 
 기준일: **2026-10-20**. **W4 GATE-4 = PASS (기술 조건 14/14).** 실제 Epoch 1을 Base Sepolia에 등록하고, 원본 F DB를 CONFIRMED로 확정했으며, 실제 브라우저에서 독립 검증했습니다. 정책은 `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`인 테스트넷 시연입니다.

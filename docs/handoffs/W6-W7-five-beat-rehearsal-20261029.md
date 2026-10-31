@@ -1,5 +1,7 @@
 # W6 → W7 5-Beat 공동 리허설 준비 시트
 
+> **대상:** 발표자·진행자 · **목적:** 5개 시연 구간의 계획과 실제 결과를 구분합니다. 최신 읽기 순서는 [멘토링 안내](../mentoring/README.md)를 참조하세요.
+
 기준: 통합 main `f7c84f27ff964d114cacc8c5c181b4df8b9f766b` · 작성 2026-10-29 · **계획 / NOT_EXECUTED**. 이 시트는 3인의 실제 리허설, 녹화, Scope Cut 승인을 증명하지 않는다. 실제 시작·종료, 결과와 증거를 아래 빈 기록란에 수행 후에만 적는다. 과거 실행과 새로운 측정을 섞지 않는다.
 
 근거: [W7 기존 준비도](../evidence/w6-a-closeout/w7-demo-readiness.md), [AI-19 판정](../evidence/w6-a-ai19-offline/ai19-final-assessment.md), [F 공개 실행 요약](../evidence/w6-f/20261027/README.md), [T 통합 증빙](../evidence/w6-t-integration-evidence-20261028.md), [W6 MUST](W6-MUST-plan.md). 이 근거들의 날짜와 실행 SHA는 각 문서의 값이며 현재 main에서 새로 실행했다는 뜻이 아니다.

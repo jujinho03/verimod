@@ -1,5 +1,7 @@
 # 확정 우선순위와 구현 진입 조건
 
+> **이후 경과 — 2026-10-31 확인:** 아래 W6 → W7 결정의 “문서 통합 대기”는 당시 기록입니다. 결정 문서는 [PR #39](https://github.com/jujinho03/verimod/pull/39)로 main에 반영됐습니다. 자세한 현재 읽기 안내는 [멘토링 자료](mentoring/README.md)를 참조하세요. 원래 W6 Engineering Exit와 E6은 `PARTIAL`을 유지합니다.
+
 STATUS: CURRENT (decision evidence; 개별 결정 상태는 아래 표 기준)
 
 ## W6 → W7 데모 범위 결정 — 승인 메시지 기록
