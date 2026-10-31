@@ -6,6 +6,8 @@
 
 2026-10-31 확인 당시 문서 내용 commit `90a621d3c5583b0ed4268e83216648d2310d655f`를 원격 작업 브랜치에 push했고 로컬과 원격 SHA가 일치했습니다. GitHub 연결의 PR 생성 시도는 `403 Resource not accessible by integration`으로 거부됐습니다. 이 파일에 기록을 추가하는 후속 commit의 SHA와 PR 생성 여부는 현재 브랜치에서 다시 확인해야 합니다. 이 기록 시점에 독립 리뷰 요청은 제출되지 않았습니다.
 
+**후속 확인 — 2026-10-31:** 인증된 GitHub 웹 세션으로 [PR #43](https://github.com/jujinho03/verimod/pull/43)을 생성하고 `ysn-0215`에게 독립 리뷰를 요청했습니다. commit `f601a97d15f51898d970b194bb2ace80de9dae0f`의 [push CI](https://github.com/jujinho03/verimod/actions/runs/41188415921)와 [PR CI](https://github.com/jujinho03/verimod/actions/runs/41188532937)는 각각 Frontend·Backend·Contracts 성공입니다. 이 후속 기록을 포함하는 새 commit의 CI 및 최신 리뷰 상태는 GitHub에서 다시 확인해야 합니다. 현재 PR은 미병합이며 팀장의 별도 병합 승인이 필요합니다.
+
 기준 main CI는 [41178415036](https://github.com/jujinho03/verimod/actions/runs/41178415036)의 Frontend·Backend·Contracts 성공입니다. 기준 W4 tree는 `1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee`입니다. 기준 main CI는 문서 브랜치 CI나 병합 후 CI가 아닙니다.
 
 위 문서 내용 commit의 [브랜치 CI 41188330248](https://github.com/jujinho03/verimod/actions/runs/41188330248)은 기록 당시 진행 중이었습니다. 후속 commit의 CI와 결과는 별도 확인합니다.
