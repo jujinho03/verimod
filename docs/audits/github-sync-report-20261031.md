@@ -1,5 +1,7 @@
 # GitHub 문서 동기화 기록 — 2026-10-31
 
+> **병합 후 업데이트 — 2026-10-31 18:28:48 KST:** [PR #43](https://github.com/jujinho03/verimod/pull/43)은 팀장의 직접 병합 지시에 따라 일반 Merge Commit `0369402c719ff9576d51826cbe262d4c70e4e720`으로 main에 반영됐습니다. 독립 리뷰어 `ysn-0215`의 정식 승인은 제출되지 않았으며, 이를 승인으로 간주하지 않습니다. 병합 직후 W4 Evidence tree는 `1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee`입니다. [병합 후 main CI](https://github.com/jujinho03/verimod/actions/runs/41188853595)의 실제 결과와 현재 main SHA는 GitHub에서 확인하세요. 아래는 **병합 전 당시 기록**입니다.
+
 > **상태:** 리뷰와 main 병합 전 · **기준 main:** `f6ad522513dcb198d520c70f98c1cc5e98748f51`
 
 문서 전용 브랜치 `a/mentoring-docs-format-20261031`에서 작업합니다. [main과 브랜치 비교](https://github.com/jujinho03/verimod/compare/main...a/mentoring-docs-format-20261031?expand=1)를 통해 현재 파일과 커밋을 확인할 수 있습니다. 이 기록 작성 시점에 PR 생성과 main 병합은 완료되지 않았습니다. 팀장의 별도 승인 전에는 병합하지 않습니다.
