@@ -1,5 +1,7 @@
 # W6 → W7 Core Demo 범위 결정 및 조건부 종료 기록
 
+> **이후 경과 — 2026-10-31 확인:** 아래의 저장소 반영 대기 표기는 작성 당시 기록입니다. 이 결정 문서는 [PR #39](https://github.com/jujinho03/verimod/pull/39)로 병합됐고 병합 후 CI가 성공했습니다. W6의 조건부 종료와 원래 Engineering Exit `PARTIAL`을 구분하며, 정책·LOCK·TEST 상태를 바꾸지 않습니다. 현재 읽기 순서는 [멘토링 안내](../mentoring/README.md)를 참조하세요.
+
 **결정 ID:** `D-W6A-20261030-01` (별칭 `W6-TO-W7-CORE-DEMO-SCOPE-DECISION`)
 
 **결정:** `OPTION_B_CORE_DEMO_SCOPE_CUT` · **승인:** `APPROVED_BY_TEAM_LEAD` (사용자 메시지의 주진호(A) 자기 식별에 근거) · **저장소 반영:** 독립 리뷰·CI·병합 대기

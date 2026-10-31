@@ -6,6 +6,10 @@
 
 [![CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Amain)
 
+> **멘토링을 위해 처음 오셨나요?** [5회차 한눈에 보기](docs/mentoring/mentor-brief-20261031.md)에서 성과·한계·질문을 먼저 확인하고, [멘토링 자료 안내](docs/mentoring/README.md)에서 회차별 원문과 추적 근거를 찾아볼 수 있습니다.
+>
+> **문서 읽기:** 날짜와 기준 SHA가 붙은 실행 결과는 해당 시점의 기록입니다. 실제 AI 추론, 과거 W4 공개 앵커, 합성 브라우저 데모는 출처를 구분합니다.
+
 ## W7 데모 범위와 출처 (2026-10-30)
 
 승인 결정 [D-W6A-20261030-01](docs/evidence/w6-w7-core-demo-scope-proposal-20261030.md)의 Option B에서 **새 R01 실제 추론**과 **과거 W4 공개 Receipt의 Base Sepolia 검증**은 별개 사례입니다. 기본 브라우저 Lifecycle 및 Appeal/Review는 합성 데모이며 실제 운영 이의제기 백엔드는 Post-MVP입니다. 새 추론이 기존 W4 Epoch에 앵커됐다는 주장이 아닙니다.
@@ -66,11 +70,13 @@ W6 Engineering Exit은 전체 PASS가 아닙니다. BASE 반복 안정성, 실�
 
 ## 멘토님께: 먼저 읽을 자료
 
-1. [3회차 멘토링 사전자료](docs/mentor-prep-session3.md): 성과·한계·여쭙고 싶은 질문 4가지. 피드백은 2026-10-20에 받았고 [결과 문서](docs/mentoring/session-03-20261020-lee-jaewon.md)에 멘토 권고와 팀 결정을 나눠 정리했습니다
-2. [W4 팀 통합 현황](docs/progress/W4.md): 담당별 결과, 실제 등록·확정·브라우저 검증
-3. [실제 등록 공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md): tx, 블록, proof/anchor 포함 영수증 2건, 브라우저 검증 화면
-4. [현재 상태 요약](docs/03-current-status.md): 항목별 상태표
-5. [전체 문서 안내](docs/README.md)
+| 순서 | 자료 | 내용 |
+| --- | --- | --- |
+| 1 | [5회차 멘토링 한눈에 보기](docs/mentoring/mentor-brief-20261031.md) | 프로젝트, 확인된 근거, 한계와 검토 질문 |
+| 2 | [1~4회차 멘토링 자료](docs/mentoring/README.md) | 권고·팀 결정·구현과 원문 확인 범위 |
+| 3 | [W7 심사위원용 실행 안내](docs/08-submission-guide.md) | 실제 추론·공개 검증·변조·합성 모드 구분 |
+| 4 | [W4 공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md) | 과거 실제 등록의 transaction·Receipt·proof |
+| 5 | [전체 문서 안내](docs/README.md) | 주제별 문서와 역사 기록 |
 
 ## 구성과 담당
 

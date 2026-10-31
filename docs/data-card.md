@@ -1,5 +1,7 @@
 # VeriMod Data Card — BEEP! Korean HateSpeech (R01 학습·검증 데이터)
 
+> **대상:** 멘토·연구·개발 담당자 · **목적:** 데이터 출처, 분할, 사용 조건과 평가 한계를 확인합니다. [Model Card](model-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
+
 | 항목 | 값 |
 |---|---|
 | 문서 | AI-17 Data Card, 버전 1.0 |

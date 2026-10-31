@@ -1,5 +1,7 @@
 # 최신 구현·실행·승인 상태
 
+> **대상:** 멘토·팀원 · **목적:** W4 당시 구현·실행·승인 근거를 확인합니다. W7 안내는 [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)와 [실행 안내](08-submission-guide.md)를 참조하세요.
+
 > **2026-10-30 업데이트:** 아래 본문은 2026-10-20 W4 기준의 역사 스냅샷입니다. 현재 승인된 W7 범위, 실행 경로와 미완료 상태는 [W7 심사위원용 실행 안내](08-submission-guide.md) 및 [Option B 결정 기록](evidence/w6-w7-core-demo-scope-proposal-20261030.md)을 확인하세요. 과거 W4 실행은 새 W7 실행을 보증하지 않습니다.
 
 기준일: **2026-10-20**. **W4 GATE-4 = PASS (기술 조건 14/14).** 실제 Epoch 1을 Base Sepolia에 등록하고, 원본 F DB를 CONFIRMED로 확정했으며, 실제 브라우저에서 독립 검증했습니다. 정책은 `W4_PROVISIONAL_E2E_ONLY`, `team_approved=false`인 테스트넷 시연입니다.

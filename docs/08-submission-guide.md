@@ -4,6 +4,10 @@ STATUS: CURRENT (W7 Option B 안내; 실행 결과는 각 세션에서 별도 �
 
 HTTP 451 · BLOCK AI 2026 · **Decide. Prove. Appeal.**
 
+> **대상:** 발표자·심사위원 · **목적:** 실행 전 준비와 화면별 결과의 출처를 확인합니다.
+>
+> **함께 읽기:** [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md) · [W7 인계](handoffs/W7-core-demo-approved-handoff-20261030.md) · [Data Card](data-card.md) · [Model Card](model-card.md). 아래 9월 제출 자료는 당시 기록입니다.
+
 ## 무엇을 확인할 수 있나요?
 
 VeriMod는 판정 기록의 Decision Receipt hash와 Merkle 포함 증명을 이용해 사후 기록 무결성을 대조합니다. 기록이 일치하더라도 AI 판정의 정확성·실제 모델 실행·원문 진실성·플랫폼의 모든 기록의 완전성을 증명하지는 않습니다. 원문·salt·개인정보는 온체인에 올리지 않습니다.
@@ -46,6 +50,8 @@ Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8099/infer -ContentType 'ap
 ```
 
 브라우저 LIVE 발급은 `VITE_VERIMOD_LIVE_ENABLED=true`가 필요합니다. 개발 서버에서 `VITE_VERIMOD_API_URL`을 비워두면 같은 origin의 `/api`를 Vite가 로컬 Node 서버에 proxy합니다. 별도 origin 주소를 지정하면 현재 backend에는 CORS middleware가 없어 브라우저 요청이 차단될 수 있습니다. Node 서버에는 `VERIMOD_DB_PATH`, `VERIMOD_W4_PROVISIONAL_E2E_ONLY`, `VERIMOD_INFERENCE_URL`, `VERIMOD_MODEL_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_HASH`와 hate/offensive review/restrict PPM 네 값이 필요합니다. 이 경로는 추가 환경 및 브라우저 origin 경계 검증이 필요하므로 현재 추천 경로는 준비된 로컬 R01 직접 추론입니다. 원본 DB나 승인되지 않은 정책값은 사용하지 않습니다. [backend 안내](../backend/README.md)를 참고하세요.
+
+> **이후 확인 — PR #42:** 격리 Windows 환경에서 브라우저→Node→R01 발급의 `201 / PENDING_ANCHOR`, 모델 중단 시 `503` 및 복구 후 재발급이 보고됐습니다. [PR 실행 요약](https://github.com/jujinho03/verimod/pull/42)은 이전 실행의 근거이며, 이번 발표 PC와 세션에서 경로가 준비됐다는 보장은 아닙니다. 원본 DB를 사용하거나 새 앵커를 만들지 않습니다.
 
 ### 발표 직전 준비 상태
 

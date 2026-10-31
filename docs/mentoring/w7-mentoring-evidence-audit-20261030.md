@@ -1,5 +1,7 @@
 # W7 DOC-09 / OPS-04 멘토링 증거 감사 — 2026-10-30
 
+> **대상:** 멘토·팀원 · **목적:** 원문, 권고, 팀 결정, 구현·시험과 제출·접수 증거를 각각 추적합니다. 요약은 [멘토링 자료 안내](README.md), 발표 질문은 [5회차 한눈에 보기](mentor-brief-20261031.md)를 참조하세요.
+
 기준 main `e8ef51a205939ecb049705997b42cf131e294711` · Owner A · 범위: 읽기 전용 원문·저장소 대조. [기존 추적표](w5-mentoring-traceability.md), [3회차 기록](session-03-20261020-lee-jaewon.md), [W6 당시 감사](../evidence/w6-a-gap-closure-20261029.md), [W6 MUST](../handoffs/W6-MUST-plan.md), [결정 기록부](../02-decision-register.md), [W7 인계](../handoffs/W7-core-demo-approved-handoff-20261030.md)를 함께 읽는다. 과거 감사의 당시 원문 미확인 사실은 변경하지 않았다.
 
 ## 출처 목록과 검증 수준

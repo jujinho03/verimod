@@ -1,5 +1,7 @@
 # VeriMod AI 작업 공간 — 한국어 현황
 
+> **대상:** 멘토·AI 담당자 · **목적:** R01 추론·평가와 정책 승인 경계를 확인합니다. 발표용 읽기 순서는 [멘토링 요약](../docs/mentoring/mentor-brief-20261031.md), 데이터·모델의 한계는 [Data Card](../docs/data-card.md)와 [Model Card](../docs/model-card.md)를 참조하세요.
+
 담당: A / 주진호 · 데이터·모델·추론·평가. 상태 대조 기준: main `f7c84f27ff964d114cacc8c5c181b4df8b9f766b` (W6 통합 후).
 
 **2026-10-18부터 W4 실제 FastAPI 추론·Validation·E2E 코드가 main에 들어 있습니다.** 실제 실행 증거의 기준 커밋은 A의 고정 [3a8993b 소스](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912/ai)입니다. 모델 가중치와 데이터는 저장소에 없습니다.
