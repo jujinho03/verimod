@@ -2,6 +2,8 @@
 
 상태: **D11 Canonical Profile v1 방향은 ADOPTED**. W2의 shared runtime·Node/browser·독립 golden 검증은 완료 후보 근거이며, FRZ-01과 Team GATE-2는 아직 pending이다. 소유: PROTOCOL. 이 문서는 [결정 등록부](../02-decision-register.md)의 D11 및 [계약 초안 C04](../04-interface-contract-draft.md)를 따른다.
 
+> **2026-10-31 읽기 안내:** 아래 CURRENT/TARGET 구분은 W2 당시 스냅샷입니다. 이후 공유 구현은 [canonical.ts](../../shared/protocol/src/canonical.ts)와 관련 테스트를 확인하세요. 이 안내는 과거 승인 상태나 canonical 규칙을 변경하지 않습니다.
+
 ## 목적과 범위
 
 `ReceiptBody`만 canonical bytes로 만든다. receipt hash, Merkle proof, epoch locator, transaction 정보와 검증 상태는 body 밖 `VerificationBundle`에 둔다. 이 규칙은 AI 판정의 정확성이나 실제 추론 수행을 증명하지 않는다.

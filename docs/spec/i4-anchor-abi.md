@@ -2,6 +2,8 @@
 
 상태: **IMPLEMENTED MINIMAL ABI; semantic freeze/GATE-2는 별도 PENDING.** `backend/contracts/contracts/VeriModAnchor.sol`과 이 ABI의 diff는 0이다. 이 구현은 I1 taxonomy/API consumer semantics의 freeze 또는 actual deployment를 뜻하지 않는다.
 
+> **2026-10-31 읽기 안내:** 위는 W3 당시 구현에 대한 설명입니다. 이후 W4 Epoch 1은 실제 Base Sepolia에 등록됐으며 [공개 증거](../handoffs/w4-anchored-epoch-public/20261020-r01/README.md)에서 별도로 확인할 수 있습니다. W3 당시 freeze 상태를 소급 변경하지 않습니다.
+
 ```solidity
 struct Epoch {
     bytes32 root;

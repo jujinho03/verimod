@@ -1,7 +1,5 @@
 # HTTP 451 VeriMod — 5회차 멘토링 기술 보고 초안
 
-> **이후 경과 — 2026-10-31 확인:** 아래의 Scope Cut 미승인 표기는 10월 30일 초안 작성 시점의 기록입니다. 이후 Option B는 팀장 승인 후 [PR #39](https://github.com/jujinho03/verimod/pull/39)로 main에 반영됐습니다. 현재 멘토링용 요약과 남은 한계는 [5회차 한눈에 보기](../../mentoring/mentor-brief-20261031.md)를 참조하세요. S1·LOCK·TEST에 대한 새 승인은 아닙니다.
-
 기준: 2026-10-30 확인 main `5354ec8e0001077cab013de35e243849e6980d0b` (PR #37 실제 Merge Commit), PR HEAD `16880b457740b99563ecd0e96efbf96fbc107f3c`. 병합 후 main CI [40969214888](https://github.com/jujinho03/verimod/actions/runs/40969214888)은 frontend·backend·contracts SUCCESS다. 발표 직전 최신 main과 CI를 재확인한다.
 
 ## 구현과 검증

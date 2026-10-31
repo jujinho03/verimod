@@ -1,97 +1,68 @@
 # VeriMod
 
-**사용자가 직접 검증하는 AI 모더레이션 프로토콜 · Decide. Prove. Appeal.**
+**User-Verifiable AI Moderation Protocol**
 
-팀 HTTP 451 · BLOCK AI 2026 (Web3 시대의 블록체인 AI 융합 해커톤, 트랙 1)
+사용자가 AI 판정 기록의 무결성을 직접 확인할 수 있도록 돕는 프로토콜
+
+팀 **HTTP 451** · BLOCK AI 2026 트랙 1 · **Decide. Prove. Appeal.**
 
 [![CI](https://github.com/jujinho03/verimod/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/jujinho03/verimod/actions/workflows/ci.yml?query=branch%3Amain)
 
-> **멘토링을 위해 처음 오셨나요?** [5회차 한눈에 보기](docs/mentoring/mentor-brief-20261031.md)에서 성과·한계·질문을 먼저 확인하고, [멘토링 자료 안내](docs/mentoring/README.md)에서 회차별 원문과 추적 근거를 찾아볼 수 있습니다.
+> **문서 기준:** 2026-10-31 확인 main `f6ad522513dcb198d520c70f98c1cc5e98748f51`. 구현과 실행 결과는 서로 다른 근거입니다. GitHub의 최신 SHA·CI와 발표 세션의 실제 결과를 별도로 확인하세요.
 >
-> **문서 읽기:** 날짜와 기준 SHA가 붙은 실행 결과는 해당 시점의 기록입니다. 실제 AI 추론, 과거 W4 공개 앵커, 합성 브라우저 데모는 출처를 구분합니다.
+> **멘토링 자료:** [5회차 기술 요약과 질문](docs/mentoring/mentor-brief-20261031.md) · [1~4회차 권고 추적](docs/mentoring/README.md) · [전체 문서 안내](docs/README.md)
 
-## W7 데모 범위와 출처 (2026-10-30)
+## 문제와 접근
 
-승인 결정 [D-W6A-20261030-01](docs/evidence/w6-w7-core-demo-scope-proposal-20261030.md)의 Option B에서 **새 R01 실제 추론**과 **과거 W4 공개 Receipt의 Base Sepolia 검증**은 별개 사례입니다. 기본 브라우저 Lifecycle 및 Appeal/Review는 합성 데모이며 실제 운영 이의제기 백엔드는 Post-MVP입니다. 새 추론이 기존 W4 Epoch에 앵커됐다는 주장이 아닙니다.
+플랫폼이 AI 판정으로 콘텐츠를 제한할 때 사용자는 판정의 이유와 이후 기록이 바뀌지 않았는지 확인하기 어렵습니다. VeriMod는 판정에 대한 **Decision Receipt**를 발급하고, 그 해시의 Merkle 포함 증명과 공개된 Epoch 기준점을 대조해 발급 후 기록 무결성을 검증합니다.
 
-W6는 수용된 위험을 동반한 조건부 종료이며 원래 Engineering Exit는 PARTIAL입니다. E6의 연속 BASE 10회는 NOT_MET, 실제 Hardhat LOCAL은 NOT_VERIFIED, 물리 모바일은 NOT_EXECUTED입니다. S1은 PENDING_APPROVAL, LOCK은 NOT_EXECUTED, TEST는 SEALED입니다. 480초 리허설과 전체 녹화는 실제 완료·검증 전 별도로 확인합니다. 과거 F의 rehash·복구 보고는 [공개 요약](docs/evidence/w6-f/20261029/README.md)에 기록돼 있으나 원본 private 로그의 독립 검증 한계가 있습니다. [심사위원용 실행 안내](docs/08-submission-guide.md)에서 실제 모드와 재현 경로를 확인하세요.
+| 역할 | 담당하는 일 | 보장하지 않는 일 |
+| --- | --- | --- |
+| AI 및 정책 | R01 모델이 한국어 콘텐츠를 분류하고 점수를 제공합니다. 별도 정책 계층이 조치를 결정합니다. | AI 판정의 정답성·공정성이나 보정된 확률을 보장하지 않습니다. |
+| Receipt·블록체인 | Receipt commitment와 Merkle root를 이용해 발급된 기록의 사후 무결성을 대조합니다. | 실제 특정 모델 실행, 최초 발급자의 정직성, 전체 기록의 완전성 또는 L1 finality를 증명하지 않습니다. |
+| 사용자 화면 | 판정·Receipt·검증과 합성 이의제기 흐름을 보여줍니다. | 합성 Appeal/Review는 실제 운영 이의제기 백엔드가 아닙니다. |
 
-## 한눈에 보기
+원문·salt·개인정보는 온체인에 올리지 않습니다.
 
-**문제.** 플랫폼이 AI로 게시물을 제한할 때, 이용자는 판정 이유를 받더라도 그 기록이 나중에 바뀌었는지 플랫폼 밖에서 확인할 방법이 없습니다.
-
-**해결 방향.** VeriMod는 AI 판정의 **판정 영수증(Decision Receipt)** 과 영수증 묶음의 지문(Merkle root)을 통해 공개 기준점과 대조합니다. W4에서는 기존 영수증 묶음을 **공개 블록체인(Base Sepolia)** 에 고정했습니다. 이용자는 받은 영수증을 공개 기준점과 직접 대조해, 판정 기록이 발급 후 바뀌지 않았는지 스스로 확인하고 이의제기할 수 있습니다.
-
-| VeriMod가 확인해 주는 것 | VeriMod가 주장하지 않는 것 |
-| --- | --- |
-| 받은 영수증이 블록체인에 고정된 기록과 일치하는지 | AI 판정이 객관적으로 옳은지 |
-| 영수증의 해시·포함 증명이 변조됐는지 | 실제로 그 모델이 실행됐는지 |
-| 어떤 모델·정책 버전으로 판정했는지 (hash로 결합) | 발급자가 처음부터 진실하게 기록했는지 |
-
-블록체인에는 최소 정보(epoch 번호, Merkle root, 건수, 버전)만 올립니다. 게시물 원문, salt, 개인정보는 올리지 않습니다.
-
-## W4 당시 동작 흐름과 실행 기록
+## 시스템 구성
 
 ```mermaid
 flowchart LR
-  A[한국어 게시물] --> B[AI 판정<br/>KLUE RoBERTa]
-  B --> C[정책 적용<br/>허용/검토/제한]
-  C --> D[판정 영수증 발급<br/>SQLite 저장]
-  D --> E[영수증 묶음 고정<br/>Merkle Epoch]
-  E --> F[블록체인 등록<br/>Base Sepolia]
-  F --> G[이용자 브라우저에서<br/>독립 검증]
-  classDef done fill:#d8f3dc,stroke:#2d6a4f,color:#1b4332
-  class A,B,C,D,E,F,G done
+  A["한국어 입력"] --> B["R01 모델 추론"]
+  B --> C["provisional 정책"]
+  C --> D["Decision Receipt"]
+  D --> E["Merkle proof / Epoch"]
+  E --> F["Base Sepolia 기준점"]
+  F --> G["브라우저 무결성 검증"]
 ```
 
-모든 단계를 실제 모델·실제 데이터·실제 Base Sepolia로 실행했습니다(2026-10-20).
+이 도식은 구성 요소 간 관계를 나타냅니다. **W7의 신규 R01 추론·발급과 과거 W4 Epoch 1 검증은 별개 사례**입니다. 신규 Receipt가 W4 앵커에 포함된 하나의 새로운 전체 거래라고 주장하지 않습니다.
 
-## 현재 진행 상황 (2026-10-20)
+## 구현 및 검증 현황
 
-| 단계 | 상태 | 설명 |
+| 범위 | 확인된 내용 | 한계 |
 | --- | --- | --- |
-| AI 모델 학습·평가 | 완료 | BEEP! 한국어 혐오표현 데이터, VALIDATION Macro-F1 0.6525 |
-| 실제 추론 API | 완료 | 학습한 모델로 실제 추론하는 FastAPI 서비스 |
-| 판정 영수증 발급 | 완료 | 실제 추론 결과로 영수증 2건 발급, 실패 시 발급하지 않음(17개 실패 시나리오 통과) |
-| 영수증 묶음 고정 | 완료 | Epoch 1에 영수증 2건을 고정, 독립 재계산으로 root 일치 확인 |
-| 스마트 컨트랙트 | 배포 완료 | [Base Sepolia 컨트랙트](https://sepolia.basescan.org/address/0xd17bA590b23E984e3F3408bcdC3529BE9868EC50) |
-| 두 노트북 간 보안 연결 | 완료 | 송신 노트북 → 원본 DB 호스트 사설 SSH, 허용된 동작만 가능함을 실제 확인 |
-| 블록체인에 Epoch 등록 | **완료** | [tx `0x175b3c1a…7286`](https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286), 블록 48,358,039. 송신 전에 원본 DB에 먼저 기록 |
-| 원본 DB 확정 | **완료** | 12회 이상 확인·이벤트·getter 검증 후 CONFIRMED와 확인 증거 기록 |
-| 이용자 브라우저 독립 검증 | **완료** | 실제 브라우저·공개 RPC로 정상 VALID, 변조 3종 탐지, 불완전 bundle 거부 (7/7) |
+| W4 공개 실증 | 2026-10-20 Base Sepolia Epoch 1에 실제 Receipt 2건을 고정했습니다. W4 GATE-4는 기술 조건 14/14 PASS입니다. | [공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md)는 과거 실행이며 새 W7 거래가 아닙니다. |
+| W7 LIVE 발급 | R01 → Node Backend → 신규 Receipt의 별도 로컬 실행에서 HTTP 201, `PENDING_ANCHOR`가 보고됐습니다. 모델 중단 시 503·미발급과 재기동 후 복구도 확인했습니다. [PR #42 실행 요약](https://github.com/jujinho03/verimod/pull/42) | 신규 Receipt의 proof와 anchor는 null입니다. 매 발표 환경의 재현은 별도 확인이 필요합니다. |
+| AI 평가 | BEEP! Korean HateSpeech의 VALIDATION 1,255건에서 R01 Macro-F1 약 0.6525를 기록했습니다. [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) | 점수는 `UNCALIBRATED`, TEST는 `SEALED`입니다. VALIDATION 결과를 TEST 성능이나 정책 안전성으로 해석하지 않습니다. |
+| GitHub 통합 | [PR #41](https://github.com/jujinho03/verimod/pull/41) 데모 개선과 [PR #42](https://github.com/jujinho03/verimod/pull/42) Backend 의존성 패치가 기준 main에 포함됐습니다. [기준 main CI](https://github.com/jujinho03/verimod/actions/runs/41178415036) 3개 job 성공. | CI 성공은 현장 LIVE RPC, 전체 리허설 또는 운영 안전성 보장이 아닙니다. |
 
-전체 단계 판정(W4 GATE-4)은 **통과(PASS, 기술 조건 14/14)** 입니다. 정책 기준값은 시험용(provisional)이며 팀 확정 전이고, 이번 등록은 테스트넷 시연입니다. 시험 데이터(TEST)는 정책 확정 전까지 봉인해 두었습니다.
+W5 GATE-5와 원래 W6 Engineering Exit는 `PARTIAL`입니다. W6은 수용된 위험을 동반해 조건부 종료됐으며, W7의 발표 범위는 승인된 [Option B 결정](docs/evidence/w6-w7-core-demo-scope-proposal-20261030.md)을 따릅니다.
 
-### W6 통합 현황 (2026-10-29 기준)
+## W4 Base Sepolia 공개 증거
 
-A·F·T의 W6 변경은 main `f7c84f27`에 통합됐고 병합 후 CI가 성공했습니다. [AI-19](docs/evidence/w6-a-ai19-offline/README.md)는 R01의 물리 오프라인 추론 1회 증거입니다. 이 새 추론과 위 W4 Epoch 1의 기존 영수증은 별도 실행이며 새 추론이 온체인에 앵커됐다는 뜻이 아닙니다. [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) · [W6 미완료 및 증거 경계](docs/evidence/w6-a-gap-closure-20261029.md)를 참고하세요.
-
-W6 Engineering Exit은 전체 PASS가 아닙니다. BASE 반복 안정성, 실제 Hardhat LOCAL, 실기기 모바일, 신규 rehash 변조 실측 및 공동 480초 리허설이 남아 있습니다. W4는 시험용 provisional 정책을 사용했으며 S1 등 연구 정책은 승인 대기 중입니다. Model/Policy LOCK은 실행하지 않았고 TEST는 봉인 상태입니다.
-
-## 멘토님께: 먼저 읽을 자료
-
-| 순서 | 자료 | 내용 |
-| --- | --- | --- |
-| 1 | [5회차 멘토링 한눈에 보기](docs/mentoring/mentor-brief-20261031.md) | 프로젝트, 확인된 근거, 한계와 검토 질문 |
-| 2 | [1~4회차 멘토링 자료](docs/mentoring/README.md) | 권고·팀 결정·구현과 원문 확인 범위 |
-| 3 | [W7 심사위원용 실행 안내](docs/08-submission-guide.md) | 실제 추론·공개 검증·변조·합성 모드 구분 |
-| 4 | [W4 공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md) | 과거 실제 등록의 transaction·Receipt·proof |
-| 5 | [전체 문서 안내](docs/README.md) | 주제별 문서와 역사 기록 |
-
-## 구성과 담당
-
-| 경로 | 담당·책임 |
+| 항목 | 값 |
 | --- | --- |
-| [ai/](ai/README.md) | A / 주진호 (팀장): 데이터·모델 학습·추론 API·평가·정책 후보 |
-| [backend/](backend/README.md) | F / 노유신: API·SQLite·영수증 발급·Epoch 고정·확인 절차 |
-| [backend/contracts/](backend/contracts/README.md) | T / 설경민: 스마트 컨트랙트·배포·블록체인 송신 |
-| [frontend/](frontend/) | 서비스 화면과 브라우저 검증기 |
-| [shared/protocol/](shared/protocol/) | 영수증 직렬화·hash·Merkle 공통 규칙 |
-| [docs/](docs/README.md) | 결정 기록·주차별 진행·증빙·멘토링 자료 |
+| 네트워크 | Base Sepolia · chain ID `84532` · Epoch 1 |
+| Transaction | [`0x175b3c1a…b5cc67286`](https://sepolia.basescan.org/tx/0x175b3c1ad237a087984b17b47c0343fedfd314a5eb1c34ba7a22511b5cc67286) |
+| 공개 자료 | [Receipt·proof·anchor와 당시 검증 기록](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md) |
+| 증거 tree | `1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee` |
 
-## 직접 실행해 보기
+L2 확인 수와 L1 finality는 다릅니다. 공개 RPC 오류는 `RPC_UNAVAILABLE`로 표시하며 정상 또는 변조 결과로 바꾸지 않습니다.
 
-브라우저 데모는 합성 점수와 모의 원장으로 동작합니다. 실제 모델 가중치와 원본 DB는 저장소에 없으므로, clone만으로 실제 W4 환경이 구성되지는 않습니다.
+## 데모 및 실행
+
+기본 브라우저 Lifecycle은 **합성 점수·모의 원장**을 사용합니다. W4 공개 Receipt 검증은 승인된 Base Sepolia profile과 읽기 전용 RPC를 사용하는 별도 경로입니다. R01 실제 추론은 고정된 로컬 가중치·tokenizer와 서비스 준비가 필요하며 clone만으로 제공되지 않습니다.
 
 ```sh
 git clone https://github.com/jujinho03/verimod.git
@@ -100,48 +71,35 @@ npm ci
 npm run dev
 ```
 
-터미널에 나온 localhost 주소를 엽니다. 전체 회귀 검사는 저장소 루트에서 `node scripts/check-all.mjs`입니다. [데모 안내](docs/08-submission-guide.md)를 참고하세요.
+로컬 주소에서 화면을 확인합니다. W4 공개 샘플 로딩, `HASH_MISMATCH`, rehash `INVALID_PROOF`, RPC 장애·복구 및 실제 R01 준비는 [심사위원용 실행 안내](docs/08-submission-guide.md)를 따릅니다. 합성 `VALID`는 공개 체인 성공이 아닙니다. 480초 리허설과 전체 녹화는 실제 수행·검증 후에만 완료로 표시합니다.
 
-## 검증 세부 결과
+## 기술 스택과 역할
 
-| 항목 | 결과와 한계 |
-| --- | --- |
-| AI-09 실제 추론 | PASS. 선정 R01 가중치·고정 tokenizer로 실제 forward. 점수는 확률 보정 전(UNCALIBRATED) |
-| AI-21 VALIDATION | PASS. 1,255건, Macro-F1 **0.6524599868976999**, Accuracy **0.6629482071713148** |
-| 실제 A/F E2E | FULL/TRUNCATED 정상 2건, Fail Closed **17/17**, Python/Node 정책 parity **21/21** |
-| 실제 발급·Freeze | Receipt 2건, Epoch 1, version 1, 독립 Merkle·SQLite 재개방 PASS |
-| 원본 DB 상태 | FROZEN, tx_hash=null. 시험 전후 DB 내용 불변 |
-| 실제 T → A SSH status 왕복 | PASS. 공개키 인증·고정 조회만 허용, 셸/PTY/포워딩/SFTP/다른 계정 차단 |
-| F confirmation 회귀 | **192/192 PASS**. 합성 DB/RPC stub 기반이며 실제 체인 검증은 아님 |
-| main 통합 회귀 | frontend 200, browser 1, backend 197, contracts 18, 각 build PASS (CI 통과) |
-| 실제 Epoch 등록 | PASS. tx `0x175b…7286`, 블록 48,358,039, 이벤트·EIP-1898 getter 일치, tx 1건 |
-| 원본 F DB 확정 | PASS. SUBMITTING → SUBMITTED → CONFIRMED, 확인 339회, 확인 증거 원자적 기록 |
-| 브라우저 실제 검증 | PASS 7/7. VALID 2, HASH_MISMATCH, INVALID_PROOF, UNTRUSTED_ANCHOR 2, PENDING_ANCHOR |
-
-실제 고정된 Epoch 1 root:
-
-```text
-0x32bf54ab91c8727e476bd4aaa13dacc6af4eaa8273656317ce7f331e29a29f82
-```
-
-AI는 `hate / offensive / none` 3개 클래스를 예측하고, 외부에는 `hate / offensive` 점수만 냅니다. `none`이 곧 허용(ALLOW)을 뜻하지 않으며, 허용/검토/제한은 별도 정책이 결정합니다.
-
-[실행 근거와 수치 해설](docs/evidence/w4-a-actual-frozen-epoch.md) · [F 검사 범위](docs/evidence/w4-f-confirmation/20261017/README.md) · [운영 절차와 승인 구분](docs/handoffs/W4-AFT-operations.md)
-
-## 통합한 소스
-
-2026-10-18에 세 담당의 W4 작업을 main에 병합했습니다. 아래 고정 커밋은 실제 실행 증거가 가리키는 기준입니다.
-
-| 영역 | 고정 커밋 | 범위 |
+| 영역 | 주요 구성 | 담당 |
 | --- | --- | --- |
-| W3 공동 통합 | `1401e03931f76ed8405454081adb9478339bae67` | 실제 모델 출력 fixture, backend 발급, 공유 규격 |
-| A: AI·평가·연동 | [`3a8993b`](https://github.com/jujinho03/verimod/tree/3a8993bfaf36642d2a67d0a147da9086008bd912) | 실제 추론, VALIDATION 평가, 정책 비교/parity, A/F E2E |
-| F: 서비스·검증 | [`c1f750e`](https://github.com/jujinho03/verimod/tree/c1f750ea3752037d749324f1535df051ce6b37f9) | HTTP adapter, Manifest 검증, SQLite Freeze·durable ACK·confirmation |
-| T: 프로토콜·체인 | [`7534907`](https://github.com/jujinho03/verimod/tree/7534907fa3ad66cc6ed29cfbee2efd8c2c75369e) | Issuer·승인 프로필, F ACK 후 송신, SUBMITTED/CONFIRMED 분리 |
+| AI | Python · PyTorch · KLUE RoBERTa · FastAPI | A / 주진호 |
+| 서비스 | Node.js · TypeScript · Express · SQLite | F / 노유신 |
+| 프로토콜·체인 | TypeScript · Solidity · Hardhat · Base Sepolia | T / 설경민 |
+| 사용자 화면 | React · Vite · 브라우저 검증기 | F / 노유신 |
+| 공통 규칙 | [shared/protocol](shared/protocol/README.md)의 Receipt·hash·Merkle 구현 | A/F/T |
 
-## 신뢰와 공개 범위
+## 문서와 멘토링
 
-- 원문·salt·private package·서명키·DB 경로는 공개하지 않습니다.
-- 실제 두 영수증의 proof/anchor는 원본 DB가 12회 이상 확인 후 CONFIRMED가 된 뒤에만 공개했습니다(2026-10-20). 그 전 동결 시점 자료(proof/anchor null)도 보존합니다.
-- 해시·Merkle·앵커는 AI의 정확성·공정성, 실제 모델 실행, 전체 기록의 완전성을 증명하지 않습니다.
-- 과거 실패 증거와 W3 원본은 지우지 않고 보존합니다.
+| 목적 | 자료 |
+| --- | --- |
+| 현재 상태·승인 범위 | [현재 상태](docs/03-current-status.md) · [결정 기록](docs/02-decision-register.md) |
+| 시스템·계약 | [프로토콜 명세](docs/spec/README.md) · [모듈 구성](docs/README.md) |
+| 데이터·모델 | [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) |
+| 실행·검증 | [증거 안내](docs/evidence/README.md) · [주차별 진행](docs/progress/README.md) |
+| 멘토링 | [회차별 자료·추적](docs/mentoring/README.md) · [5회차 질문](docs/mentoring/mentor-brief-20261031.md) |
+| 데모 | [실행 안내](docs/08-submission-guide.md) · [W7 인계](docs/handoffs/W7-core-demo-approved-handoff-20261030.md) |
+
+## 남은 조건과 Post-MVP
+
+- S1 연구 정책은 `PENDING_APPROVAL`, Model/Policy LOCK은 `NOT_EXECUTED`, TEST는 `SEALED`입니다.
+- 기존 보고 기준 BASE 연속 10회 성공은 `NOT_MET`입니다. 실제 Hardhat LOCAL과 물리 모바일은 각각 `NOT_VERIFIED`, `NOT_EXECUTED`입니다.
+- RPC backup 범위 제한, chain 확인과 데이터 요청 사이 TOCTOU, T 전문 보안 리뷰 및 개발 의존성 보안 후속이 남아 있습니다.
+- CNU MATE 제출·접수는 `NOT_VERIFIED`입니다. 전체 480초 리허설과 녹화는 실제 결과 확인 전 완료로 기록하지 않습니다.
+- 실제 Appeal/Review 운영 백엔드, 신규 연구 정책 적용, 새 Epoch와 외부 댓글 분석은 별도 결정·검증이 필요한 후속 범위입니다.
+
+[기여 안내](CONTRIBUTING.md) · [전체 문서](docs/README.md) · [GitHub Actions](https://github.com/jujinho03/verimod/actions)
