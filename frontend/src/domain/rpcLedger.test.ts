@@ -17,6 +17,93 @@ const profile: ApprovedTrustProfile = {
 }
 
 describe('FE-02 approved Base Sepolia RPC reader', () => {
+  it('aborts the in-flight fetch and does not try the backup endpoint', async () => {
+    const controller = new AbortController()
+    let requestSignal: AbortSignal | null = null
+    const fetcher = vi.fn((_url: string | URL | Request, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+      requestSignal = init?.signal as AbortSignal
+      requestSignal.addEventListener('abort', () => reject(requestSignal?.reason), { once: true })
+    })) as unknown as typeof fetch
+    const pending = createPublicRpcLedger({ ...profile, rpc_urls: ['https://primary.example', 'https://backup.example'] }, fetcher, controller.signal).blockNumber()
+    expect(requestSignal).not.toBeNull()
+    controller.abort()
+    await expect(pending).rejects.toMatchObject({ name: 'AbortError' })
+    expect((requestSignal as unknown as AbortSignal).aborted).toBe(true)
+    expect(fetcher).toHaveBeenCalledTimes(1)
+  })
+
+  it('ignores a non-cooperative late response after user cancellation and never starts fallback', async () => {
+    const controller = new AbortController()
+    let release!: (response: Response) => void
+    const fetcher = vi.fn(() => new Promise<Response>((resolve) => { release = resolve })) as unknown as typeof fetch
+    const pending = createPublicRpcLedger({ ...profile, rpc_urls: ['https://primary.example', 'https://backup.example'] }, fetcher, controller.signal).blockNumber()
+    controller.abort()
+    release(new Response(JSON.stringify({ result: '0x14a34' })))
+    await expect(pending).rejects.toMatchObject({ name: 'AbortError' })
+    expect(fetcher).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps the five-second request timeout and does not accept a late timeout response', async () => {
+    vi.useFakeTimers()
+    try {
+      let release!: (response: Response) => void
+      const fetcher = vi.fn(() => new Promise<Response>((resolve) => { release = resolve })) as unknown as typeof fetch
+      const pending = createPublicRpcLedger(profile, fetcher).blockNumber()
+      const outcome = expect(pending).rejects.toBeInstanceOf(RpcUnavailableError)
+      await vi.advanceTimersByTimeAsync(5000)
+      release(new Response(JSON.stringify({ result: '0x14a34' })))
+      await outcome
+      expect(fetcher).toHaveBeenCalledTimes(1)
+    } finally { vi.useRealTimers() }
+  })
+
+  it('treats request timeout as provider failure and allows the approved backup', async () => {
+    vi.useFakeTimers()
+    try {
+      const external = new AbortController()
+      const calls: string[] = []
+      const fetcher = (async (url: string | URL | Request, init?: RequestInit) => {
+        calls.push(String(url))
+        if (String(url).includes('primary')) return new Promise<Response>((_resolve, reject) => {
+          init?.signal?.addEventListener('abort', () => reject(init.signal?.reason), { once: true })
+        })
+        const request = JSON.parse(String(init?.body)) as { method: string }
+        return new Response(JSON.stringify({ result: request.method === 'eth_chainId' ? '0x14a34' : '0x7a' }))
+      }) as typeof fetch
+      const pending = createPublicRpcLedger({ ...profile, rpc_urls: ['https://primary.example', 'https://backup.example'] }, fetcher, external.signal).blockNumber()
+      await vi.advanceTimersByTimeAsync(5000)
+      await expect(pending).resolves.toBe(122)
+      expect(external.signal.aborted).toBe(false)
+      expect(calls).toEqual(['https://primary.example', 'https://backup.example', 'https://backup.example'])
+    } finally { vi.useRealTimers() }
+  })
+
+  it('stops a running full log scan on cancellation without requesting another window or backup', async () => {
+    const controller = new AbortController()
+    const methods: string[] = []
+    let logStarted!: () => void
+    const started = new Promise<void>(resolve => { logStarted = resolve })
+    const fetcher = (async (_url: string | URL | Request, init?: RequestInit) => {
+      const request = JSON.parse(String(init?.body)) as { method: string; params: Array<Record<string, string>> }
+      methods.push(request.method)
+      let result: unknown
+      if (request.method === 'eth_chainId') result = '0x14a34'
+      else if (request.method === 'eth_call' && request.params[0].data === '0x8c72c54e') result = `0x${'0'.repeat(24)}${publisher.slice(2)}`
+      else if (request.method === 'eth_call') result = `${root}${w(3n)}${w(1n)}`
+      else if (request.method === 'eth_blockNumber') result = '0x20000'
+      else if (request.method === 'eth_getLogs') {
+        logStarted()
+        return new Promise<Response>((_resolve, reject) => init?.signal?.addEventListener('abort', () => reject(init.signal?.reason), { once: true }))
+      } else throw new Error('unexpected RPC method')
+      return new Response(JSON.stringify({ result }))
+    }) as typeof fetch
+    const pending = createPublicRpcLedger({ ...profile, deployment_block: 0, rpc_urls: ['https://primary.example', 'https://backup.example'] }, fetcher, controller.signal).getEpoch(contract, '1')
+    await started
+    controller.abort()
+    await expect(pending).rejects.toMatchObject({ name: 'AbortError' })
+    expect(methods).toEqual(['eth_chainId', 'eth_call', 'eth_chainId', 'eth_call', 'eth_chainId', 'eth_blockNumber', 'eth_chainId', 'eth_getLogs'])
+  })
+
   it('W5 keeps two endpoint failures pending and supplies bounded abort signals', async () => {
     const fetcher = vi.fn(async (_url: string | URL | Request, init?: RequestInit): Promise<Response> => {
       expect(init?.signal).toBeInstanceOf(AbortSignal)
