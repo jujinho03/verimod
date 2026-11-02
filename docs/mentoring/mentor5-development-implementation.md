@@ -1,5 +1,13 @@
 # Mentor 5 기술 개발 및 검증 기록
 
+## PR #45 최종 안정화 기록
+
+기준 PR HEAD `b3b6441f028a4bf4c262ad0803cb6e4f9067b42e`에서 [PR CI 41378670151](https://github.com/jujinho03/verimod/actions/runs/41378670151)은 성공했지만, 같은 HEAD의 [push CI 41378665014](https://github.com/jujinho03/verimod/actions/runs/41378665014)는 브라우저 테스트의 `clock.pauseAt: Cannot fast-forward to the past`로 실패했다. 성공한 PR CI가 실패한 push CI를 대체하지 않는다.
+
+가상 시계는 `install` 후에도 진행되므로 같은 시각에 `pauseAt`을 호출하면 이미 지난 시각으로 되돌리려는 경합이 생긴다. 테스트 수정 커밋 `651b109`에서 두 테스트에 대해 페이지 로드 전에 목표보다 한 시간 이른 시각으로 시계를 설치하고 페이지 준비 후 목표 시각에 정지하도록 했다. 24초 직전·경과와 계속 기다린 뒤 결과를 확인하는 검사는 유지한다. [Playwright Clock 문서](https://playwright.dev/docs/api/class-clock#clock-pause-at)는 목표 시각보다 이른 시간으로 설치한 뒤 페이지 로드 후 정지하는 방식을 안내한다.
+
+`npx playwright test --config=playwright.w7-w4-shortcut.config.ts --repeat-each=5 --workers=1`은 12개 시나리오 각각 5회, 총 **60 PASS / 0 SKIP**이었고 전체 `npm run test:browser`는 **14 PASS / 0 SKIP**이었다. 로컬 최초 Frontend 단위 전체 검사는 여러 패키지 및 브라우저 회귀를 동시에 실행하는 중 262 PASS / 2 timeout FAIL이었고, 분리한 재실행 `npm test -- --maxWorkers=2`는 **264 PASS / 0 SKIP**이었다. Backend는 160 PASS / 53 SKIP, 격리 Hardhat은 18 PASS였다. 새 HEAD의 push·PR CI는 해당 PR에서 확인한다. Codex 코드 감사는 독립 인간 리뷰가 아니다. R01 발급 raw JSON 및 격리 DB의 ID·hash·건수는 대조했으며, 당시 health 응답은 별도 관측 보고이고 raw 응답의 독립 확인은 미완료다. [발급 증거](../evidence/mentor5-w7-live-receipt-verification.md).
+
 ## 2026-11-02 후속 실행 및 구현
 
 - **실제 R01 발급:** 기준 HEAD `e540c7a1e26e445f64cda9f676059479b2c4830f`에서 별도 검증기 변경이 존재하는 worktree로 실행했다. 발급 관련 소스는 기준 HEAD와 같았다. 격리 DB에서 브라우저→Node→고정 artifact 검증을 거친 R01의 최초 발급은 HTTP 201 / `PENDING_ANCHOR`, 모델 중단은 HTTP 503 / `INFERENCE_UNAVAILABLE` 및 receipts `1→1`, 재기동 후 발급은 HTTP 201 및 `1→2`였다. 두 GET endpoint는 각 발급에 대해 200이었다. 두 신규 영수증과 W4 원본 두 건, manifest 재계산 및 backend 상수의 모델·정책 해시는 각각 MATCH. [실행·ID·hash](../evidence/mentor5-w7-live-receipt-verification.md). 새 실행이며 PR #42의 과거 영수증을 소급 확인한 것은 아니다.

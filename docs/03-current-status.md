@@ -2,6 +2,8 @@
 
 > **기준:** 2026-10-31 확인 main `f6ad522513dcb198d520c70f98c1cc5e98748f51` · [main CI 41178415036](https://github.com/jujinho03/verimod/actions/runs/41178415036) Frontend·Backend·Contracts SUCCESS. 코드, 기록된 실행 및 승인 상태는 아래와 같이 구분합니다.
 
+> **2026-11-02 후속:** 격리 환경에서 실제 R01 신규 발급·장애·복구와 W4·신규 영수증의 모델·정책 해시 일치를 확인했고, [PR #45](https://github.com/jujinho03/verimod/pull/45) 브랜치에 검증 지연 안내와 요청 취소를 구현했습니다. [개발 결과](mentoring/mentor5-development-implementation.md) · [기술 인계](handoffs/mentor5-technical-demo-handoff.md). main 반영 여부와 해당 SHA의 CI는 PR에서 확인합니다. 아래 표의 기준 시점은 변경하지 않습니다.
+
 ## 현재 상태 요약 — W7
 
 | 항목 | 상태·근거 | 해석 범위 |

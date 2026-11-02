@@ -5,7 +5,7 @@
 ## 실행 근거와 환경
 
 - 작업 기준 HEAD `e540c7a1e26e445f64cda9f676059479b2c4830f`, Windows 11, Node v24.10.0, Python 3.12.14, Playwright 1.63.0, headless Chromium. 실행 중 별도 검증기 후속 변경 때문에 worktree는 dirty였다. 본 발급에 사용한 Node backend `src`, Python inference 소스와 실행 스크립트, `CheckPage.tsx`, frontend API 및 Vite 설정은 기준 HEAD 대비 변경되지 않았음을 `git diff --name-only`로 확인했다. 따라서 완성될 후속 PR HEAD 전체가 이 실행 시점에 존재했다고 주장하지 않는다.
-- 로컬 R01 Python `/healthz`는 최초·재기동 후 모두 HTTP 200, `ready: true`, run `AI07-BL-KLUE-RB-45126-R01`, CPU를 반환했다. 로더는 선정된 가중치 및 고정 config·manifest digest를 검증하고 고정 revision tokenizer를 로컬에서 불러온다. Node `/api/health`는 HTTP 200이다. 이는 실행 로그·코드에 근거한 관측이며 추론 실행의 암호학적 증명은 아니다.
+- 실행자는 로컬 R01 Python `/healthz`가 최초·재기동 후 모두 HTTP 200, `ready: true`, run `AI07-BL-KLUE-RB-45126-R01`, CPU를 반환했고 Node `/api/health`가 HTTP 200이었다고 당시 수동 관측을 보고했다. 브라우저 기록 스크립트는 health endpoint를 호출하지 않았으므로 원시 health 응답의 독립 확인은 **NOT_VERIFIED**다. 발급 결과의 상태·ID·hash는 별도 원시 JSON과 격리 DB를 대조했다. 코드상 로더는 선정된 가중치 및 고정 config·manifest digest를 검증하고 고정 revision tokenizer를 로컬에서 불러온다. 이 실행 관측과 코드 경로는 추론 실행의 암호학적 증명이 아니다.
 - 실제 브라우저 `/check`의 LIVE 모드에서 무해한 합성 문장을 입력해 Vite proxy → Node `/api/decisions` → 로컬 Python R01 `/infer` → Node provisional 정책 및 발급 경로를 실행했다. 해당 경로는 fixture 또는 mock 응답이 아니다. 사용한 provisional 정책은 로컬 W4 E2E 범위이며 S1 승인이나 LOCK이 아니다.
 - 각 행의 시각은 민감정보를 제외한 로컬 결과 기록 파일의 UTC 기록 시각으로, 정확한 HTTP 시작 시각이나 독립 타임스탬프가 아니다. 입력 원문·salt·인증정보·로컬 비공개 경로·DB 및 가중치는 공개하지 않았다. 임시 DB는 비공개 위치에 남겼고 기존 W4 DB를 열지 않았다.
 

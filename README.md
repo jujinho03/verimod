@@ -12,6 +12,8 @@
 >
 > **멘토링 자료:** [5회차 기술 요약과 질문](docs/mentoring/mentor-brief-20261031.md) · [1~4회차 권고 추적](docs/mentoring/README.md) · [전체 문서 안내](docs/README.md)
 
+> **2026-11-02 후속 근거:** 실제 R01 신규 발급·장애·복구와 W4의 모델·정책 해시 대조, 24초 안내 및 검증 취소는 [PR #45](https://github.com/jujinho03/verimod/pull/45) 브랜치 기준의 [개발 기록](docs/mentoring/mentor5-development-implementation.md)과 [기술 인계](docs/handoffs/mentor5-technical-demo-handoff.md)를 확인하세요. main 반영 여부와 최신 CI는 PR에서 별도로 확인합니다.
+
 ## 문제와 접근
 
 플랫폼이 AI 판정으로 콘텐츠를 제한할 때 사용자는 판정의 이유와 이후 기록이 바뀌지 않았는지 확인하기 어렵습니다. VeriMod는 판정에 대한 **Decision Receipt**를 발급하고, 그 해시의 Merkle 포함 증명과 공개된 Epoch 기준점을 대조해 발급 후 기록 무결성을 검증합니다.
@@ -43,7 +45,7 @@ flowchart LR
 | 범위 | 확인된 내용 | 한계 |
 | --- | --- | --- |
 | W4 공개 실증 | 2026-10-20 Base Sepolia Epoch 1에 실제 Receipt 2건을 고정했습니다. W4 GATE-4는 기술 조건 14/14 PASS입니다. | [공개 증거](docs/handoffs/w4-anchored-epoch-public/20261020-r01/README.md)는 과거 실행이며 새 W7 거래가 아닙니다. |
-| W7 LIVE 발급 | R01 → Node Backend → 신규 Receipt의 별도 로컬 실행에서 HTTP 201, `PENDING_ANCHOR`가 보고됐습니다. 모델 중단 시 503·미발급과 재기동 후 복구도 확인했습니다. [PR #42 실행 요약](https://github.com/jujinho03/verimod/pull/42) | 신규 Receipt의 proof와 anchor는 null입니다. 매 발표 환경의 재현은 별도 확인이 필요합니다. |
+| W7 LIVE 발급 | 2026-11-02 격리 환경에서 실제 R01 → Node Backend → 신규 Receipt 2건과 모델 장애·복구를 확인했습니다. [실행 근거](docs/evidence/mentor5-w7-live-receipt-verification.md) | 신규 Receipt는 `PENDING_ANCHOR`, proof·anchor는 null입니다. W4와 별도 실행이며 새 환경에서의 재현은 별도 확인이 필요합니다. |
 | AI 평가 | BEEP! Korean HateSpeech의 VALIDATION 1,255건에서 R01 Macro-F1 약 0.6525를 기록했습니다. [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) | 점수는 `UNCALIBRATED`, TEST는 `SEALED`입니다. VALIDATION 결과를 TEST 성능이나 정책 안전성으로 해석하지 않습니다. |
 | GitHub 통합 | [PR #41](https://github.com/jujinho03/verimod/pull/41) 데모 개선과 [PR #42](https://github.com/jujinho03/verimod/pull/42) Backend 의존성 패치가 기준 main에 포함됐습니다. [기준 main CI](https://github.com/jujinho03/verimod/actions/runs/41178415036) 3개 job 성공. | CI 성공은 현장 LIVE RPC, 전체 리허설 또는 운영 안전성 보장이 아닙니다. |
 
@@ -92,7 +94,7 @@ npm run dev
 | 데이터·모델 | [Data Card](docs/data-card.md) · [Model Card](docs/model-card.md) |
 | 실행·검증 | [증거 안내](docs/evidence/README.md) · [주차별 진행](docs/progress/README.md) |
 | 멘토링 | [회차별 자료·추적](docs/mentoring/README.md) · [5회차 질문](docs/mentoring/mentor-brief-20261031.md) |
-| 데모 | [실행 안내](docs/08-submission-guide.md) · [W7 인계](docs/handoffs/W7-core-demo-approved-handoff-20261030.md) |
+| 데모 | [실행 안내](docs/08-submission-guide.md) · [최신 기술 인계](docs/handoffs/mentor5-technical-demo-handoff.md) · [W7 결정 인계](docs/handoffs/W7-core-demo-approved-handoff-20261030.md) |
 
 ## 남은 조건과 Post-MVP
 
