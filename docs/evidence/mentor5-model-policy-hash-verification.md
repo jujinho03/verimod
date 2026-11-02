@@ -1,5 +1,7 @@
 # Mentor 5 — 모델·정책 해시 대조
 
+> **후속 실행 — 2026-11-02 02:31–02:33 UTC:** 실제 로컬 R01 경로로 새 발급한 두 Receipt의 모델·정책 hash가 아래 W4 두 Receipt 및 재계산된 manifest·backend 상수와 **MATCH**했다. 모델 중단 시 503과 격리 DB 미발급, 재기동 후 201도 관측했다. 이는 이전 PR #42에서 보고한 원본 Receipt를 확보한 것은 아니다. [새 실행·개별 값](mentor5-w7-live-receipt-verification.md). 아래 `NOT_VERIFIED`는 이 후속 실행 전의 역사적 상태로 보존한다.
+
 기준 코드 `7a6aa2ad27ad58d0454b39f28a07d069ac4e93b1`; 관측 2026-11-02. 이 문서는 과거 W4 증거를 수정하지 않는다. 원본을 읽고 계산한 결과와 새 LIVE 실행의 확인 여부를 구분한다.
 
 | 출처 | 모델 manifest hash | 정책 manifest hash | 결과 |

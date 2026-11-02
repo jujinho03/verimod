@@ -6,7 +6,7 @@
 
 ## 증거 수준과 현재 진입점
 
-2026-11-02 후속 실행: [모델·정책 해시](mentor5-model-policy-hash-verification.md), [RPC 기준 실측](mentor5-rpc-baseline.md), [공개 RPC 변조 실측](mentor5-rpc-invalid-proof.md), [검증 순서](mentor5-verification-order-regression.md), [장애·복구](mentor5-failure-recovery-verification.md), [시각·Merkle](mentor5-timestamp-and-merkle-review.md). 실행별 범위와 미검증 항목을 각각 확인하세요.
+2026-11-02 후속 실행: [실제 R01 신규 발급·해시 대조](mentor5-w7-live-receipt-verification.md), [모델·정책 해시](mentor5-model-policy-hash-verification.md), [RPC 기준 실측](mentor5-rpc-baseline.md), [신규 reader 실측](mentor5-followup-rpc-valid.md), [공개 RPC 변조 실측](mentor5-rpc-invalid-proof.md), [검증 순서](mentor5-verification-order-regression.md), [장애·복구](mentor5-failure-recovery-verification.md), [시각·Merkle](mentor5-timestamp-and-merkle-review.md). 실행별 범위와 미검증 항목을 각각 확인하세요.
 
 | 수준 | 의미 | 자료 |
 | --- | --- | --- |

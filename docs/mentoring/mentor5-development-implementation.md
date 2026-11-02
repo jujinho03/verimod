@@ -1,5 +1,26 @@
 # Mentor 5 기술 개발 및 검증 기록
 
+## 2026-11-02 후속 실행 및 구현
+
+- **실제 R01 발급:** 기준 HEAD `e540c7a1e26e445f64cda9f676059479b2c4830f`에서 별도 검증기 변경이 존재하는 worktree로 실행했다. 발급 관련 소스는 기준 HEAD와 같았다. 격리 DB에서 브라우저→Node→고정 artifact 검증을 거친 R01의 최초 발급은 HTTP 201 / `PENDING_ANCHOR`, 모델 중단은 HTTP 503 / `INFERENCE_UNAVAILABLE` 및 receipts `1→1`, 재기동 후 발급은 HTTP 201 및 `1→2`였다. 두 GET endpoint는 각 발급에 대해 200이었다. 두 신규 영수증과 W4 원본 두 건, manifest 재계산 및 backend 상수의 모델·정책 해시는 각각 MATCH. [실행·ID·hash](../evidence/mentor5-w7-live-receipt-verification.md). 새 실행이며 PR #42의 과거 영수증을 소급 확인한 것은 아니다.
+- **24초 안내와 취소:** 코드 커밋 `ee64cee`. 24초는 강제 종료가 아닌 안내다. 실행별 AbortController를 사용해 사용자 중단, 입력·profile 변경, 페이지 이탈 시 이전 RPC fetch와 후속 endpoint 재시도를 중단한다. 늦은 결과는 표시하지 않으며 중단 자체는 검증 결과가 아니다. 개별 RPC 5초 timeout은 유지한다. 계속 기다리면 24초 이후에도 정상 결과를 받을 수 있고, 공개 증거는 사용자가 명시적으로 선택한다. 제어된 Chromium native fetch와 loopback 서버에서 연결 종료를 검증했으며 공개 RPC 네트워크 중단 실측은 아니다.
+- **실제 공개 RPC:** 후속 reader에서 원본 `VALID` 1회, 22,910ms / 224요청. [별도 실측](../evidence/mentor5-followup-rpc-valid.md). W4 변조 `INVALID_PROOF`는 아래 최초 측정, 장애·복구 및 취소 경로는 통제된 테스트로 구분한다. 단일 표본으로 최적화 달성이나 24초 보장을 주장하지 않는다.
+- **보호 경계:** W4 공개 증거 tree `1911f46c9e19000d25a7ffb5f86f1c2ba781a1ee`를 유지한다. 전역 로그 검색·chain ID·TrustProfile을 완화하지 않았고, 새 온체인 송신·배포·기존 DB 변경·TEST 개봉·PPT/대본 수정은 하지 않았다.
+
+| 후속 검증 | 결과 |
+| --- | --- |
+| 실제 신규 Receipt verifier | PASS: 두 신규 bundle을 재구성해 `PENDING_ANCHOR`, 원장 호출 0. 발급 API의 상태와 별도 확인. |
+| Frontend `npm test -- --maxWorkers=2` | PASS: 264 passed, SKIP 0. |
+| Frontend `npm run test:browser` | PASS: 14 passed, SKIP 0. 공개 RPC 응답은 mock이며 native fetch 중단은 loopback 연결에서 관측. |
+| Frontend `npm run lint`, `npm run build` | PASS: 기존 lint 경고 2건. |
+| Backend `npm test`, `npm run typecheck`, `npm run build` | PASS: 테스트 160 passed, 53 skipped; SKIP 별도. |
+| Contracts `npm test`, `npm run build` | PASS: 격리 Hardhat 테스트 18 passed. |
+| 공개 RPC 실제 장애 복구·BASE 10회 연속 | NOT_VERIFIED: 통제된 장애 복구 테스트와 구분한다. |
+
+신규 의존성을 설치하거나 취약점 일괄 업그레이드를 수행하지 않았다. 아래 npm audit 수치는 이전 설치 당시 기록이다. Git의 기존 CRLF blob을 보존했으므로 변경 공백 검사는 `git -c core.whitespace=cr-at-eol diff --check`로 실시한다. CI 및 최종 커밋은 PR에서 확인한다.
+
+아래는 **후속 작업 전 PR #45의 역사적 실행 기록**이며 당시의 W7 미확보·취소 미구현 및 테스트 결과를 소급 변경하지 않는다. 현재 후속 검증 결과는 위와 최신 PR CI를 따른다.
+
 기록일 2026-11-02. 개발 책임·의사결정: 주진호(A), 이번 작업 단독 수행. 과거 A/F/T 분담은 이력으로만 유지한다. 기준 `origin/main`은 `7a6aa2ad27ad58d0454b39f28a07d069ac4e93b1`, 당시 [CI 41189057863](https://github.com/jujinho03/verimod/actions/runs/41189057863)은 성공이다. 이 CI는 이 브랜치의 변경을 검증하지 않는다. 코드·회귀 커밋은 `b8a0168`; 문서 커밋과 새 CI는 브랜치의 `git log`와 PR에서 확인한다. 교수님의 회신 원문은 첨부에서 독립 확인되지 않아 사용자 지시를 요구사항으로 취급했다. [입력 검토](../evidence/mentor5-input-review.md).
 
 ## 구현과 보류
