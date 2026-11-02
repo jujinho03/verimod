@@ -6,6 +6,8 @@
 
 ## 처음 읽을 자료
 
+2026-11-02 개발 후속 검토: [Mentor 5 기술 개발 결과](mentor5-development-implementation.md)와 [기술 인계](../handoffs/mentor5-technical-demo-handoff.md). 회신 원문 및 실제 W7 receipt의 독립 확인 상태는 해당 기록을 따릅니다.
+
 | 순서 | 자료 | 확인할 내용 |
 | --- | --- | --- |
 | 1 | [5회차 멘토링 한눈에 보기](mentor-brief-20261031.md) | 프로젝트 설명, 현재 근거, 한계와 멘토에게 여쭐 질문 |

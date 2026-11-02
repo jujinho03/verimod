@@ -6,6 +6,8 @@
 
 ## 증거 수준과 현재 진입점
 
+2026-11-02 후속 실행: [모델·정책 해시](mentor5-model-policy-hash-verification.md), [RPC 기준 실측](mentor5-rpc-baseline.md), [공개 RPC 변조 실측](mentor5-rpc-invalid-proof.md), [검증 순서](mentor5-verification-order-regression.md), [장애·복구](mentor5-failure-recovery-verification.md), [시각·Merkle](mentor5-timestamp-and-merkle-review.md). 실행별 범위와 미검증 항목을 각각 확인하세요.
+
 | 수준 | 의미 | 자료 |
 | --- | --- | --- |
 | `VERIFIED_CODE` | 명시된 SHA에서 코드 존재·경로를 확인 | [공유 프로토콜](../../shared/protocol/README.md) · [프런트엔드](../../frontend/README.md) |
