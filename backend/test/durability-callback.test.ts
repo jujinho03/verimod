@@ -2,7 +2,7 @@ import { spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { once } from 'node:events'
 import { createServer } from 'node:http'
-import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve, sep } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -106,24 +106,21 @@ afterEach(() => {
 })
 
 describe.skipIf(process.platform !== 'win32')('SEC-W5-01 Windows callback guard', () => {
-  it('fails closed before opening or creating the approved database', () => {
-    const before = readFileSync(dbPath)
-    expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
-    expect(readFileSync(dbPath)).toEqual(before)
-    expect(existsSync(dbPath)).toBe(true)
+  it('opens the approved existing database without replacing it', () => {
+    const before = statSync(dbPath, { bigint: true })
+    const db = openApprovedDatabase(cfg)
+    try {
+      expect(new EpochService(db).get('1').status).toBe('FROZEN')
+      expect(() => renameSync(dbPath, join(directory, 'replacement.sqlite'))).toThrow()
+    } finally { db.close() }
+    const after = statSync(dbPath, { bigint: true })
+    expect({ dev: after.dev, ino: after.ino }).toEqual({ dev: before.dev, ino: before.ino })
   })
   it('does not recreate an approved database deleted before opening', () => {
     expect(existsSync(dbPath)).toBe(true)
     rmSync(dbPath)
-    expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+    expect(() => openApprovedDatabase(cfg)).toThrow()
     expect(existsSync(dbPath)).toBe(false)
-  })
-  it('fails before evaluating the approved database path', () => {
-    const guarded = new Proxy(cfg, { get(target, key, receiver) {
-      if (key === 'database_path') throw new Error('DATABASE_PATH_WAS_READ')
-      return Reflect.get(target, key, receiver)
-    } })
-    expect(() => openApprovedDatabase(guarded)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
   })
   it.each([
     ['replacement fixture', () => {
@@ -138,17 +135,16 @@ describe.skipIf(process.platform !== 'win32')('SEC-W5-01 Windows callback guard'
       writeFileSync(invalid, 'synthetic only; not SQLite')
       return { ...cfg, database_path: invalid }
     }],
-    ['unsupported schema fixture', () => ({ ...cfg, database_path: dbPath })],
-  ])('refuses %s before a writable open, preserving the synthetic fixture', (_name, configure) => {
+  ])('refuses %s before a writable mutation, preserving the synthetic fixture', (_name, configure) => {
     const before = readFileSync(dbPath)
     const candidate = configure()
-    expect(() => openApprovedDatabase(candidate)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
+    expect(() => openApprovedDatabase(candidate)).toThrow()
     expect(readFileSync(dbPath)).toEqual(before)
     expect(existsSync(join(directory, 'missing.sqlite'))).toBe(false)
   })
 })
 
-const writableCallback = process.platform === 'win32' ? describe.skip : describe
+const writableCallback = describe
 
 writableCallback('F callback CLI and authoritative database binding', () => {
   it('runs on supported platforms, emits one snake_case ACK, survives reopen and retries identical bytes', async () => {
@@ -285,7 +281,7 @@ writableCallback('trusted post-submission acceptance, confirmation remains block
     try {
       saveConfig({ ...cfg, allow_submitted_return: true, rpc_url: `http://127.0.0.1:${(server.address() as { port: number }).port}` })
       const result = await cli('', ['--operation', 'submitted'])
-      expect(result.code).toBe(0); expect(JSON.parse(result.stdout)).toMatchObject({ status: 'SUBMITTED' })
+      expect(result.code, result.stderr).toBe(0); expect(JSON.parse(result.stdout)).toMatchObject({ status: 'SUBMITTED' })
       expect(methods).toEqual(['eth_chainId', 'eth_getTransactionByHash']); expect(stored().block_hash).toBeNull()
     } finally { server.closeAllConnections(); await new Promise<void>(done => server.close(() => done())) }
   }, 15000)

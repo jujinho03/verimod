@@ -107,21 +107,9 @@ describe('trusted confirmation and durable public release', () => {
     expect(rpc.calls.every(m => !m.includes('send') && !m.includes('sign'))).toBe(true)
     log({ case: 'verified-confirmation-and-public-http-bundle', confirmations: count, result: 'PASS', before_release: false, after_release: true })
   })
-  it('preserves trusted identity and enforces the approved reopen platform gate', async () => {
+  it('preserves trusted identity across an approved durable reopen', async () => {
     const first = await verifyAndConfirm(db, cfg, reader())
     const firstRow = row()
-    if (process.platform === 'win32') {
-      // Duplicate verification on the existing synthetic connection remains covered.
-      expect(await verifyAndConfirm(db, cfg, reader())).toEqual(first)
-      db.close()
-      expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
-      // Fixture-only readback proves persistence; it does not enable a writable callback.
-      db = new DatabaseSync(dbPath, { readOnly: true })
-      expect(hasTrustedConfirmation(db, row())).toBe(true)
-      expect(row()).toEqual(firstRow)
-      expect((db.prepare('SELECT COUNT(*) AS n FROM epoch_confirmation_evidence').get() as any).n).toBe(1)
-      return
-    }
     db.close(); db = openApprovedDatabase(cfg)
     expect(hasTrustedConfirmation(db, row())).toBe(true)
     expect(await verifyAndConfirm(db, cfg, reader())).toEqual(first)
@@ -204,11 +192,7 @@ describe('trusted confirmation and durable public release', () => {
     const response = await request(createApp({ database: db })).get(`/api/receipts/${id}/bundle`)
     expect(response.body.data).toMatchObject({ proof: null, anchor: null })
     db.close()
-    if (process.platform === 'win32') {
-      expect(() => openApprovedDatabase(cfg)).toThrow('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
-      // Only read the synthetic fixture after the production opener has refused it.
-      db = new DatabaseSync(dbPath, { readOnly: true })
-    } else db = openApprovedDatabase(cfg)
+    db = openApprovedDatabase(cfg)
     expect(hasTrustedConfirmation(db, row())).toBe(false)
     log({ case: 'contradictory-retry-revokes-release', result: 'PASS', trusted_row_preserved: true, public_release: false })
   })
@@ -254,21 +238,8 @@ describe('actual callback CLI platform gate and bounded read-only RPC transport'
       return { code, stdout, stderr, methods }
     } finally { server.closeAllConnections(); await new Promise<void>(done => server.close(() => done())) }
   }
-  it('enforces platform support before confirmed CLI RPC and public release', async () => {
+  it('runs the confirmed CLI through the approved durable opener and bounded RPC', async () => {
     const result = await runCli()
-    if (process.platform === 'win32') {
-      expect(result.code).not.toBe(0)
-      expect(result.stdout).toBe('')
-      expect(result.stderr).toContain('WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
-      for (const secret of [raw, dbPath, cfg.confirmation_approval_id!]) expect(result.stderr).not.toContain(secret)
-      expect(result.methods).toEqual([])
-      expect(row().status).toBe('SUBMITTED')
-      expect(hasTrustedConfirmation(db, row())).toBe(false)
-      const response = await request(createApp({ database: db })).get('/api/receipts/' + id + '/bundle')
-      expect(response.body.data).toMatchObject({ proof: null, anchor: null })
-      log({ case: 'windows-confirmed-cli-fail-closed', result: 'PASS', public_release: false, rpc_calls: 0, actual_chain_tx_sent: false })
-      return
-    }
     expect(result.code).toBe(0); expect(JSON.parse(result.stdout)).toMatchObject({ status: 'CONFIRMED', confirmations: '12' })
     expect(result.stdout.trim().split('\n')).toHaveLength(1)
     for (const secret of [raw, dbPath, cfg.confirmation_approval_id!]) expect(result.stdout).not.toContain(secret)
