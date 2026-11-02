@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import type { TrustConfig } from '../domain/verify'
 import { MAX_JSON_BYTES } from '../domain/json'
@@ -53,7 +53,9 @@ export function VerifyPage() {
     void trustConfig().then(setTrust)
   }, [])
 
-  useEffect(() => {
+  // Invalidate before the new profile can accept user interaction; a passive effect
+  // can otherwise cancel a newly started asynchronous W4 edit after a mode switch.
+  useLayoutEffect(() => {
     const version = ++inputVersion.current
     queueMicrotask(() => { if (inputVersion.current === version) setPendingInput(null) })
     clearVerification()
@@ -113,8 +115,8 @@ export function VerifyPage() {
     const version = inputVersion.current
     try {
       if (verifierMode === 'BASE_SEPOLIA_DEMO' && BASE_PROFILE) {
-        const context = store.verifierContext().then((value) => ({ ...value, trust: BASE_PROFILE, ledger: createPublicRpcLedger(BASE_PROFILE), privatePackage }))
-        await verify.run(json, context)
+        const profile = BASE_PROFILE
+        await verify.run(json, (signal) => store.verifierContext().then((value) => ({ ...value, trust: profile, ledger: createPublicRpcLedger(profile, fetch, signal), privatePackage })))
         return
       }
       await verify.run(json, store.verifierContext().then((value) => ({ ...value, privatePackage })))
@@ -241,6 +243,18 @@ export function VerifyPage() {
                 {inputPending ? '입력 준비 중' : verify.running ? '검증 중' : '검증하기'}
               </button>
             </div>
+            {verify.running && <div className="trust-card" role="status">
+              <p>{verifierMode === 'BASE_SEPOLIA_DEMO' ? '실시간 블록체인 기록을 확인하고 있습니다.' : '합성 원장 기록을 확인하고 있습니다.'}</p>
+              {verify.slow && <p>{verifierMode === 'BASE_SEPOLIA_DEMO' ? '공개 네트워크 확인이' : '합성 원장 확인이'} 예상보다 오래 걸리고 있습니다. 검증은 계속 진행 중입니다.</p>}
+              <div className="btn-row">
+                {verify.slow && <button type="button" className="btn btn--outline" onClick={verify.keepWaiting}>계속 기다리기</button>}
+                <button type="button" className="btn btn--outline" onClick={verify.cancel}>검증 중단</button>
+                {verify.slow && (w4ProfileReady
+                  ? <button type="button" className="btn btn--outline" onClick={() => selectSource('w4')}>기존 공개 실증 자료 확인</button>
+                  : <a className="btn btn--outline" onClick={verify.cancel} href="https://github.com/jujinho03/verimod/tree/main/docs/handoffs/w4-anchored-epoch-public/20261020-r01" target="_blank" rel="noreferrer">기존 공개 실증 자료 확인</a>)}
+              </div>
+            </div>}
+            {verify.cancelled && <p role="status">검증을 중단했습니다. 검증 결과는 없습니다. ({(verify.cancelled.elapsedMs / 1000).toFixed(1)}초 · {verify.cancelled.endedAt})</p>}
 
             <div className="trust-card" id="rpc">
               <h2 className="title-s">신뢰 설정</h2>

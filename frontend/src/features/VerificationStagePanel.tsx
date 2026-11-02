@@ -23,10 +23,9 @@ export function VerificationStagePanel({ report }: { report?: VerifyReport | nul
     <section className="verification-design" aria-labelledby="verification-design-title">
       <header className="verification-design__head">
         <div>
-          <p className="mono faint">W3 검증 단계 상세</p>
+          <p className="mono faint">검증 단계 상세</p>
           <h2 className="title-s" id="verification-design-title">어디서 멈췄는지 단계별로 표시</h2>
         </div>
-        <span className="pill pill--synthetic">UI consumer</span>
       </header>
       <ol className="verification-design__list">
         {stages.map((stage, index) => (
@@ -41,7 +40,7 @@ export function VerificationStagePanel({ report }: { report?: VerifyReport | nul
           </li>
         ))}
       </ol>
-      <p className="muted small">RPC 오류는 보류로 표시하며 변조로 판정하지 않습니다. 계산은 shared protocol consumer 결과를 사용합니다.</p>
+      <p className="muted small">RPC 오류 시 포함 증명은 미실행으로 표시하며 변조 여부를 판정하지 않습니다. L2 블록 확인은 L1 finality가 아닙니다.</p>
     </section>
   )
 }

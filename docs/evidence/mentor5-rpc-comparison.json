@@ -1,0 +1,23 @@
+{
+  "schema_version": "mentor5-rpc-comparison/v1",
+  "before": {
+    "sha": "7a6aa2ad27ad58d0454b39f28a07d069ac4e93b1",
+    "observed_at": "2026-11-02T01:40:11.843Z",
+    "network": "Base Sepolia",
+    "chain_id": 84532,
+    "attempts": 1,
+    "total_block_range": 5296317,
+    "rpc_calls": 222,
+    "methods": {"eth_chainId": 111, "eth_call": 2, "eth_blockNumber": 2, "eth_getLogs": 106, "eth_getTransactionReceipt": 1},
+    "verification_elapsed_ms": 28528,
+    "valid": 1,
+    "rpc_unavailable": 0,
+    "http_429": 0,
+    "http_413": 0,
+    "timeouts": 0,
+    "request_latency_ms": {"mean": 124.48, "median": 104, "p95_nearest_rank": 245, "max": 1679}
+  },
+  "after": {"status": "NOT_VERIFIED", "reason": "No security-equivalent optimization adopted; no after measurement."},
+  "improvement": "NOT_VERIFIED",
+  "raw_telemetry": "mentor5-rpc-baseline.json"
+}

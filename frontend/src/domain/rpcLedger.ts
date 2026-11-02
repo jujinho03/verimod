@@ -73,18 +73,32 @@ function addressWord(data: unknown): string {
   return `0x${value.slice(24)}`
 }
 
-export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: typeof fetch = fetch): LedgerReader {
+export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: typeof fetch = fetch, signal?: AbortSignal): LedgerReader {
   let requestId = 0
   const callUrl = async (url: string, method: string, params: unknown[]) => {
-    const response = await fetcher(url, {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      signal: AbortSignal.timeout(5000),
-      body: JSON.stringify({ jsonrpc: '2.0', id: ++requestId, method, params }),
-    })
-    if (!response.ok) throw new RpcUnavailableError(`RPC HTTP ${response.status}`)
-    const payload = await response.json() as { result?: unknown; error?: unknown }
-    if (payload.error || !Object.hasOwn(payload, 'result')) throw new RpcUnavailableError('RPC error response')
-    return payload.result
+    signal?.throwIfAborted()
+    const request = new AbortController()
+    const abort = () => request.abort(signal?.reason)
+    signal?.addEventListener('abort', abort, { once: true })
+    const timeout = setTimeout(() => request.abort(new DOMException('RPC request timeout', 'TimeoutError')), 5000)
+    try {
+      const response = await fetcher(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        signal: request.signal,
+        body: JSON.stringify({ jsonrpc: '2.0', id: ++requestId, method, params }),
+      })
+      signal?.throwIfAborted()
+      request.signal.throwIfAborted()
+      if (!response.ok) throw new RpcUnavailableError(`RPC HTTP ${response.status}`)
+      const payload = await response.json() as { result?: unknown; error?: unknown }
+      signal?.throwIfAborted()
+      request.signal.throwIfAborted()
+      if (payload.error || !Object.hasOwn(payload, 'result')) throw new RpcUnavailableError('RPC error response')
+      return payload.result
+    } finally {
+      clearTimeout(timeout)
+      signal?.removeEventListener('abort', abort)
+    }
   }
   // Re-authenticate the endpoint's chain before every logical call. A cached success would let an
   // endpoint that switches chains mid-verification feed unchecked heads, logs or receipts.
@@ -97,10 +111,13 @@ export function createPublicRpcLedger(profile: ApprovedTrustProfile, fetcher: ty
   const rpc = async (method: string, params: unknown[]) => {
     let untrusted: UntrustedLedgerError | null = null
     for (const url of profile.rpc_urls) {
+      signal?.throwIfAborted()
       try {
         await checkChain(url)
         return await callUrl(url, method, params)
       } catch (error) {
+        // A user cancellation is not a provider failure and must never trigger fallback.
+        signal?.throwIfAborted()
         if (error instanceof UntrustedLedgerError) untrusted = error
       }
     }

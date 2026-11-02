@@ -1,0 +1,2928 @@
+{
+  "schema_version": "verimod/w6-rpc-audit/v1",
+  "run_id": "mentor5-invalid-proof-20261102",
+  "source_head": "7a6aa2ad27ad58d0454b39f28a07d069ac4e93b1",
+  "scenario": "INVALID_PROOF",
+  "expected": "INVALID_PROOF",
+  "profile": "BASE_SEPOLIA_DEMO",
+  "receipt_hash": "0xe61eb203e0c3b9392668526c4fa80d019e2cb178fec8683fbfc464cd45ad0bf0",
+  "original_receipt_hash": "0x96684f068edaaec7b2ae8abafdaae40c90c118f2d7bede9e4b0dec2278eed3b6",
+  "input_sha256": "829919b587812f7a7543e038c7e4187fa79e8ebf3b915ffb37622f1025a69d50",
+  "original_file_sha256": "a389ec1547f76124b136e5648e9d906e5a22eb3099deff8b4a733f2c03282f72",
+  "attempts": 1,
+  "passed": 1,
+  "failed": 0,
+  "consecutive_pass": true,
+  "results": [
+    {
+      "attempt": 1,
+      "code": "INVALID_PROOF",
+      "elapsed_ms": 28353,
+      "rpc_calls": 222,
+      "rate_limited_calls": 0,
+      "timed_out_calls": 0,
+      "methods": {
+        "eth_chainId": 111,
+        "eth_call": 2,
+        "eth_blockNumber": 2,
+        "eth_getLogs": 106,
+        "eth_getTransactionReceipt": 1
+      },
+      "endpoints": {
+        "base-sepolia-rpc.publicnode.com": {
+          "calls": 222,
+          "successful_http": 222,
+          "errors": 0
+        },
+        "sepolia.base.org": {
+          "calls": 0,
+          "successful_http": 0,
+          "errors": 0
+        }
+      },
+      "script_error": null,
+      "calls": [
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:50.236Z",
+          "latency_ms": 422,
+          "http_status": 200,
+          "response_bytes": 44,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_call",
+          "started_at": "2026-11-02T01:46:50.664Z",
+          "latency_ms": 193,
+          "http_status": 200,
+          "response_bytes": 103,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:50.864Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 44,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_call",
+          "started_at": "2026-11-02T01:46:50.920Z",
+          "latency_ms": 72,
+          "http_status": 200,
+          "response_bytes": 231,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:50.995Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 44,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_blockNumber",
+          "started_at": "2026-11-02T01:46:51.048Z",
+          "latency_ms": 68,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:51.117Z",
+          "latency_ms": 55,
+          "http_status": 200,
+          "response_bytes": 44,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:51.173Z",
+          "latency_ms": 102,
+          "http_status": 200,
+          "response_bytes": 36,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48012271,
+            "to": 48062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:51.276Z",
+          "latency_ms": 64,
+          "http_status": 200,
+          "response_bytes": 44,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:51.341Z",
+          "latency_ms": 147,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48062271,
+            "to": 48112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:51.489Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:51.543Z",
+          "latency_ms": 126,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48112271,
+            "to": 48162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:51.670Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:51.725Z",
+          "latency_ms": 122,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48162271,
+            "to": 48212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:51.848Z",
+          "latency_ms": 55,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:51.903Z",
+          "latency_ms": 143,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48212271,
+            "to": 48262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.047Z",
+          "latency_ms": 58,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.106Z",
+          "latency_ms": 122,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48262271,
+            "to": 48312270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.229Z",
+          "latency_ms": 64,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.294Z",
+          "latency_ms": 113,
+          "http_status": 200,
+          "response_bytes": 730,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48312271,
+            "to": 48362270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.409Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.466Z",
+          "latency_ms": 110,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48362271,
+            "to": 48412270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.577Z",
+          "latency_ms": 69,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.647Z",
+          "latency_ms": 112,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48412271,
+            "to": 48462270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.759Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.808Z",
+          "latency_ms": 120,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48462271,
+            "to": 48512270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:52.929Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:52.987Z",
+          "latency_ms": 107,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48512271,
+            "to": 48562270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:53.095Z",
+          "latency_ms": 71,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:53.166Z",
+          "latency_ms": 116,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48562271,
+            "to": 48612270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:53.283Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:53.333Z",
+          "latency_ms": 91,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48612271,
+            "to": 48662270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:53.425Z",
+          "latency_ms": 229,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:53.654Z",
+          "latency_ms": 106,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48662271,
+            "to": 48712270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:53.760Z",
+          "latency_ms": 47,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:53.808Z",
+          "latency_ms": 164,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48712271,
+            "to": 48762270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:53.973Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:54.025Z",
+          "latency_ms": 305,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48762271,
+            "to": 48812270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:54.330Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:54.383Z",
+          "latency_ms": 143,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48812271,
+            "to": 48862270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:54.527Z",
+          "latency_ms": 65,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:54.592Z",
+          "latency_ms": 264,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48862271,
+            "to": 48912270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:54.857Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:54.905Z",
+          "latency_ms": 452,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48912271,
+            "to": 48962270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:55.358Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:55.415Z",
+          "latency_ms": 231,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 48962271,
+            "to": 49012270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:55.647Z",
+          "latency_ms": 68,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:55.716Z",
+          "latency_ms": 347,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49012271,
+            "to": 49062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:56.063Z",
+          "latency_ms": 62,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:56.126Z",
+          "latency_ms": 191,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49062271,
+            "to": 49112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:56.317Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:56.368Z",
+          "latency_ms": 249,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49112271,
+            "to": 49162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:56.618Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:56.671Z",
+          "latency_ms": 117,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49162271,
+            "to": 49212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:56.789Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:56.841Z",
+          "latency_ms": 112,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49212271,
+            "to": 49262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:56.953Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:57.004Z",
+          "latency_ms": 194,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49262271,
+            "to": 49312270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:57.199Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:57.250Z",
+          "latency_ms": 562,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49312271,
+            "to": 49362270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:57.813Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:57.863Z",
+          "latency_ms": 137,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49362271,
+            "to": 49412270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:58.001Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:58.051Z",
+          "latency_ms": 168,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49412271,
+            "to": 49462270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:58.219Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:58.272Z",
+          "latency_ms": 130,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49462271,
+            "to": 49512270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:58.403Z",
+          "latency_ms": 61,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:58.465Z",
+          "latency_ms": 378,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49512271,
+            "to": 49562270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:58.844Z",
+          "latency_ms": 60,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:58.905Z",
+          "latency_ms": 122,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49562271,
+            "to": 49612270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:59.027Z",
+          "latency_ms": 77,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:59.105Z",
+          "latency_ms": 154,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49612271,
+            "to": 49662270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:59.260Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:59.310Z",
+          "latency_ms": 102,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49662271,
+            "to": 49712270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:59.413Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:59.464Z",
+          "latency_ms": 111,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49712271,
+            "to": 49762270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:59.575Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:59.633Z",
+          "latency_ms": 104,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49762271,
+            "to": 49812270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:46:59.738Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:46:59.789Z",
+          "latency_ms": 367,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49812271,
+            "to": 49862270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:00.157Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:00.214Z",
+          "latency_ms": 166,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49862271,
+            "to": 49912270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:00.381Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:00.431Z",
+          "latency_ms": 115,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49912271,
+            "to": 49962270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:00.547Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:00.598Z",
+          "latency_ms": 344,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 49962271,
+            "to": 50012270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:00.942Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:00.995Z",
+          "latency_ms": 280,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50012271,
+            "to": 50062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:01.276Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:01.327Z",
+          "latency_ms": 201,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50062271,
+            "to": 50112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:01.529Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:01.578Z",
+          "latency_ms": 116,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50112271,
+            "to": 50162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:01.695Z",
+          "latency_ms": 69,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:01.765Z",
+          "latency_ms": 469,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50162271,
+            "to": 50212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:02.235Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:02.287Z",
+          "latency_ms": 270,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50212271,
+            "to": 50262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:02.558Z",
+          "latency_ms": 66,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:02.624Z",
+          "latency_ms": 473,
+          "http_status": 200,
+          "response_bytes": 37,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50262271,
+            "to": 50312270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:03.098Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 45,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:03.151Z",
+          "latency_ms": 460,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50312271,
+            "to": 50362270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:03.611Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:03.661Z",
+          "latency_ms": 323,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50362271,
+            "to": 50412270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:03.985Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:04.035Z",
+          "latency_ms": 387,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50412271,
+            "to": 50462270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:04.422Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:04.475Z",
+          "latency_ms": 472,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50462271,
+            "to": 50512270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:04.948Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:05.000Z",
+          "latency_ms": 340,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50512271,
+            "to": 50562270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:05.341Z",
+          "latency_ms": 58,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:05.399Z",
+          "latency_ms": 401,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50562271,
+            "to": 50612270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:05.801Z",
+          "latency_ms": 86,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:05.888Z",
+          "latency_ms": 146,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50612271,
+            "to": 50662270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:06.034Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:06.083Z",
+          "latency_ms": 328,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50662271,
+            "to": 50712270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:06.412Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:06.469Z",
+          "latency_ms": 235,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50712271,
+            "to": 50762270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:06.705Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:06.758Z",
+          "latency_ms": 166,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50762271,
+            "to": 50812270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:06.925Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:06.980Z",
+          "latency_ms": 100,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50812271,
+            "to": 50862270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:07.080Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:07.130Z",
+          "latency_ms": 203,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50862271,
+            "to": 50912270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:07.333Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:07.387Z",
+          "latency_ms": 116,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50912271,
+            "to": 50962270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:07.504Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:07.555Z",
+          "latency_ms": 133,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 50962271,
+            "to": 51012270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:07.689Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:07.746Z",
+          "latency_ms": 647,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51012271,
+            "to": 51062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:08.394Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:08.444Z",
+          "latency_ms": 152,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51062271,
+            "to": 51112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:08.596Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:08.647Z",
+          "latency_ms": 172,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51112271,
+            "to": 51162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:08.819Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:08.872Z",
+          "latency_ms": 114,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51162271,
+            "to": 51212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:08.987Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:09.040Z",
+          "latency_ms": 138,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51212271,
+            "to": 51262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:09.178Z",
+          "latency_ms": 62,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:09.241Z",
+          "latency_ms": 118,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51262271,
+            "to": 51312270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:09.360Z",
+          "latency_ms": 56,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:09.416Z",
+          "latency_ms": 106,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51312271,
+            "to": 51362270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:09.522Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:09.577Z",
+          "latency_ms": 194,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51362271,
+            "to": 51412270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:09.772Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:09.823Z",
+          "latency_ms": 225,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51412271,
+            "to": 51462270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:10.049Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:10.101Z",
+          "latency_ms": 122,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51462271,
+            "to": 51512270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:10.224Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:10.277Z",
+          "latency_ms": 134,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51512271,
+            "to": 51562270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:10.412Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:10.463Z",
+          "latency_ms": 103,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51562271,
+            "to": 51612270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:10.566Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:10.619Z",
+          "latency_ms": 143,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51612271,
+            "to": 51662270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:10.762Z",
+          "latency_ms": 47,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:10.810Z",
+          "latency_ms": 210,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51662271,
+            "to": 51712270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:11.020Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:11.069Z",
+          "latency_ms": 121,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51712271,
+            "to": 51762270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:11.191Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:11.239Z",
+          "latency_ms": 154,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51762271,
+            "to": 51812270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:11.393Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:11.442Z",
+          "latency_ms": 362,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51812271,
+            "to": 51862270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:11.805Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:11.859Z",
+          "latency_ms": 498,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51862271,
+            "to": 51912270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:12.358Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:12.408Z",
+          "latency_ms": 244,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51912271,
+            "to": 51962270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:12.653Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:12.707Z",
+          "latency_ms": 93,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 51962271,
+            "to": 52012270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:12.801Z",
+          "latency_ms": 47,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:12.848Z",
+          "latency_ms": 167,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52012271,
+            "to": 52062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:13.016Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:13.068Z",
+          "latency_ms": 262,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52062271,
+            "to": 52112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:13.330Z",
+          "latency_ms": 66,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:13.397Z",
+          "latency_ms": 176,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52112271,
+            "to": 52162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:13.574Z",
+          "latency_ms": 66,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:13.641Z",
+          "latency_ms": 129,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52162271,
+            "to": 52212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:13.771Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:13.821Z",
+          "latency_ms": 142,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52212271,
+            "to": 52262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:13.963Z",
+          "latency_ms": 90,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.053Z",
+          "latency_ms": 102,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52262271,
+            "to": 52312270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:14.155Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.207Z",
+          "latency_ms": 104,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52312271,
+            "to": 52362270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:14.312Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.367Z",
+          "latency_ms": 126,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52362271,
+            "to": 52412270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:14.494Z",
+          "latency_ms": 57,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.551Z",
+          "latency_ms": 107,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52412271,
+            "to": 52462270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:14.659Z",
+          "latency_ms": 49,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.709Z",
+          "latency_ms": 192,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52462271,
+            "to": 52512270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:14.901Z",
+          "latency_ms": 69,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:14.971Z",
+          "latency_ms": 344,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52512271,
+            "to": 52562270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:15.316Z",
+          "latency_ms": 55,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:15.371Z",
+          "latency_ms": 142,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52562271,
+            "to": 52612270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:15.514Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:15.565Z",
+          "latency_ms": 186,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52612271,
+            "to": 52662270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:15.751Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:15.800Z",
+          "latency_ms": 137,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52662271,
+            "to": 52712270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:15.939Z",
+          "latency_ms": 53,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:15.992Z",
+          "latency_ms": 147,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52712271,
+            "to": 52762270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:16.139Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:16.189Z",
+          "latency_ms": 114,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52762271,
+            "to": 52812270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:16.304Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:16.354Z",
+          "latency_ms": 183,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52812271,
+            "to": 52862270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:16.537Z",
+          "latency_ms": 48,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:16.585Z",
+          "latency_ms": 116,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52862271,
+            "to": 52912270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:16.701Z",
+          "latency_ms": 54,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:16.756Z",
+          "latency_ms": 139,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52912271,
+            "to": 52962270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:16.896Z",
+          "latency_ms": 75,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:16.971Z",
+          "latency_ms": 112,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 52962271,
+            "to": 53012270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:17.084Z",
+          "latency_ms": 59,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:17.143Z",
+          "latency_ms": 160,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53012271,
+            "to": 53062270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:17.304Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:17.357Z",
+          "latency_ms": 179,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53062271,
+            "to": 53112270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:17.537Z",
+          "latency_ms": 52,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:17.589Z",
+          "latency_ms": 118,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53112271,
+            "to": 53162270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:17.708Z",
+          "latency_ms": 59,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:17.767Z",
+          "latency_ms": 121,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53162271,
+            "to": 53212270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:17.889Z",
+          "latency_ms": 61,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:17.951Z",
+          "latency_ms": 148,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53212271,
+            "to": 53262270,
+            "blocks": 50000
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:18.099Z",
+          "latency_ms": 50,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getLogs",
+          "started_at": "2026-11-02T01:47:18.150Z",
+          "latency_ms": 133,
+          "http_status": 200,
+          "response_bytes": 38,
+          "error": null,
+          "rate_limited": false,
+          "block_range": {
+            "from": 53262271,
+            "to": 53310710,
+            "blocks": 48440
+          }
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:18.284Z",
+          "latency_ms": 59,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_getTransactionReceipt",
+          "started_at": "2026-11-02T01:47:18.343Z",
+          "latency_ms": 111,
+          "http_status": 200,
+          "response_bytes": 1913,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_chainId",
+          "started_at": "2026-11-02T01:47:18.457Z",
+          "latency_ms": 59,
+          "http_status": 200,
+          "response_bytes": 46,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        },
+        {
+          "endpoint": "base-sepolia-rpc.publicnode.com",
+          "method": "eth_blockNumber",
+          "started_at": "2026-11-02T01:47:18.516Z",
+          "latency_ms": 51,
+          "http_status": 200,
+          "response_bytes": 48,
+          "error": null,
+          "rate_limited": false,
+          "block_range": null
+        }
+      ]
+    }
+  ],
+  "safety": {
+    "allowed_rpc_methods": [
+      "eth_chainId",
+      "eth_call",
+      "eth_blockNumber",
+      "eth_getLogs",
+      "eth_getTransactionReceipt"
+    ],
+    "route_failure_injection": false,
+    "chain_transaction_sent": false,
+    "authoritative_database_modified": false,
+    "private_material_access": false
+  },
+  "observed_at": "2026-11-02T01:47:18.575Z"
+}
