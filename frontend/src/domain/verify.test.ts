@@ -238,6 +238,18 @@ describe('verifyReceipt', () => {
     expect((await verifyReceipt(copy, f.ctx)).code).toBe('UNTRUSTED_ANCHOR')
   })
 
+  it('신뢰 설정에 없는 체인은 원장 조회 전에 UNTRUSTED_ANCHOR', async () => {
+    const copy = clone(f.decision)
+    copy.anchor!.chain_id = '84532'
+    let called = false
+    const ledger: LedgerReader = {
+      async getEpoch() { called = true; throw new Error('unexpected call') },
+      async blockNumber() { called = true; throw new Error('unexpected call') },
+    }
+    expect((await verifyReceipt(copy, { ...f.ctx, ledger })).code).toBe('UNTRUSTED_ANCHOR')
+    expect(called).toBe(false)
+  })
+
   it('승인되지 않은 issuer는 해시를 다시 계산해도 UNTRUSTED_ANCHOR', async () => {
     const copy = clone(f.decision)
     copy.receipt_body.issuer_id = 'verimod-demo-issuer'
@@ -262,6 +274,33 @@ describe('verifyReceipt', () => {
   it('RPC 장애는 변조가 아니라 RPC_UNAVAILABLE', async () => {
     f.chain.rpcDown = true
     expect((await verifyReceipt(f.decision, f.ctx)).code).toBe('RPC_UNAVAILABLE')
+  })
+
+  it('distinguishes local hash failure, unavailable RPC, inclusion failure and recovery (mock ledger)', async () => {
+    const bodyOnly = clone(f.decision)
+    if (bodyOnly.receipt_body.event_kind !== 'DECISION') throw new Error('fixture')
+    bodyOnly.receipt_body.payload.policy.action = bodyOnly.receipt_body.payload.policy.action === 'ALLOW' ? 'RESTRICT' : 'ALLOW'
+    const rehashed = clone(bodyOnly)
+    rehashed.receipt_hash = await receiptHash(rehashed.receipt_body)
+    let calls = 0
+    const ledger: LedgerReader = {
+      async getEpoch(address, epochId) { calls++; return f.ctx.ledger.getEpoch(address, epochId) },
+      async blockNumber() { calls++; return f.ctx.ledger.blockNumber() },
+    }
+    const ctx = { ...f.ctx, ledger }
+    expect((await verifyReceipt(f.decision, ctx)).code).toBe('VALID')
+    expect((await verifyReceipt(bodyOnly, ctx)).code).toBe('HASH_MISMATCH')
+    expect((await verifyReceipt(rehashed, ctx)).code).toBe('INVALID_PROOF')
+    f.chain.rpcDown = true
+    calls = 0
+    expect((await verifyReceipt(bodyOnly, ctx)).code).toBe('HASH_MISMATCH')
+    expect(calls).toBe(0)
+    const offlineTampered = await verifyReceipt(rehashed, ctx)
+    expect(offlineTampered.code).toBe('RPC_UNAVAILABLE')
+    expect(offlineTampered.steps.find((step) => step.id === 'inclusion')?.state).toBe('SKIPPED')
+    expect((await verifyReceipt(f.decision, ctx)).code).toBe('RPC_UNAVAILABLE')
+    f.chain.rpcDown = false
+    expect((await verifyReceipt(f.decision, ctx)).code).toBe('VALID')
   })
 
   it('필드 누락·미지 필드는 INVALID_SCHEMA, 다른 protocol은 UNSUPPORTED_VERSION', async () => {

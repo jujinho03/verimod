@@ -8,6 +8,8 @@ HTTP 451 · BLOCK AI 2026 · **Decide. Prove. Appeal.**
 >
 > **함께 읽기:** [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md) · [W7 인계](handoffs/W7-core-demo-approved-handoff-20261030.md) · [Data Card](data-card.md) · [Model Card](model-card.md). 아래 9월 제출 자료는 당시 기록입니다.
 
+> **Mentor 5 후속:** 공개 원장 검증이 24초를 넘으면 지연 안내와 계속 기다리기·검증 중단·기존 공개 실증 자료 확인 선택지가 나타납니다. 24초는 성공 또는 실패 판정이 아닙니다. 중단은 진행 중인 RPC 요청을 취소하며 검증 결과를 만들지 않습니다. 과거 W4 자료는 현재 LIVE 성공과 구분합니다. 실행별 사실은 [후속 개발 기록](mentoring/mentor5-development-implementation.md)을 확인하세요.
+
 ## 무엇을 확인할 수 있나요?
 
 VeriMod는 판정 기록의 Decision Receipt hash와 Merkle 포함 증명을 이용해 사후 기록 무결성을 대조합니다. 기록이 일치하더라도 AI 판정의 정확성·실제 모델 실행·원문 진실성·플랫폼의 모든 기록의 완전성을 증명하지는 않습니다. 원문·salt·개인정보는 온체인에 올리지 않습니다.
@@ -49,7 +51,7 @@ $demoRequest = @{ text = '오늘은 좋은 날입니다.'; content_commitment = 
 Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8099/infer -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($demoRequest))
 ```
 
-브라우저 LIVE 발급은 `VITE_VERIMOD_LIVE_ENABLED=true`가 필요합니다. 개발 서버에서 `VITE_VERIMOD_API_URL`을 비워두면 같은 origin의 `/api`를 Vite가 로컬 Node 서버에 proxy합니다. 별도 origin 주소를 지정하면 현재 backend에는 CORS middleware가 없어 브라우저 요청이 차단될 수 있습니다. Node 서버에는 `VERIMOD_DB_PATH`, `VERIMOD_W4_PROVISIONAL_E2E_ONLY`, `VERIMOD_INFERENCE_URL`, `VERIMOD_MODEL_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_HASH`와 hate/offensive review/restrict PPM 네 값이 필요합니다. 이 경로는 추가 환경 및 브라우저 origin 경계 검증이 필요하므로 현재 추천 경로는 준비된 로컬 R01 직접 추론입니다. 원본 DB나 승인되지 않은 정책값은 사용하지 않습니다. [backend 안내](../backend/README.md)를 참고하세요.
+브라우저 LIVE 발급은 `VITE_VERIMOD_LIVE_ENABLED=true`가 필요합니다. 개발 서버에서 `VITE_VERIMOD_API_URL`을 비워두면 같은 origin의 `/api`를 Vite가 로컬 Node 서버에 proxy합니다. 별도 origin 주소를 지정하면 현재 backend에는 CORS middleware가 없어 브라우저 요청이 차단될 수 있습니다. Node 서버에는 `VERIMOD_DB_PATH`, `VERIMOD_W4_PROVISIONAL_E2E_ONLY`, `VERIMOD_INFERENCE_URL`, `VERIMOD_MODEL_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_PATH`, `VERIMOD_POLICY_MANIFEST_HASH`와 hate/offensive review/restrict PPM 네 값이 필요합니다. 후속 격리 환경에서 브라우저→Node→실제 R01 발급 및 모델 장애·복구를 실행했습니다. 이는 해당 환경의 결과이며 새 세션에서는 다시 확인해야 합니다. 원본 DB나 승인되지 않은 정책값은 사용하지 않습니다. [backend 안내](../backend/README.md) 및 [실행 증거](evidence/mentor5-w7-live-receipt-verification.md)를 참고하세요.
 
 ### 선택 경로: 브라우저에서 로컬 LIVE 발급
 

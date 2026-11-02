@@ -4,6 +4,8 @@
 
 ## W7 데모 인계
 
+2026-11-02 기술 변경과 확인 상태: [Mentor 5 기술 시연 인계](mentor5-technical-demo-handoff.md).
+
 | 자료 | 목적 |
 | --- | --- |
 | [W7 Core Demo 인계](W7-core-demo-approved-handoff-20261030.md) | Option B 범위·역할·남은 조건 |

@@ -6,6 +6,8 @@
 
 ## 처음 읽을 자료
 
+2026-11-02 개발 후속 검토: [Mentor 5 기술 개발 결과](mentor5-development-implementation.md), [기술 인계](../handoffs/mentor5-technical-demo-handoff.md), [신규 R01 발급 증거](../evidence/mentor5-w7-live-receipt-verification.md). 신규 실행과 과거 PR #42 영수증, 회신 원문 확인 여부는 각 기록에서 구분합니다.
+
 | 순서 | 자료 | 확인할 내용 |
 | --- | --- | --- |
 | 1 | [5회차 멘토링 한눈에 보기](mentor-brief-20261031.md) | 프로젝트 설명, 현재 근거, 한계와 멘토에게 여쭐 질문 |
