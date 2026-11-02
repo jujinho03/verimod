@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router'
 import type { TrustConfig } from '../domain/verify'
 import { MAX_JSON_BYTES } from '../domain/json'
@@ -53,7 +53,9 @@ export function VerifyPage() {
     void trustConfig().then(setTrust)
   }, [])
 
-  useEffect(() => {
+  // Invalidate before the new profile can accept user interaction; a passive effect
+  // can otherwise cancel a newly started asynchronous W4 edit after a mode switch.
+  useLayoutEffect(() => {
     const version = ++inputVersion.current
     queueMicrotask(() => { if (inputVersion.current === version) setPendingInput(null) })
     clearVerification()

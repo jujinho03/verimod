@@ -16,21 +16,23 @@ function report(patch: Partial<Record<VerifyStep['id'], VerifyStep['state']>>): 
 }
 
 describe('W3 verification stage panel', () => {
-  it('shows four explicit stages before execution', () => {
+  it('shows the actual six stages in execution order before execution', () => {
     const html = renderToStaticMarkup(<VerificationStagePanel />)
-    expect(html.match(/class="verification-design__step /g)).toHaveLength(4)
-    expect(html).toContain('body → JCS → SHA-256')
-    expect(html).toContain('eth_call epochs(epoch_id)')
+    expect(html.match(/class="verification-design__step /g)).toHaveLength(6)
+    expect(html).toContain('verimod:receipt:v1')
+    expect(html).toContain('ledger → epochs(epoch_id)')
+    expect(toW3VerificationStages(null).map((stage) => stage.id)).toEqual(['schema', 'hash', 'anchor', 'epoch', 'inclusion', 'finality'])
   })
 
   it('keeps RPC unavailability pending and never turns it into tampering', () => {
     const stages = toW3VerificationStages(report({ hash: 'PASSED', anchor: 'PASSED', epoch: 'PENDING' }))
-    expect(stages.find((stage) => stage.id === 'rpc')?.state).toBe('PENDING')
+    expect(stages.find((stage) => stage.id === 'epoch')?.state).toBe('PENDING')
+    expect(stages.find((stage) => stage.id === 'inclusion')?.state).toBe('SKIPPED')
     expect(stages.some((stage) => stage.state === 'FAILED')).toBe(false)
   })
 
   it('marks downstream stages as not executed after a hash mismatch', () => {
     const stages = toW3VerificationStages(report({ hash: 'FAILED' }))
-    expect(stages.map((stage) => stage.state)).toEqual(['FAILED', 'SKIPPED', 'SKIPPED', 'SKIPPED'])
+    expect(stages.map((stage) => stage.state)).toEqual(['SKIPPED', 'FAILED', 'SKIPPED', 'SKIPPED', 'SKIPPED', 'SKIPPED'])
   })
 })

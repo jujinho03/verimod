@@ -31,6 +31,7 @@ test('W4 shortcut keeps provenance and fails closed when both RPCs are blocked',
   expect(rehashed.anchor).toEqual(original.anchor)
   await page.getByRole('button', { name: '검증하기', exact: true }).click()
   await expect(page.locator('aside .verdict__code')).toHaveText('RPC_UNAVAILABLE', { timeout: 30_000 })
+  await expect(page.locator('.verification-design__step').nth(4)).toContainText('미실행')
   expect(blockedHosts).toEqual(new Set(['base-sepolia-rpc.publicnode.com', 'sepolia.base.org']))
   await page.getByRole('button', { name: 'W4 원본 복원' }).click()
   expect(JSON.parse(await page.locator('#verify-json').inputValue())).toEqual(original)
@@ -42,6 +43,29 @@ test('W4 shortcut keeps provenance and fails closed when both RPCs are blocked',
   await expect(page.locator('#verify-profile')).toHaveValue('LOCAL_HARDHAT_FALLBACK')
   await expect(page.locator('#rpc dd').first()).toContainText('공개 체인 증거 아님')
   await expect(page.getByText('입력 출처:', { exact: false })).toContainText('브라우저 내부 합성 영수증 · 검증 모드: SYNTHETIC_LOCAL')
+})
+
+test('a late RPC failure cannot overwrite a newer input or trust profile', async ({ page }) => {
+  let release!: () => void
+  let started!: () => void
+  const gate = new Promise<void>((resolve) => { release = resolve })
+  const requestStarted = new Promise<void>((resolve) => { started = resolve })
+  await page.route('**/*', async (route) => {
+    if (new URL(route.request().url()).hostname === '127.0.0.1') return route.continue()
+    started()
+    await gate
+    return route.abort('internetdisconnected')
+  })
+  await page.goto('/verify')
+  await page.getByRole('tab', { name: 'W4 공개 검증 샘플 불러오기' }).click()
+  await page.getByRole('button', { name: '검증하기', exact: true }).click()
+  await requestStarted
+  await page.locator('#verify-json').fill('{}')
+  await page.locator('#verify-profile').selectOption('LOCAL_HARDHAT_FALLBACK')
+  release()
+  await page.waitForTimeout(1000)
+  await expect(page.locator('aside .verdict__code')).toHaveCount(0)
+  await expect(page.locator('#verify-json')).toHaveValue('{}')
 })
 
 test('delayed rehash and file loading cannot leave stale results or overwrite a newer source', async ({ page }) => {
