@@ -35,11 +35,12 @@ test('mocked normal verification completes before the advisory deadline', async 
 })
 
 test('24 seconds is advisory; continuing can still produce a mocked VALID', async ({ page }) => {
+  const start = new Date('2026-11-02T00:00:00.000Z')
+  // Install before page timers and leave room for the clock to advance during load.
+  await page.clock.install({ time: new Date(start.getTime() - 3_600_000) })
   await mockW4Rpc(page)
   await page.goto('/verify')
   await page.getByRole('tab', { name: 'W4 공개 검증 샘플 불러오기' }).click()
-  const start = new Date('2026-11-02T00:00:00.000Z')
-  await page.clock.install({ time: start })
   await page.clock.pauseAt(start)
   await page.evaluate(() => {
     const subtle = crypto.subtle
@@ -63,10 +64,10 @@ test('24 seconds is advisory; continuing can still produce a mocked VALID', asyn
 })
 
 test('selecting historical evidence cancels the current verification without a verdict', async ({ page }) => {
+  const start = new Date('2026-11-02T00:00:00.000Z')
+  await page.clock.install({ time: new Date(start.getTime() - 3_600_000) })
   await page.goto('/verify')
   await page.getByRole('tab', { name: 'W4 공개 검증 샘플 불러오기' }).click()
-  const start = new Date('2026-11-02T00:00:00.000Z')
-  await page.clock.install({ time: start })
   await page.clock.pauseAt(start)
   await page.evaluate(() => {
     const subtle = crypto.subtle
