@@ -6,6 +6,7 @@ export interface ServiceConfig {
   dbPath: string
   backendUrl: string
   backendTimeoutMs: number
+  internalApiToken: string | null
   youtubeApiKey: string | null
   geminiApiKey: string | null
   geminiModel: string
@@ -30,11 +31,16 @@ function localBackend(value: string): string {
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServiceConfig {
+  const internalApiToken = nonEmpty(env.VERIMOD_INTERNAL_API_TOKEN)
+  if (env.NODE_ENV === 'production' && !internalApiToken) {
+    throw new Error('production에서는 VERIMOD_INTERNAL_API_TOKEN이 필요합니다')
+  }
   return {
     port: Number(env.REDESIGN_SVC_PORT ?? 3101),
     dbPath: resolve(env.REDESIGN_DB_PATH ?? './.data/redesign-dev-v2.sqlite'),
     backendUrl: localBackend(env.VERIMOD_BACKEND_URL ?? 'http://127.0.0.1:3001'),
     backendTimeoutMs: Number(env.VERIMOD_BACKEND_TIMEOUT_MS ?? 20_000),
+    internalApiToken,
     youtubeApiKey: nonEmpty(env.YOUTUBE_API_KEY),
     geminiApiKey: nonEmpty(env.GEMINI_API_KEY),
     geminiModel: nonEmpty(env.GEMINI_MODEL) ?? 'gemini-2.5-flash',

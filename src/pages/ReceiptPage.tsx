@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { tamperOptions } from '@vm-features/tamper'
 import type { ReceiptBody } from '@vm-domain/types'
 import { requestAppeal } from '../api/appeal'
+import { guestOwnerToken } from '../lib/guestVault'
 import { ScoreBars, W4_PROVISIONAL_THRESHOLDS } from '../components/ScoreBars'
 import { StepFlow } from '../components/StepFlow'
 import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, Notice, shortHash, TopBar } from '../components/ui'
@@ -188,14 +189,17 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
 
 export function ReceiptPage() {
   const { id = '' } = useParams()
+  const [search] = useSearchParams()
+  const sessionId = search.get('session') ?? ''
+  const owner = sessionId ? guestOwnerToken(sessionId) : null
   const evidence = id.startsWith('evidence-')
   const [bundle, setBundle] = useState<VerificationBundle | null>(null)
   const [error, setError] = useState<string | null>(null)
   useEffect(() => {
     setBundle(null)
     setError(null)
-    ;(evidence ? fetchEvidenceBundle(id) : fetchReceiptBundle(id)).then(setBundle).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '영수증을 불러오지 못했습니다'))
-  }, [id, evidence])
+    ;(evidence ? fetchEvidenceBundle(id) : sessionId ? fetchReceiptBundle(id, sessionId, owner) : Promise.reject(new Error('영수증 소유 세션 정보가 필요합니다'))).then(setBundle).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '영수증을 불러오지 못했습니다'))
+  }, [id, evidence, sessionId, owner])
   return (
     <div className="page vpage">
       <TopBar title="판정 영수증" />

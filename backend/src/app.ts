@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import type { DatabaseSync } from 'node:sqlite'
 import express, { type Request, type Response } from 'express'
 import { manifestHashes, MODEL_MANIFEST, POLICY_MANIFEST, REVIEW_POLICY_MANIFEST } from '@verimod/protocol/manifests'
@@ -24,6 +24,8 @@ export interface AppOptions {
   policy?: PolicyEvaluator
   modelManifest?: unknown
   now?: () => Date
+  /** Redesign service -> backend shared secret. When set, client supplied demo headers are never trusted without it. */
+  internalApiToken?: string
 }
 
 type DemoRole = 'DEMO_OPERATOR' | 'DEMO_REVIEWER' | 'DEMO_USER'
@@ -32,9 +34,16 @@ function sendError(res: Response, status: number, code: string, retryable = fals
   return res.status(status).json({ ok: false, request_id: res.locals.requestId as string, error: { code, retryable } })
 }
 
-function principal(req: Request, res: Response, expectedRole: DemoRole): string | null {
+function tokenMatches(req: Request, expected: string | undefined): boolean {
+  if (!expected) return true
+  const supplied = req.header('x-verimod-internal-token') ?? ''
+  const digest = (value: string) => createHash('sha256').update(value).digest()
+  return timingSafeEqual(digest(supplied), digest(expected))
+}
+
+function principal(req: Request, res: Response, expectedRole: DemoRole, internalApiToken?: string): string | null {
   const value = req.header('x-demo-principal')?.trim()
-  if (!value || req.header('x-demo-role') !== expectedRole) {
+  if (!tokenMatches(req, internalApiToken) || !value || req.header('x-demo-role') !== expectedRole) {
     sendError(res, 403, 'FORBIDDEN')
     return null
   }
@@ -79,7 +88,7 @@ export function createApp(options: AppOptions = {}) {
   })
 
   app.post('/api/decisions', async (req, res) => {
-    const owner = principal(req, res, 'DEMO_USER')
+    const owner = principal(req, res, 'DEMO_USER', options.internalApiToken)
     if (!owner) return
     const key = idempotencyKey(req, res)
     if (!key) return
@@ -96,7 +105,11 @@ export function createApp(options: AppOptions = {}) {
   })
 
   app.get('/api/receipts/:id', (req, res) => {
-    const row = database.prepare('SELECT canonical_body, receipt_hash FROM receipts WHERE receipt_id = ?').get(req.params.id) as
+    const owner = options.internalApiToken ? principal(req, res, 'DEMO_USER', options.internalApiToken) : null
+    if (options.internalApiToken && !owner) return
+    const row = (owner
+      ? database.prepare('SELECT canonical_body, receipt_hash FROM receipts WHERE receipt_id = ? AND owner_principal = ?').get(req.params.id, owner)
+      : database.prepare('SELECT canonical_body, receipt_hash FROM receipts WHERE receipt_id = ?').get(req.params.id)) as
       | { canonical_body: string; receipt_hash: string }
       | undefined
     if (!row) return void sendError(res, 404, 'NOT_FOUND')
@@ -108,7 +121,13 @@ export function createApp(options: AppOptions = {}) {
   })
 
   app.get('/api/receipts/:id/bundle', async (req, res) => {
+    const owner = options.internalApiToken ? principal(req, res, 'DEMO_USER', options.internalApiToken) : null
+    if (options.internalApiToken && !owner) return
     try {
+      if (owner) {
+        const owned = database.prepare('SELECT 1 FROM receipts WHERE receipt_id = ? AND owner_principal = ?').get(req.params.id, owner)
+        if (!owned) return void sendError(res, 404, 'NOT_FOUND')
+      }
       const bundle = await epochs.bundle(req.params.id)
       if (!bundle) return void sendError(res, 404, 'NOT_FOUND')
       res.json({ ok: true, request_id: res.locals.requestId as string, data: bundle })
@@ -137,15 +156,15 @@ export function createApp(options: AppOptions = {}) {
   })
 
   app.post('/api/appeals', (req, res) => {
-    if (!principal(req, res, 'DEMO_USER') || !idempotencyKey(req, res)) return
+    if (!principal(req, res, 'DEMO_USER', options.internalApiToken) || !idempotencyKey(req, res)) return
     sendError(res, 501, 'NOT_IMPLEMENTED')
   })
   app.post('/api/reviews', (req, res) => {
-    if (!principal(req, res, 'DEMO_REVIEWER') || !idempotencyKey(req, res)) return
+    if (!principal(req, res, 'DEMO_REVIEWER', options.internalApiToken) || !idempotencyKey(req, res)) return
     sendError(res, 501, 'NOT_IMPLEMENTED')
   })
   app.post('/api/epochs/freeze', async (req, res) => {
-    const operator = principal(req, res, 'DEMO_OPERATOR')
+    const operator = principal(req, res, 'DEMO_OPERATOR', options.internalApiToken)
     if (!operator) return
     const key = idempotencyKey(req, res)
     if (!key) return

@@ -3,6 +3,7 @@ import { manifestHashes } from '@vm-domain/manifests'
 import { baseSepoliaProfileFromEnv, createPublicRpcLedger, type ApprovedTrustProfile } from '@vm-domain/rpcLedger'
 import { validateBundle } from '@vm-domain/schema'
 import type { VerificationBundle } from '@vm-domain/types'
+import { svc } from '../api/svc'
 import { verifyReceipt, type VerifyReport } from '@vm-domain/verify'
 
 /** 기존 frontend의 검증기(domain/verify.ts)와 공개 RPC 원장 reader(domain/rpcLedger.ts)를 복사하지 않고 그대로 쓴다.
@@ -65,17 +66,9 @@ export function pickPackage(value: unknown, receiptId: string): LoadedPackage {
 }
 
 /** 기존 backend의 공개 bundle API. 새 탭·새 브라우저에서도 같은 결과를 받는다(로컬 저장 의존 없음). */
-export async function fetchReceiptBundle(receiptId: string): Promise<VerificationBundle> {
-  let response: Response
-  try {
-    response = await fetch(`/api/receipts/${encodeURIComponent(receiptId)}/bundle`)
-  } catch {
-    throw new Error('VeriMod backend(127.0.0.1:3001)에 연결하지 못했습니다')
-  }
-  const payload = await response.json().catch(() => null) as { ok?: boolean; data?: unknown; error?: { code?: string } } | null
-  if (response.status === 404 || payload?.error?.code === 'NOT_FOUND') throw new Error('이 영수증 ID를 backend에서 찾지 못했습니다')
-  if (!response.ok || !payload?.ok) throw new Error(response.status >= 500 && !payload ? 'VeriMod backend가 실행 중이 아닙니다(127.0.0.1:3001)' : `영수증 조회 실패(HTTP ${response.status})`)
-  return decodeBundle(payload.data)
+export async function fetchReceiptBundle(receiptId: string, sessionId: string, owner: string | null): Promise<VerificationBundle> {
+  const { bundle } = await svc.receiptBundle(sessionId, owner, receiptId)
+  return decodeBundle(bundle)
 }
 
 export const EVIDENCE = [

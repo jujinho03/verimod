@@ -12,7 +12,7 @@ const { app } = createServiceApp({
   config,
   youtube: createYouTubeProvider({ apiKey: config.youtubeApiKey, timeoutMs: config.upstreamTimeoutMs }),
   semantic: createGeminiSemanticFilter({ apiKey: config.geminiApiKey, model: config.geminiModel, timeoutMs: config.geminiTimeoutMs }),
-  backend: createBackendClient({ baseUrl: config.backendUrl, timeoutMs: config.backendTimeoutMs }),
+  backend: createBackendClient({ baseUrl: config.backendUrl, timeoutMs: config.backendTimeoutMs, internalApiToken: config.internalApiToken }),
 })
 
 app.listen(config.port, '127.0.0.1', () => {

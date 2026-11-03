@@ -233,7 +233,7 @@ function ItemDetail({ item, text, onClose, demo, sessionId, owner }: { item: Ses
         {!demo && <div><dt>모델 manifest</dt><dd className="vmono">{shortHash(item.model_manifest_hash)}</dd></div>}
         {!demo && <div><dt>정책 manifest</dt><dd className="vmono">{shortHash(item.policy_manifest_hash)}</dd></div>}
         {item.error_code && <div><dt>미발급 이유</dt><dd>{ERROR_TEXT[item.error_code] ?? item.error_code}</dd></div>}
-        {item.receipt_id && <div><dt>영수증</dt><dd><Link className="link-button" to={`/r/${item.receipt_id}`}>{shortHash(item.receipt_id, 8, 4)} 열기</Link></dd></div>}
+        {item.receipt_id && <div><dt>영수증</dt><dd><Link className="link-button" to={`/r/${item.receipt_id}?session=${encodeURIComponent(sessionId)}`}>{shortHash(item.receipt_id, 8, 4)} 열기</Link></dd></div>}
       </dl>
       {item.receipt_id && <button type="button" className="btn-secondary vsmall-btn" onClick={() => void savePackage()}>이 댓글의 Private Package 저장</button>}
       {pkgError && <p className="error-box">{pkgError}</p>}

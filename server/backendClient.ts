@@ -64,9 +64,10 @@ export function parseDecisionCreated(data: unknown): IssuedDecision {
 export interface BackendClient {
   health(): Promise<{ reachable: boolean; detail: string }>
   issue(input: { text: string; idempotencyKey: string; principal: string }): Promise<IssuedDecision>
+  bundle(input: { receiptId: string; principal: string }): Promise<unknown>
 }
 
-export function createBackendClient(options: { baseUrl: string; timeoutMs: number; fetcher?: typeof fetch }): BackendClient {
+export function createBackendClient(options: { baseUrl: string; timeoutMs: number; internalApiToken?: string | null; fetcher?: typeof fetch }): BackendClient {
   const fetcher = options.fetcher ?? fetch
   const withTimeout = async (path: string, init: RequestInit, timeoutMs: number) => {
     const controller = new AbortController()
@@ -99,6 +100,7 @@ export function createBackendClient(options: { baseUrl: string; timeoutMs: numbe
             'Idempotency-Key': idempotencyKey,
             'x-demo-principal': principal,
             'x-demo-role': 'DEMO_USER',
+            ...(options.internalApiToken ? { 'x-verimod-internal-token': options.internalApiToken } : {}),
           },
           body: JSON.stringify({ text }),
         }, options.timeoutMs)
@@ -112,6 +114,22 @@ export function createBackendClient(options: { baseUrl: string; timeoutMs: numbe
         throw new BackendIssueError(typeof error.code === 'string' ? error.code : `HTTP_${response.status}`, error.retryable === true, response.status)
       }
       return parseDecisionCreated(payload.data)
+    },
+    async bundle({ receiptId, principal }) {
+      const response = await withTimeout(`/api/receipts/${encodeURIComponent(receiptId)}/bundle`, {
+        method: 'GET',
+        headers: {
+          'x-demo-principal': principal,
+          'x-demo-role': 'DEMO_USER',
+          ...(options.internalApiToken ? { 'x-verimod-internal-token': options.internalApiToken } : {}),
+        },
+      }, options.timeoutMs)
+      const payload = obj(await response.json().catch(() => ({})))
+      if (!response.ok || payload.ok !== true) {
+        const error = obj(payload.error)
+        throw new BackendIssueError(typeof error.code === 'string' ? error.code : `HTTP_${response.status}`, false, response.status)
+      }
+      return payload.data
     },
   }
 }

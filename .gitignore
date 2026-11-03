@@ -25,6 +25,7 @@ models/
 venv/
 __pycache__/
 .pytest_cache/
+.tmp/
 node_modules/
 dist/
 build/

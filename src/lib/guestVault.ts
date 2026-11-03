@@ -12,6 +12,15 @@ export interface GuestSessionRef {
 }
 
 const KEY = 'verimod_redesign_guest_sessions_v1'
+const SESSION_KEY = 'verimod_redesign_current_owners_v1'
+
+export function rememberCurrentOwner(sessionId: string, ownerToken: string): void {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY)
+    const parsed = raw ? JSON.parse(raw) as Record<string, string> : {}
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ ...parsed, [sessionId]: ownerToken }))
+  } catch { /* current-tab convenience only */ }
+}
 
 export function listGuestSessions(): GuestSessionRef[] {
   try {
@@ -38,5 +47,11 @@ export function removeGuestSession(sessionId: string) {
 }
 
 export function guestOwnerToken(sessionId: string): string | null {
-  return listGuestSessions().find((item) => item.session_id === sessionId)?.owner_token ?? null
+  const saved = listGuestSessions().find((item) => item.session_id === sessionId)?.owner_token
+  if (saved) return saved
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY)
+    const parsed = raw ? JSON.parse(raw) as Record<string, unknown> : {}
+    return typeof parsed[sessionId] === 'string' ? parsed[sessionId] : null
+  } catch { return null }
 }
