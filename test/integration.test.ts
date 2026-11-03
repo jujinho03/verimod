@@ -51,6 +51,7 @@ const listen = (app: { listen: (port: number, host: string, cb: () => void) => S
 let servers: Server[] = []
 let backendDb: ReturnType<typeof openDatabase>
 let inferred: string[]
+const internalApiToken = 'integration-only-internal-token'
 
 async function boot(options: { aiAvailable: boolean }) {
   inferred = []
@@ -63,6 +64,7 @@ async function boot(options: { aiAvailable: boolean }) {
       policyManifestHash: W4_PROVISIONAL_POLICY_HASH, policyManifest: structuredClone(policyManifest), localW4E2E: true,
       hate: { review: 24495, restrict: 216950 }, offensive: { review: 180483, restrict: 646501 },
     }),
+    internalApiToken,
   })
   const b = await listen(backend)
   const svc = createServiceApp({
@@ -70,7 +72,7 @@ async function boot(options: { aiAvailable: boolean }) {
     config: { stopAfterUnavailable: 3 },
     youtube: createYouTubeProvider({ apiKey: null, timeoutMs: 100 }),
     semantic: createGeminiSemanticFilter({ apiKey: null, model: 'x', timeoutMs: 100 }),
-    backend: createBackendClient({ baseUrl: b.url, timeoutMs: 5000 }),
+    backend: createBackendClient({ baseUrl: b.url, timeoutMs: 5000, internalApiToken }),
   })
   const s = await listen(svc.app)
   servers = [b.server, s.server]
@@ -185,7 +187,9 @@ describe('issued receipt is a real backend bundle', () => {
     await call('POST', `/svc/sessions/${session.id}/analyze`, {}, auth)
     await runner.settle(session.id)
     const item = (await call('GET', `/svc/sessions/${session.id}`, undefined, auth)).body.data.session.items[0]
-    const bundle = (await (await fetch(`${backendUrl}/api/receipts/${item.receipt_id}/bundle`)).json() as any).data
+    expect((await fetch(`${backendUrl}/api/receipts/${item.receipt_id}/bundle`, { headers: { 'x-demo-principal': `verimod-redesign:${session.id}`, 'x-demo-role': 'DEMO_USER' } })).status).toBe(403)
+    expect((await call('GET', `/svc/sessions/${session.id}/receipts/${item.receipt_id}/bundle`)).status).toBe(403)
+    const bundle = (await call('GET', `/svc/sessions/${session.id}/receipts/${item.receipt_id}/bundle`, undefined, auth)).body.data.bundle
     const parsed = validateBundle(bundle)
     expect(parsed.ok).toBe(true)
     expect(bundle.proof).toBeNull()
@@ -195,7 +199,7 @@ describe('issued receipt is a real backend bundle', () => {
   })
 
   it('Private Package content side-check remains NOT_CHECKED until an anchor is core VALID', async () => {
-    const { call, runner, backendUrl } = await boot({ aiAvailable: true })
+    const { call, runner } = await boot({ aiAvailable: true })
     const created = await call('POST', '/svc/sessions', { kind: 'MANUAL', text: '패키지 확인 문장' })
     const { owner_token: owner, session } = created.body.data
     const auth = { 'x-vmr-owner': owner }
@@ -203,7 +207,7 @@ describe('issued receipt is a real backend bundle', () => {
     await call('POST', `/svc/sessions/${session.id}/analyze`, {}, auth)
     await runner.settle(session.id)
     const item = (await call('GET', `/svc/sessions/${session.id}`, undefined, auth)).body.data.session.items[0]
-    const bundle = (await (await fetch(`${backendUrl}/api/receipts/${item.receipt_id}/bundle`)).json() as any).data
+    const bundle = (await call('GET', `/svc/sessions/${session.id}/receipts/${item.receipt_id}/bundle`, undefined, auth)).body.data.bundle
     const packages = (await call('GET', `/svc/sessions/${session.id}/private-package`, undefined, auth)).body.data.packages
     const pkg = pickPackage(packages, item.receipt_id)
     const ctx = (p: typeof pkg) => ({

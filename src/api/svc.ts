@@ -64,5 +64,6 @@ export const svc = {
   analyze: (id: string, owner: string | null) => call<{ session: SessionView; running: boolean }>('POST', `/svc/sessions/${encodeURIComponent(id)}/analyze`, { owner, body: {} }),
   cancel: (id: string, owner: string | null) => call<{ cancelling: boolean }>('POST', `/svc/sessions/${encodeURIComponent(id)}/cancel`, { owner, body: {} }),
   privatePackages: (id: string, owner: string | null) => call<{ packages: PrivatePackage[] }>('GET', `/svc/sessions/${encodeURIComponent(id)}/private-package`, { owner }),
+  receiptBundle: (id: string, owner: string | null, receiptId: string) => call<{ bundle: unknown }>('GET', `/svc/sessions/${encodeURIComponent(id)}/receipts/${encodeURIComponent(receiptId)}/bundle`, { owner }),
   publicSession: (publicId: string) => call<{ session: PublicSessionView }>('GET', `/svc/public/sessions/${encodeURIComponent(publicId)}`),
 }

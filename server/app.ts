@@ -138,6 +138,13 @@ export function createServiceApp(deps: ServiceDeps) {
     ok(res, { packages: store.privatePackages(id, who(req)) })
   }))
 
+  app.get('/svc/sessions/:id/receipts/:receiptId/bundle', route(async (req, res) => {
+    const sessionId = String(req.params.id)
+    const receiptId = String(req.params.receiptId)
+    const principal = store.receiptPrincipal(sessionId, who(req), receiptId)
+    ok(res, { bundle: await deps.backend.bundle({ receiptId, principal }) })
+  }))
+
   app.get('/svc/public/sessions/:publicId', route((req, res) => ok(res, { session: store.publicView(String(req.params.publicId)) })))
 
   app.use('/svc', (_req: Request, res: Response) => void res.status(404).json({ ok: false, error: { code: 'NOT_FOUND', message: '없는 경로입니다', retryable: false } }))

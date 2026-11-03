@@ -204,6 +204,13 @@ export class SessionStore {
     })
   }
 
+  receiptPrincipal(sessionId: string, who: Requester, receiptId: string): string {
+    this.authorize(sessionId, who)
+    const owned = this.db.prepare("SELECT 1 FROM session_items WHERE session_id = ? AND receipt_id = ? AND status = 'ISSUED'").get(sessionId, receiptId)
+    if (!owned) throw new ServiceError('NOT_FOUND', 404, '이 세션의 영수증을 찾을 수 없습니다')
+    return `verimod-redesign:${sessionId}`
+  }
+
   // ---- analysis runner support ----
   setPhase(sessionId: string, phase: SessionPhase, stopReason: string | null = null) {
     this.db.prepare('UPDATE analysis_sessions SET phase = ?, stop_reason = ?, updated_at = ? WHERE session_id = ?').run(phase, stopReason, this.now().toISOString(), sessionId)

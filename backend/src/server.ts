@@ -15,6 +15,10 @@ const databasePath = resolve(process.env.VERIMOD_DB_PATH ?? './data/verimod.sqli
 mkdirSync(dirname(databasePath), { recursive: true })
 const database = openDatabase(databasePath)
 const localW4E2E = process.env.VERIMOD_W4_PROVISIONAL_E2E_ONLY === 'true'
+const internalApiToken = process.env.VERIMOD_INTERNAL_API_TOKEN?.trim() || undefined
+if (process.env.NODE_ENV === 'production' && !internalApiToken) {
+  throw new Error('production에서는 VERIMOD_INTERNAL_API_TOKEN이 필요합니다')
+}
 function loadManifest(path: string | undefined): unknown {
   if (!path) return undefined
   try { return JSON.parse(readFileSync(resolve(path), 'utf8')) } catch { return undefined }
@@ -51,6 +55,7 @@ if (localW4E2E && policyManifest && policyValues.every((value) => typeof value =
     }) } catch { policy = unavailablePolicyEvaluator }
 }
 
-createApp({ database, inference, policy, modelManifest: localW4E2E ? modelManifest : undefined }).listen(port, '127.0.0.1', () => {
+createApp({ database, inference, policy, modelManifest: localW4E2E ? modelManifest : undefined,
+  internalApiToken }).listen(port, '127.0.0.1', () => {
   console.log(`verimod-backend listening on http://127.0.0.1:${port}`)
 })
