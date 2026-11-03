@@ -140,25 +140,26 @@ export function loadCallbackApproval(path: string, syntheticTestOnly: boolean): 
 export function openApprovedDatabase(cfg: CallbackApproval): DatabaseSync {
   const path = resolve(cfg.database_path)
   requireThat(!lstatSync(path).isSymbolicLink() && realpathSync(path) === path, 'NONCANONICAL_DB_PATH')
-  const matchesIdentity = () => {
-    const info = statSync(path, { bigint: true })
-    requireThat(info.isFile() && String(info.dev) === cfg.database_identity.dev && String(info.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
-  }
-  matchesIdentity()
-  const fd = openSync(path, 'r')
-  try {
-    const info = fstatSync(fd, { bigint: true }), header = Buffer.alloc(16)
-    requireThat(String(info.dev) === cfg.database_identity.dev && String(info.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
-    requireThat(readSync(fd, header, 0, 16, 0) === 16 && header.equals(Buffer.from('SQLite format 3\0')), 'NOT_SQLITE_FILE')
-  } finally { closeSync(fd) }
+  // Acquire the Windows no-delete/no-replace guard before taking the single
+  // identity snapshot used for this reopen. Re-reading dev/ino on both sides
+  // of guard acquisition is not stable on every Windows filesystem host.
+  // FileMode.Open cannot create a missing file, and once held the pathname
+  // cannot be replaced until the callback connection closes.
   const guard = process.platform === 'win32' ? windowsExistingFileGuard(path) : undefined
+  let fd: number | undefined
   let database: DatabaseSync | undefined
   try {
-    // The Windows guard used FileMode.Open, then identity is checked again
-    // while replacement is prohibited. Linux keeps the existing URI mode=rw.
-    matchesIdentity()
+    const pathInfo = statSync(path, { bigint: true })
+    requireThat(pathInfo.isFile() && String(pathInfo.dev) === cfg.database_identity.dev && String(pathInfo.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
+    fd = openSync(path, 'r')
+    const handleInfo = fstatSync(fd, { bigint: true }), header = Buffer.alloc(16)
+    requireThat(String(handleInfo.dev) === String(pathInfo.dev) && String(handleInfo.ino) === String(pathInfo.ino), 'DB_IDENTITY_MISMATCH')
+    requireThat(readSync(fd, header, 0, 16, 0) === 16 && header.equals(Buffer.from('SQLite format 3\0')), 'NOT_SQLITE_FILE')
     database = new DatabaseSync(`${pathToFileURL(path).href}?mode=rw`, { timeout: 1000, allowExtension: false })
-    matchesIdentity()
+    if (!guard) {
+      const reopened = statSync(path, { bigint: true })
+      requireThat(String(reopened.dev) === String(pathInfo.dev) && String(reopened.ino) === String(pathInfo.ino), 'DB_IDENTITY_MISMATCH')
+    }
     const main = (database.prepare('PRAGMA database_list').all() as { name: string; file: string }[]).find(row => row.name === 'main')
     requireThat(main?.file && realpathSync(main.file) === path, 'SQLITE_PATH_MISMATCH')
     // FULL is per connection. Keep the existing persistent journal mode; never turn OFF/MEMORY into a pass.
@@ -169,12 +170,18 @@ export function openApprovedDatabase(cfg: CallbackApproval): DatabaseSync {
     if (guard) {
       const close = database.close.bind(database)
       database.close = () => {
-        try { close() } finally { guard.release() }
+        try { close() } finally {
+          if (fd !== undefined) { closeSync(fd); fd = undefined }
+          guard.release()
+        }
       }
-    }
+    } else if (fd !== undefined) { closeSync(fd); fd = undefined }
     return database
   } catch (error) {
-    try { database?.close() } finally { guard?.release() }
+    try { database?.close() } finally {
+      if (fd !== undefined) closeSync(fd)
+      guard?.release()
+    }
     throw error
   }
 }
