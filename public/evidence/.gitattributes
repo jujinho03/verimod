@@ -1,0 +1,3 @@
+# Preserve the exact bytes of the two published W4 evidence copies on checkout.
+receipt-0.bundle.json -text
+receipt-1.bundle.json -text
