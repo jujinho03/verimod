@@ -120,7 +120,7 @@ export async function verifyAndConfirm(db: DatabaseSync, cfg: CallbackApproval, 
     && /^[A-Za-z0-9_-]{8,100}$/.test(cfg.confirmation_approval_id), 'CONFIRMATION_NOT_AUTHORIZED')
   const minimum = cfg.minimum_confirmations ?? 12
   requireThat(Number.isSafeInteger(minimum) && minimum >= 12 && minimum <= 100000 && deadlineMs > 0 && deadlineMs <= 12000, 'INVALID_CONFIRMATION_POLICY')
-  requireThat(cfg.target.chainId === '84532' && (cfg.mode === 'SYNTHETIC_TEST_ONLY' || Object.entries(APPROVED_TARGET).every(([k, v]) => cfg.target[k as keyof typeof APPROVED_TARGET] === v)), 'UNAPPROVED_CONFIRMATION_TARGET')
+  requireThat(cfg.target.chainId === '84532' && (cfg.mode === 'SYNTHETIC_TEST_ONLY' || cfg.mode === 'AUTO_DEMO' || Object.entries(APPROVED_TARGET).every(([k, v]) => cfg.target[k as keyof typeof APPROVED_TARGET] === v)), 'UNAPPROVED_CONFIRMATION_TARGET')
   durable(db)
   const epochs = new EpochService(db), initial = epochs.get(cfg.epoch.epochId), membersDigest = confirmationMembersDigest(db, initial.epoch_id)
   requireThat(['SUBMITTED', 'CONFIRMED'].includes(initial.status) && initial.signed_tx && initial.tx_hash && initial.nonce !== null, 'NO_SUBMITTED_TRANSACTION')

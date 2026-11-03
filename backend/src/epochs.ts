@@ -72,15 +72,16 @@ export class EpochService {
 
   constructor(private readonly database: DatabaseSync, private readonly now: () => Date = () => new Date()) {}
 
-  freeze(input: { principal: string; idempotencyKey: string }): Promise<FreezeResult> {
+  freeze(input: { principal: string; idempotencyKey: string; epochId?: string }): Promise<FreezeResult> {
     const result = this.queue.then(() => this.freezeLocked(input), () => this.freezeLocked(input))
     this.queue = result.then(() => undefined, () => undefined)
     return result
   }
 
-  private async freezeLocked(input: { principal: string; idempotencyKey: string }): Promise<FreezeResult> {
+  private async freezeLocked(input: { principal: string; idempotencyKey: string; epochId?: string }): Promise<FreezeResult> {
     const operation = 'POST /api/epochs/freeze'
-    const requestHash = 'all-unfrozen-receipts:v1'
+    if (input.epochId) validateEpochId(input.epochId)
+    const requestHash = input.epochId ? `all-unfrozen-receipts:v1:${input.epochId}` : 'all-unfrozen-receipts:v1'
     this.database.exec('BEGIN IMMEDIATE')
     try {
       const existing = this.database.prepare(
@@ -109,7 +110,9 @@ export class EpochService {
       if (candidates.length === 0) throw new EmptyEpochError()
 
       const frozen = await freezeEpoch(candidates)
-      const epochId = nextEpochId(this.database)
+      const minimumId = nextEpochId(this.database)
+      const epochId = input.epochId ?? minimumId
+      failUnless(BigInt(epochId) >= BigInt(minimumId), 'epoch id must increase')
       this.database.prepare(
         'INSERT INTO epochs (epoch_id, merkle_root, receipt_count, protocol_version, status, created_at, updated_at) VALUES (?, ?, ?, 1, ?, ?, ?)',
       ).run(epochId, frozen.root, frozen.members.length, 'FROZEN', timestamp, timestamp)
@@ -177,7 +180,7 @@ export class EpochService {
     }, persistEvidence)
   }
 
-  markFailed(epochId: string, reason: 'ROOT_CONFLICT' | 'REVERTED' | 'MAX_RETRY'): EpochView {
+  markFailed(epochId: string, reason: 'ROOT_CONFLICT' | 'REVERTED' | 'MAX_RETRY' | 'INSUFFICIENT_FUNDS'): EpochView {
     return this.transition(epochId, ['FROZEN', 'SUBMITTING', 'SUBMITTED', 'FAILED'], 'FAILED', { fail_reason: reason })
   }
 

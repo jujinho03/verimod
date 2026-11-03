@@ -24,6 +24,15 @@ function approvedBaseProfile(): { profile: ApprovedTrustProfile | null; problem:
 }
 
 export const BASE = approvedBaseProfile()
+/** New contract is a separate, immutable browser trust decision. W4 stays approved as-is. */
+export const BASE_SEPOLIA_AUTO_DEMO = {
+  profile_id: 'BASE_SEPOLIA_AUTO_DEMO', chain_id: '84532',
+  contract_address: '0x05dc13b9f35f0bbc37f662c621831a2394f66312',
+  publisher: '0x8ef5f1e4ac6afcd780b0966407b5f32fd06b918d',
+  issuer_id: APPROVED_PROFILES.BASE_SEPOLIA_DEMO.issuer_id,
+  protocol_version: 1, min_confirmations: 12, deployment_block: 53922032,
+  rpc_urls: ['https://sepolia.base.org', 'https://base-sepolia-rpc.publicnode.com'],
+} as const
 
 export function decodeBundle(value: unknown): VerificationBundle {
   const parsed = validateBundle(value)
@@ -35,11 +44,14 @@ export interface LoadedPackage { receipt_id: string; original_text: string; cont
 
 /** Private Package는 검증된 본문의 receipt_id와 같을 때만 쓴다(원래 설계 §4: verified body가 기준, package의 commitment는 사본). */
 export async function runVerification(bundle: unknown, pkg?: LoadedPackage | null): Promise<VerifyReport> {
-  if (!BASE.profile) throw new Error(BASE.problem ?? '체인 검증 설정이 없습니다')
+  const anchor = (bundle as { anchor?: { contract_address?: string } })?.anchor
+  const auto = anchor?.contract_address?.toLowerCase() === BASE_SEPOLIA_AUTO_DEMO.contract_address
+  const profile = auto ? BASE_SEPOLIA_AUTO_DEMO as unknown as ApprovedTrustProfile : BASE.profile
+  if (!profile) throw new Error(BASE.problem ?? '체인 검증 설정이 없습니다')
   const legacy = await manifestHashes()
   return verifyReceipt(bundle, {
-    trust: BASE.profile,
-    ledger: createPublicRpcLedger(BASE.profile),
+    trust: profile,
+    ledger: createPublicRpcLedger(profile),
     manifests: { model: W4_R01_MODEL_HASH as never, policy: W4_PROVISIONAL_POLICY_HASH as never, review: legacy.review },
     findBundle: () => null,
     findPrivateContent: () => {

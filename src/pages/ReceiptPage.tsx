@@ -8,7 +8,7 @@ import { StepFlow } from '../components/StepFlow'
 import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, Notice, shortHash, TopBar } from '../components/ui'
 import { ReportView } from '../verify/ReportView'
 import {
-  BASE, fetchEvidenceBundle, fetchReceiptBundle, pickPackage, runVerification, W4_PROVISIONAL_POLICY_HASH, W4_R01_MODEL_HASH,
+  BASE, BASE_SEPOLIA_AUTO_DEMO, fetchEvidenceBundle, fetchReceiptBundle, pickPackage, runVerification, W4_PROVISIONAL_POLICY_HASH, W4_R01_MODEL_HASH,
   type LoadedPackage, type VerificationBundle, type VerifyReport,
 } from '../verify/verifier'
 
@@ -113,7 +113,7 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
       title={`판정 영수증 ${body.receipt_id.slice(0, 8)}`}
       subtitle={bundle.anchor ? `epoch #${bundle.anchor.epoch_id}에 묶인 기록 · 검증은 이 브라우저가 공개 RPC로 직접 해요.` : '아직 epoch에 묶이지 않은 새 영수증이에요 · PENDING_ANCHOR'}
       secondary={<CopyButton value={window.location.href} label="링크 복사" />}
-      onNext={() => void verify()} loading={running} loadingLabel="검증하는 중..." nextLabel={report ? '다시 검증' : '브라우저에서 독립 검증'} nextDisabled={!BASE.profile}>
+      onNext={() => void verify()} loading={running} loadingLabel="검증하는 중..." nextLabel={report ? '다시 검증' : '브라우저에서 독립 검증'} nextDisabled={!BASE.profile && bundle.anchor?.contract_address !== BASE_SEPOLIA_AUTO_DEMO.contract_address}>
       <div className="tabs vtabs" role="tablist">
         {([['info', '정보'], ['verify', '검증'], ['tamper', '변조 시험'], ['files', '원본·패키지']] as const).map(([key, text]) => (
           <button key={key} type="button" role="tab" aria-selected={tab === key} className={`tab${tab === key ? ' tab--active' : ''}`} onClick={() => setTab(key)}>{text}</button>
@@ -141,7 +141,7 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
 
       {tab === 'verify' && (
         <div className="vpanel">
-          <p className="vhint">검증 기준: {BASE.profile ? <>승인 프로필 BASE_SEPOLIA_DEMO · chain {BASE.profile.chain_id} · contract <code>{shortHash(BASE.profile.contract_address, 8, 4)}</code></> : BASE.problem}{pkg ? ' · Private Package 불러옴' : ''}</p>
+          <p className="vhint">검증 기준: {bundle.anchor?.contract_address === BASE_SEPOLIA_AUTO_DEMO.contract_address ? <>승인 프로필 BASE_SEPOLIA_AUTO_DEMO · chain 84532 · contract <code>{shortHash(BASE_SEPOLIA_AUTO_DEMO.contract_address, 8, 4)}</code></> : BASE.profile ? <>승인 프로필 BASE_SEPOLIA_DEMO · chain {BASE.profile.chain_id} · contract <code>{shortHash(BASE.profile.contract_address, 8, 4)}</code></> : BASE.problem}{pkg ? ' · Private Package 불러옴' : ''}</p>
           {!report && !running && !error && <p className="vhint">해시 재계산 → 신뢰 앵커 → 원장 조회 → 포함 증명 → 블록 확정 순서로 확인해요. 서버의 성공 문구를 믿지 않아요.</p>}
           {running && <p className="vhint">공개 RPC에서 원장을 읽는 중이에요. 체인에 묶인 영수증은 1~3분 걸릴 수 있어요.</p>}
           {report && <ReportView report={report} />}
@@ -191,16 +191,33 @@ export function ReceiptPage() {
   const evidence = id.startsWith('evidence-')
   const [bundle, setBundle] = useState<VerificationBundle | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [anchorState, setAnchorState] = useState<string>('등록 대기')
   useEffect(() => {
     setBundle(null)
     setError(null)
     ;(evidence ? fetchEvidenceBundle(id) : fetchReceiptBundle(id)).then(setBundle).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '영수증을 불러오지 못했습니다'))
+    if (evidence) return
+    let active = true
+    const poll = async () => {
+      try {
+        const response = await fetch(`/api/receipts/${encodeURIComponent(id)}`)
+        const payload = await response.json() as { data?: { epoch?: { status: string; confirmations?: number; fail_reason?: string | null; block_number?: string | null } } }
+        if (!active || !response.ok) return
+        const epoch = payload.data?.epoch
+        setAnchorState(!epoch ? '등록 대기' : epoch.status === 'FROZEN' ? '배치 완료 · 서명 대기' : epoch.status === 'SUBMITTING' ? '서명 완료 · 송신 중' : epoch.status === 'SUBMITTED' ? `체인 확인 ${Math.min(epoch.confirmations ?? 0, 12)}/12` : epoch.status === 'CONFIRMED' ? '확정 완료 · 브라우저 검증 가능' : `등록 실패 · ${epoch.fail_reason ?? '원인 확인 중'}`)
+        if (epoch?.status === 'CONFIRMED') setBundle(await fetchReceiptBundle(id))
+      } catch { if (active) setAnchorState('상태 조회 일시 실패') }
+    }
+    void poll()
+    const timer = window.setInterval(() => { void poll() }, 5000)
+    return () => { active = false; window.clearInterval(timer) }
   }, [id, evidence])
   return (
     <div className="page vpage">
       <TopBar title="판정 영수증" />
       {error && <div className="vcenter"><p className="error-box">{error}</p></div>}
       {!error && !bundle && <div className="vcenter"><p className="muted">영수증을 불러오는 중...</p></div>}
+      {!evidence && bundle && <p className="muted" role="status" aria-live="polite">온체인 등록: {anchorState} · L1 최종 확정은 별도예요.</p>}
       {bundle && <ReceiptView bundle={bundle} evidence={evidence} label={evidence ? '공개 증거 · 2026-10-20 체인 등록' : '공개 영수증'} />}
     </div>
   )

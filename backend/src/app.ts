@@ -17,6 +17,7 @@ import {
   EpochStateError,
   FreezeIdempotencyConflictError,
 } from './epochs.js'
+import { acceptSignedTransaction, markBroadcast, nextSigningJob, type AutoAnchorConfig, workerAuthorized } from './autoAnchor.js'
 
 export interface AppOptions {
   database?: DatabaseSync
@@ -24,6 +25,8 @@ export interface AppOptions {
   policy?: PolicyEvaluator
   modelManifest?: unknown
   now?: () => Date
+  autoAnchor?: AutoAnchorConfig | null
+  confirmationProgress?: (txHash: string) => Promise<number>
 }
 
 type DemoRole = 'DEMO_OPERATOR' | 'DEMO_REVIEWER' | 'DEMO_USER'
@@ -67,6 +70,7 @@ export function createApp(options: AppOptions = {}) {
     options.modelManifest,
   )
   const epochs = new EpochService(database, options.now)
+  const autoAnchor = options.autoAnchor ?? null
   const app = express()
   app.use((_req, res, next) => {
     res.locals.requestId = randomUUID()
@@ -76,6 +80,40 @@ export function createApp(options: AppOptions = {}) {
 
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', service: 'verimod-backend' })
+  })
+
+  function worker(req: Request, res: Response) {
+    if (!workerAuthorized(req.header('authorization')?.replace(/^Bearer /, ''), autoAnchor)) { sendError(res, 403, 'FORBIDDEN'); return false }
+    return true
+  }
+  app.get('/api/auto-anchor/next', (req, res) => {
+    if (!worker(req, res)) return
+    res.json({ ok: true, request_id: res.locals.requestId as string, data: nextSigningJob(database) })
+  })
+  app.post('/api/auto-anchor/signed', (req, res) => {
+    if (!worker(req, res)) return
+    const body = req.body as { epochId?: unknown; rawTransaction?: unknown }
+    if (typeof body?.epochId !== 'string' || typeof body.rawTransaction !== 'string') return void sendError(res, 400, 'INVALID_INPUT')
+    try { res.json({ ok: true, request_id: res.locals.requestId as string, data: acceptSignedTransaction(database, autoAnchor!, body.epochId, body.rawTransaction) }) }
+    catch { sendError(res, 409, 'DURABLE_ACK_REJECTED') }
+  })
+  app.post('/api/auto-anchor/broadcast', (req, res) => {
+    if (!worker(req, res)) return
+    const body = req.body as { epochId?: unknown; txHash?: unknown }
+    if (typeof body?.epochId !== 'string' || typeof body.txHash !== 'string') return void sendError(res, 400, 'INVALID_INPUT')
+    try { const { signed_tx: _secret, ...epoch } = markBroadcast(database, body.epochId, body.txHash); res.json({ ok: true, request_id: res.locals.requestId as string, data: epoch }) }
+    catch { sendError(res, 409, 'BROADCAST_REJECTED') }
+  })
+  app.post('/api/auto-anchor/failed', (req, res) => {
+    if (!worker(req, res)) return
+    const body = req.body as { epochId?: unknown; reason?: unknown }
+    if (typeof body?.epochId !== 'string' || !['ROOT_CONFLICT', 'REVERTED', 'MAX_RETRY', 'INSUFFICIENT_FUNDS'].includes(String(body.reason))) return void sendError(res, 400, 'INVALID_INPUT')
+    try {
+      const current = epochs.get(body.epochId)
+      if (['MAX_RETRY', 'INSUFFICIENT_FUNDS'].includes(String(body.reason)) && current.status !== 'FROZEN') return void sendError(res, 409, 'FAILURE_REJECTED')
+      const { signed_tx: _secret, ...epoch } = epochs.markFailed(body.epochId, body.reason as 'ROOT_CONFLICT' | 'REVERTED' | 'MAX_RETRY' | 'INSUFFICIENT_FUNDS')
+      res.json({ ok: true, request_id: res.locals.requestId as string, data: epoch })
+    } catch { sendError(res, 409, 'FAILURE_REJECTED') }
   })
 
   app.post('/api/decisions', async (req, res) => {
@@ -95,15 +133,20 @@ export function createApp(options: AppOptions = {}) {
     }
   })
 
-  app.get('/api/receipts/:id', (req, res) => {
+  app.get('/api/receipts/:id', async (req, res) => {
     const row = database.prepare('SELECT canonical_body, receipt_hash FROM receipts WHERE receipt_id = ?').get(req.params.id) as
       | { canonical_body: string; receipt_hash: string }
       | undefined
     if (!row) return void sendError(res, 404, 'NOT_FOUND')
+    const membership = database.prepare('SELECT e.epoch_id,e.status,e.tx_hash,e.block_number,e.fail_reason FROM epoch_members m JOIN epochs e ON e.epoch_id=m.epoch_id WHERE m.receipt_hash=?').get(row.receipt_hash) as { epoch_id: string; status: string; tx_hash: string | null; block_number: string | null; fail_reason: string | null } | undefined
+    let confirmations = membership?.status === 'CONFIRMED' ? 12 : 0
+    if (membership?.status === 'SUBMITTED' && membership.tx_hash && options.confirmationProgress) {
+      try { confirmations = await options.confirmationProgress(membership.tx_hash) } catch { /* Next poll retries. */ }
+    }
     res.json({
       ok: true,
       request_id: res.locals.requestId as string,
-      data: { receipt_body: JSON.parse(row.canonical_body), receipt_hash: row.receipt_hash, state: 'PENDING_ANCHOR' },
+      data: { receipt_body: JSON.parse(row.canonical_body), receipt_hash: row.receipt_hash, state: membership?.status === 'CONFIRMED' ? 'CONFIRMED' : 'PENDING_ANCHOR', epoch: membership ? { ...membership, confirmations } : null },
     })
   })
 
