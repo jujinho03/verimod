@@ -53,6 +53,7 @@ export const MENUS: Menu[] = [
         label: '판정',
         links: [
           { to: '/check', title: '판정 요청', desc: '글을 넣고 항목별 점수와 조치를 확인합니다', icon: InputIcon },
+          { to: '/comments', title: 'YouTube 댓글 판정', desc: '영상 댓글을 고르고 실제 R01 영수증을 발급합니다', icon: InputIcon },
           { to: '/protocol#policy', title: '정책과 기준값', desc: '라벨별 threshold와 조치 우선순위', icon: ScaleIcon },
         ],
       },

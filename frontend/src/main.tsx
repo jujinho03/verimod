@@ -14,6 +14,7 @@ import './styles/pages.css'
 import './styles/home.css'
 
 import { CheckPage } from './pages/CheckPage'
+import { CommentAnalysisPage } from './pages/CommentAnalysisPage'
 import { Home } from './pages/home/Home'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { ProtocolPage } from './pages/ProtocolPage'
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="check" element={<CheckPage />} />
+            <Route path="comments" element={<CommentAnalysisPage />} />
             <Route path="receipts" element={<ReceiptsPage />} />
             <Route path="receipts/:receiptId" element={<ReceiptDetailPage />} />
             <Route path="verify" element={<VerifyPage />} />
