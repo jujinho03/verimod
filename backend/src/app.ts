@@ -17,7 +17,6 @@ import {
   EpochStateError,
   FreezeIdempotencyConflictError,
 } from './epochs.js'
-import { collectYouTube, semanticIds } from './comments.js'
 
 export interface AppOptions {
   database?: DatabaseSync
@@ -77,19 +76,6 @@ export function createApp(options: AppOptions = {}) {
 
   app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', service: 'verimod-backend' })
-  })
-
-  app.post('/api/comments/collect', async (req, res) => {
-    const body = req.body as { url?: unknown; max?: unknown; include_replies?: unknown }
-    if (typeof body?.url !== 'string' || typeof body.max !== 'number' || typeof body.include_replies !== 'boolean') return void sendError(res, 400, 'INVALID_INPUT')
-    try { res.json({ ok: true, request_id: res.locals.requestId as string, data: await collectYouTube(body.url, body.max, body.include_replies, process.env.YOUTUBE_API_KEY) }) }
-    catch (error) { res.status(502).json({ ok: false, request_id: res.locals.requestId as string, error: { code: 'COLLECT_FAILED', retryable: true, message: error instanceof Error ? error.message : '댓글 수집 실패' } }) }
-  })
-  app.post('/api/comments/related', async (req, res) => {
-    const body = req.body as { topic?: unknown; comments?: unknown }
-    if (typeof body?.topic !== 'string' || !Array.isArray(body.comments)) return void sendError(res, 400, 'INVALID_INPUT')
-    try { res.json({ ok: true, request_id: res.locals.requestId as string, data: { related_ids: await semanticIds(body.topic, body.comments as never[], process.env.GEMINI_API_KEY) } }) }
-    catch (error) { res.status(503).json({ ok: false, request_id: res.locals.requestId as string, error: { code: 'GEMINI_FAILED', retryable: true, message: error instanceof Error ? error.message : 'Gemini 오류' } }) }
   })
 
   app.post('/api/decisions', async (req, res) => {

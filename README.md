@@ -1,5 +1,19 @@
 # VeriMod
 
+## 현재 기본 앱 · 설경민 데모 디자인
+
+기본 사용자 화면은 `k0ng-min/verimod_demo`의 main `e6aea87073ee4963a13efc732c44efb5d150e2f3`에서 가져온 앱입니다. 화면·스타일·폰트·이미지는 그대로 사용하며 이 저장소의 `backend/`, `ai/`, `shared/protocol/`, `frontend/src/domain/`과 연결합니다. 별도 `upstream/` 복제본은 필요하지 않습니다.
+
+```sh
+npm ci
+npm ci --prefix backend
+npm run dev:all
+```
+
+기본 화면: http://localhost:5190 · 수집/세션 서비스: 3101 · 판정서 백엔드: 3001. 기존 `frontend/` 앱은 검증·회귀 확인용으로 보존합니다. 이 폴더에서 실행하는 기존 안내와 구분하여, 디자인 앱은 **저장소 루트**에서 실행하세요.
+
+YouTube/Gemini 키는 루트 `.env.local` 또는 서버 환경변수로 설정합니다. 실제 R01 실행에는 저장소 밖 모델 인계 패키지(`VERIMOD_R01_PACKAGE`)와 Python 환경(`VERIMOD_PYTHON`, 기본 `ai/.venv`)이 필요합니다. 새 영수증은 실제 앵커 전까지 `PENDING_ANCHOR`로 유지됩니다. [통합 내역과 실행 설정](docs/handoffs/redesign-import.md)을 확인하세요.
+
 **User-Verifiable AI Moderation Protocol**
 
 사용자가 AI 판정 기록의 무결성을 직접 확인할 수 있도록 돕는 프로토콜

@@ -208,11 +208,6 @@
   background: var(--panel);
 }
 
-.comment-list { display: grid; gap: 12px; max-height: 68vh; overflow: auto; }
-.comment-thread { display: grid; gap: 8px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; font-size: .9rem; line-height: 1.5; }
-.comment-thread label { display: block; cursor: pointer; }
-.comment-reply { margin-left: 18px; color: var(--ink-muted); }
-
 .empty {
   display: grid;
   gap: 14px;

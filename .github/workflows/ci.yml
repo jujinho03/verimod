@@ -21,6 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - package: redesign
+            path: .
           - package: frontend
             path: frontend
           - package: backend
@@ -42,6 +44,10 @@ jobs:
       - name: Match locally verified npm
         run: npm install --global npm@12.0.2
       - run: npm ci
+      - if: matrix.package == 'redesign'
+        name: Install backend dependencies for integrated launcher checks
+        working-directory: backend
+        run: npm ci
       # The W3 joint checkpoint test imports backend/test/helpers, which needs backend dependencies.
       - if: matrix.package == 'contracts'
         name: Install backend dependencies for the W3 joint checkpoint
