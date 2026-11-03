@@ -4,7 +4,7 @@ import { parseContentUrl } from '../../shared/url'
 import { svc, SvcError } from '../api/svc'
 import { StepFlow } from '../components/StepFlow'
 import { Chip, Notice, Toggle, formatTime } from '../components/ui'
-import { saveGuestSession } from '../lib/guestVault'
+import { rememberCurrentOwner, saveGuestSession } from '../lib/guestVault'
 import type { StepProps } from './AnalyzePage'
 import type { FlowState, SourceKind } from './state'
 
@@ -16,6 +16,7 @@ export function errorText(error: unknown): string {
 }
 
 export function rememberSession(session: SessionView, owner: string, flow: FlowState) {
+  rememberCurrentOwner(session.id, owner)
   if (flow.keepInBrowser) {
     saveGuestSession({
       session_id: session.id, public_id: session.public_id, owner_token: owner, title: session.source.title,
