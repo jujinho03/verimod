@@ -54,6 +54,11 @@ jobs:
         working-directory: backend
         run: npm ci
       - run: npm test
+      - if: matrix.package == 'redesign'
+        name: Verify public W4 evidence offline
+        run: |
+          python3 -B docs/evidence/mentor5-hash-check.py
+          python3 -B -m unittest -v docs/evidence/test_mentor5_hash_check.py
       - if: matrix.package == 'frontend'
         run: npx playwright install --with-deps chromium
       - if: matrix.package == 'frontend'

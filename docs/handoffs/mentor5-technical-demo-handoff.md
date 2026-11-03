@@ -2,14 +2,14 @@
 
 ## 1. 목적과 검증 기준
 
-이 문서는 VeriMod의 검증 화면과 실제 실행 근거를 기술 담당자에게 인계한다. 아래 상태는 2026-11-02에 기록한 실행과 [PR #45](https://github.com/jujinho03/verimod/pull/45)의 변경을 기준으로 한다. 실행 환경과 시각, 코드 SHA 및 미확인 범위는 각 증거 문서를 따른다. 이 문서 자체는 본선 현장의 실행 기록이 아니다. 이전 구현 상태와 작업 경과는 [개발 기록](../mentoring/mentor5-development-implementation.md)에 보존한다.
+이 문서는 VeriMod의 검증 화면과 실제 실행 근거를 기술 담당자에게 인계한다. **화면 코드 점검 기준:** 2026-11-03 확인 main `91477e8d652e903075324c2903b2f2f44835353f`. 2026-11-02의 W7 발급 및 RPC 수치는 각각 당시 실행 SHA·환경을 유지한다. 이후 코드나 CI가 달라질 수 있으므로 시연 전 다시 확인한다. 이 문서 자체는 본선 현장의 실행 기록이 아니다. [PR #45](https://github.com/jujinho03/verimod/pull/45)의 작업 경과와 과거 상태는 [개발 기록](../mentoring/mentor5-development-implementation.md)에 보존한다.
 
 ## 2. 현재 구현과 확인된 실행
 
 - **과거 W4:** 2026-10-20 Base Sepolia Epoch 1에 공개 Receipt 2건을 등록했다. [W4 공개 증거](w4-anchored-epoch-public/20261020-r01/README.md)는 당시 실행이다.
-- **신규 W7 경로:** 2026-11-02 격리 DB에서 브라우저→Node→실제 R01의 발급 2건을 확인했다. 신규 Receipt는 모두 `PENDING_ANCHOR`이고 proof·anchor는 null이었다. 모델 중단 시 `503 / INFERENCE_UNAVAILABLE` 및 DB 미발급을 확인했고, 재기동 후 발급이 복구됐다. [실행 증거](../evidence/mentor5-w7-live-receipt-verification.md).
+- **신규 W7 경로:** 2026-11-02 기존 `frontend/`의 `/check`에서 격리 DB를 사용해 브라우저→Node→실제 R01 발급 2건을 확인했다. 신규 Receipt는 모두 `PENDING_ANCHOR`이고 proof·anchor는 null이었다. 모델 중단 시 `503 / INFERENCE_UNAVAILABLE` 및 해당 DB의 Receipt 수 `1→1`, 재기동 후 발급 복구와 `1→2`가 기록됐다. 실행 당시 기준 HEAD는 `e540c7a`였고 검증기 후속 변경으로 worktree가 dirty였다. 발급 관련 소스는 해당 HEAD와 일치했다고 기록됐지만 현재 Redesign 전체를 그때 재현한 것은 아니다. Python `/healthz` 200·ready는 당시 수행자의 수동 관측이며 원시 응답의 독립 확인은 `NOT_VERIFIED`다. [실행 증거](../evidence/mentor5-w7-live-receipt-verification.md).
 - 신규 W7 Receipt가 W4 Epoch에 포함되거나 공개 체인에 등록됐다는 근거는 없다. 두 사례는 각각 별도 실행이다. PR #42 당시의 원본 Receipt를 이번에 소급 검증한 것도 아니다.
-- 검증 화면은 실제 검증 순서에 맞춰 상태를 표시한다. 24초 경과 안내는 강제 실패가 아니며 사용자의 요청 취소를 지원한다.
+- **화면 구분:** 저장소 루트의 현재 기본 앱은 Redesign이며, 이전 검증 화면은 별도 `frontend/` 앱으로 보존돼 있다. 두 화면은 같은 검증 코어를 사용하지만 24초 안내·요청 취소는 기존 `frontend/`에서 확인한 기능이다. 현재 Redesign의 동일 UX는 아래 §5와 같이 별도 확인이 필요하다.
 
 ## 3. W4·W7 모델·정책 해시
 
@@ -33,17 +33,17 @@
 | 정상 원본 또는 본문·hash 변경본의 RPC 조회 실패 | `RPC_UNAVAILABLE` | 포함 증명 미실행; 변조 여부 판정 아님 |
 | proof·anchor 없는 신규 Receipt | `PENDING_ANCHOR` | 아직 공개 anchor에 대한 포함을 확인할 수 없음 |
 | 미승인 체인·컨트랙트 | `UNTRUSTED_ANCHOR` | 검증기의 승인 profile과 불일치 |
-| 사용자가 검증 중단 | 결과 없음 | 성공·변조·앵커 부재로 판정하지 않음 |
+| 기존 `frontend/`에서 사용자가 검증 중단 | 결과 없음 | 중단한 실행은 성공·변조·앵커 부재로 판정하지 않음; 기본 Redesign에 동일한 버튼이 있다는 뜻은 아님 |
 
 변조 실험은 W4 원본이 아닌 사본에서 수행한다. 통제된 원장·mock 테스트, 공개 RPC 실행과 이력 자료의 결과를 구분한다.
 
-## 5. 24초 안내와 취소
+## 5. 24초 안내와 취소 — 화면별 차이
 
-검증이 진행되는 동안 상태를 표시하고, 24초가 지나면 지연 안내와 **계속 기다리기**, **검증 중단**, **기존 공개 실증 자료 확인** 선택지를 제공한다. 24초는 soft deadline이며 검증을 실패 처리하지 않는다. 계속 기다린 후 정상 검증이 완료되면 실제 결과가 표시된다. 개별 RPC 요청의 5초 timeout은 이 안내와 별개다.
+**기존 `frontend/` 앱:** PR #45의 [useVerify](../../frontend/src/features/useVerify.ts)와 [VerifyPage](../../frontend/src/pages/VerifyPage.tsx)는 24초가 지나면 지연 안내와 **계속 기다리기**, **검증 중단**, **기존 공개 실증 자료 확인** 선택지를 제공한다. 24초는 soft deadline이므로 강제 실패가 아니다. 사용자가 중단하거나 입력·profile을 바꾸거나 페이지를 떠나면 이전 실행을 무효화하고 RPC fetch에 취소 신호를 전달하도록 구현돼 있다. Chromium native fetch와 로컬 지연 HTTP 서버 시험에서 요청 중단 시 서버 측 연결 종료가 확인됐다. 이는 공개 RPC의 실제 회선 장애 실측이 아니다. [장애·복구 기록](../evidence/mentor5-failure-recovery-verification.md).
 
-사용자 중단, 입력·profile 변경 또는 페이지 이탈은 이전 실행을 무효화하고 진행 중 RPC fetch에 취소 신호를 전달한다. 취소 후 다른 endpoint로 자동 재시도하거나 늦은 응답을 새 결과로 표시하지 않는다. Chromium native fetch와 로컬 지연 HTTP 서버에서 중단 시 서버 측 연결 종료를 확인했다. 이 실험은 공개 RPC의 실제 회선 장애 실측이 아니다. [장애·복구 기록](../evidence/mentor5-failure-recovery-verification.md).
+**현재 기본 Redesign 앱:** [ReceiptPage](../../src/pages/ReceiptPage.tsx)는 [runVerification](../../src/verify/verifier.ts)을 직접 호출한다. 기준 코드에서 기존 `useVerify`의 24초 안내·검증 중단 버튼 및 RPC 취소 signal 전파는 연결돼 있지 않다. 입력·영수증 변경 시 늦은 결과가 남을 가능성은 코드 검토 사항이며, 경합 재현은 `NOT_VERIFIED`다. 기존 `frontend/`의 테스트 통과를 이 화면의 동작 확인으로 사용하지 않는다. 두 화면 모두 개별 RPC 요청의 5초 timeout과 24초 안내는 서로 다른 개념이다.
 
-기존 공개 실증 자료 선택은 W4의 역사적 사본을 사용자가 직접 확인하는 경로다. 과거 자료나 합성 원장의 결과를 현재 공개 RPC의 `VALID`로 표시하지 않는다.
+시연에서 24초는 **발표자가 수동으로 과거 자료로 전환할지 판단하는 기준**으로 사용할 수 있다. 기본 Redesign에 전환·취소 버튼이 있거나 진행 중 요청이 실제 중단된다고 가정하지 않는다. [W4 공개 자료](w4-anchored-epoch-public/20261020-r01/README.md)를 제시할 때는 2026-10-20의 역사적 검증 기록이라고 밝힌다. 과거 자료나 합성 원장의 결과를 현재 공개 RPC의 `VALID`로 표시하지 않는다.
 
 ## 6. 공개 RPC 실측
 
@@ -64,13 +64,13 @@ Playwright `route.abort('internetdisconnected')`는 브라우저 요청의 통�
 ## 8. 실행 환경과 현장 점검
 
 1. 실제 코드 SHA·CI와 승인된 Base Sepolia profile을 확인한다. chain ID는 `84532`, 기준은 12 L2 confirmations이며 L1 finality와 같지 않다. profile 설정과 실행 방법은 [실행 안내](../08-submission-guide.md)를 따른다.
-2. R01 발급을 사용할 경우 고정 로컬 가중치·tokenizer와 Python 환경, `/healthz`, Node Backend 연결 및 별도 비운영 DB를 확인한다. clone에 비공개 모델이나 과거 원본 DB가 포함된다고 가정하지 않는다.
+2. R01 발급을 사용할 경우 고정 로컬 가중치·tokenizer와 Python 환경, `/healthz`, Node Backend 연결 및 별도 비운영 DB를 확인한다. 2026-11-02 발급 근거는 기존 `frontend/` 앱의 실행이며 현재 기본 Redesign이나 현장 환경의 재현 결과가 아니다. 당시 health 성공은 수행자 수동 관측이고 원시 응답 독립 확인은 `NOT_VERIFIED`다. clone에 비공개 모델이나 과거 원본 DB가 포함된다고 가정하지 않는다.
 3. 실행할 입력의 출처와 모드를 확인하고 W4 원본 검증의 결과·시각·소요 시간을 새로 기록한다. 무해한 합성 입력을 사용하며 원문·salt·키·DB를 공개하지 않는다.
 4. RPC 장애나 지연이 발생하면 실제 표시된 결과를 기록한다. 과거 공개 증거를 선택하면 그 출처와 현재 LIVE 결과의 부재를 구분한다.
 
 ## 9. 아직 검증되지 않은 사항과 신뢰 한계
 
-실제 공개 RPC 장애 후 복구, BASE 연속 10회 성공 및 물리 모바일은 이번 근거로 입증되지 않았다. 기존 W6 Engineering Exit는 `PARTIAL`, BASE 연속 10회 기존 보고는 `NOT_MET`, 실제 Hardhat LOCAL은 `NOT_VERIFIED`, 물리 모바일은 `NOT_EXECUTED`다. 현재 RPC reader는 공급자가 반환한 로그 필터 결과에 의존하며 두 endpoint는 독립 합의가 아닌 장애 대체 경로다. 전체 로그 검색을 제거하는 최적화는 채택하지 않았다. [RPC 보안 분석](../evidence/mentor5-rpc-optimization.md).
+현재 기본 Redesign에서 실제 R01 재발급, 24초 안내·취소와 stale 경합 회귀, 실제 공개 RPC 장애 후 복구, BASE 연속 10회 성공 및 물리 모바일은 이번 근거로 입증되지 않았다. 기존 W6 Engineering Exit는 `PARTIAL`, BASE 연속 10회 기존 보고는 `NOT_MET`, 실제 Hardhat LOCAL은 `NOT_VERIFIED`, 물리 모바일은 `NOT_EXECUTED`다. 현재 RPC reader는 공급자가 반환한 로그 필터 결과에 의존하며 두 endpoint는 독립 합의가 아닌 장애 대체 경로다. 전체 로그 검색을 제거하는 최적화는 채택하지 않았다. [RPC 보안 분석](../evidence/mentor5-rpc-optimization.md).
 
 검증 범위는 발급된 Receipt의 무결성과 공개 commitment의 일치다. 발급자의 최초 정직성, 플랫폼 전체 사건의 누락 여부, AI 판정의 정확성 및 RPC 응답의 독립적 진실성은 증명하지 않는다. [신뢰 한계](../security/mentor5-trust-limitations.md).
 
@@ -79,3 +79,4 @@ Playwright `route.abort('internetdisconnected')`는 브라우저 요청의 통�
 - [프로젝트 README](../../README.md) · [실행 안내](../08-submission-guide.md)
 - [PR #45 및 최신 CI](https://github.com/jujinho03/verimod/pull/45) · [개발·검증 기록](../mentoring/mentor5-development-implementation.md)
 - [W4 공개 증거](w4-anchored-epoch-public/20261020-r01/README.md) · [실제 R01 신규 발급](../evidence/mentor5-w7-live-receipt-verification.md) · [공개 RPC 후속 실측](../evidence/mentor5-followup-rpc-valid.md)
+- [A 담당 주장–증거 매트릭스와 오프라인 검증 범위](../evidence/a-scope-claim-evidence-matrix-20261103.md)
