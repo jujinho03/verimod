@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Icon3D } from '../components/Icon3D'
 import { StepFlow } from '../components/StepFlow'
 import { Notice, TopBar } from '../components/ui'
-import { decodeBundle, EVIDENCE, type VerificationBundle } from '../verify/verifier'
+import { decodeBundle, type VerificationBundle } from '../verify/verifier'
 import { ReceiptView } from './ReceiptPage'
 
 const RECEIPT_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -52,13 +52,6 @@ export function VerifyPage() {
           <span><strong>영수증 JSON 파일 고르기</strong><em>받아 둔 bundle 파일을 검증해요</em></span>
           <input type="file" accept="application/json,.json" onChange={(event) => void readFile(event.target.files?.[0])} />
         </label>
-        <div className="vactions-grid">
-          {EVIDENCE.map((item) => (
-            <button key={item.id} type="button" className="vaction" onClick={() => navigate(`/r/${item.id}`)}>
-              <Icon3D src="chains" size={30} /><span><strong>{item.label}</strong><em>Base Sepolia 실제 등록</em></span>
-            </button>
-          ))}
-        </div>
         <Notice tone="info" icon="bulb">검증은 기록이 바뀌지 않았는지 확인할 뿐, 판정이 옳은지 증명하지 않아요.</Notice>
         {error && <p className="error-box" role="alert">{error}</p>}
       </StepFlow>

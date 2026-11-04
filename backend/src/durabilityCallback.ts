@@ -49,7 +49,7 @@ export function parseCallbackRequest(text: string): CallbackRequest {
 
 export interface CallbackApproval {
   schema_version: 'w4-f-callback-approval/1'
-  mode: 'AUTHORITATIVE' | 'SYNTHETIC_TEST_ONLY'
+  mode: 'AUTHORITATIVE' | 'SYNTHETIC_TEST_ONLY' | 'AUTO_DEMO'
   approval_id: string
   database_path: string
   database_identity: { dev: string; ino: string }

@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { tamperOptions } from '@vm-features/tamper'
 import type { ReceiptBody } from '@vm-domain/types'
-import { requestAppeal } from '../api/appeal'
 import { ScoreBars, W4_PROVISIONAL_THRESHOLDS } from '../components/ScoreBars'
 import { StepFlow } from '../components/StepFlow'
-import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, Notice, shortHash, TopBar } from '../components/ui'
+import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, shortHash, TopBar } from '../components/ui'
 import { ReportView } from '../verify/ReportView'
 import {
-  BASE, fetchEvidenceBundle, fetchReceiptBundle, pickPackage, runVerification, W4_PROVISIONAL_POLICY_HASH, W4_R01_MODEL_HASH,
+  BASE, BASE_SEPOLIA_AUTO_DEMO, fetchEvidenceBundle, fetchReceiptBundle, pickPackage, runVerification, W4_PROVISIONAL_POLICY_HASH, W4_R01_MODEL_HASH,
   type LoadedPackage, type VerificationBundle, type VerifyReport,
 } from '../verify/verifier'
 
@@ -62,7 +61,6 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
   const [error, setError] = useState<string | null>(null)
   const [pkg, setPkg] = useState<LoadedPackage | null>(null)
   const [tamper, setTamper] = useState<{ id: string; change: string; report: VerifyReport | null; running: boolean } | null>(null)
-  const [appeal, setAppeal] = useState<string | null>(null)
   const body = bundle.receipt_body
   const decision = body.event_kind === 'DECISION' ? body.payload : null
   const inference = decision?.inference as unknown as { scores_ppm?: Record<string, number>; model_manifest_hash?: string; input_status?: string } | undefined
@@ -96,24 +94,13 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
       setError(caught instanceof Error ? caught.message : 'Private Package를 읽지 못했습니다')
     }
   }
-  const askAppeal = async () => {
-    try {
-      const result = await requestAppeal(body.receipt_id)
-      setAppeal(result.status === 501
-        ? '이의제기 API(POST /api/appeals)는 backend에 아직 구현되지 않았어요(501 NOT_IMPLEMENTED). 접수되지 않았어요.'
-        : `이의제기 요청 결과: HTTP ${result.status}${result.code ? ` · ${result.code}` : ''}`)
-    } catch {
-      setAppeal('backend에 연결하지 못해 이의제기를 보내지 못했어요.')
-    }
-  }
-
   const cases = tamperCases(bundle)
   return (
     <StepFlow stepKey={`receipt-${body.receipt_id}`} icon="receipt" eyebrow={label} dense
       title={`판정 영수증 ${body.receipt_id.slice(0, 8)}`}
-      subtitle={bundle.anchor ? `epoch #${bundle.anchor.epoch_id}에 묶인 기록 · 검증은 이 브라우저가 공개 RPC로 직접 해요.` : '아직 epoch에 묶이지 않은 새 영수증이에요 · PENDING_ANCHOR'}
+      subtitle={bundle.anchor ? `epoch #${bundle.anchor.epoch_id}에 묶인 기록 · 검증은 이 브라우저가 공개 RPC로 직접 해요.` : '온체인 자동 등록을 진행 중이에요 · 상태는 자동으로 갱신됩니다.'}
       secondary={<CopyButton value={window.location.href} label="링크 복사" />}
-      onNext={() => void verify()} loading={running} loadingLabel="검증하는 중..." nextLabel={report ? '다시 검증' : '브라우저에서 독립 검증'} nextDisabled={!BASE.profile}>
+      onNext={() => void verify()} loading={running} loadingLabel="검증하는 중..." nextLabel={report ? '다시 검증' : '브라우저에서 독립 검증'} nextDisabled={!BASE.profile && bundle.anchor?.contract_address !== BASE_SEPOLIA_AUTO_DEMO.contract_address}>
       <div className="tabs vtabs" role="tablist">
         {([['info', '정보'], ['verify', '검증'], ['tamper', '변조 시험'], ['files', '원본·패키지']] as const).map(([key, text]) => (
           <button key={key} type="button" role="tab" aria-selected={tab === key} className={`tab${tab === key ? ' tab--active' : ''}`} onClick={() => setTab(key)}>{text}</button>
@@ -130,18 +117,14 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
             <div><dt>영수증 hash</dt><dd className="vmono">{shortHash(bundle.receipt_hash)} · #{body.issuer_seq}</dd></div>
             <div><dt>봉인 상태</dt><dd>{bundle.anchor
               ? <>epoch #{bundle.anchor.epoch_id} · <a className="link-button" href={`https://sepolia.basescan.org/tx/${bundle.anchor.tx_hash}`} target="_blank" rel="noreferrer">tx {shortHash(bundle.anchor.tx_hash, 8, 4)}</a></>
-              : 'PENDING_ANCHOR · 아직 공개 체인 검증 결과가 아니에요'}</dd></div>
+              : '자동 등록 중 · 확정 후 공개 체인 검증 가능'}</dd></div>
           </dl>
-          {policy?.action === 'RESTRICT' && (
-            appeal ? <Notice tone="warn" icon="warning">{appeal}</Notice>
-              : <button type="button" className="btn-secondary vsmall-btn" onClick={() => void askAppeal()}>이 제한 판정에 이의제기</button>
-          )}
         </div>
       )}
 
       {tab === 'verify' && (
         <div className="vpanel">
-          <p className="vhint">검증 기준: {BASE.profile ? <>승인 프로필 BASE_SEPOLIA_DEMO · chain {BASE.profile.chain_id} · contract <code>{shortHash(BASE.profile.contract_address, 8, 4)}</code></> : BASE.problem}{pkg ? ' · Private Package 불러옴' : ''}</p>
+          <p className="vhint">검증 기준: {bundle.anchor?.contract_address === BASE_SEPOLIA_AUTO_DEMO.contract_address ? <>승인 프로필 BASE_SEPOLIA_AUTO_DEMO · chain 84532 · contract <code>{shortHash(BASE_SEPOLIA_AUTO_DEMO.contract_address, 8, 4)}</code></> : BASE.profile ? <>승인 프로필 BASE_SEPOLIA_DEMO · chain {BASE.profile.chain_id} · contract <code>{shortHash(BASE.profile.contract_address, 8, 4)}</code></> : BASE.problem}{pkg ? ' · Private Package 불러옴' : ''}</p>
           {!report && !running && !error && <p className="vhint">해시 재계산 → 신뢰 앵커 → 원장 조회 → 포함 증명 → 블록 확정 순서로 확인해요. 서버의 성공 문구를 믿지 않아요.</p>}
           {running && <p className="vhint">공개 RPC에서 원장을 읽는 중이에요. 체인에 묶인 영수증은 1~3분 걸릴 수 있어요.</p>}
           {report && <ReportView report={report} />}
@@ -157,7 +140,7 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
               </Chip>
             ))}
           </div>
-          {!tamper && <p className="vhint">사본만 바꿔 같은 검증기로 확인해요. 원본 영수증은 그대로예요.</p>}
+          {!tamper && <p className="vhint">본문 변경은 HASH_MISMATCH, 신뢰 앵커 변경은 UNTRUSTED_ANCHOR, 포함 경로 변경은 INVALID_PROOF로 구분해 탐지합니다. 원본은 그대로예요.</p>}
           {tamper && <p className="vhint">바꾼 곳: <code>{tamper.change}</code> · 예상 {cases.find((c) => c.id === tamper.id)?.expect}{cases.find((c) => c.id === tamper.id)?.slow && tamper.running ? ' · 공개 RPC 조회 중(1~3분)' : ''}</p>}
           {tamper?.report && (() => {
             const expected = cases.find((c) => c.id === tamper.id)?.expect
@@ -191,16 +174,33 @@ export function ReceiptPage() {
   const evidence = id.startsWith('evidence-')
   const [bundle, setBundle] = useState<VerificationBundle | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [anchorState, setAnchorState] = useState<string>('등록 대기')
   useEffect(() => {
     setBundle(null)
     setError(null)
     ;(evidence ? fetchEvidenceBundle(id) : fetchReceiptBundle(id)).then(setBundle).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '영수증을 불러오지 못했습니다'))
+    if (evidence) return
+    let active = true
+    const poll = async () => {
+      try {
+        const response = await fetch(`/api/receipts/${encodeURIComponent(id)}`)
+        const payload = await response.json() as { data?: { epoch?: { status: string; confirmations?: number; fail_reason?: string | null; block_number?: string | null } } }
+        if (!active || !response.ok) return
+        const epoch = payload.data?.epoch
+        setAnchorState(!epoch ? '등록 대기' : epoch.status === 'FROZEN' ? '배치 완료 · 서명 대기' : epoch.status === 'SUBMITTING' ? '서명 완료 · 송신 중' : epoch.status === 'SUBMITTED' ? `체인 확인 ${Math.min(epoch.confirmations ?? 0, 12)}/12` : epoch.status === 'CONFIRMED' ? '확정 완료 · 브라우저 검증 가능' : `등록 실패 · ${epoch.fail_reason ?? '원인 확인 중'}`)
+        if (epoch?.status === 'CONFIRMED') setBundle(await fetchReceiptBundle(id))
+      } catch { if (active) setAnchorState('상태 조회 일시 실패') }
+    }
+    void poll()
+    const timer = window.setInterval(() => { void poll() }, 5000)
+    return () => { active = false; window.clearInterval(timer) }
   }, [id, evidence])
   return (
     <div className="page vpage">
       <TopBar title="판정 영수증" />
       {error && <div className="vcenter"><p className="error-box">{error}</p></div>}
       {!error && !bundle && <div className="vcenter"><p className="muted">영수증을 불러오는 중...</p></div>}
+      {!evidence && bundle && <p className="muted" role="status" aria-live="polite">온체인 등록: {anchorState} · L1 최종 확정은 별도예요.</p>}
       {bundle && <ReceiptView bundle={bundle} evidence={evidence} label={evidence ? '공개 증거 · 2026-10-20 체인 등록' : '공개 영수증'} />}
     </div>
   )

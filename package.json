@@ -15,7 +15,8 @@
     "dev:all": "node scripts/dev-all.mjs",
     "e2e:walk": "node e2e/walkthrough.mjs e2e/shots",
     "e2e:checks": "node e2e/checks.mjs e2e/checks",
-    "e2e:responsive": "node e2e/responsive.mjs e2e/responsive"
+    "e2e:responsive": "node e2e/responsive.mjs e2e/responsive",
+    "e2e:direct": "node e2e/direct-flow.mjs e2e/checks/direct-flow"
   },
   "dependencies": {
     "express": "^5.2.1",

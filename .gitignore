@@ -10,6 +10,8 @@ playwright-report/
 e2e/shots/
 e2e/checks/
 e2e/responsive/
+e2e/new-main-*/
+e2e/direct-flow/
 *.pem
 *.key
 secrets/

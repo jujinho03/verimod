@@ -28,6 +28,9 @@
       "@vm-domain/*": [
         "./frontend/src/domain/*"
       ],
+      "@vm-api/*": [
+        "./frontend/src/api/*"
+      ],
       "@vm-ui/*": [
         "./frontend/src/ui/*"
       ],

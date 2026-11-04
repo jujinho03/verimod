@@ -18,6 +18,7 @@ export default defineConfig({
       // 공유 프로토콜과 기존 브라우저 검증기를 복사하지 않고 원본 소스를 그대로 쓴다.
       { find: /^@verimod\/protocol\/(.*)$/, replacement: `${here('./shared/protocol/src/')}$1.ts` },
       { find: /^@vm-domain\/(.*)$/, replacement: `${here('./frontend/src/domain/')}$1.ts` },
+      { find: /^@vm-api\/(.*)$/, replacement: `${here('./frontend/src/api/')}$1.ts` },
       { find: /^@vm-ui\/(.*)$/, replacement: `${here('./frontend/src/ui/')}$1.ts` },
       { find: /^@vm-features\/(.*)$/, replacement: `${here('./frontend/src/features/')}$1.ts` },
     ],
