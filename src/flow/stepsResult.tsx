@@ -12,6 +12,7 @@ import { ActionBadge, ACTION_LABEL, ArrowIcon, CopyButton, downloadJson, Modal, 
 import { W4_PROVISIONAL_POLICY_HASH } from '../verify/verifier'
 import type { StepProps } from './AnalyzePage'
 import { errorText, rememberSession } from './stepsCollect'
+import { useReceiptAnchorSummary } from '../hooks/useReceiptAnchorSummary'
 
 const done = (item: SessionItem) => item.status === 'ISSUED' || item.status === 'DEMO_JUDGED'
 
@@ -287,6 +288,7 @@ export function ShareStep({ flow, update, session, setSession, restart, anchorDe
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const c = counts(session)
+  const anchor = useReceiptAnchorSummary(session?.items.map((item) => done(item) ? item.receipt_id : null) ?? [])
   if (!session) return null
   const publicUrl = `${window.location.origin}/s/${session.public_id}`
 
@@ -328,8 +330,8 @@ export function ShareStep({ flow, update, session, setSession, restart, anchorDe
         </Notice>
       ) : (
         <>
-          <Notice tone="info" icon="hourglass">
-            새 영수증은 발급 직후 자동 등록을 시작해요. 배치·서명·송신·12회 확인까지 완료되면 블록체인 검증이 활성화됩니다.
+          <Notice tone={anchor.tone} icon={anchor.icon}>
+            <span role="status" aria-live="polite">{anchor.text}</span>
           </Notice>
           <AnchoringDemo open={anchorDemoOpen} onOpenChange={setAnchorDemoOpen} />
         </>

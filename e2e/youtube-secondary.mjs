@@ -19,5 +19,11 @@ try {
   await page.locator('.vtiles').waitFor({ timeout: 120000 })
   await page.getByRole('button', { name: '영수증·공유' }).click()
   await page.locator('.vlinkrow__url').waitFor()
-  console.log('YOUTUBE_SECONDARY_PASS')
+  const publicUrl = await page.locator('.vlinkrow__url').innerText()
+  await page.getByRole('status').filter({ hasText: '온체인 등록 완료' }).waitFor({ timeout: 120000 })
+  const ownerStatus = await page.getByRole('status').innerText()
+  await page.goto(publicUrl)
+  await page.getByRole('status').filter({ hasText: '온체인 등록 완료' }).waitFor({ timeout: 30000 })
+  const publicStatus = await page.getByRole('status').innerText()
+  console.log(`YOUTUBE_SECONDARY_PASS ${ownerStatus} | PUBLIC ${publicStatus}`)
 } finally { await browser.close() }

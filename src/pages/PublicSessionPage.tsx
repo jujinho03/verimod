@@ -6,6 +6,7 @@ import { PagerNav, useFitCount, usePager } from '../components/Pager'
 import { StepFlow } from '../components/StepFlow'
 import { CountUp } from '../components/Kinetic'
 import { ActionBadge, ACTION_LABEL, Notice, shortHash, TopBar } from '../components/ui'
+import { useReceiptAnchorSummary } from '../hooks/useReceiptAnchorSummary'
 
 /** 공개 세션 링크. 서버의 공개 API만 쓰므로 새 브라우저에서도 같은 내용이 열린다. 비공개 자료는 응답에 없다. */
 export function PublicSessionPage() {
@@ -19,6 +20,7 @@ export function PublicSessionPage() {
     svc.publicSession(publicId).then((data) => setView(data.session)).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '불러오지 못했습니다'))
   }, [publicId])
   const count = (action: string) => view?.items.filter((item) => item.action === action).length ?? 0
+  const anchor = useReceiptAnchorSummary(view?.items.map((item) => item.receipt_id) ?? [])
 
   return (
     <div className="page vpage">
@@ -44,6 +46,7 @@ export function PublicSessionPage() {
             ))}
           </div>
           <PagerNav page={page} totalPages={totalPages} onChange={setPage} />
+          {!view.is_demo && <Notice tone={anchor.tone} icon={anchor.icon}><span role="status" aria-live="polite">{anchor.text}</span></Notice>}
           <Notice tone="info" icon="bulb">이 페이지는 개별 영수증 목록을 모아 보여 줄 뿐 새로운 암호학적 증명이 아니에요. 각 영수증을 열어 따로 검증하세요.</Notice>
         </StepFlow>
       )}
