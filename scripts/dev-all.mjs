@@ -75,8 +75,10 @@ if (realAi) {
 
 start('backend:3001', backend, process.execPath, ['node_modules/tsx/dist/cli.mjs', 'src/server.ts'], backendEnv)
 if (localAutoAnchor) {
+  const backendHealthy = await waitHealthy('http://127.0.0.1:3001/api/health', 30)
+  if (!backendHealthy) throw new Error('Auto Anchor backend가 30초 안에 준비되지 않았습니다')
   start('signer-worker', backend, process.execPath, ['node_modules/tsx/dist/cli.mjs', 'scripts/signer-worker.mts'], { ...baseEnv, ...autoWorkerEnv })
-  console.log('Auto Anchor: backend + Signer Worker 자동 실행')
+  console.log('Auto Anchor: backend health 확인 후 Signer Worker 자동 실행')
 } else {
   console.log('Auto Anchor: 외부 env 파일이 없어 비활성화')
 }

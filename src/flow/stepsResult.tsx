@@ -69,10 +69,7 @@ const ANCHOR_DEMO = [
   },
 ] as const
 
-/**
- * PENDING_ANCHOR 이후 절차를 설명하며 실제 Receipt 상태는 변경하지 않는다.
- * 화면을 길게 만들지 않도록 Share 진입 시 alert 카드로 열고, 4초마다 다음 단계로 넘긴다.
- */
+/** 자동 등록의 실제 처리 단계를 설명한다. 상태 자체는 아래 실시간 집계가 담당한다. */
 function AnchoringDemo({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const [index, setIndex] = useState(0)
   const reduce = useReducedMotion()
@@ -123,7 +120,7 @@ function AnchoringDemo({ open, onOpenChange }: { open: boolean; onOpenChange: (o
                 <span className="anchor-alert__timer" aria-label="다음 단계까지 남은 시간"><i key={index} /></span>
                 <button type="button" className="anchor-alert__next" onClick={next} aria-label="다음 안내 단계"><ArrowIcon size={26} /></button>
               </div>
-              <p className="anchor-alert__notice"><b>자동 등록 절차 안내예요.</b> 실제 진행 상태는 영수증 화면에서 확인할 수 있어요.</p>
+              <p className="anchor-alert__notice"><b>실제로 자동 실행되는 절차예요.</b> 아래 상태와 각 영수증 화면에서 현재 단계를 확인할 수 있어요.</p>
             </motion.section>
           </motion.div>
         )}

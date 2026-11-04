@@ -76,12 +76,10 @@ export function DirectCommentPage() {
     content_commitment: result.private_package.content_commitment,
   } : null
   const url = receiptId ? `${window.location.origin}/r/${receiptId}` : ''
-  return <div className="page vpage">
+  return <div className="page vpage direct-comment-page">
     <TopBar title="댓글 판정" />
-    <div className="vpanel">
-      <span className="section-label">VeriMod 예시 커뮤니티</span>
+    <div className="vpanel direct-comment-panel">
       <h1>{result ? 'AI 판정서가 발급됐어요' : '댓글을 작성해 보세요'}</h1>
-      <div className="card vcard-tight"><strong>오늘의 대화</strong><p className="vcard-text">온라인 대화에서 서로의 의견을 나누는 게시글입니다. 이 댓글창의 판정은 VeriMod 데모 모델과 정책으로 진행됩니다.</p></div>
       {!result ? <form onSubmit={(event) => { event.preventDefault(); void post() }} className="vfield">
         <label htmlFor="direct-comment" className="vlabel">댓글</label>
         <textarea id="direct-comment" className="vinput vtextarea" value={text} onChange={(event) => { setText(event.target.value); setError(null) }} placeholder="댓글을 입력하세요" />
