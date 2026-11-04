@@ -68,21 +68,21 @@ const reach = await z.evaluate(() => {
 check('200% 확대: 프레임 안 스크롤로 주 버튼 도달', reach.bottom <= reach.vh, JSON.stringify(reach))
 await z.screenshot({ path: `${OUT}/zoom200-scrolled.png` })
 
-// 5) 키보드: Tab으로 링크 입력칸에 초점, 입력 후 Enter로 확인 시도
+// 5) 키보드: Tab으로 메인 댓글 입력칸에 초점
 const k = await (await browser.newContext({ viewport: { width: 1366, height: 768 } })).newPage()
 await k.goto(`${BASE}/`)
 let focused = null
 for (let i = 0; i < 6; i += 1) {
   await k.keyboard.press('Tab')
-  if (await k.evaluate(() => document.activeElement?.id === 'home-url')) {
+  if (await k.evaluate(() => document.activeElement?.id === 'home-comment')) {
     await k.waitForTimeout(300)
     focused = await k.evaluate(() => { const st = getComputedStyle(document.activeElement); return { outline: st.outlineStyle, shadow: st.boxShadow } })
     break
   }
 }
-check('키보드 Tab으로 링크 입력칸 초점·표시', Boolean(focused) && (focused.outline !== 'none' || !focused.shadow.startsWith('rgba(0, 0, 0, 0)')), JSON.stringify(focused))
-await k.keyboard.type('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-check('입력 즉시 주소 판별 안내', (await k.locator('.home-link__status .vnotice').count()) === 1)
+check('키보드 Tab으로 댓글 입력칸 초점·표시', Boolean(focused) && (focused.outline !== 'none' || !focused.shadow.startsWith('rgba(0, 0, 0, 0)')), JSON.stringify(focused))
+await k.keyboard.type('오늘도 좋은 글 감사합니다.')
+check('댓글 입력 후 게시 버튼 활성화', await k.getByRole('button', { name: '게시하고 AI 판정받기' }).isEnabled())
 
 // 6) reduced motion: 배경 낙하 아이콘 숨김
 const r = await (await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' })).newPage()

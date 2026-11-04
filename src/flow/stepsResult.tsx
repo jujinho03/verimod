@@ -46,7 +46,7 @@ const ANCHOR_DEMO = [
     icon: 'receipt',
     label: '01 · Receipt 발급',
     title: '댓글마다 판정 영수증을 만들어요',
-    detail: '실제 R01 추론과 정책 판단은 여기까지 완료됩니다. 새 영수증은 아직 체인에 올라가지 않아 PENDING_ANCHOR 상태예요.',
+    detail: '실제 R01 추론과 정책 판단이 완료되면 새 영수증의 온체인 자동 등록이 바로 시작됩니다.',
   },
   {
     icon: 'card-box',
@@ -99,7 +99,7 @@ function AnchoringDemo({ open, onOpenChange }: { open: boolean; onOpenChange: (o
               initial={reduce ? false : { opacity: 0, y: 24, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={reduce ? undefined : { opacity: 0, y: 24, scale: 0.96 }} transition={{ type: 'spring', stiffness: 320, damping: 28 }}>
               <div className="anchor-alert__head">
                 <div>
-                  <span className="section-label">PENDING_ANCHOR 이후 · 자동 등록</span>
+                  <span className="section-label">영수증 발급 이후 · 자동 등록</span>
                   <h2 id="anchor-alert-title">온체인 등록은 이렇게 이어져요</h2>
                 </div>
                 <div className="anchor-alert__head-actions"><span className="anchor-alert__counter">{index + 1} / {ANCHOR_DEMO.length}</span><button type="button" className="anchor-alert__close" onClick={() => onOpenChange(false)} aria-label="안내 닫기">×</button></div>
@@ -329,7 +329,7 @@ export function ShareStep({ flow, update, session, setSession, restart, anchorDe
       ) : (
         <>
           <Notice tone="info" icon="hourglass">
-            새 영수증은 먼저 <b>PENDING_ANCHOR</b>예요. 자동 배처와 Signer Worker가 등록을 진행하며, 12회 확인 전에는 블록체인 검증이 <b>대기</b>로 나와요.
+            새 영수증은 발급 직후 자동 등록을 시작해요. 배치·서명·송신·12회 확인까지 완료되면 블록체인 검증이 활성화됩니다.
           </Notice>
           <AnchoringDemo open={anchorDemoOpen} onOpenChange={setAnchorDemoOpen} />
         </>

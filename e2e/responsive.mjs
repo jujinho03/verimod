@@ -39,8 +39,11 @@ async function measure(state) {
 }
 
 await page.goto(`${BASE}/`)
-await page.fill('#home-url', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+await page.fill('#home-comment', '오늘도 좋은 글 감사합니다.')
 await measure('home')
+await page.getByRole('button', { name: '게시하고 AI 판정받기' }).click()
+await page.getByRole('heading', { name: 'AI 판정서가 발급됐어요' }).waitFor({ timeout: 60000 })
+await measure('direct-decision')
 await page.goto(`${BASE}/analyze?demo=1`)
 await page.getByRole('button', { name: '데모로 계속' }).click()
 await page.getByRole('button', { name: '댓글 가져오기' }).click()
@@ -68,11 +71,12 @@ await measure('receipt-tamper-report')
 
 await browser.close()
 writeFileSync(`${OUT}/responsive.json`, JSON.stringify(rows, null, 2))
-const bad = rows.filter((r) => r.overflow > 1 || r.hscroll > 1 || r.btnVisible === false)
-console.log(`measurements ${rows.length}, flagged ${bad.length}`)
+const bad = rows.filter((r) => r.hscroll > 1 || r.btnVisible === false)
+console.log(`measurements ${rows.length}, broken ${bad.length}; short viewports may use the frame's vertical scroll`)
 const byState = {}
 for (const r of bad) (byState[r.state] ??= []).push(`${r.width}x${r.height}(+${r.overflow}${r.hscroll > 1 ? ` h+${r.hscroll}` : ''})`)
 for (const [state, list] of Object.entries(byState)) console.log(`${state}: ${list.join(' ')}`)
+if (bad.length) process.exitCode = 1
 // 폭이 연속으로 변하는지: 데스크톱 프레임 폭 표본
 console.log('frame width @h900:', WIDTHS.map((w) => `${w}:${rows.find((r) => r.state === 'pick' && r.width === w && r.height === 900).frameW}`).join(' '))
 console.log('pick rows shown @w1366:', HEIGHTS.map((h) => `${h}:${rows.find((r) => r.state === 'pick' && r.width === 1366 && r.height === h).rowsShown}`).join(' '))

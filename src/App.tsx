@@ -4,6 +4,7 @@ import { BackgroundDecor } from './components/BackgroundDecor'
 import { FrameScrollbar } from './components/FrameScrollbar'
 import { AnalyzePage } from './flow/AnalyzePage'
 import { Home } from './pages/Home'
+import { DirectCommentPage } from './pages/DirectCommentPage'
 import { NotFound } from './pages/NotFound'
 import { PublicSessionPage } from './pages/PublicSessionPage'
 import { ReceiptPage } from './pages/ReceiptPage'
@@ -22,6 +23,7 @@ export default function App() {
         <main className="app-main" ref={mainRef}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/comment" element={<DirectCommentPage />} />
             <Route path="/analyze" element={<AnalyzePage />} />
             <Route path="/verify" element={<VerifyPage />} />
             <Route path="/r/:id" element={<ReceiptPage />} />

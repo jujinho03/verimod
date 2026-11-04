@@ -12,6 +12,24 @@ export interface GuestSessionRef {
 }
 
 const KEY = 'verimod_redesign_guest_sessions_v1'
+const RECEIPT_KEY = 'verimod_direct_receipts_v1'
+
+export interface GuestReceiptRef { receipt_id: string; created_at: string }
+export function listGuestReceipts(): GuestReceiptRef[] {
+  try {
+    const value = JSON.parse(localStorage.getItem(RECEIPT_KEY) ?? '[]') as unknown
+    return Array.isArray(value) ? value.filter((row): row is GuestReceiptRef => typeof row?.receipt_id === 'string' && typeof row?.created_at === 'string') : []
+  } catch { return [] }
+}
+export function saveGuestReceipt(ref: GuestReceiptRef): boolean {
+  try {
+    localStorage.setItem(RECEIPT_KEY, JSON.stringify([ref, ...listGuestReceipts().filter((row) => row.receipt_id !== ref.receipt_id)].slice(0, 50)))
+    return true
+  } catch { return false }
+}
+export function removeGuestReceipt(id: string) {
+  try { localStorage.setItem(RECEIPT_KEY, JSON.stringify(listGuestReceipts().filter((row) => row.receipt_id !== id))) } catch { /* ignore */ }
+}
 
 export function listGuestSessions(): GuestSessionRef[] {
   try {

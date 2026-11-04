@@ -428,6 +428,43 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .home-link__alt { align-self: center; font-size: 0.8rem; color: var(--muted); font-weight: 600; }
 .home--link .home__footer { margin-top: clamp(6px, 1.6cqh, 16px); }
 
+/* 직접 댓글 메인: 한 화면 안에서 입력까지 보이고 기존 카드·배경 토큰을 그대로 쓴다. */
+.home--link .home__hero {
+  flex: 0 0 auto;
+  gap: clamp(4px, 0.8cqh, 10px);
+  padding-top: clamp(0px, 1cqh, 10px);
+}
+.home--link .home__hero .floating-icon .icon3d {
+  width: clamp(48px, 9cqh, 78px) !important;
+  height: clamp(48px, 9cqh, 78px) !important;
+}
+.home--link .home__title { margin: 0; font-size: clamp(1.45rem, 1rem + 2cqh, 2.35rem); line-height: 1.12; }
+.home--link .home__subtitle { margin: 0 auto clamp(4px, 0.7cqh, 8px); max-width: 48ch; }
+.home--link .home-link {
+  position: relative;
+  overflow: hidden;
+  gap: clamp(7px, 1.1cqh, 10px);
+  padding: clamp(14px, 2cqh, 20px) clamp(16px, 2.5cqh, 24px);
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border));
+  box-shadow: 0 14px 34px rgba(var(--shadow-tint), 0.13);
+}
+.home--link .home-link::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--orange));
+}
+.home--link .home-link .vtextarea { height: clamp(92px, 17cqh, 150px); background: var(--card-bg); }
+.direct-result__actions { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.direct-result__actions .vaction { min-height: 64px; justify-content: center; text-align: center; }
+@media (max-width: 420px) {
+  .home--link .home__subtitle { font-size: 0.78rem; }
+  .home--link .home-link { max-width: 100%; }
+  .home--link .home-link .vtextarea { height: clamp(88px, 19cqh, 135px); }
+  .direct-result__actions { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
 /* ---------- 눌린 것처럼 보이던 상태 정리 ----------
    1) 비활성 보조 버튼(추가 등)이 옅은 파란 바탕+파란 테두리라 '선택·눌림'처럼 보였다 → 중립 회색으로.
    2) 비활성 페이지 버튼(← 이전)이 흐릿하게 남아 눌린 칸처럼 보였다 → 자리만 두고 숨긴다.

@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { tamperOptions } from '@vm-features/tamper'
 import type { ReceiptBody } from '@vm-domain/types'
-import { requestAppeal } from '../api/appeal'
 import { ScoreBars, W4_PROVISIONAL_THRESHOLDS } from '../components/ScoreBars'
 import { StepFlow } from '../components/StepFlow'
-import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, Notice, shortHash, TopBar } from '../components/ui'
+import { ActionBadge, Chip, CopyButton, downloadJson, formatTime, shortHash, TopBar } from '../components/ui'
 import { ReportView } from '../verify/ReportView'
 import {
   BASE, BASE_SEPOLIA_AUTO_DEMO, fetchEvidenceBundle, fetchReceiptBundle, pickPackage, runVerification, W4_PROVISIONAL_POLICY_HASH, W4_R01_MODEL_HASH,
@@ -62,7 +61,6 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
   const [error, setError] = useState<string | null>(null)
   const [pkg, setPkg] = useState<LoadedPackage | null>(null)
   const [tamper, setTamper] = useState<{ id: string; change: string; report: VerifyReport | null; running: boolean } | null>(null)
-  const [appeal, setAppeal] = useState<string | null>(null)
   const body = bundle.receipt_body
   const decision = body.event_kind === 'DECISION' ? body.payload : null
   const inference = decision?.inference as unknown as { scores_ppm?: Record<string, number>; model_manifest_hash?: string; input_status?: string } | undefined
@@ -96,22 +94,11 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
       setError(caught instanceof Error ? caught.message : 'Private Package를 읽지 못했습니다')
     }
   }
-  const askAppeal = async () => {
-    try {
-      const result = await requestAppeal(body.receipt_id)
-      setAppeal(result.status === 501
-        ? '이의제기 API(POST /api/appeals)는 backend에 아직 구현되지 않았어요(501 NOT_IMPLEMENTED). 접수되지 않았어요.'
-        : `이의제기 요청 결과: HTTP ${result.status}${result.code ? ` · ${result.code}` : ''}`)
-    } catch {
-      setAppeal('backend에 연결하지 못해 이의제기를 보내지 못했어요.')
-    }
-  }
-
   const cases = tamperCases(bundle)
   return (
     <StepFlow stepKey={`receipt-${body.receipt_id}`} icon="receipt" eyebrow={label} dense
       title={`판정 영수증 ${body.receipt_id.slice(0, 8)}`}
-      subtitle={bundle.anchor ? `epoch #${bundle.anchor.epoch_id}에 묶인 기록 · 검증은 이 브라우저가 공개 RPC로 직접 해요.` : '아직 epoch에 묶이지 않은 새 영수증이에요 · PENDING_ANCHOR'}
+      subtitle={bundle.anchor ? `epoch #${bundle.anchor.epoch_id}에 묶인 기록 · 검증은 이 브라우저가 공개 RPC로 직접 해요.` : '온체인 자동 등록을 진행 중이에요 · 상태는 자동으로 갱신됩니다.'}
       secondary={<CopyButton value={window.location.href} label="링크 복사" />}
       onNext={() => void verify()} loading={running} loadingLabel="검증하는 중..." nextLabel={report ? '다시 검증' : '브라우저에서 독립 검증'} nextDisabled={!BASE.profile && bundle.anchor?.contract_address !== BASE_SEPOLIA_AUTO_DEMO.contract_address}>
       <div className="tabs vtabs" role="tablist">
@@ -130,12 +117,8 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
             <div><dt>영수증 hash</dt><dd className="vmono">{shortHash(bundle.receipt_hash)} · #{body.issuer_seq}</dd></div>
             <div><dt>봉인 상태</dt><dd>{bundle.anchor
               ? <>epoch #{bundle.anchor.epoch_id} · <a className="link-button" href={`https://sepolia.basescan.org/tx/${bundle.anchor.tx_hash}`} target="_blank" rel="noreferrer">tx {shortHash(bundle.anchor.tx_hash, 8, 4)}</a></>
-              : 'PENDING_ANCHOR · 아직 공개 체인 검증 결과가 아니에요'}</dd></div>
+              : '자동 등록 중 · 확정 후 공개 체인 검증 가능'}</dd></div>
           </dl>
-          {policy?.action === 'RESTRICT' && (
-            appeal ? <Notice tone="warn" icon="warning">{appeal}</Notice>
-              : <button type="button" className="btn-secondary vsmall-btn" onClick={() => void askAppeal()}>이 제한 판정에 이의제기</button>
-          )}
         </div>
       )}
 
@@ -157,7 +140,7 @@ export function ReceiptView({ bundle, label, evidence }: { bundle: VerificationB
               </Chip>
             ))}
           </div>
-          {!tamper && <p className="vhint">사본만 바꿔 같은 검증기로 확인해요. 원본 영수증은 그대로예요.</p>}
+          {!tamper && <p className="vhint">본문 변경은 HASH_MISMATCH, 신뢰 앵커 변경은 UNTRUSTED_ANCHOR, 포함 경로 변경은 INVALID_PROOF로 구분해 탐지합니다. 원본은 그대로예요.</p>}
           {tamper && <p className="vhint">바꾼 곳: <code>{tamper.change}</code> · 예상 {cases.find((c) => c.id === tamper.id)?.expect}{cases.find((c) => c.id === tamper.id)?.slow && tamper.running ? ' · 공개 RPC 조회 중(1~3분)' : ''}</p>}
           {tamper?.report && (() => {
             const expected = cases.find((c) => c.id === tamper.id)?.expect
