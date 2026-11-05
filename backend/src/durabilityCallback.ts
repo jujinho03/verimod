@@ -1,5 +1,7 @@
-import { closeSync, fstatSync, lstatSync, openSync, readFileSync, readSync, realpathSync, statSync } from 'node:fs'
-import { isAbsolute, resolve } from 'node:path'
+import { closeSync, existsSync, fstatSync, lstatSync, openSync, readFileSync, readSync, realpathSync, statSync, unlinkSync } from 'node:fs'
+import { dirname, isAbsolute, join, resolve } from 'node:path'
+import { randomUUID } from 'node:crypto'
+import { spawn, type ChildProcess } from 'node:child_process'
 import { DatabaseSync } from 'node:sqlite'
 import { pathToFileURL } from 'node:url'
 import { freezeEpoch } from '@verimod/protocol/epoch'
@@ -64,6 +66,55 @@ export interface CallbackApproval {
   rpc_url?: string
 }
 
+const waitFor = (condition: () => boolean, timeoutMs: number): boolean => {
+  const deadline = Date.now() + timeoutMs
+  while (Date.now() < deadline) {
+    if (condition()) return true
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 10)
+  }
+  return condition()
+}
+
+/**
+ * Windows' node:sqlite writable constructor can create a missing pathname and
+ * libuv does not expose CreateFile share flags.  A separate .NET process opens
+ * the already-existing file with FileMode.Open and without FILE_SHARE_DELETE.
+ * Once the post-lock identity check passes, rename/delete/replacement remains
+ * impossible until the DatabaseSync connection is closed and the guard exits.
+ */
+function windowsExistingFileGuard(path: string): { release: () => void } {
+  const token = `${process.pid}-${randomUUID()}`
+  const ready = join(dirname(path), `.verimod-db-guard-${token}.ready`)
+  const done = join(dirname(path), `.verimod-db-guard-${token}.done`)
+  const powershell = join(process.env.SystemRoot ?? 'C:\\Windows', 'System32/WindowsPowerShell/v1.0/powershell.exe')
+  const command = [
+    "$ErrorActionPreference='Stop'",
+    "$s=[IO.File]::Open($env:VERIMOD_GUARD_DB,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::ReadWrite)",
+    "try{[IO.File]::WriteAllText($env:VERIMOD_GUARD_READY,'LOCKED');[void][Console]::In.ReadLine()}finally{$s.Dispose();[IO.File]::WriteAllText($env:VERIMOD_GUARD_DONE,'DONE')}",
+  ].join(';')
+  let child: ChildProcess | undefined
+  const cleanupMarker = (marker: string) => { try { if (existsSync(marker)) unlinkSync(marker) } catch {} }
+  const release = () => {
+    if (!child) return
+    try { child.stdin?.end('RELEASE\n') } catch {}
+    if (!waitFor(() => existsSync(done), 5000)) child.kill()
+    cleanupMarker(ready); cleanupMarker(done); child = undefined
+  }
+  try {
+    child = spawn(powershell, ['-NoLogo', '-NoProfile', '-NonInteractive', '-Command', command], {
+      windowsHide: true, stdio: ['pipe', 'ignore', 'ignore'],
+      env: { ...process.env, VERIMOD_GUARD_DB: path, VERIMOD_GUARD_READY: ready, VERIMOD_GUARD_DONE: done },
+    })
+    child.stdin?.on('error', () => {})
+    requireThat(waitFor(() => existsSync(ready) || child!.exitCode !== null, 5000) && existsSync(ready), 'WINDOWS_EXISTING_FILE_GUARD_FAILED')
+    cleanupMarker(ready)
+    return { release }
+  } catch (error) {
+    release()
+    throw error
+  }
+}
+
 /** Configuration is provisioned by the trusted DB host operator, never received from T stdin. */
 export function loadCallbackApproval(path: string, syntheticTestOnly: boolean): CallbackApproval {
   requireThat(isAbsolute(path) && !lstatSync(path).isSymbolicLink() && statSync(path).isFile() && statSync(path).size <= 16384, 'INVALID_APPROVAL_FILE')
@@ -87,27 +138,28 @@ export function loadCallbackApproval(path: string, syntheticTestOnly: boolean): 
 
 /** Opens only on platforms where the runtime can safely uphold the approved DB binding. No migrations. */
 export function openApprovedDatabase(cfg: CallbackApproval): DatabaseSync {
-  // node:sqlite does not expose a writable, existing-file-only open mode on
-  // Windows. Its normal writable open can create a replacement after our
-  // pathname/identity checks, so never use it for an approved callback DB.
-  // Keep this fail-closed until the runtime supplies an atomic no-create API.
-  requireThat(process.platform !== 'win32', 'WINDOWS_WRITABLE_NO_CREATE_UNSUPPORTED')
   const path = resolve(cfg.database_path)
   requireThat(!lstatSync(path).isSymbolicLink() && realpathSync(path) === path, 'NONCANONICAL_DB_PATH')
-  const matchesIdentity = () => {
-    const info = statSync(path, { bigint: true })
-    requireThat(info.isFile() && String(info.dev) === cfg.database_identity.dev && String(info.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
-  }
-  matchesIdentity()
-  const fd = openSync(path, 'r')
+  // Acquire the Windows no-delete/no-replace guard before taking the single
+  // identity snapshot used for this reopen. Re-reading dev/ino on both sides
+  // of guard acquisition is not stable on every Windows filesystem host.
+  // FileMode.Open cannot create a missing file, and once held the pathname
+  // cannot be replaced until the callback connection closes.
+  const guard = process.platform === 'win32' ? windowsExistingFileGuard(path) : undefined
+  let fd: number | undefined
+  let database: DatabaseSync | undefined
   try {
-    const info = fstatSync(fd, { bigint: true }), header = Buffer.alloc(16)
-    requireThat(String(info.dev) === cfg.database_identity.dev && String(info.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
+    const pathInfo = statSync(path, { bigint: true })
+    requireThat(pathInfo.isFile() && String(pathInfo.dev) === cfg.database_identity.dev && String(pathInfo.ino) === cfg.database_identity.ino, 'DB_IDENTITY_MISMATCH')
+    fd = openSync(path, 'r')
+    const handleInfo = fstatSync(fd, { bigint: true }), header = Buffer.alloc(16)
+    requireThat(String(handleInfo.dev) === String(pathInfo.dev) && String(handleInfo.ino) === String(pathInfo.ino), 'DB_IDENTITY_MISMATCH')
     requireThat(readSync(fd, header, 0, 16, 0) === 16 && header.equals(Buffer.from('SQLite format 3\0')), 'NOT_SQLITE_FILE')
-  } finally { closeSync(fd) }
-  const database = new DatabaseSync(`${pathToFileURL(path).href}?mode=rw`, { timeout: 1000, allowExtension: false })
-  try {
-    matchesIdentity()
+    database = new DatabaseSync(`${pathToFileURL(path).href}?mode=rw`, { timeout: 1000, allowExtension: false })
+    if (!guard) {
+      const reopened = statSync(path, { bigint: true })
+      requireThat(String(reopened.dev) === String(pathInfo.dev) && String(reopened.ino) === String(pathInfo.ino), 'DB_IDENTITY_MISMATCH')
+    }
     const main = (database.prepare('PRAGMA database_list').all() as { name: string; file: string }[]).find(row => row.name === 'main')
     requireThat(main?.file && realpathSync(main.file) === path, 'SQLITE_PATH_MISMATCH')
     // FULL is per connection. Keep the existing persistent journal mode; never turn OFF/MEMORY into a pass.
@@ -115,8 +167,23 @@ export function openApprovedDatabase(cfg: CallbackApproval): DatabaseSync {
     const journal = database.prepare('PRAGMA journal_mode').get() as { journal_mode: string }
     requireThat(!['off', 'memory'].includes(journal.journal_mode.toLowerCase()), 'NON_DURABLE_SQLITE')
     requireThat((database.prepare('PRAGMA user_version').get() as { user_version: number }).user_version === 2, 'UNSUPPORTED_F_SCHEMA')
+    if (guard) {
+      const close = database.close.bind(database)
+      database.close = () => {
+        try { close() } finally {
+          if (fd !== undefined) { closeSync(fd); fd = undefined }
+          guard.release()
+        }
+      }
+    } else if (fd !== undefined) { closeSync(fd); fd = undefined }
     return database
-  } catch (error) { database.close(); throw error }
+  } catch (error) {
+    try { database?.close() } finally {
+      if (fd !== undefined) closeSync(fd)
+      guard?.release()
+    }
+    throw error
+  }
 }
 
 export async function verifyApprovedEpoch(database: DatabaseSync, cfg: CallbackApproval) {
