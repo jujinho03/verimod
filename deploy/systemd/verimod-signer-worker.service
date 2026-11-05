@@ -1,0 +1,17 @@
+[Unit]
+Description=VeriMod Base Sepolia Signer Worker
+After=network-online.target verimod-backend.service
+Requires=verimod-backend.service
+
+[Service]
+Type=simple
+User=skmin3735
+WorkingDirectory=/opt/verimod/app/backend
+# Install the real file as /etc/verimod/worker.env with mode 0600.
+EnvironmentFile=/etc/verimod/worker.env
+ExecStart=/opt/verimod/app/backend/node_modules/.bin/tsx scripts/signer-worker.mts
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

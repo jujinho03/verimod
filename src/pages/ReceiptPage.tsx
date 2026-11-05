@@ -181,19 +181,23 @@ export function ReceiptPage() {
     ;(evidence ? fetchEvidenceBundle(id) : fetchReceiptBundle(id)).then(setBundle).catch((caught: unknown) => setError(caught instanceof Error ? caught.message : '영수증을 불러오지 못했습니다'))
     if (evidence) return
     let active = true
+    let timer = 0
     const poll = async () => {
       try {
-        const response = await fetch(`/api/receipts/${encodeURIComponent(id)}`)
+        const response = await fetch(`/api/receipts/${encodeURIComponent(id)}`, { cache: 'no-store' })
         const payload = await response.json() as { data?: { epoch?: { status: string; confirmations?: number; fail_reason?: string | null; block_number?: string | null } } }
         if (!active || !response.ok) return
         const epoch = payload.data?.epoch
         setAnchorState(!epoch ? '등록 대기' : epoch.status === 'FROZEN' ? '배치 완료 · 서명 대기' : epoch.status === 'SUBMITTING' ? '서명 완료 · 송신 중' : epoch.status === 'SUBMITTED' ? `체인 확인 ${Math.min(epoch.confirmations ?? 0, 12)}/12` : epoch.status === 'CONFIRMED' ? '확정 완료 · 브라우저 검증 가능' : `등록 실패 · ${epoch.fail_reason ?? '원인 확인 중'}`)
-        if (epoch?.status === 'CONFIRMED') setBundle(await fetchReceiptBundle(id))
+        if (epoch?.status === 'CONFIRMED') {
+          setBundle(await fetchReceiptBundle(id))
+          return
+        }
       } catch { if (active) setAnchorState('상태 조회 일시 실패') }
+      if (active) timer = window.setTimeout(() => { void poll() }, 1500)
     }
     void poll()
-    const timer = window.setInterval(() => { void poll() }, 5000)
-    return () => { active = false; window.clearInterval(timer) }
+    return () => { active = false; window.clearTimeout(timer) }
   }, [id, evidence])
   return (
     <div className="page vpage">

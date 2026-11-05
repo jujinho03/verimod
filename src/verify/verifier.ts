@@ -80,7 +80,7 @@ export function pickPackage(value: unknown, receiptId: string): LoadedPackage {
 export async function fetchReceiptBundle(receiptId: string): Promise<VerificationBundle> {
   let response: Response
   try {
-    response = await fetch(`/api/receipts/${encodeURIComponent(receiptId)}/bundle`)
+    response = await fetch(`/api/receipts/${encodeURIComponent(receiptId)}/bundle`, { cache: 'no-store' })
   } catch {
     throw new Error('VeriMod backend(127.0.0.1:3001)에 연결하지 못했습니다')
   }
