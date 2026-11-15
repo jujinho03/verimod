@@ -100,7 +100,7 @@ Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실�
 | none | 13 | 105 | 429 |
 
 해석:
-- offensive가 가장 약함. 정답 offensive의 140건이 none으로, 37건이 hate로 갔음. offensive 예측 431건 중 100건은 정답 hate, 105건은 정답 none임. 유해 class 간 경계와 none 경계 양쪽에서 오류가 남. 주석 일치도(hate 축 alpha 0.496)가 낮다는 사실과 일관되지만 인과는 검증하지 않았음.
+- offensive 분류 성능이 가장 낮음. 실제 offensive 중 140건은 none, 37건은 hate로 분류됐음. offensive 예측 431건 중 100건은 정답 hate, 105건은 정답 none임. 오류는 유해 범주끼리의 구분과 유해·비유해 구분 모두에서 나타났음. 주석 일치도(hate 축 alpha 0.496)가 낮다는 사실과 일관되지만 인과는 검증하지 않았음.
 - hate는 precision 0.78에 비해 recall 0.58로 놓치는 쪽이 크다(FN 128).
 - 정상 proxy(none) 547건 중 118건(21.57%)이 hate/offensive로 분류됐음. 이는 모델 분류 오류율이며 정책 오제재율(FRR)과 다르다(§D).
 
