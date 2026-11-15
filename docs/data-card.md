@@ -1,27 +1,27 @@
 # VeriMod Data Card — BEEP! Korean HateSpeech (R01 학습·검증 데이터)
 
-> 대상: 멘토·연구·개발 담당자 · 목적: 데이터 출처, 분할, 사용 조건과 평가 한계를 확인한다. [Model Card](model-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
+> 대상: 멘토·연구·개발 담당자 · 목적: 데이터 출처, 분할, 사용 조건과 평가 한계를 확인함. [Model Card](model-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
 
 | 항목 | 값 |
 |---|---|
 | 문서 | AI-17 Data Card, 버전 1.0 |
 | 작성 | A / 주진호 · 2026-10-27 KST |
 | 기준 커밋 | `jujinho` `44842f78` (main `efce466d`) + 이 문서 |
-| 상태 | FINAL (W6 범위). 모든 수치는 W2(2026-09-30~10-01)에 측정해 커밋된 기존 집계를 옮긴 것이다. W6에서 새로 측정한 데이터 수치는 없다. |
-| TEST | SEALED. 이 문서 작성 중 TEST 파일·경로를 조회하지 않았다. TEST 수치는 W2 seal 전 집계만 인용한다 |
+| 상태 | FINAL (W6 범위). 모든 수치는 W2(2026-09-30~10-01)에 측정해 커밋된 기존 집계를 옮긴 것임. W6에서 새로 측정한 데이터 수치는 없음. |
+| TEST | SEALED. 이 문서 작성 중 TEST 파일·경로를 조회하지 않았음. TEST 수치는 W2 seal 전 집계만 인용함 |
 
 ## 0. 용어
 
 | 용어 | 뜻 |
 |---|---|
-| native label | BEEP! 주석자가 붙인 원래 라벨(`hate`/`offensive`/`none`). 플랫폼 정책 위반 판정이 아니다 |
-| internal split | VeriMod가 공식 train+dev를 다시 나눈 TRAIN/VALIDATION/TEST. 공식 benchmark test와 다르다 |
-| TEST (internal holdout) | VeriMod internal split의 TEST 1,255건. 봉인되어 있으며 LOCK과 별도 승인 후 1회만 평가한다 |
-| title proxy group | 정규화한 뉴스 제목으로 묶은 group. 기사 ID·작성자 ID가 아니다 |
+| native label | BEEP! 주석자가 붙인 원래 라벨(`hate`/`offensive`/`none`). 플랫폼 정책 위반 판정이 아님 |
+| internal split | VeriMod가 공식 train+dev를 다시 나눈 TRAIN/VALIDATION/TEST. 공식 benchmark test와 다름 |
+| TEST (internal holdout) | VeriMod internal split의 TEST 1,255건. 봉인되어 있으며 LOCK과 별도 승인 후 1회만 평가함 |
+| title proxy group | 정규화한 뉴스 제목으로 묶은 group. 기사 ID·작성자 ID가 아님 |
 | atomic group | 같은 제목 proxy 또는 near-duplicate로 연결되어 한 split에 통째로 배정되는 단위 |
 | exact / normalized duplicate | 원본 문자열 동일 / leakage key(NFC+공백 압축) 동일 |
 | near duplicate | 정규화 댓글의 문자 3-gram 집합 Jaccard ≥ 0.90 (12자 이상 대상) |
-| code point | Python `str` 길이 단위. UTF-16 단위나 byte가 아니다 |
+| code point | Python `str` 길이 단위. UTF-16 단위나 byte가 아님 |
 
 ## 1. 목적과 출처
 
@@ -31,7 +31,7 @@
 
 ## 2. 데이터셋 소개
 
-한국 연예 뉴스 기사에 달린 댓글에 대해 주석자가 hate 축과 bias 축을 각각 single-label로 붙인 데이터다. 뉴스 제목은 제공되지만 기사 본문은 없다.
+한국 연예 뉴스 기사에 달린 댓글에 대해 주석자가 hate 축과 bias 축을 각각 single-label로 붙인 데이터임. 뉴스 제목은 제공되지만 기사 본문은 없음.
 
 표 1. 공식 release 구성과 VeriMod 사용 범위
 
@@ -48,9 +48,9 @@
 ## 3. 라이선스와 사용 제한
 
 - 라이선스: CC BY-SA 4.0. 고정 revision의 `LICENSE.md`를 SHA-256 `87a81696…2edb`로 확인했다(W2).
-- 의무: 저작자 표시, 라이선스 링크, 변경 고지. 변형한 자료를 배포하면 ShareAlike가 적용된다.
-- VeriMod 저장소는 원본 댓글·기사 제목을 재배포하지 않는다. 원본과 split 파일은 저장소 밖 로컬에만 둔다([ai/data/README.md](../ai/data/README.md)).
-- 라이선스가 개인정보·퍼블리시티권 등 다른 권리를 해소하지는 않는다. 원문 공개 권한은 확인하지 않았으므로 발표·문서에 원문을 쓰지 않는다.
+- 의무: 저작자 표시, 라이선스 링크, 변경 고지. 변형한 자료를 배포하면 ShareAlike가 적용됨.
+- VeriMod 저장소는 원본 댓글·기사 제목을 재배포하지 않음. 원본과 split 파일은 저장소 밖 로컬에만 둔다([ai/data/README.md](../ai/data/README.md)).
+- 라이선스가 개인정보·퍼블리시티권 등 다른 권리를 해소하지는 않음. 원문 공개 권한은 확인하지 않았으므로 발표·문서에 원문을 쓰지 않음.
 
 ## 4. Revision과 annotation guideline
 
@@ -71,8 +71,8 @@
 ## 5. 수집 도메인
 
 - 한국어 연예 뉴스 댓글. 원천 기사 발행 범위 2018-01-01~2020-02-29(논문 §3). 개별 댓글의 수집일 범위는 미확인.
-- 논문 §3은 downvote 기반 표집을 기술한다. 이는 유해 댓글이 실제 분포보다 많이 포함됐을 수 있다는 domain 편향 위험이다.
-- 길이: TRAIN 최대 135 code point, 중앙값 31(표 6). 짧은 댓글 위주다.
+- 논문 §3은 downvote 기반 표집을 기술함. 이는 유해 댓글이 실제 분포보다 많이 포함됐을 수 있다는 domain 편향 위험임.
+- 길이: TRAIN 최대 135 code point, 중앙값 31(표 6). 짧은 댓글 위주임.
 
 ## 6. Native taxonomy
 
@@ -82,9 +82,9 @@
 |---|---|---|
 | native target (hate 축) | `hate` / `offensive` / `none`, single-label 3-class | 모델 학습 target |
 | 노출 score key | `hate`, `offensive` | `scores_ppm` 키. UNCALIBRATED |
-| reference class | `none` | 학습 class이지만 score key가 아니며 ALLOW가 아니다. "BEEP! 기준 hate/offensive가 아님"이라는 뜻일 뿐이다 |
+| reference class | `none` | 학습 class이지만 score key가 아니며 ALLOW가 아님. "BEEP! 기준 hate/offensive가 아님"이라는 뜻일 뿐임 |
 | 보조 축 | `bias` (`gender`/`others`/`none`), `contain_gender_bias` | 학습 target에 넣지 않음. 평가 slice용 metadata. `contain_gender_bias=True`는 `bias=gender`와 정확히 같다(TRAIN 887/887, VALIDATION 203/203) |
-| 지원하지 않음 | profanity, sexual, spam, violence, misinformation | native supervision이 없어 key·점수를 만들지 않는다 |
+| 지원하지 않음 | profanity, sexual, spam, violence, misinformation | native supervision이 없어 key·점수를 만들지 않음 |
 
 `taxonomy_id = verimod-ko-beep-hate`, `taxonomy_version = 1`. 근거: [AI-02 taxonomy 결정](research/w2-taxonomy-decision.md).
 
@@ -99,15 +99,15 @@
 | TEST (SEALED) | 1,255 | 0.149994 | 305 | 403 | 547 | 163 |
 | 합계 | 8,367 | 1.0 | 2,033 | 2,688 | 3,646 | 1,479 |
 
-TEST 행은 봉인 전 생성 스크립트가 남긴 집계다. TEST 성능이나 행 단위 확인이 아니다. 근거: [AI-04/AI-15 split·leakage](research/w2-split-leakage.md).
+TEST 행은 봉인 전 생성 스크립트가 남긴 집계임. TEST 성능이나 행 단위 확인이 아님. 근거: [AI-04/AI-15 split·leakage](research/w2-split-leakage.md).
 
 ## 8. 분할 절차와 seed
 
 - 알고리즘 `group-greedy-class-aware-v1`, seed 45126, 목표 비율 0.70 / 0.15 / 0.15. Python 표준 라이브러리로 구현했다(외부 split 라이브러리 없음).
-- Stable source ID는 `train` 다음 `dev` 순서의 1부터 시작하는 행 번호다.
-- Group은 크기 내림차순으로 정렬한다. 각 group은 class 분포 제곱오차 증가분이 가장 작은 split에 통째로 들어가고, 동점이면 전체 크기 제곱오차, 그다음 seed 기반 SHA-256 tie key로 결정한다.
-- Group 원자성과 leakage 차단이 정확한 비율보다 우선한다. seed는 여러 값을 시도해 고른 것이 아니다.
-- TEST는 overlap assertion을 모두 통과한 뒤에만 기록됐고, 생성 시 1회 raw byte로 seal hash를 계산했다. Raw-file SHA-256 `ba9b87bde42e5eba8b3c5ca5f2423553a2f913400fd202d30b9e4bd00eb8138e`, seal 시각 2026-09-30 23:18:41 KST. hash는 변경을 탐지할 뿐 아무도 읽지 않았음을 증명하지 않는다.
+- Stable source ID는 `train` 다음 `dev` 순서의 1부터 시작하는 행 번호임.
+- Group은 크기 내림차순으로 정렬함. 각 group은 class 분포 제곱오차 증가분이 가장 작은 split에 통째로 들어가고, 동점이면 전체 크기 제곱오차, 그다음 seed 기반 SHA-256 tie key로 결정함.
+- Group 원자성과 leakage 차단이 정확한 비율보다 우선함. seed는 여러 값을 시도해 고른 것이 아님.
+- TEST는 overlap assertion을 모두 통과한 뒤에만 기록됐고, 생성 시 1회 raw byte로 seal hash를 계산했음. Raw-file SHA-256 `ba9b87bde42e5eba8b3c5ca5f2423553a2f913400fd202d30b9e4bd00eb8138e`, seal 시각 2026-09-30 23:18:41 KST. hash는 변경을 탐지할 뿐 아무도 읽지 않았음을 증명하지 않음.
 - 코드: [prepare_w2_dataset.py](../ai/scripts/prepare_w2_dataset.py) (`w2-dataset-prep-v1`), 설정 [w2_dataset.json](../ai/configs/w2_dataset.json).
 
 ## 9. 전처리와 truncation
@@ -118,9 +118,9 @@ TEST 행은 봉인 전 생성 스크립트가 남긴 집계다. TEST 성능이�
 |---|---|---|
 | 전처리 `verimod-ko-text-v1` | 500 Unicode code point 초과 시 앞 500개 유지(HEAD). 그 외 변환 없음(소문자화·정규화·이모지 제거·맞춤법 교정 모두 안 함) | 500 초과 0 / 0건 → 전부 `FULL` |
 | tokenizer | `klue/roberta-base` revision `02f94ba5…`, special token 포함 max_length 128, right truncation, 배치 내 longest padding | 최대 token 길이 81 / 82, 128 초과 0 / 0건 |
-| leakage key `w2-leakage-nfc-whitespace-v1` | NFC, 줄바꿈 LF화, 연속 공백 1칸, 양끝 공백 제거 | 중복 비교 전용. 모델 입력에 쓰지 않는다 |
+| leakage key `w2-leakage-nfc-whitespace-v1` | NFC, 줄바꿈 LF화, 연속 공백 1칸, 양끝 공백 제거 | 중복 비교 전용. 모델 입력에 쓰지 않음 |
 
-`TRUNCATED` 경로는 실제 데이터에서 한 번도 발생하지 않아 synthetic 테스트로만 검증했다. 근거: [AI-05 전처리](research/w2-preprocessing.md), [W3 baseline 사양](evidence/w3-a-baseline-spec.md).
+`TRUNCATED` 경로는 실제 데이터에서 한 번도 발생하지 않아 synthetic 테스트로만 검증했음. 근거: [AI-05 전처리](research/w2-preprocessing.md), [W3 baseline 사양](evidence/w3-a-baseline-spec.md).
 
 ## 10~13. 중복·leakage 검사 (W2 AI-15)
 
@@ -141,7 +141,7 @@ TEST 행은 봉인 전 생성 스크립트가 남긴 집계다. TEST 성능이�
 | 대상 | 12자 이상. 짧은 텍스트 857건은 검사하지 않음 |
 | posting 방문 | 4,909,653회 (상한 15,000,000 이내) |
 | 일치 쌍 | 2쌍 → 같은 atomic group으로 묶음, 삭제 없음 |
-| 한계 | 부분 검사다. 짧은 유사 댓글을 모두 찾았다고 주장하지 않는다 |
+| 한계 | 부분 검사임. 짧은 유사 댓글을 모두 찾았다고 주장하지 않음 |
 
 표 8. title-group leakage 검사
 
@@ -151,7 +151,7 @@ TEST 행은 봉인 전 생성 스크립트가 남긴 집계다. TEST 성능이�
 | near-duplicate 연결 후 atomic group | 1,479개, 크기 중앙값 6 / p95 9 / 최대 13 |
 | split 간 overlap | stable record 0, exact 0, normalized 0, title proxy 0, atomic group 0 |
 | TRAIN ↔ VALIDATION 재계산 (W2 EDA) | title overlap 0 |
-| 한계 | 서로 다른 제목이 같은 기사를 가리킬 수 있다. 작성자·기사 ID가 없어 작성자 leakage는 배제할 수 없다. 이 metadata는 원천에 없으며 만들지 않았다 |
+| 한계 | 서로 다른 제목이 같은 기사를 가리킬 수 있음. 작성자·기사 ID가 없어 작성자 leakage는 배제할 수 없음. 이 metadata는 원천에 없으며 만들지 않았음 |
 
 근거: [split·leakage](research/w2-split-leakage.md), [summary.json](../ai/artifacts/reports/w2_eda/summary.json) `ai15_leakage`.
 
@@ -164,7 +164,7 @@ TEST 행은 봉인 전 생성 스크립트가 남긴 집계다. TEST 성능이�
 | TRAIN | 1,423 (24.30%) | 1,882 (32.13%) | 2,552 (43.57%) |
 | VALIDATION | 305 (24.30%) | 403 (32.11%) | 547 (43.59%) |
 
-TRAIN 최대/최소 = none/hate = 2,552/1,423 = 1.793. 완만한 불균형이며 학습에 class weighting을 쓰지 않았다. 성능 보고는 Macro-F1과 class별 지표를 함께 쓴다.
+TRAIN 최대/최소 = none/hate = 2,552/1,423 = 1.793. 완만한 불균형이며 학습에 class weighting을 쓰지 않았음. 성능 보고는 Macro-F1과 class별 지표를 함께 씀.
 
 표 10. 길이 분포 (code point, nearest-rank)
 
@@ -185,17 +185,17 @@ TRAIN 최대/최소 = none/hate = 2,552/1,423 = 1.793. 완만한 불균형이며
 | offensive | 272 (14.45%) | 549 (29.17%) | 1,061 (56.38%) |
 | none | 54 (2.12%) | 99 (3.88%) | 2,399 (94.00%) |
 
-- 집단 언급 지름길 위험: TRAIN hate의 71.3%가 bias≠none이지만 none은 6.0%다. 모델이 집단·성별 언급 자체를 유해 단서로 배울 수 있다. 동시 출현 집계이며 인과 근거가 아니다.
+- 집단 언급 지름길 위험: TRAIN hate의 71.3%가 bias≠none이지만 none은 6.0%다. 모델이 집단·성별 언급 자체를 유해 단서로 배울 수 있음. 동시 출현 집계이며 인과 근거가 아님.
 - 길이 지름길 위험: 라벨별 길이 중앙값이 다르다(표 10).
-- 주석 일치도: hate 축 alpha 0.496은 중간 수준이다. `hate`↔`offensive`와 `offensive`↔`none` 경계가 모호하다는 것과 일관된다(Model Card의 offensive F1 0.542 참조).
-- 표본 독립성: VALIDATION은 162개 group, 평균 7.75건으로 뭉쳐 있다(TRAIN 평균 5.08). 유효 표본 크기는 1,255보다 작다.
-- 하위집단: 작성자·피해자 demographic metadata가 없어 집단별 성능·공정성은 평가할 수 없다.
+- 주석 일치도: hate 축 alpha 0.496은 중간 수준임. `hate`↔`offensive`와 `offensive`↔`none` 경계가 모호하다는 것과 일관된다(Model Card의 offensive F1 0.542 참조).
+- 표본 독립성: VALIDATION은 162개 group, 평균 7.75건으로 뭉쳐 있다(TRAIN 평균 5.08). 유효 표본 크기는 1,255보다 작음.
+- 하위집단: 작성자·피해자 demographic metadata가 없어 집단별 성능·공정성은 평가할 수 없음.
 
 ## 16. 도메인 외 일반화 한계
 
-- 연예 뉴스 댓글, 2018~2020년 기사, 최대 135자. 정치·커뮤니티·메신저·장문 게시물, 신조어, 다른 시기에는 성능을 검증하지 않았다.
-- 실제 Validation에 `TRUNCATED` 입력이 0건이므로 긴 입력의 분류 품질은 알 수 없다.
-- 금융 서비스 등 다른 산업 도메인 데이터로 학습하거나 검증하지 않았다.
+- 연예 뉴스 댓글, 2018~2020년 기사, 최대 135자. 정치·커뮤니티·메신저·장문 게시물, 신조어, 다른 시기에는 성능을 검증하지 않았음.
+- 실제 Validation에 `TRUNCATED` 입력이 0건이므로 긴 입력의 분류 품질은 알 수 없음.
+- 금융 서비스 등 다른 산업 도메인 데이터로 학습하거나 검증하지 않았음.
 
 ## 17. Provenance와 재현성
 
@@ -210,9 +210,9 @@ TRAIN 최대/최소 = none/hate = 2,552/1,423 = 1.793. 완만한 불균형이며
 | TEST seal | SHA-256 `ba9b87bd…138e`, 2026-09-30 23:18:41 KST |
 | VALIDATION split 바이트 SHA-256 (W5 재검증) | `a92f81ed8eadb9fdb1950be542f9edac4fe778f3e7bd2d630cd1494ef031a26a` ([오류 분석](eval/w5-validation-error-analysis.md)) |
 | EDA 산출물 | [summary.json](../ai/artifacts/reports/w2_eda/summary.json), `w2-eda-v1`, Python 3.12.14 (3.10.21 재실행 동일) |
-| 저장 위치 | 원본·split은 저장소 밖 로컬(`verimod-local-data/`). 저장소에는 집계와 hash만 있다 |
+| 저장 위치 | 원본·split은 저장소 밖 로컬(`verimod-local-data/`). 저장소에는 집계와 hash만 있음 |
 
-다른 PC에서의 split 재생성은 이번 W6 작업에서 수행하지 않았다.
+다른 PC에서의 split 재생성은 이번 W6 작업에서 수행하지 않았음.
 
 ## 18. 지원 범위와 금지 사용
 
