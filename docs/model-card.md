@@ -1,16 +1,16 @@
 # VeriMod Model Card — R01 (`AI07-BL-KLUE-RB-45126-R01`)
 
-> 대상: 멘토·연구·개발 담당자 · 목적: 모델 정체성, VALIDATION 결과, 정책 위험과 사용 한계를 확인한다. [Data Card](data-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
+> 대상: 멘토·연구·개발 담당자 · 목적: 모델 정체성, VALIDATION 결과, 정책 위험과 사용 한계를 확인함. [Data Card](data-card.md) · [멘토링 한눈에 보기](mentoring/mentor-brief-20261031.md)
 
 | 항목 | 값 |
 |---|---|
 | 문서 | AI-18 Model Card, 버전 1.0 |
 | 작성 | A / 주진호 · 2026-10-27 KST |
 | 기준 커밋 | `jujinho` `44842f78` (main `efce466d`) + 이 문서 |
-| 상태 | FINAL (W6 범위). 모델 성능은 VALIDATION 기준이다. TEST SEALED, TEST 성능 없음. 정책 수치는 미승인 연구·시연 proxy다 |
+| 상태 | FINAL (W6 범위). 모델 성능은 VALIDATION 기준임. TEST SEALED, TEST 성능 없음. 정책 수치는 미승인 연구·시연 proxy다 |
 | 데이터 | [Data Card](data-card.md) |
 
-이 문서는 모델 성능(§C)과 정책 위험(§D)을 분리해 보고한다. 금융권 모델 위험관리 문서 양식(식별·개발·검증·한계·운영 통제)에 맞춰 정리했지만, R01은 금융 데이터로 학습·검증되지 않았다.
+이 문서는 모델 성능(§C)과 정책 위험(§D)을 분리해 보고함. 금융권 모델 위험관리 문서 양식(식별·개발·검증·한계·운영 통제)에 맞춰 정리했지만, R01은 금융 데이터로 학습·검증되지 않았음.
 
 ## A. Model Identity
 
@@ -23,7 +23,7 @@
 | architecture | `RobertaForSequenceClassification`, 파라미터 110,620,419 | Manifest |
 | tokenizer | `klue/roberta-base` 같은 revision, `use_fast=True`(BertTokenizerFast) | Manifest, [W3 사양](evidence/w3-a-baseline-spec.md) |
 | 가중치 | `model.safetensors`, 442,505,820 bytes, SHA-256 `a8288baf73dc01df7e5a0e9141fe1315a683a7a609963ed823decb0b418c9e5f` | Manifest, [AI-19 실측](evidence/w6-a-ai19-offline/physical-offline-result.json) |
-| Model Manifest hash | `0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1` (Manifest 파일 LF SHA-256 `0163a8bc…6a2`) | W4 Receipt·Epoch 1이 참조하는 역사적 identity. 수정하지 않는다 |
+| Model Manifest hash | `0x96b337807aa81ebac6acc3997586cbd351cbfa5c9c44028d479cab327ad0b7c1` (Manifest 파일 LF SHA-256 `0163a8bc…6a2`) | W4 Receipt·Epoch 1이 참조하는 역사적 identity. 수정하지 않음 |
 | 출력 | native 3-class softmax → `scores_ppm {hate, offensive}`, `floor(score×1,000,000+0.5)`, UNCALIBRATED | Manifest |
 | taxonomy | `verimod-ko-beep-hate` v1, reference class `none`(`reference_class_is_policy_allow=false`) | Manifest |
 
@@ -38,7 +38,7 @@
 | tokenizer 파일 bytes hash | 검사 없음. 캐시 손상·교체를 감지하지 못함 | PROPOSED / NOT_IMPLEMENTED / CONDITIONAL (W5 [binding 설계안](eval/w5-model-runtime-binding-design.md), 승인 시 A4) |
 | 서비스 dependency lock | 런타임 결합 없음. Manifest의 lock hash `8b61fa68…`는 학습용 W3 lock | PROPOSED / NOT_IMPLEMENTED / CONDITIONAL (같은 설계안) |
 
-이 Model Card는 현재 구현 상태를 기술할 뿐이다. Runtime Binding은 W5 설계안의 제안이며 구현되지 않았고, 승인 조건부다. AI-19에서 tokenizer 파일 4개의 SHA-256을 증거로 수집했지만 binding이나 LOCK이 아니다.
+이 Model Card는 현재 구현 상태를 기술할 뿐임. Runtime Binding은 W5 설계안의 제안이며 구현되지 않았고, 승인 조건부임. AI-19에서 tokenizer 파일 4개의 SHA-256을 증거로 수집했지만 binding이나 LOCK이 아님.
 
 ## B. Training & Reproducibility
 
@@ -51,7 +51,7 @@
 | batch | train 4 × gradient accumulation 4 (명목 16), eval 8 |
 | gradient clipping | max_grad_norm 1.0 |
 | seed | 45126 (`random`, `numpy`, `torch_cpu`, `Trainer.seed`, `data_seed`, `PYTHONHASHSEED`) |
-| 결정성 | `deterministic_algorithms=false`. bitwise 재현을 주장하지 않는다 |
+| 결정성 | `deterministic_algorithms=false`. bitwise 재현을 주장하지 않음 |
 | 환경 | Windows x64, CPU, Python 3.12.14, torch 2.14.1+cpu, transformers 4.57.6. 2026-10-06 실행(UTC 16:43 종료) |
 | 데이터 | TRAIN 5,857 학습, VALIDATION 1,255 평가. TEST 미사용 |
 | 전처리 | `verimod-ko-text-v1`: 500 Unicode code point HEAD → tokenizer right truncation, special token 포함 max_length 128, longest padding |
@@ -66,11 +66,11 @@
 | 2 | 734 | 0.6432 | 0.7850 | 0.6496 | 0.6645 |
 | 3 (R01) | 1101 | 0.4486 | 0.8720 | 0.6525 | 0.6629 |
 
-- 사전 등록 규칙(VALIDATION Macro-F1 최대, `load_best_model_at_end`)으로 Epoch 3을 선정했다. 근거: [epoch_log.json](../ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/epoch_log.json).
-- Epoch 3은 Macro-F1에서 +0.0028 앞서지만 val loss는 0.087 나쁘다. 과신(over-confidence) 시작 가능성이 있다. 단일 seed·단일 split에서 이 차이를 통계적으로 결론 내리지 않는다. 사후에 Epoch 2로 바꾸지 않는다.
-- 같은 VALIDATION을 checkpoint 선택과 성능 보고에 모두 썼다. 보고 지표는 낙관적으로 치우쳤을 수 있다.
+- 사전 등록 규칙(VALIDATION Macro-F1 최대, `load_best_model_at_end`)으로 Epoch 3을 선정했음. 근거: [epoch_log.json](../ai/artifacts/reports/w3_baseline_run/AI07-BL-KLUE-RB-45126-R01/epoch_log.json).
+- Epoch 3은 Macro-F1에서 +0.0028 앞서지만 val loss는 0.087 나쁨. 과신(over-confidence) 시작 가능성이 있음. 단일 seed·단일 split에서 이 차이를 통계적으로 결론 내리지 않음. 사후에 Epoch 2로 바꾸지 않음.
+- 같은 VALIDATION을 checkpoint 선택과 성능 보고에 모두 썼음. 보고 지표는 낙관적으로 치우쳤을 수 있음.
 
-Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실행 시점 source commit이 없다(`source_commit_at_execution=null`). 실행 source 12개 hash와 snapshot commit `f6b39d3b`를 보존했다. 실행 당시 `ai/pyproject.toml` hash는 기록되지 않았다. 상태 `PASS_WITH_DOCUMENTED_LIMITATION`.
+Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실행 시점 source commit이 없다(`source_commit_at_execution=null`). 실행 source 12개 hash와 snapshot commit `f6b39d3b`를 보존했음. 실행 당시 `ai/pyproject.toml` hash는 기록되지 않았음. 상태 `PASS_WITH_DOCUMENTED_LIMITATION`.
 
 ## C. Native Model Evaluation (VALIDATION n = 1,255)
 
@@ -100,13 +100,13 @@ Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실�
 | none | 13 | 105 | 429 |
 
 해석:
-- offensive가 가장 약하다. 정답 offensive의 140건이 none으로, 37건이 hate로 갔다. offensive 예측 431건 중 100건은 정답 hate, 105건은 정답 none이다. 유해 class 간 경계와 none 경계 양쪽에서 오류가 난다. 주석 일치도(hate 축 alpha 0.496)가 낮다는 사실과 일관되지만 인과는 검증하지 않았다.
+- offensive가 가장 약함. 정답 offensive의 140건이 none으로, 37건이 hate로 갔음. offensive 예측 431건 중 100건은 정답 hate, 105건은 정답 none임. 유해 class 간 경계와 none 경계 양쪽에서 오류가 남. 주석 일치도(hate 축 alpha 0.496)가 낮다는 사실과 일관되지만 인과는 검증하지 않았음.
 - hate는 precision 0.78에 비해 recall 0.58로 놓치는 쪽이 크다(FN 128).
-- 정상 proxy(none) 547건 중 118건(21.57%)이 hate/offensive로 분류됐다. 이는 모델 분류 오류율이며 정책 오제재율(FRR)과 다르다(§D).
+- 정상 proxy(none) 547건 중 118건(21.57%)이 hate/offensive로 분류됐음. 이는 모델 분류 오류율이며 정책 오제재율(FRR)과 다르다(§D).
 
 ## D. Policy Risk — 모델 성능과 별도
 
-정책은 모델 밖(Node/Python 정책 계층)에서 점수와 threshold로 ALLOW / HUMAN_REVIEW / RESTRICT를 정한다. 아래 지표는 VALIDATION 1,255건(정상 proxy none 547, 유해 proxy hate+offensive 708)에서의 proxy다.
+정책은 모델 밖(Node/Python 정책 계층)에서 점수와 threshold로 ALLOW / HUMAN_REVIEW / RESTRICT를 정함. 아래 지표는 VALIDATION 1,255건(정상 proxy none 547, 유해 proxy hate+offensive 708)에서의 proxy다.
 
 표 D1. 정책 지표 정의
 
@@ -131,26 +131,26 @@ Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실�
 근거: [S1/S2/S3 패키지](eval/w5-research-policy-scenarios.md), [scenarios.json](../ai/artifacts/reports/w5_research_scenarios/20261022T063640Z-841928ca/scenarios.json), [오류 분석](eval/w5-validation-error-analysis.md).
 
 해석:
-- S2→S1: 정상 오제재 21건을 줄이는 대가로 검토가 188건 늘어난다(오제재 1건당 검토 약 9건). HAR는 같다.
-- S2→S3: 검토 125건을 줄이는 대가로 유해 글 68건이 자동 통과한다.
-- S1의 FRR은 X 경계에 여유 0건으로 붙어 있다. 정상 오제재가 1건만 늘어도 6%를 넘으므로, 다른 데이터에서 FRR 6% 이하를 보장한다고 말할 수 없다.
+- S2→S1: 정상 오제재 21건을 줄이는 대가로 검토가 188건 늘어난다(오제재 1건당 검토 약 9건). HAR는 같음.
+- S2→S3: 검토 125건을 줄이는 대가로 유해 글 68건이 자동 통과함.
+- S1의 FRR은 X 경계에 여유 0건으로 붙어 있음. 정상 오제재가 1건만 늘어도 6%를 넘으므로, 다른 데이터에서 FRR 6% 이하를 보장한다고 말할 수 없음.
 
 반드시 지켜야 할 해석 경계:
 
 | 경계 | 설명 |
 |---|---|
-| S1은 미승인 추천안 | `PENDING_APPROVAL`, `team_approved=false`. 연구·시연(RESEARCH_DEMO) 범위의 A 추천일 뿐 운영 정책이 아니다 |
-| X/B는 용량 측정값이 아님 | 검토 인력·처리시간·트래픽을 근거로 정하지 않았다. "45%를 검토할 수 있다"는 뜻이 아니다 |
-| native label ≠ 정책 위반 | BEEP! 주석은 플랫폼 정책 판정이 아니다. FRR 등은 이 proxy 위의 수치다 |
+| S1은 미승인 추천안 | `PENDING_APPROVAL`, `team_approved=false`. 연구·시연(RESEARCH_DEMO) 범위의 A 추천일 뿐 운영 정책이 아님 |
+| X/B는 용량 측정값이 아님 | 검토 인력·처리시간·트래픽을 근거로 정하지 않았음. "45%를 검토할 수 있다"는 뜻이 아님 |
+| native label ≠ 정책 위반 | BEEP! 주석은 플랫폼 정책 판정이 아님. FRR 등은 이 proxy 위의 수치임 |
 | none ≠ ALLOW | none 예측도 hate 점수가 threshold를 넘으면 RESTRICT될 수 있다(사례 VFP-02) |
-| UNCALIBRATED ≠ 확률 | `hate 900000`은 "유해 확률 90%"가 아니다 |
+| UNCALIBRATED ≠ 확률 | `hate 900000`은 "유해 확률 90%"가 아님 |
 | Macro-F1 ≠ 정책 안전성 | 같은 모델에서도 후보에 따라 FRR이 달라진다(S1 5.85%, W4 시연 후보 16.64%) |
-| Validation proxy | 25개 후보를 같은 VALIDATION에서 비교·선정했으므로 선택 편향이 있다. 신뢰구간 없음 |
+| Validation proxy | 25개 후보를 같은 VALIDATION에서 비교·선정했으므로 선택 편향이 있음. 신뢰구간 없음 |
 | 단일 seed·split | seed 45126, split 1개. 변동 범위 미추정(백로그 RB-01/02) |
-| Epoch 2/3 | §B 표 B2. 정책 분석은 Epoch 3 점수에만 해당한다 |
-| TEST SEALED | 어떤 수치도 TEST 성능이 아니다 |
+| Epoch 2/3 | §B 표 B2. 정책 분석은 Epoch 3 점수에만 해당함 |
+| TEST SEALED | 어떤 수치도 TEST 성능이 아님 |
 | 도메인 외 | 연예 뉴스 댓글 외 성능 미검증 |
-| HUMAN_REVIEW 효능 | 검토로 "보낸" 건수일 뿐, 검토자가 올바르게 판정했다는 근거가 없다 |
+| HUMAN_REVIEW 효능 | 검토로 "보낸" 건수일 뿐, 검토자가 올바르게 판정했다는 근거가 없음 |
 
 ## E. AI-19 Evidence — 물리 오프라인 추론 (W6 신규 실측)
 
@@ -169,7 +169,7 @@ Provenance 한계 (Manifest 기록): R01은 dirty worktree에서 실행돼 실�
 | fail-closed | 공백 입력 → 400 `EMPTY_INPUT`, inference 객체 없음 |
 | 지연 (참고) | 첫 호출 884ms, warm 74~80ms (이 PC, CPU, batch 1, 6건. 성능 주장 아님) |
 
-입력·출력 계약 (service.py 확인): 입력은 `text`, `content_commitment`, `request_id`(1~128자). 출력은 `inference/1` 형식으로 `model_manifest_hash`, `taxonomy_id/version`, `scores_ppm`, `score_semantics=UNCALIBRATED`, `input_status`, `evidence=[]`, 호출자 commitment echo를 반환한다. 실패는 `EMPTY_INPUT`/`INVALID_INPUT` 400, `INFERENCE_UNAVAILABLE` 503, `INFERENCE_TIMEOUT` 504(기본 10초)이며 실패 시 inference 객체를 반환하지 않는다. 모델은 action을 만들지 않는다.
+입력·출력 계약 (service.py 확인): 입력은 `text`, `content_commitment`, `request_id`(1~128자). 출력은 `inference/1` 형식으로 `model_manifest_hash`, `taxonomy_id/version`, `scores_ppm`, `score_semantics=UNCALIBRATED`, `input_status`, `evidence=[]`, 호출자 commitment echo를 반환함. 실패는 `EMPTY_INPUT`/`INVALID_INPUT` 400, `INFERENCE_UNAVAILABLE` 503, `INFERENCE_TIMEOUT` 504(기본 10초)이며 실패 시 inference 객체를 반환하지 않음. 모델은 action을 만들지 않음.
 
 AI-19가 보증하지 않는 것: tokenizer 파일 무결성(§A2 미구현), 다른 PC에서의 동작, 정책 승인·LOCK·TEST, E6 전체(LOCAL·RECORDING Fallback 미실증).
 
